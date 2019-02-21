@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "name": "corsairs",
+    "alias": "penguins-corsairs",
+    "builds": [
+        { "src": "/server/*.js", "use": "@now/node" },
+        { "src": "/public/**", "use": "@now/static" }
+    ],
+    "routes": [
+        { "src": "/", "dest": "/public/menu.html"},
+        { "src": "/(.*)", "dest": "/public/$1" }
+      ]
+}
