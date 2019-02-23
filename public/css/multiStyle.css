@@ -10,11 +10,9 @@ html, body {
     display: -webkit-flex;
     display: flex;
     height: 100%;
-    justify-items: center;
     justify-content: center;
     align-items: center;
 }
-
 
 #main {
     display: -webkit-flex;
