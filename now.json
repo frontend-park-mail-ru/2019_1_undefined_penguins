@@ -11,7 +11,7 @@
         { "src": "/(.*)", "dest": "/public/$1" }
       ],
     "github": {
-        "enabled": true
+        "enabled": false
     }
     
 }
