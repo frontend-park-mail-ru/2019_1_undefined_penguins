@@ -63,19 +63,19 @@ export class ProfileComponent {
                 name: 'login',
                 type: 'text',
                 title: 'Логин: ',
-                value: 'Peguin'
+                value: this._data.login
             },
             {
                 name: 'name',
                 type: 'text',
                 title: 'Имя: ',
-                value: 'Петя'
+                value: this._data.name
             },
             {
                 name: 'email',
                 type: 'email',
                 title: 'Email: ',
-                value: 'ex@mail.ru'
+                value: this._data.email
             }
         ];
 
@@ -92,7 +92,6 @@ export class ProfileComponent {
             inputString.appendChild(label);
             inputString.appendChild(input);
             data.appendChild(inputString);
-            // data.appendChild(document.createElement('br'));
         });
 
         dataInline.appendChild(avatar);
@@ -104,11 +103,11 @@ export class ProfileComponent {
         const info = [
             {
                 name: 'Лучший результат:',
-                data: '257'
+                data: this._data.score
             },
             {
                 name: 'Последняя игра:',
-                data: '25.01'
+                data: this._data.lastVisit
             }
         ];
 
@@ -134,6 +133,26 @@ export class ProfileComponent {
 
         form.appendChild(button);
         form.appendChild(infoInline);
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            const email = form.elements[ 'email' ].value;
+            const login = form.elements[ 'login' ].value;
+            const name = form.elements[ 'name' ].value;
+
+            AjaxModule.doPost({
+                callback() {
+                    application.innerHTML = '';
+                },
+                path: '/change_profile',
+                body: {
+                    email: email,
+                    login: login,
+                    name: name,
+                },
+            });
+        });
 
         mainSection.appendChild(form);
 
