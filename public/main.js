@@ -1,5 +1,7 @@
 'use strict';
 
+import {BoardComponent} from './components/Board/Board.js';
+import {RENDER_TYPES} from './utils/constants.js';
 import {MenuComponent} from "./components/Menu/Menu.js";
 
 const {AjaxModule} = window; 
@@ -180,54 +182,25 @@ function createSignUp () {
 
 function createLeaderboard (users) {
 	const leaderboardSection = document.createElement('section');
-	leaderboardSection.dataset.sectionName = 'leaderboard';
+	leaderboardSection.dataset.sectionName = 'leaders';
 
 	const header = document.createElement('h1');
 	header.textContent = 'Leaders';
 
+	const boardWrapper = document.createElement('div');
+
 	leaderboardSection.appendChild(header);
 	leaderboardSection.appendChild(createMenuLink());
 	leaderboardSection.appendChild(document.createElement('br'));
+	leaderboardSection.appendChild(boardWrapper);
 
 	if (users) {
-		const table = document.createElement('table');
-		const thead = document.createElement('thead');
-		thead.innerHTML = `
-		<tr>
-			<th>Email</th>
-			<th>Age</th>
-			<th>Score</th>
-		</th>
-		`;
-		const tbody = document.createElement('tbody');
-
-		table.appendChild(thead);
-		table.appendChild(tbody);
-		table.border = 1;
-		table.cellSpacing = table.cellPadding = 0;
-
-		users.forEach(function (user) {
-			const email = user.email;
-			const age = user.age;
-			const score = user.score;
-
-			const tr = document.createElement('tr');
-			const tdEmail = document.createElement('td');
-			const tdAge = document.createElement('td');
-			const tdScore = document.createElement('td');
-
-			tdEmail.textContent = email;
-			tdAge.textContent = age;
-			tdScore.textContent = score;
-
-			tr.appendChild(tdEmail);
-			tr.appendChild(tdAge);
-			tr.appendChild(tdScore);
-
-			tbody.appendChild(tr);
-
-			leaderboardSection.appendChild(table);
+		const board = new BoardComponent({
+			el: boardWrapper,
+			type: RENDER_TYPES.DOM,
 		});
+		board.data = JSON.parse(JSON.stringify(users));
+		board.render();
 	} else {
 		const em = document.createElement('em');
 		em.textContent = 'Loading';
@@ -241,12 +214,10 @@ function createLeaderboard (users) {
 			},
 			path: '/users',
 		});
-
 	}
 
 	application.appendChild(leaderboardSection);
 }
-
 function createProfile (me) {
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
@@ -294,11 +265,45 @@ function createProfile (me) {
 }
 
 function createAbout() {
-	const block = document.createElement('div');
-	block.textContent = "Something interesting about us";
+	const aboutSection = document.createElement('section');
+	aboutSection.dataset.sectionName = 'about';
 
-	application.appendChild(block);
+	
+	const headerSection = document.createElement('section');
+	headerSection.dataset.sectionName = 'header';
 
+	const goBack = document.createElement('div');
+	goBack.id = 'goBack';
+	goBack.classList = '.go-back';
+
+	const title = document.createElement('div');
+	title.id = 'title';
+	title.classList = '.title';
+	title.textContent = "Об игре";
+
+	headerSection.appendChild(goBack);
+	headerSection.appendChild(title);
+
+	
+	const mainSection = document.createElement('section');
+	mainSection.dataset.sectionName = 'main';
+
+	const idea = document.createElement('div');
+	idea.id = 'idea';
+	idea.classList = '.idea';
+	idea.textContent = "Something interesting about us";
+
+	const howPlay = document.createElement('div');
+	howPlay.id = 'howPlay';
+	howPlay.classList = '.howPlay';
+	howPlay.textContent = "Something interesting about us";
+
+	mainSection.appendChild(idea);
+	mainSection.appendChild(howPlay);
+
+	aboutSection.appendChild(headerSection);
+	aboutSection.appendChild(mainSection);
+	application.appendChild(aboutSection);
 	application.appendChild(createMenuLink());
 
 }

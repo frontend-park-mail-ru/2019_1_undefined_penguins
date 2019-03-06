@@ -124,6 +124,7 @@ export class MenuComponent {
             a.dataset.href = href;
         
             buttonDiv.appendChild(a);
+            
             // end_todo
 
             menu.appendChild(buttonDiv);
