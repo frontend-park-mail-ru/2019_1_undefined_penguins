@@ -50,7 +50,7 @@ app.get("/", function(req, res) {
 
 const users = {
 	'a.penguin1@corp.mail.ru': {
-		email: '<strong>a.penguin1@corp.mail.ru</strong>',
+		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
 		age: 21,
 		score: 0,

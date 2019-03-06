@@ -1,6 +1,7 @@
 @import url('components/Menu/Menu.css');
 @import url('components/Board/Board.css');
 @import url('components/About/About.css');
+@import url('components/Profile/Profile.css');
 
 html {     
     font-family: Arial, Helvetica, sans-serif;
