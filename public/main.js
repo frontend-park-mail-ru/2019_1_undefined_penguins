@@ -3,6 +3,7 @@
 import {BoardComponent} from './components/Board/Board.js';
 import {RENDER_TYPES} from './utils/constants.js';
 import {MenuComponent} from "./components/Menu/Menu.js";
+import {AboutComponent} from "./components/About/About.js";
 
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
@@ -268,44 +269,12 @@ function createAbout() {
 	const aboutSection = document.createElement('section');
 	aboutSection.dataset.sectionName = 'about';
 
-	
-	const headerSection = document.createElement('section');
-	headerSection.dataset.sectionName = 'header';
-
-	const goBack = document.createElement('div');
-	goBack.id = 'goBack';
-	goBack.classList = '.go-back';
-
-	const title = document.createElement('div');
-	title.id = 'title';
-	title.classList = '.title';
-	title.textContent = "Об игре";
-
-	headerSection.appendChild(goBack);
-	headerSection.appendChild(title);
-
-	
-	const mainSection = document.createElement('section');
-	mainSection.dataset.sectionName = 'main';
-
-	const idea = document.createElement('div');
-	idea.id = 'idea';
-	idea.classList = '.idea';
-	idea.textContent = "Something interesting about us";
-
-	const howPlay = document.createElement('div');
-	howPlay.id = 'howPlay';
-	howPlay.classList = '.howPlay';
-	howPlay.textContent = "Something interesting about us";
-
-	mainSection.appendChild(idea);
-	mainSection.appendChild(howPlay);
-
-	aboutSection.appendChild(headerSection);
-	aboutSection.appendChild(mainSection);
+	const about = new AboutComponent({
+		el: aboutSection
+	});
+	about.render();
 	application.appendChild(aboutSection);
 	application.appendChild(createMenuLink());
-
 }
 
 const pages = {
