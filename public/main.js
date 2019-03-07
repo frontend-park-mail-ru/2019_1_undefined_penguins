@@ -5,6 +5,9 @@ import {RENDER_TYPES} from './utils/constants.js';
 import {MenuComponent} from "./components/Menu/Menu.js";
 import {AboutComponent} from "./components/About/About.js";
 import {ProfileComponent} from "./components/Profile/Profile.js";
+import { SignInComponent } from './components/SignIn/SignIn.js';
+import { SignUpComponent } from './components/SignUp/SignUp.js';
+
 
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
@@ -34,152 +37,30 @@ function createMenu () {
 
 function createSignIn () {
 	const signInSection = document.createElement('section');
-	signInSection.dataset.sectionName = 'sign_in';
+	signInSection.dataset.sectionName = "sign_in"
 
-	const header = document.createElement('h1');
-	header.textContent = 'Sign In';
+	const signIn = new SignInComponent({
+		el: signInSection
+	})
 
-
-	const form = document.createElement('form');
-
-	const inputs = [
-		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Email'
-		},
-		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Password'
-		},
-		{
-			name: 'submit',
-			type: 'submit'
-		}
-	];
-
-	inputs.forEach(function (item) {
-		const input = document.createElement('input');
-
-		input.name = item.name;
-		input.type = item.type;
-
-		input.placeholder = item.placeholder;
-
-		form.appendChild(input);
-		form.appendChild(document.createElement('br'));
-	});
-
-	signInSection.appendChild(header);
-	signInSection.appendChild(form);
-	signInSection.appendChild(createMenuLink());
-
-	form.addEventListener('submit', function (event) {
-		event.preventDefault();
-
-		const email = form.elements[ 'email' ].value;
-		const password = form.elements[ 'password' ].value;
-
-		AjaxModule.doPost({
-			callback() {
-				application.innerHTML = '';
-				createProfile();
-			},
-			path: '/login',
-			body: {
-				email: email,
-				password: password,
-			},
-		});
-});
+	signIn.render();
 
 	application.appendChild(signInSection);
+	application.appendChild(createMenuLink());
 }
 
 function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
 
-	const header = document.createElement('h1');
-	header.textContent = 'Sign Up';
 
+	const signUp = new SignUpComponent({
+		el: signUpSection
+	})
 
-	const form = document.createElement('form');
-
-	const inputs = [
-		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Email'
-		},
-		{
-			name: 'age',
-			type: 'number',
-			placeholder: 'Your Age'
-		},
-		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Password'
-		},
-		{
-			name: 'password_repeat',
-			type: 'password',
-			placeholder: 'Repeat Password'
-		},
-		{
-			name: 'submit',
-			type: 'submit'
-		}
-	];
-
-	inputs.forEach(function (item) {
-		const input = document.createElement('input');
-
-		input.name = item.name;
-		input.type = item.type;
-
-		input.placeholder = item.placeholder;
-
-		form.appendChild(input);
-		form.appendChild(document.createElement('br'));
-	});
-
-	signUpSection.appendChild(header);
-	signUpSection.appendChild(form);
-	signUpSection.appendChild(createMenuLink());
-
-	form.addEventListener('submit', function (event) {
-		event.preventDefault();
-
-		const email = form.elements[ 'email' ].value;
-		const age = parseInt(form.elements[ 'age' ].value);
-		const password = form.elements[ 'password' ].value;
-		const password_repeat = form.elements[ 'password_repeat' ].value;
-
-		if (password !== password_repeat) {
-			alert('Passwords is not equals');
-
-			return;
-		}
-
-	
-		AjaxModule.doPost({
-			callback() {
-				application.innerHTML = '';
-				createProfile();
-			},
-			path: '/signup',
-			body: {
-				email: email,
-				age: age,
-				password: password,
-			},
-		});
-});
-
+	signUp.render();
 	application.appendChild(signUpSection);
+	application.appendChild(createMenuLink());
 }
 
 function createLeaderboard (users) {
