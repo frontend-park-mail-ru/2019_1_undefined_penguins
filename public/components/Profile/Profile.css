@@ -1,0 +1,59 @@
+section[data-section-name = header] {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+section[data-section-name = main_profile] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+#goBack {
+    margin-right: 200px;
+    align-self: center;
+}
+
+#goBack img{
+    height: 30px;
+}
+
+#title h2 {
+    font-size: 60px;
+    color: white;
+}
+
+.text-area {
+    background-color: grey;
+    margin-left: 30px;
+    height: 360px;
+    border-radius: 15px;
+    opacity: 0.5;
+    padding: 10px;
+}
+
+.data_inline {
+    display: flex;
+    flex-direction: row;
+}
+
+.data_inline img {
+    height: 60px;
+    width: 60px;
+}
+
+.info_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 10px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
