@@ -50,7 +50,7 @@ app.get("/", function(req, res) {
 
 const users = {
 	'a.penguin1@corp.mail.ru': {
-		email: '<strong>a.penguin1@corp.mail.ru</strong>',
+		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
 		age: 21,
 		score: 0,
@@ -87,7 +87,7 @@ app.post('/signup', function (req, res) {
 		!email.match(/@/) ||
 		!(typeof age === 'number' && age > 10 && age < 100)
 	) {
-		return res.status(400).json({error: 'Не валидные данные пользователя'});
+		return res.status(400).json({error: 'Невалидные данные пользователя'});
 	}
 	if (users[email]) {
 		return res.status(400).json({error: 'Пользователь уже существует'});
@@ -109,7 +109,7 @@ app.post('/login', function (req, res) {
 		return res.status(400).json({error: 'Не указан E-Mail или пароль'});
 	}
 	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+		return res.status(400).json({error: 'Неверный E-Mail и/или пароль'});
 	}
 
 	const id = uuid();
