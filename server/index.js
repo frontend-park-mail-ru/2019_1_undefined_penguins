@@ -50,27 +50,39 @@ app.get("/", function(req, res) {
 
 const users = {
 	'a.penguin1@corp.mail.ru': {
+		login: 'Penguin1',
 		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
+		name: 'Пингвин Северного Полюса',
 		age: 21,
+		lastVisit: '25.02.2019',
 		score: 0,
 	},
 	'b.penguin2@corp.mail.ru': {
+		login: 'Penguin2',
 		email: 'b.penguin2@corp.mail.ru',
 		password: 'password',
 		age: 21,
+		name: 'Пингвин Южного Полюса',
+		lastVisit: '26.02.2019',
 		score: 100500,
 	},
 	'c.penguin3@corp.mail.ru': {
+		login: 'Penguin3',
 		email: 'c.pengin3@corp.mail.ru',
 		password: 'password',
 		age: 21,
+		name: 'Залетный Пингвин',
+		lastVisit: '14.02.2019',
 		score: 172,
 	},
 	'd.penguin4@corp.mail.ru': {
+		login: 'Penguin4',
 		email: 'd.penguin4@corp.mail.ru',
 		password: 'password',
 		age: 21,
+		name: 'Рядовой Пингвин',
+		lastVisit: '15.02.2019',
 		score: 72,
 	},
 };
@@ -129,6 +141,24 @@ app.get('/me', function (req, res) {
 	users[email].score += 1;
 
 	res.json(users[email]);
+});
+
+app.post('/change_profile', function (req, res) {
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+
+	ids[id] = email;
+
+	users[email].email = req.body.email;
+	users[email].login = req.body.login;
+	users[email].name = req.body.name;
+
+	//what for?
+	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+	res.status(201).json({id});
 });
 
 // app.get('/about', function (req, res) {

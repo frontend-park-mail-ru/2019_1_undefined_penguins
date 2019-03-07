@@ -4,8 +4,10 @@ import {BoardComponent} from './components/Board/Board.js';
 import {RENDER_TYPES} from './utils/constants.js';
 import {MenuComponent} from "./components/Menu/Menu.js";
 import {AboutComponent} from "./components/About/About.js";
+import {ProfileComponent} from "./components/Profile/Profile.js";
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
+
 
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
@@ -49,7 +51,8 @@ function createSignIn () {
 
 function createSignUp () {
 	const signUpSection = document.createElement('section');
-	signUpSection.dataset.sectionName = "sign_up"
+	signUpSection.dataset.sectionName = 'sign_up';
+
 
 	const signUp = new SignUpComponent({
 		el: signUpSection
@@ -102,27 +105,12 @@ function createProfile (me) {
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
 
-	const header = document.createElement('h1');
-	header.textContent = 'Profile';
-
-	profileSection.appendChild(header);
-	profileSection.appendChild(createMenuLink());
-
 	if (me) {
-		const p = document.createElement('p');
-
-		const div1 = document.createElement('div');
-		div1.textContent = `Email ${me.email}`;
-		const div2 = document.createElement('div');
-		div2.textContent = `Age ${me.age}`;
-		const div3 = document.createElement('div');
-		div3.textContent = `Score ${me.score}`;
-
-		p.appendChild(div1);
-		p.appendChild(div3);
-		p.appendChild(div3);
-
-		profileSection.appendChild(p);
+		const profile = new ProfileComponent({
+			el: profileSection,
+		});
+		profile.data = JSON.parse(JSON.stringify(me));
+		profile.render();
 	} else {
 		AjaxModule.doGet({
 			callback(xhr) {
@@ -132,13 +120,12 @@ function createProfile (me) {
 					createMenu();
 					return;
 				}
-
 				const user = JSON.parse(xhr.responseText);
 				application.innerHTML = '';
 				createProfile(user);
 			},
 			path: '/me',
-});
+		});
 	}
 
 	application.appendChild(profileSection);
