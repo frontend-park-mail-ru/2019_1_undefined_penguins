@@ -50,7 +50,7 @@ app.get("/", function(req, res) {
 
 const users = {
 	'a.penguin1@corp.mail.ru': {
-		email: '<strong>a.penguin1@corp.mail.ru</strong>',
+		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
 		age: 21,
 		score: 0,
@@ -135,7 +135,7 @@ app.get('/me', function (req, res) {
 
 // });
 
-app.get('/users', function (req, res) {
+app.get('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
@@ -145,8 +145,8 @@ app.get('/users', function (req, res) {
 				score: user.score,
 			}
 		});
-
 	res.json(scorelist);
+	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;

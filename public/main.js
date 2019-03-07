@@ -209,11 +209,13 @@ function createLeaderboard (users) {
 
 		AjaxModule.doGet({
 			callback(xhr) {
+				console.log(xhr.responseText);
 				const users = JSON.parse(xhr.responseText);
+				console.log(xhr.responseText);
 				application.innerHTML = '';
 				createLeaderboard(users);
 			},
-			path: '/users',
+			path: '/leaders',
 		});
 	}
 
