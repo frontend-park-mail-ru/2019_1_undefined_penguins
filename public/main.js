@@ -80,17 +80,31 @@ function createSignIn () {
 		const email = form.elements[ 'email' ].value;
 		const password = form.elements[ 'password' ].value;
 
-		AjaxModule.doPost({
-			callback() {
-				application.innerHTML = '';
-				createProfile();
-			},
+
+		AjaxModule.doPromisePost({
 			path: '/login',
 			body: {
 				email: email,
 				password: password,
 			},
-		});
+		})
+			.then( () => {
+				application.innerHTML = '';
+				createProfile();
+			})
+			.catch(console.error);
+
+		// AjaxModule.doPost({
+		// 	callback() {
+		// 		application.innerHTML = '';
+		// 		createProfile();
+		// 	},
+		// 	path: '/login',
+		// 	body: {
+		// 		email: email,
+		// 		password: password,
+		// 	},
+		// });
 });
 
 	application.appendChild(signInSection);
@@ -163,19 +177,32 @@ function createSignUp () {
 			return;
 		}
 
-	
-		AjaxModule.doPost({
-			callback() {
-				application.innerHTML = '';
-				createProfile();
-			},
+		AjaxModule.doPromisePost({
 			path: '/signup',
 			body: {
 				email: email,
 				age: age,
 				password: password,
-			},
-		});
+			},	
+		})
+			.then( () => {
+				application.innerHTML = '';
+				createProfile();
+			})
+			.catch( console.error);
+		
+		// AjaxModule.doPost({
+		// 	callback() {
+		// 		application.innerHTML = '';
+		// 		createProfile();
+		// 	},
+		// 	path: '/signup',
+		// 	body: {
+		// 		email: email,
+		// 		age: age,
+		// 		password: password,
+		// 	},
+		// });
 });
 
 	application.appendChild(signUpSection);
@@ -198,7 +225,7 @@ function createLeaderboard (users) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.DOM,
+			type: RENDER_TYPES.STRING,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -207,16 +234,31 @@ function createLeaderboard (users) {
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
 
-		AjaxModule.doGet({
-			callback(xhr) {
-				console.log(xhr.responseText);
-				const users = JSON.parse(xhr.responseText);
-				console.log(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/leaders',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
 				application.innerHTML = '';
 				createLeaderboard(users);
-			},
-			path: '/leaders',
-		});
+			})
+			.catch( console.error);
+		
+		// AjaxModule.doGet({
+		// 	callback(xhr) {
+		// 		console.log(xhr.responseText);
+		// 		const users = JSON.parse(xhr.responseText);
+		// 		console.log(xhr.responseText);
+		// 		application.innerHTML = '';
+		// 		createLeaderboard(users);
+		// 	},
+		// 	path: '/leaders',
+		// });
 	}
 
 	application.appendChild(leaderboardSection);
@@ -247,21 +289,42 @@ function createProfile (me) {
 
 		profileSection.appendChild(p);
 	} else {
-		AjaxModule.doGet({
-			callback(xhr) {
-				if (!xhr.responseText) {
-					alert('Unauthorized');
-					application.innerHTML = '';
-					createMenu();
-					return;
-				}
 
-				const user = JSON.parse(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/me',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( user => {
+				console.log(users);
 				application.innerHTML = '';
 				createProfile(user);
-			},
-			path: '/me',
-});
+			})
+			.catch( () => {
+				alert('Unauthorized');
+				application.innerHTML = '';
+				createMenu();
+				return;
+			});
+
+// 		AjaxModule.doGet({
+// 			callback(xhr) {
+// 				if (!xhr.responseText) {
+// 					alert('Unauthorized');
+// 					application.innerHTML = '';
+// 					createMenu();
+// 					return;
+// 				}
+
+// 				const user = JSON.parse(xhr.responseText);
+// 				application.innerHTML = '';
+// 				createProfile(user);
+// 			},
+// 			path: '/me',
+// });
 	}
 
 	application.appendChild(profileSection);

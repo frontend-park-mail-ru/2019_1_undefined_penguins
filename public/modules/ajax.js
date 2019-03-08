@@ -55,6 +55,32 @@
 				method: 'POST',
 			});
 		}
+
+		doPromisePost({
+			path = '/',
+			body = {},
+		} = {}) {
+			return fetch('http://localhost:3000' + path, {
+				method: 'POST',
+				mode: 'cors',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+				},
+				body: JSON.stringify(body)
+			})
+		}
+
+		doPromiseGet({
+			path = '/',
+		} = {}) {
+			return fetch('http://localhost:3000' + path, {
+				method: 'GET',
+				mode: 'cors',
+				credentials: 'include',
+				body: null,
+			});
+		}
 	}
 
 	window.AjaxModule = new AjaxModule();
