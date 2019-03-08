@@ -44,8 +44,52 @@ function createSignIn () {
 	})
 
 	signIn.render();
+  
 
 	application.appendChild(signInSection);
+  
+  form.addEventListener('submit', function (event) {
+		event.preventDefault();
+
+		const email = form.elements[ 'email' ].value;
+		const password = form.elements[ 'password' ].value;
+
+
+		AjaxModule.doPromisePost({
+			path: '/login',
+			body: {
+				email: email,
+				password: password,
+			},
+		})	
+		.then(
+			res => {
+				return res.json();
+			}
+		)
+		.then (
+			(data) => {
+				console.log(JSON.stringify(data));
+			})
+		.then( () => {
+			application.innerHTML = '';
+	
+				createProfile();
+			})
+			.catch(console.error);
+
+		// AjaxModule.doPost({
+		// 	callback() {
+		// 		application.innerHTML = '';
+		// 		createProfile();
+		// 	},
+		// 	path: '/login',
+		// 	body: {
+		// 		email: email,
+		// 		password: password,
+		// 	},
+		// });
+});
 	application.appendChild(createMenuLink());
 }
 
@@ -53,13 +97,56 @@ function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
 
-
-	const signUp = new SignUpComponent({
+  const signUp = new SignUpComponent({
 		el: signUpSection
 	})
 
 	signUp.render();
 	application.appendChild(signUpSection);
+
+  if (password !== password_repeat) {
+			alert('Passwords is not equals');
+
+			return;
+		}
+
+		AjaxModule.doPromisePost({
+			path: '/signup',
+			body: {
+				email: email,
+				age: age,
+				password: password,
+			},	
+		})
+			.then(
+				res => {
+					return res.json();
+				}
+			)
+			.then (
+				(data) => {
+					console.log(JSON.stringify(data));
+				})
+			.then( () => {
+				application.innerHTML = '';
+				createProfile();
+			})
+			.catch( console.error);
+		
+		// AjaxModule.doPost({
+		// 	callback() {
+		// 		application.innerHTML = '';
+		// 		createProfile();
+		// 	},
+		// 	path: '/signup',
+		// 	body: {
+		// 		email: email,
+		// 		age: age,
+		// 		password: password,
+		// 	},
+		// });
+});
+	
 	application.appendChild(createMenuLink());
 }
 
@@ -80,7 +167,7 @@ function createLeaderboard (users) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.DOM,
+			type: RENDER_TYPES.STRING,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -89,14 +176,31 @@ function createLeaderboard (users) {
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
 
-		AjaxModule.doGet({
-			callback(xhr) {
-				const users = JSON.parse(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/leaders',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
 				application.innerHTML = '';
 				createLeaderboard(users);
-			},
-			path: '/users',
-		});
+			})
+			.catch( console.error);
+		
+		// AjaxModule.doGet({
+		// 	callback(xhr) {
+		// 		console.log(xhr.responseText);
+		// 		const users = JSON.parse(xhr.responseText);
+		// 		console.log(xhr.responseText);
+		// 		application.innerHTML = '';
+		// 		createLeaderboard(users);
+		// 	},
+		// 	path: '/leaders',
+		// });
 	}
 
 	application.appendChild(leaderboardSection);
@@ -112,20 +216,42 @@ function createProfile (me) {
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
 	} else {
-		AjaxModule.doGet({
-			callback(xhr) {
-				if (!xhr.responseText) {
-					alert('Unauthorized');
-					application.innerHTML = '';
-					createMenu();
-					return;
-				}
-				const user = JSON.parse(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/me',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( user => {
+				console.log(user);
 				application.innerHTML = '';
 				createProfile(user);
-			},
-			path: '/me',
-		});
+			})
+			// .catch( () => {
+			// 	alert('Unauthorized');
+			// 	application.innerHTML = '';
+			// 	createMenu();
+			// 	return;
+			// });
+
+// 		AjaxModule.doGet({
+// 			callback(xhr) {
+// 				if (!xhr.responseText) {
+// 					alert('Unauthorized');
+// 					application.innerHTML = '';
+// 					createMenu();
+// 					return;
+// 				}
+
+// 				const user = JSON.parse(xhr.responseText);
+// 				application.innerHTML = '';
+// 				createProfile(user);
+// 			},
+// 			path: '/me',
+// });
+
 	}
 
 	application.appendChild(profileSection);

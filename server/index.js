@@ -165,7 +165,7 @@ app.post('/change_profile', function (req, res) {
 
 // });
 
-app.get('/users', function (req, res) {
+app.get('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
@@ -175,8 +175,8 @@ app.get('/users', function (req, res) {
 				score: user.score,
 			}
 		});
-
 	res.json(scorelist);
+	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;
