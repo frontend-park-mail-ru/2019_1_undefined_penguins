@@ -1,7 +1,7 @@
 (function() {
 	const noop = () => null;
-	const nowSh = 'http://penguins-corsairs.now.sh';
-	const home = 'https://localhost:3000';
+	const nowSh = 'https://penguins-corsairs.now.sh';
+	const home = 'http://localhost:3000';
 	
 	class AjaxModule {
 		_ajax({
@@ -62,7 +62,8 @@
 			path = '/',
 			body = {},
 		} = {}) {
-			return fetch(nowSh + path, {
+			// return fetch(nowSh + path, {
+			return fetch(home + path, {
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
@@ -76,7 +77,8 @@
 		doPromiseGet({
 			path = '/',
 		} = {}) {
-			return fetch(nowSh + path, {
+			// return fetch(nowSh + path, {
+			return fetch(home + path, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',
