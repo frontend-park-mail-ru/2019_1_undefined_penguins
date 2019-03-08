@@ -87,9 +87,19 @@ function createSignIn () {
 				email: email,
 				password: password,
 			},
-		})
-			.then( () => {
-				application.innerHTML = '';
+		})	
+		.then(
+			res => {
+				return res.json();
+			}
+		)
+		.then (
+			(data) => {
+				console.log(JSON.stringify(data));
+			})
+		.then( () => {
+			application.innerHTML = '';
+	
 				createProfile();
 			})
 			.catch(console.error);
@@ -185,6 +195,15 @@ function createSignUp () {
 				password: password,
 			},	
 		})
+			.then(
+				res => {
+					return res.json();
+				}
+			)
+			.then (
+				(data) => {
+					console.log(JSON.stringify(data));
+				})
 			.then( () => {
 				application.innerHTML = '';
 				createProfile();
@@ -299,16 +318,16 @@ function createProfile (me) {
 				return response.json();
 			})
 			.then( user => {
-				console.log(users);
+				console.log(user);
 				application.innerHTML = '';
 				createProfile(user);
 			})
-			.catch( () => {
-				alert('Unauthorized');
-				application.innerHTML = '';
-				createMenu();
-				return;
-			});
+			// .catch( () => {
+			// 	alert('Unauthorized');
+			// 	application.innerHTML = '';
+			// 	createMenu();
+			// 	return;
+			// });
 
 // 		AjaxModule.doGet({
 // 			callback(xhr) {

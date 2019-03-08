@@ -1,6 +1,8 @@
 (function() {
 	const noop = () => null;
-
+	const nowSh = 'http://penguins-corsairs.now.sh';
+	const home = 'https://localhost:3000';
+	
 	class AjaxModule {
 		_ajax({
 			callback = noop,
@@ -60,12 +62,12 @@
 			path = '/',
 			body = {},
 		} = {}) {
-			return fetch('http://localhost:3000' + path, {
+			return fetch(nowSh + path, {
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
 				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+					'Content-Type': 'application/json; charset=utf-8',
 				},
 				body: JSON.stringify(body)
 			})
@@ -74,7 +76,7 @@
 		doPromiseGet({
 			path = '/',
 		} = {}) {
-			return fetch('http://localhost:3000' + path, {
+			return fetch(nowSh + path, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',
