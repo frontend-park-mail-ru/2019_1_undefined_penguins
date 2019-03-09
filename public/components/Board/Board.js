@@ -24,7 +24,6 @@ export class BoardComponent {
 		thead.innerHTML = `
 			<tr>
 				<th>Email</th>
-				<th>Age</th>
 				<th>Score</th>
 			</th>
 		`;
@@ -37,22 +36,18 @@ export class BoardComponent {
 
 		this._data.forEach(function ({
 			email = 'test@mail.ru',
-			age = '13',
 			score = 100500,
 		} = {}) {
 			const tr = document.createElement('tr');
 			const tdEmail = document.createElement('td');
-			const tdAge = document.createElement('td');
 			const tdScore = document.createElement('td');
 
 			tr.classList.add('table__row');
 
 			tdEmail.innerHTML = makeSafe(email);
-			tdAge.textContent = age;
 			tdScore.textContent = score;
 
 			tr.appendChild(tdEmail);
-			tr.appendChild(tdAge);
 			tr.appendChild(tdScore);
 
 			tbody.appendChild(tr);
@@ -67,7 +62,6 @@ export class BoardComponent {
 				<thead>
 					<tr>
 						<th>Email</th>
-						<th>Age</th>
 						<th>Score</th>
 					</tr>
 				</thead>
@@ -75,13 +69,11 @@ export class BoardComponent {
 					${this._data
 						.map(({
 							email = 'test@mail.ru',
-							age = '13',
 							score = 100500,
 						} = {}) => {
 							return `
 								<tr class="table__row">
 									<td>${email}</td>
-									<td>${age}</td>
 									<td>${score}</td>
 								</tr>
 							`;

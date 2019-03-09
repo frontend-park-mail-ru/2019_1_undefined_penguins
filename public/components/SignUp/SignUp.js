@@ -43,11 +43,6 @@ export class SignUpComponent{
                 placeholder: 'Email'
             },
             {
-                name: 'age',
-                type: 'number',
-                placeholder: 'Your Age'
-            },
-            {
                 name: 'password',
                 type: 'password',
                 placeholder: 'Password'
@@ -82,7 +77,6 @@ export class SignUpComponent{
             event.preventDefault();
     
             const email = form.elements[ 'email' ].value;
-            const age = parseInt(form.elements[ 'age' ].value);
             const password = form.elements[ 'password' ].value;
             const password_repeat = form.elements[ 'password_repeat' ].value;
     
@@ -95,8 +89,7 @@ export class SignUpComponent{
             }
             if(
                 email.localeCompare("") === 0 || 
-                password.localeCompare("") === 0 ||
-                age.localeCompare("") === 0
+                password.localeCompare("") === 0
             ){
                 errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
