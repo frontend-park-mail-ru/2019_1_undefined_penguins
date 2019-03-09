@@ -141,7 +141,17 @@ export class ProfileComponent {
             const login = form.elements[ 'login' ].value;
             const name = form.elements[ 'name' ].value;
 
+            if (
+                email.localeCompare("") === 0 || 
+                login.localeCompare("") === 0 ||
+                name.localeCompare("") === 0
+            ) {
+                alert('input error');
+                return;
+            }
+            
             AjaxModule.doPost({
+                callback() { alert('Ok'); },
                 path: '/change_profile',
                 body: {
                     email: email,
