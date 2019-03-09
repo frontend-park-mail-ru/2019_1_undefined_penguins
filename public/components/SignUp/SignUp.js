@@ -1,10 +1,9 @@
-
-
 export class SignUpComponent{
     constructor({
         el = document.body,
     } = {}) {
         this._el = el;
+        this._status = 200;
     }
 
     _renderHeader() {        	
@@ -78,6 +77,7 @@ export class SignUpComponent{
 
         
         mainSection.appendChild(form);
+        var status = 200;
         form.addEventListener('submit', function (event) {
             event.preventDefault();
     
@@ -86,15 +86,19 @@ export class SignUpComponent{
             const password = form.elements[ 'password' ].value;
             const password_repeat = form.elements[ 'password_repeat' ].value;
     
+            
+            let errorString;
             if (password !== password_repeat) {
                 alert('Пароли не совпадают');
+                this._status = 300;
                 return;
             }
             if(
                 email.localeCompare("") === 0 || 
-                password.localeCompare("") === 0
+                password.localeCompare("") === 0 ||
+                age.localeCompare("") === 0
             ){
-                var errorString = 'Вы не ввели следующие поля:\n'
+                errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
                     errorString += 'email\n'
                 }
@@ -102,35 +106,32 @@ export class SignUpComponent{
                     errorString += 'пароль\n'
                 }
                 alert(errorString);
-                return; 
+                this._status = 300;
+                return;
             }
-
+    
             if(
-		        !password.match(/^\S{4,}$/)
+                !password.match(/^\S{4,}$/)
             ){
-                var errorString = 'Вы неверно ввели следующие поля:\n'
+                errorString = 'Вы неверно ввели следующие поля:\n'
                 if (!password.match(/^\S{4,}$/)) {
                     errorString += 'пароль\n'
                 }
                 alert(errorString);
-                return; 
-            }
+                this._status = 300;
+                return;
+            }   
         
-            AjaxModule.doPost({
-                callback() {
-                    application.innerHTML = '';
-                    createProfile();
-                },
-                path: '/signup',
-                body: {
-                    email: email,
-                    age: age,
-                    password: password,
-                },
-            });
-        });
-        return mainSection
-        
+        }.bind(this));
+        return mainSection   
+    }
+
+    set status(status) {
+        this._status = status;
+    }
+
+    get status() {
+        return this._status;
     }
 
     render(){

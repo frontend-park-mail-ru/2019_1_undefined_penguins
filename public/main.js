@@ -43,53 +43,59 @@ function createSignIn () {
 		el: signInSection
 	})
 
-	signIn.render();
-  
-
+	signIn.render();  
 	application.appendChild(signInSection);
-  
-  form.addEventListener('submit', function (event) {
+
+	const form = document.getElementsByTagName('form')[0];
+	form.addEventListener('submit', function (event) {
 		event.preventDefault();
 
-		const email = form.elements[ 'email' ].value;
-		const password = form.elements[ 'password' ].value;
-
-
+		let email = form.elements[ 'email' ].value;
+		let password = form.elements[ 'password' ].value;
+            
+		if (signIn.status !== 200) {
+			email = '';
+			password = '';	
+			signIn.status = 200;	
+		}
+		else {
 		AjaxModule.doPromisePost({
 			path: '/login',
 			body: {
 				email: email,
 				password: password,
 			},
-		})	
-		.then(
-			res => {
-				return res.json();
-			}
-		)
+		})
 		.then (
 			(data) => {
 				console.log(JSON.stringify(data));
+				if(data.status > 300) {
+					throw new Error('Network response was not ok.'); 
+				}
+				return data;  
 			})
 		.then( () => {
 			application.innerHTML = '';
-	
-				createProfile();
-			})
-			.catch(console.error);
-
-		// AjaxModule.doPost({
-		// 	callback() {
-		// 		application.innerHTML = '';
-		// 		createProfile();
-		// 	},
-		// 	path: '/login',
-		// 	body: {
-		// 		email: email,
-		// 		password: password,
-		// 	},
-		// });
-});
+			createProfile();
+		})
+		.catch( () => {
+			console.error;
+			application.innerHTML = '';
+			createMenu();
+		});
+	}
+	// AjaxModule.doPost({
+	// 	callback() {
+	// 		application.innerHTML = '';
+	// 		createProfile();
+	// 	},
+	// 	path: '/login',
+	// 	body: {
+	// 		email: email,
+	// 		password: password,
+	// 	},
+	// });
+	});
 	application.appendChild(createMenuLink());
 }
 
@@ -102,37 +108,104 @@ function createSignUp () {
 	})
 
 	signUp.render();
-	application.appendChild(signUpSection);
 
-  if (password !== password_repeat) {
-			alert('Passwords is not equals');
+	application.appendChild(signUpSection);	
 
-			return;
-		}
+	const form = document.getElementsByTagName('form')[0];
 
+	form.addEventListener('submit', function (event) {
+		event.preventDefault();
+
+	let email = form.elements[ 'email' ].value;
+	let age = parseInt(form.elements[ 'age' ].value);
+	let password = form.elements[ 'password' ].value;
+
+	if (signUp.status !== 200) {
+		email = '';
+		age = '';
+		password = '';
+		signUp.status = 200;
+	}
+	else {
 		AjaxModule.doPromisePost({
 			path: '/signup',
 			body: {
 				email: email,
 				age: age,
-				password: password,
+				password: password
 			},	
 		})
-			.then(
-				res => {
-					return res.json();
+		.then (
+			(data) => {
+				console.log(JSON.stringify(data));
+				if(data.status > 300) {
+					throw new Error('Network response was not ok.'); 
 				}
-			)
-			.then (
-				(data) => {
-					console.log(JSON.stringify(data));
-				})
-			.then( () => {
-				application.innerHTML = '';
-				createProfile();
+				return data; 
 			})
-			.catch( console.error);
-		
+		.then( () => {
+			application.innerHTML = '';
+			createProfile();
+		})
+		.catch( () => {
+			console.error;
+			application.innerHTML = '';
+			createMenu();
+		});          
+	}
+	})
+
+
+	// const form = document.getElementsByTagName('form')[0];
+	// form.addEventListener('submit', function (event) {
+	// 	event.preventDefault();
+
+	// 	const email = form.elements[ 'email' ].value;
+	// 	const age = parseInt(form.elements[ 'age' ].value);
+	// 	const password = form.elements[ 'password' ].value;
+
+
+	// const form = document.getElementsByTagName('form')[0];
+	// form.addEventListener('submit', function (event) {
+	// 	event.preventDefault();
+
+	// 	const email = form.elements[ 'email' ].value;
+	// 	const age = parseInt(form.elements[ 'age' ].value);
+	// 	const password = form.elements[ 'password' ].value;
+	// 	const password_repeat = form.elements[ 'password_repeat' ].value;
+
+
+		// if (password !== password_repeat) {
+		// 	alert('Пароли не совпадают');
+		// 	return;
+		// }
+		// if(
+		// 	email.localeCompare("") === 0 || 
+		// 	password.localeCompare("") === 0
+		// ){
+		// 	var errorString = 'Вы не ввели следующие поля:\n'
+		// 	if (email.localeCompare("") === 0) {
+		// 		errorString += 'email\n'
+		// 	}
+		// 	if (password.localeCompare("") === 0) {
+		// 		errorString += 'пароль\n'
+		// 	}
+		// 	alert(errorString);
+		// 	return; 
+		// }
+
+		// if(
+		// 	!password.match(/^\S{4,}$/)
+		// ){
+		// 	var errorString = 'Вы неверно ввели следующие поля:\n'
+		// 	if (!password.match(/^\S{4,}$/)) {
+		// 		errorString += 'пароль\n'
+		// 	}
+		// 	alert(errorString);
+		// 	return; 
+		// }
+	
+	
 		// AjaxModule.doPost({
 		// 	callback() {
 		// 		application.innerHTML = '';
@@ -145,8 +218,9 @@ function createSignUp () {
 		// 		password: password,
 		// 	},
 		// });
-});
-	
+
+		// });
+
 	application.appendChild(createMenuLink());
 }
 
@@ -229,12 +303,12 @@ function createProfile (me) {
 				application.innerHTML = '';
 				createProfile(user);
 			})
-			// .catch( () => {
-			// 	alert('Unauthorized');
-			// 	application.innerHTML = '';
-			// 	createMenu();
-			// 	return;
-			// });
+			.catch( () => {
+				alert('Unauthorized');
+				application.innerHTML = '';
+				createMenu();
+				return;
+			});
 
 // 		AjaxModule.doGet({
 // 			callback(xhr) {
@@ -255,6 +329,7 @@ function createProfile (me) {
 	}
 
 	application.appendChild(profileSection);
+	application.appendChild(createMenuLink());
 }
 
 function createAbout() {
