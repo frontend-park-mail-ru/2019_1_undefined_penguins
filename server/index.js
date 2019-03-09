@@ -14,8 +14,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
-
-/* sets menu.html as root */
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
  });
@@ -26,50 +24,62 @@ const users = {
 		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
 		name: 'Пингвин Северного Полюса',
-		age: 21,
 		lastVisit: '25.02.2019',
 		score: 0,
+		avatarName: 'default1.png',
+		avatarBlob: './images/user.svg'
 	},
 	'b.penguin2@corp.mail.ru': {
 		login: 'Penguin2',
 		email: 'b.penguin2@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Пингвин Южного Полюса',
 		lastVisit: '26.02.2019',
 		score: 100500,
+		avatarName: 'default2.png',
+		avatarBlob: './images/user.svg'
 	},
 	'c.penguin3@corp.mail.ru': {
 		login: 'Penguin3',
 		email: 'c.pengin3@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Залетный Пингвин',
 		lastVisit: '14.02.2019',
 		score: 172,
+		avatarName: 'default3.png',
+		avatarBlob: './images/user.svg'
 	},
 	'd.penguin4@corp.mail.ru': {
 		login: 'Penguin4',
 		email: 'd.penguin4@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Рядовой Пингвин',
 		lastVisit: '15.02.2019',
 		score: 72,
+		avatarName: 'default4.png',
+		avatarBlob: './images/user.svg'
 	},
 };
 
 const ids = {};
 
+app.use( (req, res, next) => {
+		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader('Access-Control-Allow-Headers', 'content-type');
+		res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    
+
+	next();
+});
+
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
 	const email = req.body.email;
-	const age = req.body.age;
 	if (
-		!password || !email || !age ||
+		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/) ||
-		!(typeof age === 'number' && age > 10 && age < 100)
+		!email.match(/@/)
 	) {
 		return res.status(400).json({error: 'Невалидные данные пользователя'});
 	}
@@ -78,7 +88,7 @@ app.post('/signup', function (req, res) {
 	}
 
 	const id = uuid();
-	const user = {password, email, age, score: 0};
+	const user = {password, email, score: 0};
 	ids[id] = email;
 	users[email] = user;
 
@@ -101,6 +111,17 @@ app.post('/login', function (req, res) {
 
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(200).json({id});
+});
+
+app.get('/signout', function (req, res){
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+	res.clearCookie('sessionid');
+	res.json({ status: 'successfully signed out' })
+
 });
 
 app.get('/me', function (req, res) {
@@ -127,10 +148,13 @@ app.post('/change_profile', function (req, res) {
 	users[email].email = req.body.email;
 	users[email].login = req.body.login;
 	users[email].name = req.body.name;
+	users[email].avatarName = req.body.avatarName;
+	users[email].avatarBlob = req.body.avatarBlob;
+	const result = users[email].avatarBlob;
 
 	//what for?
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+	res.status(201).json({result});
 });
 
 // app.get('/about', function (req, res) {
@@ -143,12 +167,10 @@ app.get('/leaders', function (req, res) {
 		.map(user => {
 			return {
 				email: user.email,
-				age: user.age,
 				score: user.score,
 			}
 		});
 	res.json(scorelist);
-	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;
@@ -156,4 +178,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
 	console.log(`Server listening port ${port}`);
 });
-
