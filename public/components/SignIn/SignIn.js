@@ -1,14 +1,24 @@
 
 
+/** Класс компонента авторизации */
 
 export class SignInComponent{
+    /**
+     * Конструктор компонента авторизации.
+     * @param el - Тело документа
+     */
+    
     constructor({
         el = document.body,
     } = {}) {
         this._el = el;
         this._status = 200;
     }
+        /**
+         * Рендеринг header.
+         * @return   headerSection
 
+         */
     _renderHeader() {        	
         const headerSection = document.createElement('section');
         headerSection.dataset.sectionName = 'header';
@@ -32,7 +42,11 @@ export class SignInComponent{
 
         return headerSection;
     }
+       /**
+         * Рендеринг тела.
+         * @return   mainSection
 
+         */
     _renderBody(){
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main';
@@ -76,6 +90,8 @@ export class SignInComponent{
     
             const email = form.elements[ 'email' ].value;
             const password = form.elements[ 'password' ].value;
+            form.elements[ 'email' ].classList.remove('errorInput');
+            form.elements[ 'password' ].classList.remove('errorInput');
             if(
                 email.localeCompare("") === 0 || 
                 password.localeCompare("") === 0
@@ -100,15 +116,23 @@ export class SignInComponent{
         
     }
 
-
+    /**
+         * Установка значения status.
+         * @param status Значение, устанавливающееся в status
+         */
     set status(status) {
         this._status = status;
     }
-
+	/**
+			 * Возврат значения status.
+			 * @return  Значение status
+			 */
     get status() {
         return this._status;
     }
-
+       /**
+         * Рендеринг страницы.
+         */
     render(){
         const head = this._renderHeader();
         const body = this._renderBody();
