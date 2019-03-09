@@ -11,7 +11,7 @@
 			body = {},
 		} = {}) {
 			const xhr = new XMLHttpRequest();
-			xhr.open(method, path, true);
+			xhr.open(method, home + path, true);
 			xhr.withCredentials = true;
 
 			if (body) {
