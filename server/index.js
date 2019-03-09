@@ -103,6 +103,16 @@ app.post('/login', function (req, res) {
 	res.status(200).json({id});
 });
 
+app.get('/signout', function (req, res){
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+	res.clearCookie('sessionid');
+	res.status(200).json(users[email]);
+});
+
 app.get('/me', function (req, res) {
 	const id = req.cookies['sessionid'];
 	const email = ids[id];
@@ -113,6 +123,8 @@ app.get('/me', function (req, res) {
 	users[email].score += 1;
 
 	res.json(users[email]);
+
+
 });
 
 app.post('/change_profile', function (req, res) {

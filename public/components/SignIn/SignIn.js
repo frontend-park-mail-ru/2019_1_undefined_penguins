@@ -36,7 +36,8 @@ export class SignInComponent{
     _renderBody(){
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main';
-
+        const err = document.createElement('span')
+        err.classList.add('errorLabel');
         const form = document.createElement('form');
 
         const inputs = [
@@ -68,9 +69,10 @@ export class SignInComponent{
             form.appendChild(document.createElement('br'));
         });
 
-        
+        mainSection.appendChild(err);
         mainSection.appendChild(form);
         form.addEventListener('submit', function (event) {
+            err.innerText = ''
             event.preventDefault();
     
             const email = form.elements[ 'email' ].value;
@@ -86,7 +88,8 @@ export class SignInComponent{
                 if (password.localeCompare("") === 0) {
                     errorString += 'пароль\n'
                 }
-                alert(errorString);
+                // alert(errorString);
+                err.innerText = errorString
                 this._status = 300;
                 return;
             }

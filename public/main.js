@@ -344,13 +344,37 @@ function createAbout() {
 	application.appendChild(createMenuLink());
 }
 
+function signOut() {
+	AjaxModule.doPromiseGet({
+		path: '/signout',	
+	})
+		.then( response => {
+			console.log('Response status: ' + response.status);
+
+			return response.json();
+		})
+		.then( user => {
+			console.log(user);
+			application.innerHTML = '';
+			createMenu();
+		})
+		.catch( () => {
+			alert('Unauthorized');
+			application.innerHTML = '';
+			createMenu();
+			return;
+		});
+	
+}
+
 const pages = {
 	menu: createMenu,
 	signIn: createSignIn,
 	signUp: createSignUp,
 	leaders: createLeaderboard,
 	me: createProfile,
-	about: createAbout
+	about: createAbout,
+	signout: signOut
 };
 
 createMenu();

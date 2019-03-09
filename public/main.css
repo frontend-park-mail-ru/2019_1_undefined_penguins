@@ -2,6 +2,7 @@
 @import url('components/Board/Board.css');
 @import url('components/About/About.css');
 @import url('components/Profile/Profile.css');
+@import url('components/SignIn/SignIn.css');
 
 html {     
     font-family: Arial, Helvetica, sans-serif;
