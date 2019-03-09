@@ -7,7 +7,6 @@ const morgan = require('morgan');
 const uuid = require('uuid/v4');
 const path = require('path');
 const app = express();
-const multer = require("multer");
 
 
 app.use(morgan('dev'));
@@ -15,8 +14,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
-
-/* sets menu.html as root */
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
  });
@@ -29,6 +26,8 @@ const users = {
 		name: 'Пингвин Северного Полюса',
 		lastVisit: '25.02.2019',
 		score: 0,
+		avatarName: 'default1.png',
+		avatarBlob: './images/user.svg'
 	},
 	'b.penguin2@corp.mail.ru': {
 		login: 'Penguin2',
@@ -37,6 +36,8 @@ const users = {
 		name: 'Пингвин Южного Полюса',
 		lastVisit: '26.02.2019',
 		score: 100500,
+		avatarName: 'default2.png',
+		avatarBlob: './images/user.svg'
 	},
 	'c.penguin3@corp.mail.ru': {
 		login: 'Penguin3',
@@ -45,6 +46,8 @@ const users = {
 		name: 'Залетный Пингвин',
 		lastVisit: '14.02.2019',
 		score: 172,
+		avatarName: 'default3.png',
+		avatarBlob: './images/user.svg'
 	},
 	'd.penguin4@corp.mail.ru': {
 		login: 'Penguin4',
@@ -53,6 +56,8 @@ const users = {
 		name: 'Рядовой Пингвин',
 		lastVisit: '15.02.2019',
 		score: 72,
+		avatarName: 'default4.png',
+		avatarBlob: './images/user.svg'
 	},
 };
 
@@ -67,7 +72,6 @@ app.use( (req, res, next) => {
 
 	next();
 });
-
 
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
@@ -132,32 +136,6 @@ app.get('/me', function (req, res) {
 	res.json(users[email]);
 });
 
-
-const upload = multer({
-	dest: "././public/uploads"
-  });
-
-app.post('/profile', (req, res) => {
-	const id = req.cookies['sessionid'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
-
-    upload.single('uploadAvatar')(req, res, (err) => {
-        if (err instanceof multer.MulterError) {
-            res.send("Multer error");
-        } else if (err) {
-            res.send("An unknown error occurred when uploading");
-        }
-
-        users[email].avatarType = (req.file.mimetype === 'image/png') ? 'png' : 'jpeg';
-        users[email].avatarLink = `${req.file.filename}`;
-
-        res.status(200).json(users[email].avatarLink);
-    })
-})
-
 app.post('/change_profile', function (req, res) {
 	const id = req.cookies['sessionid'];
 	const email = ids[id];
@@ -170,10 +148,13 @@ app.post('/change_profile', function (req, res) {
 	users[email].email = req.body.email;
 	users[email].login = req.body.login;
 	users[email].name = req.body.name;
+	users[email].avatarName = req.body.avatarName;
+	users[email].avatarBlob = req.body.avatarBlob;
+	const result = users[email].avatarBlob;
 
 	//what for?
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+	res.status(201).json({result});
 });
 
 // app.get('/about', function (req, res) {
@@ -190,7 +171,6 @@ app.get('/leaders', function (req, res) {
 			}
 		});
 	res.json(scorelist);
-	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;
@@ -198,4 +178,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
 	console.log(`Server listening port ${port}`);
 });
-
