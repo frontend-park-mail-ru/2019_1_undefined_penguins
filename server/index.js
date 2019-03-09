@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const uuid = require('uuid/v4');
 const path = require('path');
 const app = express();
+const multer = require("multer");
 
 
 app.use(morgan('dev'));
@@ -26,7 +27,6 @@ const users = {
 		email: 'a.penguin1@corp.mail.ru',
 		password: 'password',
 		name: 'Пингвин Северного Полюса',
-		age: 21,
 		lastVisit: '25.02.2019',
 		score: 0,
 	},
@@ -34,7 +34,6 @@ const users = {
 		login: 'Penguin2',
 		email: 'b.penguin2@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Пингвин Южного Полюса',
 		lastVisit: '26.02.2019',
 		score: 100500,
@@ -43,7 +42,6 @@ const users = {
 		login: 'Penguin3',
 		email: 'c.pengin3@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Залетный Пингвин',
 		lastVisit: '14.02.2019',
 		score: 172,
@@ -52,7 +50,6 @@ const users = {
 		login: 'Penguin4',
 		email: 'd.penguin4@corp.mail.ru',
 		password: 'password',
-		age: 21,
 		name: 'Рядовой Пингвин',
 		lastVisit: '15.02.2019',
 		score: 72,
@@ -75,12 +72,10 @@ app.use( (req, res, next) => {
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
 	const email = req.body.email;
-	const age = req.body.age;
 	if (
-		!password || !email || !age ||
+		!password || !email ||
 		!password.match(/^\S{4,}$/) ||
-		!email.match(/@/) ||
-		!(typeof age === 'number' && age > 10 && age < 100)
+		!email.match(/@/)
 	) {
 		return res.status(400).json({error: 'Невалидные данные пользователя'});
 	}
@@ -89,7 +84,7 @@ app.post('/signup', function (req, res) {
 	}
 
 	const id = uuid();
-	const user = {password, email, age, score: 0};
+	const user = {password, email, score: 0};
 	ids[id] = email;
 	users[email] = user;
 
@@ -114,6 +109,17 @@ app.post('/login', function (req, res) {
 	res.status(200).json({id});
 });
 
+app.get('/signout', function (req, res){
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+	res.clearCookie('sessionid');
+	res.json({ status: 'successfully signed out' })
+
+});
+
 app.get('/me', function (req, res) {
 	const id = req.cookies['sessionid'];
 	const email = ids[id];
@@ -125,6 +131,32 @@ app.get('/me', function (req, res) {
 
 	res.json(users[email]);
 });
+
+
+const upload = multer({
+	dest: "././public/uploads"
+  });
+
+app.post('/profile', (req, res) => {
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+
+    upload.single('uploadAvatar')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            res.send("Multer error");
+        } else if (err) {
+            res.send("An unknown error occurred when uploading");
+        }
+
+        users[email].avatarType = (req.file.mimetype === 'image/png') ? 'png' : 'jpeg';
+        users[email].avatarLink = `${req.file.filename}`;
+
+        res.status(200).json(users[email].avatarLink);
+    })
+})
 
 app.post('/change_profile', function (req, res) {
 	const id = req.cookies['sessionid'];
@@ -154,7 +186,6 @@ app.get('/leaders', function (req, res) {
 		.map(user => {
 			return {
 				email: user.email,
-				age: user.age,
 				score: user.score,
 			}
 		});

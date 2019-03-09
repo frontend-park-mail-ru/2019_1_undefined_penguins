@@ -117,12 +117,10 @@ function createSignUp () {
 		event.preventDefault();
 
 	let email = form.elements[ 'email' ].value;
-	let age = parseInt(form.elements[ 'age' ].value);
 	let password = form.elements[ 'password' ].value;
 
 	if (signUp.status !== 200) {
 		email = '';
-		age = '';
 		password = '';
 		signUp.status = 200;
 	}
@@ -131,7 +129,6 @@ function createSignUp () {
 			path: '/signup',
 			body: {
 				email: email,
-				age: age,
 				password: password
 			},	
 		})
@@ -161,7 +158,6 @@ function createSignUp () {
 	// 	event.preventDefault();
 
 	// 	const email = form.elements[ 'email' ].value;
-	// 	const age = parseInt(form.elements[ 'age' ].value);
 	// 	const password = form.elements[ 'password' ].value;
 
 
@@ -170,7 +166,6 @@ function createSignUp () {
 	// 	event.preventDefault();
 
 	// 	const email = form.elements[ 'email' ].value;
-	// 	const age = parseInt(form.elements[ 'age' ].value);
 	// 	const password = form.elements[ 'password' ].value;
 	// 	const password_repeat = form.elements[ 'password_repeat' ].value;
 
@@ -214,7 +209,6 @@ function createSignUp () {
 		// 	path: '/signup',
 		// 	body: {
 		// 		email: email,
-		// 		age: age,
 		// 		password: password,
 		// 	},
 		// });
@@ -344,13 +338,37 @@ function createAbout() {
 	application.appendChild(createMenuLink());
 }
 
+function signOut() {
+	AjaxModule.doPromiseGet({
+		path: '/signout',	
+	})
+		.then( response => {
+			console.log('Response status: ' + response.status);
+
+			return response.json();
+		})
+		.then( status => {
+			console.log(status);
+			application.innerHTML = '';
+			createMenu();
+		})
+		.catch( () => {
+			alert('Unauthorized');
+			application.innerHTML = '';
+			createMenu();
+			return;
+		});
+	
+}
+
 const pages = {
 	menu: createMenu,
 	signIn: createSignIn,
 	signUp: createSignUp,
 	leaders: createLeaderboard,
 	me: createProfile,
-	about: createAbout
+	about: createAbout,
+	signout: signOut
 };
 
 createMenu();

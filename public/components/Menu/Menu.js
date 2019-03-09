@@ -58,7 +58,8 @@ export class MenuComponent {
         const authTitles = {
             signIn: 'Sing In',
             signUp: 'Sign Up',
-            me: 'Profile'
+            me: 'Profile',
+            signout: 'Sign Out'
         };
     
         Object.entries(authTitles).forEach(function (entry) {
