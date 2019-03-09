@@ -68,9 +68,8 @@ export class SignInComponent{
             form.appendChild(input);
             form.appendChild(document.createElement('br'));
         });
-
-        mainSection.appendChild(err);
         mainSection.appendChild(form);
+        mainSection.appendChild(err);
         form.addEventListener('submit', function (event) {
             err.innerText = ''
             event.preventDefault();
@@ -84,9 +83,12 @@ export class SignInComponent{
                 var errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
                     errorString += 'email\n'
+                    form.elements[ 'email' ].classList.add('errorInput');
                 }
                 if (password.localeCompare("") === 0) {
                     errorString += 'пароль\n'
+                    form.elements[ 'password' ].classList.add('errorInput');
+
                 }
                 // alert(errorString);
                 err.innerText = errorString

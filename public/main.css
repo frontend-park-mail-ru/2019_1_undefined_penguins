@@ -32,3 +32,11 @@ section[data-section-name = about] {
     flex-direction: column;
 }
 
+.errorLabel{
+    color: red;
+    display: block;
+}
+.errorInput{
+    border: 3px solid red;
+}
+
