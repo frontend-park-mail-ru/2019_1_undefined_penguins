@@ -56,7 +56,7 @@ export class ProfileComponent {
 
         const avatar = document.createElement('img');
         avatar.classList = 'avatar';
-        avatar.src = './images/user.svg';
+        avatar.src = this._data.avatarBlob;
 
         const data = document.createElement('div');
         data.classList = 'data';
@@ -148,17 +148,10 @@ export class ProfileComponent {
             let file = event.target.files[0];
 
             reader.onloadend = () => {
-                avatar.file = file;
                 this._avatarName = file.name;
                 this._avatarBlob = reader.result;
             };
-
             reader.readAsDataURL(file);
-
-            console.log(reader);
-            console.log(reader.result);
-            console.log(file.name);
-
         }, false)
 
         form.appendChild(inputAvatar);
@@ -187,47 +180,8 @@ export class ProfileComponent {
                 return;
             }
 
-            // ajax((xhr) => {
-            //     const source = JSON.parse(xhr.responseText);
-            //     const image = document.createElement('IMG');
-
-            //     // checking returned error
-            //     if (source.error !== undefined) {
-            //         return;
-            //     }
-
-            //     image.src = source;
-            // },  'POST', 
-            //     '/profile', {
-            //         email: email,
-            //         login: login,
-            //         name: name,
-            //         avatar: userAvatar
-            //     });
-            // const email = form.elements[ 'email' ].value;
-            // const login = form.elements[ 'login' ].value;
-            // const name = form.elements[ 'name' ].value;
-            // const picture = form.elements[ 'uploadAvatar' ].value;
-
-            // if (
-            //     email.localeCompare("") === 0 || 
-            //     login.localeCompare("") === 0 ||
-            //     name.localeCompare("") === 0
-            // ) {
-            //     alert('input error');
-            //     return;
-            // }
-            
-            // AjaxModule.doPost({
-            //     callback() { alert('Ok'); },
-            //     path: '/profile',
-            //     body: {
-            //         email: email,
-            //         login: login,
-            //         name: name,
-            //         avatar: userAvatar.name
-            //     },
-            // });
+            const avatarName = this._avatarName;
+            const avatarBlob = this._avatarBlob;
 
             AjaxModule.doPromisePost({
                 path: '/change_profile',
@@ -235,56 +189,28 @@ export class ProfileComponent {
                     email: email,
                     login: login,
                     name: name,
-                    avatarName: this._avatarName,
-                    avatarBlob: this._avatarBlob
+                    avatarName: avatarName,
+                    avatarBlob: avatarBlob
                 },	
             })
             .then (
                 (res) => {
-                    console.log(JSON.stringify(res));
+                    // console.log(JSON.stringify(res));
                     console.log(res);
                     if(res.status > 400) {
                         throw new Error('Network response was not ok.'); 
                     }
-                    return res; 
+                    return res.json(); 
                 })
             .then( (res) => {
-                application.innerHTML = '';
-                createProfile();
+                avatar.src = res.result;
             })
             .catch( () => {
                 console.error;
                 application.innerHTML = '';
                 alert('ERROR');
             }); 
-
-            
-        //     AjaxModule.doPromisePost({
-        //         path: '/change_profile',
-        //         body: {
-        //             email: email,
-        //             login: login,
-        //             name: name,
-        //         },	
-        //     })
-        //     .then (
-        //         (data) => {
-        //             console.log(JSON.stringify(data));
-        //             if(data.status > 300) {
-        //                 throw new Error('Network response was not ok.'); 
-        //             }
-        //             return data; 
-        //         })
-        //     .then( () => {
-        //         application.innerHTML = '';
-        //         createProfile();
-        //     })
-        //     .catch( () => {
-        //         console.error;
-        //         application.innerHTML = '';
-        //         createMenu();
-        //     });
-        });
+        }.bind(this));
 
         mainSection.appendChild(form);
 
@@ -298,5 +224,4 @@ export class ProfileComponent {
         this._el.appendChild(head);
         this._el.appendChild(body);
     }
-
 }

@@ -14,22 +14,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
-// сохраняет файлы по пути './static/avatars' 
-// с имененем file.fieldname + '-' + Date.now() + тип файла
-const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './public/uploads')
-    },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now() + '.' + ((file.mimetype === 'image/png') ? 'png' : 'jpeg'))
-    }
-});
-
-const upload = multer({storage: storage});
-
-
-
-/* sets menu.html as root */
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
  });
@@ -43,7 +27,7 @@ const users = {
 		lastVisit: '25.02.2019',
 		score: 0,
 		avatarName: 'default1.png',
-		avatarBlob: ''
+		avatarBlob: './images/user.svg'
 	},
 	'b.penguin2@corp.mail.ru': {
 		login: 'Penguin2',
@@ -53,7 +37,7 @@ const users = {
 		lastVisit: '26.02.2019',
 		score: 100500,
 		avatarName: 'default2.png',
-		avatarBlob: ''
+		avatarBlob: './images/user.svg'
 	},
 	'c.penguin3@corp.mail.ru': {
 		login: 'Penguin3',
@@ -63,7 +47,7 @@ const users = {
 		lastVisit: '14.02.2019',
 		score: 172,
 		avatarName: 'default3.png',
-		avatarBlob: ''
+		avatarBlob: './images/user.svg'
 	},
 	'd.penguin4@corp.mail.ru': {
 		login: 'Penguin4',
@@ -73,7 +57,7 @@ const users = {
 		lastVisit: '15.02.2019',
 		score: 72,
 		avatarName: 'default4.png',
-		avatarBlob: ''
+		avatarBlob: './images/user.svg'
 	},
 };
 
@@ -88,14 +72,6 @@ app.use( (req, res, next) => {
 
 	next();
 });
-
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "http://localhost:3001");
-//     res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
-//     res.header("Access-Control-Allow-Headers", "Content-Type");
-// 	res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     next();
-// });
 
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
@@ -174,10 +150,11 @@ app.post('/change_profile', function (req, res) {
 	users[email].name = req.body.name;
 	users[email].avatarName = req.body.avatarName;
 	users[email].avatarBlob = req.body.avatarBlob;
+	const result = users[email].avatarBlob;
 
 	//what for?
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({id});
+	res.status(201).json({result});
 });
 
 // app.get('/about', function (req, res) {
@@ -194,7 +171,6 @@ app.get('/leaders', function (req, res) {
 			}
 		});
 	res.json(scorelist);
-	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;
@@ -202,4 +178,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
 	console.log(`Server listening port ${port}`);
 });
-
