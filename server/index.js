@@ -71,13 +71,6 @@ app.use( (req, res, next) => {
 	next();
 });
 
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "http://localhost:3001");
-//     res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
-//     res.header("Access-Control-Allow-Headers", "Content-Type");
-// 	res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     next();
-// });
 
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
