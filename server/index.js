@@ -20,34 +20,6 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
  });
 
-
-// const users = {
-// 	'a.ostapenko@corp.mail.ru': {
-// 		email: '<strong>a.ostapenko@corp.mail.ru</strong>',
-// 		password: 'password',
-// 		age: 21,
-// 		score: 72,
-// 	},
-// 	'd.dorofeev@corp.mail.ru': {
-// 		email: '<img src="kek" onerror="console.log(`im watching you`);" />',
-// 		password: 'password',
-// 		age: 21,
-// 		score: 100500,
-// 	},
-// 	's.volodin@corp.mail.ru': {
-// 		email: '<iframe src="//example.com" onload="alert(1)">',
-// 		password: 'password',
-// 		age: 21,
-// 		score: 72,
-// 	},
-// 	'a.tyuldyukov@corp.mail.ru': {
-// 		email: 'a.tyuldyukov@corp.mail.ru',
-// 		password: 'password',
-// 		age: 21,
-// 		score: 72,
-// 	},
-// };
-
 const users = {
 	'a.penguin1@corp.mail.ru': {
 		login: 'Penguin1',
@@ -165,7 +137,7 @@ app.post('/change_profile', function (req, res) {
 
 // });
 
-app.get('/users', function (req, res) {
+app.get('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
@@ -175,8 +147,8 @@ app.get('/users', function (req, res) {
 				score: user.score,
 			}
 		});
-
 	res.json(scorelist);
+	// res.status(200).json(scorelist);;
 });
 
 const port = process.env.PORT || 3000;
