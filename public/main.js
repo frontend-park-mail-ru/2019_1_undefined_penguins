@@ -289,7 +289,6 @@ function createProfile (me) {
 		})
 			.then( response => {
 				console.log('Response status: ' + response.status);
-
 				return response.json();
 			})
 			.then( user => {
