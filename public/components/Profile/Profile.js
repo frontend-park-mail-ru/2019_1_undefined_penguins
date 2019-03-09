@@ -3,6 +3,8 @@ export class ProfileComponent {
         el = document.body,
     } = {}) {
         this._el = el;
+        this._avatarName = "";
+        this._avatarBlob = "";
     }
 
     get data() {
@@ -47,13 +49,14 @@ export class ProfileComponent {
 
         const form = document.createElement('form');
         form.classList = 'profile_form';
+        form.enctype = "multipart/form-data";
 
         const dataInline = document.createElement('div');
         dataInline.classList = 'data_inline';
 
         const avatar = document.createElement('img');
         avatar.classList = 'avatar';
-        avatar.src = '././images/user.svg';
+        avatar.src = './images/user.svg';
 
         const data = document.createElement('div');
         data.classList = 'data';
@@ -133,10 +136,30 @@ export class ProfileComponent {
         button.value = 'Сохранить'; 
         
         const inputAvatar = document.createElement('input');
-        inputAvatar.name = 'uploadAvatar';
+        inputAvatar.name = 'inputAvatar';
         inputAvatar.type = 'file';
         inputAvatar.accept = 'image/*';
         inputAvatar.classList = "inputAvatar";
+
+        inputAvatar.addEventListener('change', (event) => {
+            event.preventDefault();
+
+            let reader = new FileReader();
+            let file = event.target.files[0];
+
+            reader.onloadend = () => {
+                avatar.file = file;
+                this._avatarName = file.name;
+                this._avatarBlob = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+
+            console.log(reader);
+            console.log(reader.result);
+            console.log(file.name);
+
+        }, false)
 
         form.appendChild(inputAvatar);
         form.appendChild(button);
@@ -164,23 +187,23 @@ export class ProfileComponent {
                 return;
             }
 
-            ajax((xhr) => {
-                const source = JSON.parse(xhr.responseText);
-                const image = document.createElement('IMG');
+            // ajax((xhr) => {
+            //     const source = JSON.parse(xhr.responseText);
+            //     const image = document.createElement('IMG');
 
-                // checking returned error
-                if (source.error !== undefined) {
-                    return;
-                }
+            //     // checking returned error
+            //     if (source.error !== undefined) {
+            //         return;
+            //     }
 
-                image.src = source;
-            },  'POST', 
-                '/profile', {
-                    email: email,
-                    login: login,
-                    name: name,
-                    avatar: userAvatar
-                });
+            //     image.src = source;
+            // },  'POST', 
+            //     '/profile', {
+            //         email: email,
+            //         login: login,
+            //         name: name,
+            //         avatar: userAvatar
+            //     });
             // const email = form.elements[ 'email' ].value;
             // const login = form.elements[ 'login' ].value;
             // const name = form.elements[ 'name' ].value;
@@ -197,14 +220,45 @@ export class ProfileComponent {
             
             // AjaxModule.doPost({
             //     callback() { alert('Ok'); },
-            //     path: '/change_profile',
+            //     path: '/profile',
             //     body: {
             //         email: email,
             //         login: login,
             //         name: name,
-            //         avatar: picture
+            //         avatar: userAvatar.name
             //     },
             // });
+
+            AjaxModule.doPromisePost({
+                path: '/change_profile',
+                body: {
+                    email: email,
+                    login: login,
+                    name: name,
+                    avatarName: this._avatarName,
+                    avatarBlob: this._avatarBlob
+                },	
+            })
+            .then (
+                (res) => {
+                    console.log(JSON.stringify(res));
+                    console.log(res);
+                    if(res.status > 400) {
+                        throw new Error('Network response was not ok.'); 
+                    }
+                    return res; 
+                })
+            .then( (res) => {
+                application.innerHTML = '';
+                createProfile();
+            })
+            .catch( () => {
+                console.error;
+                application.innerHTML = '';
+                alert('ERROR');
+            }); 
+
+            
         //     AjaxModule.doPromisePost({
         //         path: '/change_profile',
         //         body: {
