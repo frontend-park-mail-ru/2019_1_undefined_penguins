@@ -2,8 +2,16 @@
 	const noop = () => null;
 	const nowSh = 'https://penguins-corsairs.now.sh';
 	const home = 'http://localhost:3000';
-	
+
+	/** Класс модуля для работы с Ajax. */
 	class AjaxModule {
+		/**
+         * Послать ajax запрос.
+         * @param [callback = noop] указание на callback
+         * @param [method = 'GET'] метод запроса
+         * @param [path = '/'] адрес запроса
+         * @param [body = {}] тело запроса
+         */
 		_ajax({
 			callback = noop,
 			method = 'GET',
@@ -32,19 +40,29 @@
 				xhr.send();
 			}
 		}
-
+		/**
+         * Послать ajax GET-запрос.
+         * @param [callback = noop] указание на callback
+         * @param [path = '/'] адрес запроса
+         */
 		doGet({
 			callback = noop,
 			path = '/',
-			body = {},
+			
 		} = {}) {
 			this._ajax({
 				callback,
 				path,
-				body,
+				body: null,
 				method: 'GET',
 			});
 		}
+		/**
+         * Послать ajax POST-запрос.
+         * @param [callback = noop] указание на callback
+         * @param [path = '/'] адрес запроса
+         * @param [body = {}] тело запроса
+         */
 		doPost({
 			callback = noop,
 			path = '/',
@@ -57,7 +75,11 @@
 				method: 'POST',
 			});
 		}
-
+		/**
+         * Послать ajax POST-запрос c помощью Promise.
+         * @param [path = '/'] адрес запроса
+         * @param [body = {}] тело запроса
+         */
 		doPromisePost({
 			path = '/',
 			body = {},
@@ -73,7 +95,10 @@
 				body: JSON.stringify(body)
 			})
 		}
-
+		/**
+         * Послать ajax GET-запрос c помощью Promise.
+         * @param [path = '/'] адрес запроса
+         */
 		doPromiseGet({
 			path = '/',
 		} = {}) {
