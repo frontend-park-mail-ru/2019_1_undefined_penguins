@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const uuid = require('uuid/v4');
 const path = require('path');
 const app = express();
+const multer = require("multer");
 
 
 app.use(morgan('dev'));
@@ -56,6 +57,24 @@ const users = {
 };
 
 const ids = {};
+
+app.use( (req, res, next) => {
+		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader('Access-Control-Allow-Headers', 'content-type');
+		res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    
+
+	next();
+});
+
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Content-Type");
+// 	res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     next();
+// });
 
 app.post('/signup', function (req, res) {
 	const password = req.body.password;
@@ -118,9 +137,33 @@ app.get('/me', function (req, res) {
 	users[email].score += 1;
 
 	res.json(users[email]);
-
-
 });
+
+
+const upload = multer({
+	dest: "././public/uploads"
+  });
+
+app.post('/profile', (req, res) => {
+	const id = req.cookies['sessionid'];
+	const email = ids[id];
+	if (!email || !users[email]) {
+		return res.status(401).end();
+	}
+
+    upload.single('uploadAvatar')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            res.send("Multer error");
+        } else if (err) {
+            res.send("An unknown error occurred when uploading");
+        }
+
+        users[email].avatarType = (req.file.mimetype === 'image/png') ? 'png' : 'jpeg';
+        users[email].avatarLink = `${req.file.filename}`;
+
+        res.status(200).json(users[email].avatarLink);
+    })
+})
 
 app.post('/change_profile', function (req, res) {
 	const id = req.cookies['sessionid'];

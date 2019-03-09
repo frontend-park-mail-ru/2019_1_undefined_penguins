@@ -125,40 +125,86 @@ export class ProfileComponent {
             div.appendChild(labelInfo);
             infoInline.appendChild(div);
         });
+        form.appendChild(dataInline);
 
         const button = document.createElement('input');
         button.name = 'save';
         button.type = 'submit';
-        button.value = 'Сохранить'; form.appendChild(dataInline);
+        button.value = 'Сохранить'; 
+        
+        const inputAvatar = document.createElement('input');
+        inputAvatar.name = 'uploadAvatar';
+        inputAvatar.type = 'file';
+        inputAvatar.accept = 'image/*';
+        inputAvatar.classList = "inputAvatar";
 
+        form.appendChild(inputAvatar);
         form.appendChild(button);
         form.appendChild(infoInline);
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
     
+            const userAvatar = document.getElementsByClassName('inputAvatar')[0].files[0];
             const email = form.elements[ 'email' ].value;
             const login = form.elements[ 'login' ].value;
             const name = form.elements[ 'name' ].value;
 
             if (
-                email.localeCompare("") === 0 || 
-                login.localeCompare("") === 0 ||
-                name.localeCompare("") === 0
-            ) {
-                alert('input error');
+                    email.localeCompare("") === 0 || 
+                    login.localeCompare("") === 0 ||
+                    name.localeCompare("") === 0
+                ) {
+                    alert('input error');
+                    return;
+                }
+
+            if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
+                alert('only jpeg or png photos!!');
                 return;
             }
-            
-            AjaxModule.doPost({
-                callback() { alert('Ok'); },
-                path: '/change_profile',
-                body: {
+
+            ajax((xhr) => {
+                const source = JSON.parse(xhr.responseText);
+                const image = document.createElement('IMG');
+
+                // checking returned error
+                if (source.error !== undefined) {
+                    return;
+                }
+
+                image.src = source;
+            },  'POST', 
+                '/profile', {
                     email: email,
                     login: login,
                     name: name,
-                },
-            });
+                    avatar: userAvatar
+                });
+            // const email = form.elements[ 'email' ].value;
+            // const login = form.elements[ 'login' ].value;
+            // const name = form.elements[ 'name' ].value;
+            // const picture = form.elements[ 'uploadAvatar' ].value;
+
+            // if (
+            //     email.localeCompare("") === 0 || 
+            //     login.localeCompare("") === 0 ||
+            //     name.localeCompare("") === 0
+            // ) {
+            //     alert('input error');
+            //     return;
+            // }
+            
+            // AjaxModule.doPost({
+            //     callback() { alert('Ok'); },
+            //     path: '/change_profile',
+            //     body: {
+            //         email: email,
+            //         login: login,
+            //         name: name,
+            //         avatar: picture
+            //     },
+            // });
         //     AjaxModule.doPromisePost({
         //         path: '/change_profile',
         //         body: {
