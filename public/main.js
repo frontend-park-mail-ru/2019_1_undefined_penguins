@@ -43,9 +43,59 @@ function createSignIn () {
 		el: signInSection
 	})
 
-	signIn.render();
-
+	signIn.render();  
 	application.appendChild(signInSection);
+
+	const form = document.getElementsByTagName('form')[0];
+	form.addEventListener('submit', function (event) {
+		event.preventDefault();
+
+		let email = form.elements[ 'email' ].value;
+		let password = form.elements[ 'password' ].value;
+            
+		if (signIn.status !== 200) {
+			email = '';
+			password = '';	
+			signIn.status = 200;	
+		}
+		else {
+		AjaxModule.doPromisePost({
+			path: '/login',
+			body: {
+				email: email,
+				password: password,
+			},
+		})
+		.then (
+			(data) => {
+				console.log(JSON.stringify(data));
+				if(data.status > 300) {
+					throw new Error('Network response was not ok.'); 
+				}
+				return data;  
+			})
+		.then( () => {
+			application.innerHTML = '';
+			createProfile();
+		})
+		.catch( () => {
+			console.error;
+			application.innerHTML = '';
+			createMenu();
+		});
+	}
+	// AjaxModule.doPost({
+	// 	callback() {
+	// 		application.innerHTML = '';
+	// 		createProfile();
+	// 	},
+	// 	path: '/login',
+	// 	body: {
+	// 		email: email,
+	// 		password: password,
+	// 	},
+	// });
+	});
 	application.appendChild(createMenuLink());
 }
 
@@ -53,13 +103,124 @@ function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
 
-
-	const signUp = new SignUpComponent({
+  const signUp = new SignUpComponent({
 		el: signUpSection
 	})
 
 	signUp.render();
-	application.appendChild(signUpSection);
+
+	application.appendChild(signUpSection);	
+
+	const form = document.getElementsByTagName('form')[0];
+
+	form.addEventListener('submit', function (event) {
+		event.preventDefault();
+
+	let email = form.elements[ 'email' ].value;
+	let age = parseInt(form.elements[ 'age' ].value);
+	let password = form.elements[ 'password' ].value;
+
+	if (signUp.status !== 200) {
+		email = '';
+		age = '';
+		password = '';
+		signUp.status = 200;
+	}
+	else {
+		AjaxModule.doPromisePost({
+			path: '/signup',
+			body: {
+				email: email,
+				age: age,
+				password: password
+			},	
+		})
+		.then (
+			(data) => {
+				console.log(JSON.stringify(data));
+				if(data.status > 300) {
+					throw new Error('Network response was not ok.'); 
+				}
+				return data; 
+			})
+		.then( () => {
+			application.innerHTML = '';
+			createProfile();
+		})
+		.catch( () => {
+			console.error;
+			application.innerHTML = '';
+			createMenu();
+		});          
+	}
+	})
+
+
+	// const form = document.getElementsByTagName('form')[0];
+	// form.addEventListener('submit', function (event) {
+	// 	event.preventDefault();
+
+	// 	const email = form.elements[ 'email' ].value;
+	// 	const age = parseInt(form.elements[ 'age' ].value);
+	// 	const password = form.elements[ 'password' ].value;
+
+
+	// const form = document.getElementsByTagName('form')[0];
+	// form.addEventListener('submit', function (event) {
+	// 	event.preventDefault();
+
+	// 	const email = form.elements[ 'email' ].value;
+	// 	const age = parseInt(form.elements[ 'age' ].value);
+	// 	const password = form.elements[ 'password' ].value;
+	// 	const password_repeat = form.elements[ 'password_repeat' ].value;
+
+
+		// if (password !== password_repeat) {
+		// 	alert('Пароли не совпадают');
+		// 	return;
+		// }
+		// if(
+		// 	email.localeCompare("") === 0 || 
+		// 	password.localeCompare("") === 0
+		// ){
+		// 	var errorString = 'Вы не ввели следующие поля:\n'
+		// 	if (email.localeCompare("") === 0) {
+		// 		errorString += 'email\n'
+		// 	}
+		// 	if (password.localeCompare("") === 0) {
+		// 		errorString += 'пароль\n'
+		// 	}
+		// 	alert(errorString);
+		// 	return; 
+		// }
+
+		// if(
+		// 	!password.match(/^\S{4,}$/)
+		// ){
+		// 	var errorString = 'Вы неверно ввели следующие поля:\n'
+		// 	if (!password.match(/^\S{4,}$/)) {
+		// 		errorString += 'пароль\n'
+		// 	}
+		// 	alert(errorString);
+		// 	return; 
+		// }
+	
+	
+		// AjaxModule.doPost({
+		// 	callback() {
+		// 		application.innerHTML = '';
+		// 		createProfile();
+		// 	},
+		// 	path: '/signup',
+		// 	body: {
+		// 		email: email,
+		// 		age: age,
+		// 		password: password,
+		// 	},
+		// });
+
+		// });
+
 	application.appendChild(createMenuLink());
 }
 
@@ -80,7 +241,7 @@ function createLeaderboard (users) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.DOM,
+			type: RENDER_TYPES.STRING,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -89,14 +250,31 @@ function createLeaderboard (users) {
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
 
-		AjaxModule.doGet({
-			callback(xhr) {
-				const users = JSON.parse(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/leaders',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
 				application.innerHTML = '';
 				createLeaderboard(users);
-			},
-			path: '/users',
-		});
+			})
+			.catch( console.error);
+		
+		// AjaxModule.doGet({
+		// 	callback(xhr) {
+		// 		console.log(xhr.responseText);
+		// 		const users = JSON.parse(xhr.responseText);
+		// 		console.log(xhr.responseText);
+		// 		application.innerHTML = '';
+		// 		createLeaderboard(users);
+		// 	},
+		// 	path: '/leaders',
+		// });
 	}
 
 	application.appendChild(leaderboardSection);
@@ -112,23 +290,46 @@ function createProfile (me) {
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
 	} else {
-		AjaxModule.doGet({
-			callback(xhr) {
-				if (!xhr.responseText) {
-					alert('Unauthorized');
-					application.innerHTML = '';
-					createMenu();
-					return;
-				}
-				const user = JSON.parse(xhr.responseText);
+		AjaxModule.doPromiseGet({
+			path: '/me',	
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( user => {
+				console.log(user);
 				application.innerHTML = '';
 				createProfile(user);
-			},
-			path: '/me',
-		});
+			})
+			.catch( () => {
+				alert('Unauthorized');
+				application.innerHTML = '';
+				createMenu();
+				return;
+			});
+
+// 		AjaxModule.doGet({
+// 			callback(xhr) {
+// 				if (!xhr.responseText) {
+// 					alert('Unauthorized');
+// 					application.innerHTML = '';
+// 					createMenu();
+// 					return;
+// 				}
+
+// 				const user = JSON.parse(xhr.responseText);
+// 				application.innerHTML = '';
+// 				createProfile(user);
+// 			},
+// 			path: '/me',
+// });
+
 	}
 
 	application.appendChild(profileSection);
+	application.appendChild(createMenuLink());
 }
 
 function createAbout() {

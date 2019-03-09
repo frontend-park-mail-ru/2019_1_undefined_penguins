@@ -141,10 +141,17 @@ export class ProfileComponent {
             const login = form.elements[ 'login' ].value;
             const name = form.elements[ 'name' ].value;
 
+            if (
+                email.localeCompare("") === 0 || 
+                login.localeCompare("") === 0 ||
+                name.localeCompare("") === 0
+            ) {
+                alert('input error');
+                return;
+            }
+            
             AjaxModule.doPost({
-                callback() {
-                    application.innerHTML = '';
-                },
+                callback() { alert('Ok'); },
                 path: '/change_profile',
                 body: {
                     email: email,
@@ -152,6 +159,31 @@ export class ProfileComponent {
                     name: name,
                 },
             });
+        //     AjaxModule.doPromisePost({
+        //         path: '/change_profile',
+        //         body: {
+        //             email: email,
+        //             login: login,
+        //             name: name,
+        //         },	
+        //     })
+        //     .then (
+        //         (data) => {
+        //             console.log(JSON.stringify(data));
+        //             if(data.status > 300) {
+        //                 throw new Error('Network response was not ok.'); 
+        //             }
+        //             return data; 
+        //         })
+        //     .then( () => {
+        //         application.innerHTML = '';
+        //         createProfile();
+        //     })
+        //     .catch( () => {
+        //         console.error;
+        //         application.innerHTML = '';
+        //         createMenu();
+        //     });
         });
 
         mainSection.appendChild(form);

@@ -6,6 +6,7 @@ export class SignInComponent{
         el = document.body,
     } = {}) {
         this._el = el;
+        this._status = 200;
     }
 
     _renderHeader() {        	
@@ -69,39 +70,38 @@ export class SignInComponent{
 
         
         mainSection.appendChild(form);
-        // form.addEventListener('submit', function (event) {
-        //     event.preventDefault();
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
     
-        //     const email = form.elements[ 'email' ].value;
-        //     const password = form.elements[ 'password' ].value;
-        //     if(
-        //         email.localeCompare("") === 0 || 
-        //         password.localeCompare("") === 0
-        //     ){
-        //         var errorString = 'Вы не ввели следующие поля:\n'
-        //         if (email.localeCompare("") === 0) {
-        //             errorString += 'email\n'
-        //         }
-        //         if (password.localeCompare("") === 0) {
-        //             errorString += 'пароль\n'
-        //         }
-        //         alert(errorString);
-        //         return; 
-        //     }
-        //     AjaxModule.doPost({
-        //         callback() {
-        //             application.innerHTML = '';
-        //             createProfile();
-        //         },
-        //         path: '/login',
-        //         body: {
-        //             email: email,
-        //             password: password,
-        //         },
-        //     });
-        // });
+            const email = form.elements[ 'email' ].value;
+            const password = form.elements[ 'password' ].value;
+            if(
+                email.localeCompare("") === 0 || 
+                password.localeCompare("") === 0
+            ){
+                var errorString = 'Вы не ввели следующие поля:\n'
+                if (email.localeCompare("") === 0) {
+                    errorString += 'email\n'
+                }
+                if (password.localeCompare("") === 0) {
+                    errorString += 'пароль\n'
+                }
+                alert(errorString);
+                this._status = 300;
+                return;
+            }
+        }.bind(this));
         return mainSection
         
+    }
+
+
+    set status(status) {
+        this._status = status;
+    }
+
+    get status() {
+        return this._status;
     }
 
     render(){
