@@ -12,7 +12,10 @@ import { SignUpComponent } from './components/SignUp/SignUp.js';
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
 
-
+/**
+ * Создать ссылку на главное меню
+ * @return  ссылка на главное меню
+ */
 function createMenuLink () {
 	const menuLink = document.createElement('a');
 	menuLink.href = menuLink.dataset.href = 'menu';
@@ -22,19 +25,32 @@ function createMenuLink () {
 	return menuLink;
 }
 
-
-function createMenu () {	
+/**
+ * Создание главного меню
+ */
+function createMenu (errors) {
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
 
 	const menu = new MenuComponent({el: menuSection});
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
+	if (errors) {
+		const errorsSection	= document.createElement('section');
+		errorsSection.dataset.sectionName = 'errors';
+		const err = document.createElement('span');
+		err.classList.add('errorLabel');
+		err.innerText = errors;
+		errorsSection.appendChild(err);
+		application.appendChild(errorsSection);
+	}
 
 	application.appendChild(menuSection);
 
 }
-
+/**
+ * Создание страницы авторизации
+ */
 function createSignIn () {
 	const signInSection = document.createElement('section');
 	signInSection.dataset.sectionName = "sign_in"
@@ -98,7 +114,9 @@ function createSignIn () {
 	});
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Создание страницы регистрации
+ */
 function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
@@ -152,73 +170,17 @@ function createSignUp () {
 	}
 	})
 
-
-	// const form = document.getElementsByTagName('form')[0];
-	// form.addEventListener('submit', function (event) {
-	// 	event.preventDefault();
-
-	// 	const email = form.elements[ 'email' ].value;
-	// 	const password = form.elements[ 'password' ].value;
-
-
-	// const form = document.getElementsByTagName('form')[0];
-	// form.addEventListener('submit', function (event) {
-	// 	event.preventDefault();
-
-	// 	const email = form.elements[ 'email' ].value;
-	// 	const password = form.elements[ 'password' ].value;
-	// 	const password_repeat = form.elements[ 'password_repeat' ].value;
-
-
-		// if (password !== password_repeat) {
-		// 	alert('Пароли не совпадают');
-		// 	return;
-		// }
-		// if(
-		// 	email.localeCompare("") === 0 || 
-		// 	password.localeCompare("") === 0
-		// ){
-		// 	var errorString = 'Вы не ввели следующие поля:\n'
-		// 	if (email.localeCompare("") === 0) {
-		// 		errorString += 'email\n'
-		// 	}
-		// 	if (password.localeCompare("") === 0) {
-		// 		errorString += 'пароль\n'
-		// 	}
-		// 	alert(errorString);
-		// 	return; 
-		// }
-
-		// if(
-		// 	!password.match(/^\S{4,}$/)
-		// ){
-		// 	var errorString = 'Вы неверно ввели следующие поля:\n'
-		// 	if (!password.match(/^\S{4,}$/)) {
-		// 		errorString += 'пароль\n'
-		// 	}
-		// 	alert(errorString);
-		// 	return; 
-		// }
-	
-	
-		// AjaxModule.doPost({
-		// 	callback() {
-		// 		application.innerHTML = '';
-		// 		createProfile();
-		// 	},
-		// 	path: '/signup',
-		// 	body: {
-		// 		email: email,
-		// 		password: password,
-		// 	},
-		// });
-
-		// });
-
 	application.appendChild(createMenuLink());
 }
 
-function createLeaderboard (users) {
+
+
+
+/**
+ * Создание страницы списка лидеров
+ */
+function createLeaderboard (users, pageNumber = 0) {
+
 	const leaderboardSection = document.createElement('section');
 	leaderboardSection.dataset.sectionName = 'leaders';
 
@@ -231,7 +193,7 @@ function createLeaderboard (users) {
 	leaderboardSection.appendChild(createMenuLink());
 	leaderboardSection.appendChild(document.createElement('br'));
 	leaderboardSection.appendChild(boardWrapper);
-
+	const itemsNumber = 3
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
@@ -243,9 +205,41 @@ function createLeaderboard (users) {
 		const em = document.createElement('em');
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
-
-		AjaxModule.doPromiseGet({
-			path: '/leaders',	
+		
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber,
+				items: itemsNumber,
+			},
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
+				application.innerHTML = '';
+				createLeaderboard(users, pageNumber);
+				
+			})
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+		
+	}
+	const prev = document.createElement('input');
+	prev.value = "Предыдущая страница"
+	prev.type = "button"
+	prev.addEventListener("click", function(){
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber - 1,
+				items: itemsNumber,
+			},
 		})
 			.then( response => {
 				console.log('Response status: ' + response.status);
@@ -255,24 +249,56 @@ function createLeaderboard (users) {
 			.then( users => {
 				console.log(users);
 				application.innerHTML = '';
-				createLeaderboard(users);
+				createLeaderboard(users, pageNumber - 1);
 			})
-			.catch( console.error);
-		
-		// AjaxModule.doGet({
-		// 	callback(xhr) {
-		// 		console.log(xhr.responseText);
-		// 		const users = JSON.parse(xhr.responseText);
-		// 		console.log(xhr.responseText);
-		// 		application.innerHTML = '';
-		// 		createLeaderboard(users);
-		// 	},
-		// 	path: '/leaders',
-		// });
-	}
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+	});
+
+
+
+	const next = document.createElement('input');
+	next.value = "Следующая страница"
+	next.type = "button"
+	next.addEventListener("click", function(){
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber + 1,
+				items: itemsNumber,
+			},
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
+				application.innerHTML = '';
+				createLeaderboard(users, pageNumber + 1);
+			})
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+	});
 
 	application.appendChild(leaderboardSection);
+	application.appendChild(prev);
+	application.appendChild(next);
 }
+
+
+
+/**
+ * Создание страницы профиля пользователя
+ */
+
 function createProfile (me) {
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
@@ -297,9 +323,8 @@ function createProfile (me) {
 				createProfile(user);
 			})
 			.catch( () => {
-				alert('Unauthorized');
 				application.innerHTML = '';
-				createMenu();
+				createMenu('Unauthorized');
 				return;
 			});
 
@@ -324,7 +349,9 @@ function createProfile (me) {
 	application.appendChild(profileSection);
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Создание страницы с информацией об игре
+ */
 function createAbout() {
 	const aboutSection = document.createElement('section');
 	aboutSection.dataset.sectionName = 'about';
@@ -336,7 +363,9 @@ function createAbout() {
 	application.appendChild(aboutSection);
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Выход пользователя из аккаунта
+ */
 function signOut() {
 	AjaxModule.doPromiseGet({
 		path: '/signout',	
@@ -352,9 +381,8 @@ function signOut() {
 			createMenu();
 		})
 		.catch( () => {
-			alert('Unauthorized');
 			application.innerHTML = '';
-			createMenu();
+			createMenu('Unauthorized');
 			return;
 		});
 	
