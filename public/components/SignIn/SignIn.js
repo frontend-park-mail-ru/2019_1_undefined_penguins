@@ -50,7 +50,7 @@ export class SignInComponent{
     _renderBody(){
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main';
-        const err = document.createElement('span')
+        const err = document.createElement('span');
         err.classList.add('errorLabel');
         const form = document.createElement('form');
 
@@ -85,7 +85,7 @@ export class SignInComponent{
         mainSection.appendChild(form);
         mainSection.appendChild(err);
         form.addEventListener('submit', function (event) {
-            err.innerText = ''
+            err.innerText = '';
             event.preventDefault();
     
             const email = form.elements[ 'email' ].value;
@@ -98,21 +98,20 @@ export class SignInComponent{
             ){
                 var errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
-                    errorString += 'email\n'
+                    errorString += 'email\n';
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
                 if (password.localeCompare("") === 0) {
-                    errorString += 'пароль\n'
+                    errorString += 'пароль\n';
                     form.elements[ 'password' ].classList.add('errorInput');
 
                 }
-                // alert(errorString);
-                err.innerText = errorString
+                err.innerText = errorString;
                 this._status = 300;
                 return;
             }
         }.bind(this));
-        return mainSection
+        return mainSection;
         
     }
 
