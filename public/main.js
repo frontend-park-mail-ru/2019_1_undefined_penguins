@@ -28,13 +28,22 @@ function createMenuLink () {
 /**
  * Создание главного меню
  */
-function createMenu () {	
+function createMenu (errors) {
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
 
 	const menu = new MenuComponent({el: menuSection});
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
+	if (errors) {
+		const errorsSection	= document.createElement('section');
+		errorsSection.dataset.sectionName = 'errors';
+		const err = document.createElement('span');
+		err.classList.add('errorLabel');
+		err.innerText = errors;
+		errorsSection.appendChild(err);
+		application.appendChild(errorsSection);
+	}
 
 	application.appendChild(menuSection);
 
@@ -160,69 +169,6 @@ function createSignUp () {
 		});          
 	}
 	})
-
-
-	// const form = document.getElementsByTagName('form')[0];
-	// form.addEventListener('submit', function (event) {
-	// 	event.preventDefault();
-
-	// 	const email = form.elements[ 'email' ].value;
-	// 	const password = form.elements[ 'password' ].value;
-
-
-	// const form = document.getElementsByTagName('form')[0];
-	// form.addEventListener('submit', function (event) {
-	// 	event.preventDefault();
-
-	// 	const email = form.elements[ 'email' ].value;
-	// 	const password = form.elements[ 'password' ].value;
-	// 	const password_repeat = form.elements[ 'password_repeat' ].value;
-
-
-		// if (password !== password_repeat) {
-		// 	alert('Пароли не совпадают');
-		// 	return;
-		// }
-		// if(
-		// 	email.localeCompare("") === 0 || 
-		// 	password.localeCompare("") === 0
-		// ){
-		// 	var errorString = 'Вы не ввели следующие поля:\n'
-		// 	if (email.localeCompare("") === 0) {
-		// 		errorString += 'email\n'
-		// 	}
-		// 	if (password.localeCompare("") === 0) {
-		// 		errorString += 'пароль\n'
-		// 	}
-		// 	alert(errorString);
-		// 	return; 
-		// }
-
-		// if(
-		// 	!password.match(/^\S{4,}$/)
-		// ){
-		// 	var errorString = 'Вы неверно ввели следующие поля:\n'
-		// 	if (!password.match(/^\S{4,}$/)) {
-		// 		errorString += 'пароль\n'
-		// 	}
-		// 	alert(errorString);
-		// 	return; 
-		// }
-	
-	
-		// AjaxModule.doPost({
-		// 	callback() {
-		// 		application.innerHTML = '';
-		// 		createProfile();
-		// 	},
-		// 	path: '/signup',
-		// 	body: {
-		// 		email: email,
-		// 		password: password,
-		// 	},
-		// });
-
-		// });
 
 	application.appendChild(createMenuLink());
 }
@@ -377,9 +323,8 @@ function createProfile (me) {
 				createProfile(user);
 			})
 			.catch( () => {
-				alert('Unauthorized');
 				application.innerHTML = '';
-				createMenu();
+				createMenu('Unauthorized');
 				return;
 			});
 
@@ -436,9 +381,8 @@ function signOut() {
 			createMenu();
 		})
 		.catch( () => {
-			alert('Unauthorized');
 			application.innerHTML = '';
-			createMenu();
+			createMenu('Unauthorized');
 			return;
 		});
 	
