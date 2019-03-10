@@ -96,13 +96,13 @@ export class SignInComponent{
                 email.localeCompare("") === 0 || 
                 password.localeCompare("") === 0
             ){
-                var errorString = 'Вы не ввели следующие поля:\n'
+                let errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
-                    errorString += 'email\n';
+                    errorString = `${errorString}email\n`;
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
                 if (password.localeCompare("") === 0) {
-                    errorString += 'пароль\n';
+                    errorString = `${errorString}пароль\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
 
                 }
