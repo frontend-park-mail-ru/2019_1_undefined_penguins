@@ -133,17 +133,13 @@ export class ProfileComponent {
         const button = document.createElement('input');
         button.name = 'save';
         button.type = 'submit';
-        button.value = 'Сохранить'; 
+        button.value = 'Сохранить';
         
         const inputAvatar = document.createElement('input');
         inputAvatar.name = 'inputAvatar';
         inputAvatar.type = 'file';
         inputAvatar.accept = 'image/*';
         inputAvatar.classList = "inputAvatar";
-
-        const uploadImage = () => (new Promise((resolve, reject) => {
-            resolve(file.name, reader.result);
-        }));
 
         inputAvatar.addEventListener('change', (event) => {
             event.preventDefault();
@@ -152,7 +148,8 @@ export class ProfileComponent {
             let file = event.target.files[0];
 
             reader.onloadend = () => {
-                uploadImage(file, reader);
+                this._avatarName = file.name;
+                this._avatarBlob = reader.result;
             };
             reader.readAsDataURL(file);
         }, false)
@@ -180,6 +177,12 @@ export class ProfileComponent {
 
             if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
                 alert('only jpeg or png photos!!');
+                return;
+            }
+
+            console.log(userAvatar.size);
+            if (userAvatar.size > 70000) {
+                alert('photo is very large (70Кб)!!');
                 return;
             }
 
