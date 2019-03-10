@@ -1,14 +1,27 @@
+/** Класс компонента меню. */
+
 export class MenuComponent {
+    /**
+     * Конструктор компонента Menu.
+     * @param el - Тело документа
+     */
+    
     constructor({
         el = document.body,
     } = {}) {
         this._el = el;
     }
-
+	/**
+			 * Возврат значения header.
+			 * @return  Значение header
+			 */
     get header() {
         return this._header;
     }
-
+    /**
+         * Установка значения header.
+         * @param [data = ""] Значение, устанавливающееся в header
+         */
     set header(data = "") {
         this._header = data; 
     }
@@ -41,7 +54,11 @@ export class MenuComponent {
     // }
 
     // ////////////////////////////////////////
+    /**
+         * Рендеринг header.
+         * @return   headerSection
 
+         */
     _renderHeader() {
         const headerSection = document.createElement('section');
         headerSection.dataset.sectionName = 'header';
@@ -80,7 +97,11 @@ export class MenuComponent {
 
         return headerSection;
     }
-    
+       /**
+         * Рендеринг тела.
+         * @return   mainSection
+
+         */
     _renderBody() {
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main';
@@ -136,7 +157,9 @@ export class MenuComponent {
         
         return mainSection;
     }
-
+       /**
+         * Рендеринг страницы.
+         */
     render() {
         const head = this._renderHeader();
         const body = this._renderBody();

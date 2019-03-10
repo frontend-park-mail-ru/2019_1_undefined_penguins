@@ -12,7 +12,10 @@ import { SignUpComponent } from './components/SignUp/SignUp.js';
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
 
-
+/**
+ * Создать ссылку на главное меню
+ * @return  ссылка на главное меню
+ */
 function createMenuLink () {
 	const menuLink = document.createElement('a');
 	menuLink.href = menuLink.dataset.href = 'menu';
@@ -22,7 +25,9 @@ function createMenuLink () {
 	return menuLink;
 }
 
-
+/**
+ * Создание главного меню
+ */
 function createMenu () {	
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
@@ -34,7 +39,9 @@ function createMenu () {
 	application.appendChild(menuSection);
 
 }
-
+/**
+ * Создание страницы авторизации
+ */
 function createSignIn () {
 	const signInSection = document.createElement('section');
 	signInSection.dataset.sectionName = "sign_in"
@@ -98,7 +105,9 @@ function createSignIn () {
 	});
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Создание страницы регистрации
+ */
 function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
@@ -218,7 +227,14 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
+
+
+
+/**
+ * Создание страницы списка лидеров
+ */
 function createLeaderboard (users, pageNumber = 0) {
+
 	const leaderboardSection = document.createElement('section');
 	leaderboardSection.dataset.sectionName = 'leaders';
 
@@ -330,6 +346,13 @@ function createLeaderboard (users, pageNumber = 0) {
 	application.appendChild(prev);
 	application.appendChild(next);
 }
+
+
+
+/**
+ * Создание страницы профиля пользователя
+ */
+
 function createProfile (me) {
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
@@ -381,7 +404,9 @@ function createProfile (me) {
 	application.appendChild(profileSection);
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Создание страницы с информацией об игре
+ */
 function createAbout() {
 	const aboutSection = document.createElement('section');
 	aboutSection.dataset.sectionName = 'about';
@@ -393,7 +418,9 @@ function createAbout() {
 	application.appendChild(aboutSection);
 	application.appendChild(createMenuLink());
 }
-
+/**
+ * Выход пользователя из аккаунта
+ */
 function signOut() {
 	AjaxModule.doPromiseGet({
 		path: '/signout',	
