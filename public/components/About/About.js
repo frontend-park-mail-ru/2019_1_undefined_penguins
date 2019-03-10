@@ -118,7 +118,7 @@ export class AboutComponent {
     }
 
     _renderTmpl() {
-		this._el.innerHTML = window.fest['components/About/About.tmpl'](this._data);
+		this._el.innerHTML = window.fest['components/About/About.tmpl']();
 	}
 
     render() {
@@ -130,8 +130,7 @@ export class AboutComponent {
                 this._el.appendChild(body);
             	break;
             case RENDER_TYPES.TMPL:
-                const page = this._renderTmpl();
-                this._el.append(page);
+                this._renderTmpl();
             	break;
             default:
         }

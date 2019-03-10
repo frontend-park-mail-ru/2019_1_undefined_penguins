@@ -8,8 +8,10 @@ export class SignUpComponent{
      */
     constructor({
         el = document.body,
+        type = RENDER_TYPES.TMPL,
     } = {}) {
         this._el = el;
+        this._type = type;
         this._status = 200;
     }
         /**

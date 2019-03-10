@@ -32,7 +32,10 @@ function createMenu (errors) {
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
 
-	const menu = new MenuComponent({el: menuSection});
+	const menu = new MenuComponent({
+		el: menuSection,
+		type: RENDER_TYPES.TMPL,
+	});
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
 	if (errors) {
@@ -175,9 +178,6 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
-
-
-
 /**
  * Создание страницы списка лидеров
  */
@@ -294,8 +294,6 @@ function createLeaderboard (users, pageNumber = 0) {
 	application.appendChild(prev);
 	application.appendChild(next);
 }
-
-
 
 /**
  * Создание страницы профиля пользователя

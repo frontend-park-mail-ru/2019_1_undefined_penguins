@@ -267,8 +267,7 @@ export class ProfileComponent {
                 this._el.appendChild(body);
             	break;
             case RENDER_TYPES.TMPL:
-                const page = this._renderTmpl();
-                this._el.append(page);
+                this._renderTmpl();
             	break;
             default:
         }
