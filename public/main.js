@@ -260,6 +260,9 @@ function createLeaderboard (users, pageNumber = 0) {
 
 
 
+	
+
+
 	const next = document.createElement('input');
 	next.value = "Следующая страница"
 	next.type = "button"
