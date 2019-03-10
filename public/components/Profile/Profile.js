@@ -1,16 +1,20 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
 /** Класс компонента профиля */
 export class ProfileComponent {
-    /**
-     * Конструктор компонента авторизации.
+	/**
+     * Конструктор компонента Profile.
      * @param el - Тело документа
+     * @param type - Вид рендеринга страницы
      */
-    constructor({
-        el = document.body,
-    } = {}) {
-        this._el = el;
+	constructor({
+		el = document.body,
+		type = RENDER_TYPES.TMPL,
+	} = {}) {
+		this._el = el;
+        this._type = type;
         this._avatarName = "";
         this._avatarBlob = "";
-    }
+	}
 
     get data() {
 		return this._data;
@@ -247,14 +251,26 @@ export class ProfileComponent {
         mainSection.appendChild(err);
         return mainSection;
     }   
+
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/Profile/Profile.tmpl'](this._data);
+	}
        /**
          * Рендеринг страницы.
          */
     render() {
-        const head = this._renderHeader();
-        const body = this._renderBody();
-
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                const page = this._renderTmpl();
+                this._el.append(page);
+            	break;
+            default:
+        }
     }
 }

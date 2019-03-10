@@ -1,0 +1,44 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section data-section-name="header">
+        <div id="goBack">
+            <img src="../../images/home.png"/>
+        </div>
+        <div id="title">
+            <h2>Профиль игрока</h2>
+        </div>
+    </section>
+    <section data-section-name="main_profile">
+        <form class="profile_form" enctype="multipart/form-data">
+            <div class="data_inline">
+                <img class="avatar" src="{data.avatarBlob}"/>
+                <div class="data">
+                    <div>
+                        <label>Логин: </label>
+                        <input name="login" type="text" value="<fest:value>data.login</fest:value>"/>
+                    </div>
+                    <div>
+                        <label>Имя: </label>
+                        <input name="name" type="text" value="<fest:value>data.name</fest:value>"/>
+                    </div>
+                    <div>
+                        <label>Email: </label>
+                        <input name="email" type="email" value="<fest:value>data.email</fest:value>"/>
+                    </div>
+                </div>
+            </div>
+            <input name="inputAvatar" type="file" accept="image/*" class="inputAvatar"/>
+            <input name="save" type="submit" value="Сохранить"/>
+            <div class="data_inline info">
+                <div class="info_block">
+                    <label>Лучший результат:</label>
+                    <label><fest:value>data.score</fest:value></label>
+                </div>
+                <div class="info_block">
+                    <label>Последняя игра:</label>
+                    <label><fest:value>data.lastVisit</fest:value></label>
+                </div>
+            </div>
+        </form>
+        <span class="errorLabel"></span>
+    </section>    
+</fest:template>

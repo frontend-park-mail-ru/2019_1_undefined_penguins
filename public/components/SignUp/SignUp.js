@@ -1,5 +1,5 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
 /** Класс компонента регистрации */
-
 export class SignUpComponent{
 
      /**
@@ -151,14 +151,26 @@ export class SignUpComponent{
     get status() {
         return this._status;
     }
+
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/SignUp/SignUp.tmpl'](this._data);
+	}
        /**
          * Рендеринг страницы.
          */
-    render(){
-        const head = this._renderHeader();
-        const body = this._renderBody();
-
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+    render() {
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                const page = this._renderTmpl();
+                this._el.append(page);
+            	break;
+            default:
+        }
     }
 }

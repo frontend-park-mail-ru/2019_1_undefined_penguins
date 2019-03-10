@@ -56,7 +56,8 @@ function createSignIn () {
 	signInSection.dataset.sectionName = "sign_in"
 
 	const signIn = new SignInComponent({
-		el: signInSection
+		el: signInSection,
+		type: RENDER_TYPES.TMPL,
 	})
 
 	signIn.render();  
@@ -122,7 +123,8 @@ function createSignUp () {
 	signUpSection.dataset.sectionName = 'sign_up';
 
   const signUp = new SignUpComponent({
-		el: signUpSection
+		el: signUpSection,
+		type: RENDER_TYPES.TMPL,
 	})
 
 	signUp.render();
@@ -197,7 +199,7 @@ function createLeaderboard (users, pageNumber = 0) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.STRING,
+			type: RENDER_TYPES.TMPL,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -306,6 +308,7 @@ function createProfile (me) {
 	if (me) {
 		const profile = new ProfileComponent({
 			el: profileSection,
+			type: RENDER_TYPES.TMPL,
 		});
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
@@ -357,7 +360,8 @@ function createAbout() {
 	aboutSection.dataset.sectionName = 'about';
 
 	const about = new AboutComponent({
-		el: aboutSection
+		el: aboutSection,
+		type: RENDER_TYPES.TMPL,
 	});
 	about.render();
 	application.appendChild(aboutSection);
