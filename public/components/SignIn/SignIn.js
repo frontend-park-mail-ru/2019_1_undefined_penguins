@@ -90,6 +90,8 @@ export class SignInComponent{
     
             const email = form.elements[ 'email' ].value;
             const password = form.elements[ 'password' ].value;
+            form.elements[ 'email' ].classList.remove('errorInput');
+            form.elements[ 'password' ].classList.remove('errorInput');
             if(
                 email.localeCompare("") === 0 || 
                 password.localeCompare("") === 0

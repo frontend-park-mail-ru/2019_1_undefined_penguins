@@ -1,8 +1,15 @@
+/** Класс компонента профиля */
 export class ProfileComponent {
+    /**
+     * Конструктор компонента авторизации.
+     * @param el - Тело документа
+     */
     constructor({
         el = document.body,
     } = {}) {
         this._el = el;
+        this._avatarName = "";
+        this._avatarBlob = "";
     }
 
     get data() {
@@ -12,7 +19,11 @@ export class ProfileComponent {
 	set data(d = []) {
 		this._data = d;
     }
-    
+    /**
+         * Рендеринг header.
+         * @return   headerSection
+
+         */
     _renderHeader() {
         const headerSection = document.createElement('section');
         headerSection.dataset.sectionName = 'header';
@@ -40,20 +51,25 @@ export class ProfileComponent {
 
         return headerSection;
     }
+       /**
+         * Рендеринг тела.
+         * @return   mainSection
 
+         */
     _renderBody() {
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main_profile';
 
         const form = document.createElement('form');
         form.classList = 'profile_form';
+        form.enctype = "multipart/form-data";
 
         const dataInline = document.createElement('div');
         dataInline.classList = 'data_inline';
 
         const avatar = document.createElement('img');
         avatar.classList = 'avatar';
-        avatar.src = '././images/user.svg';
+        avatar.src = this._data.avatarBlob;
 
         const data = document.createElement('div');
         data.classList = 'data';
@@ -133,110 +149,106 @@ export class ProfileComponent {
         button.value = 'Сохранить'; 
         
         const inputAvatar = document.createElement('input');
-        inputAvatar.name = 'uploadAvatar';
+        inputAvatar.name = 'inputAvatar';
         inputAvatar.type = 'file';
         inputAvatar.accept = 'image/*';
         inputAvatar.classList = "inputAvatar";
 
+        inputAvatar.addEventListener('change', (event) => {
+            event.preventDefault();
+
+            let reader = new FileReader();
+            let file = event.target.files[0];
+
+            reader.onloadend = () => {
+                this._avatarName = file.name;
+                this._avatarBlob = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }, false)
+
         form.appendChild(inputAvatar);
         form.appendChild(button);
         form.appendChild(infoInline);
-
+        const err = document.createElement('span')
+        err.classList.add('errorLabel');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-    
+            err.innerText = ''
             const userAvatar = document.getElementsByClassName('inputAvatar')[0].files[0];
             const email = form.elements[ 'email' ].value;
             const login = form.elements[ 'login' ].value;
             const name = form.elements[ 'name' ].value;
-
+            form.elements[ 'email' ].classList.remove('errorInput');
+            form.elements[ 'login' ].classList.remove('errorInput');
+            form.elements[ 'name' ].classList.remove('errorInput');
             if (
                     email.localeCompare("") === 0 || 
                     login.localeCompare("") === 0 ||
                     name.localeCompare("") === 0
                 ) {
-                    alert('input error');
+                    var errorString = 'Вы не ввели следующие поля:\n'
+                    if (email.localeCompare("") === 0) {
+                        errorString += 'email\n'
+                        form.elements[ 'email' ].classList.add('errorInput');
+                    }
+                    if (login.localeCompare("") === 0) {
+                        errorString += 'логин\n'
+                        form.elements[ 'login' ].classList.add('errorInput');
+                    }
+                    if (name.localeCompare("") === 0) {
+                        errorString += 'имя\n'
+                        form.elements[ 'name' ].classList.add('errorInput');
+                    }
+                    
+                    // err.innerText = errorString
                     return;
                 }
 
-            if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
-                alert('only jpeg or png photos!!');
-                return;
-            }
+            // if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
+            //     alert('only jpeg or png photos!!');
+            //     return;
+            // }
 
-            ajax((xhr) => {
-                const source = JSON.parse(xhr.responseText);
-                const image = document.createElement('IMG');
+            const avatarName = this._avatarName;
+            const avatarBlob = this._avatarBlob;
 
-                // checking returned error
-                if (source.error !== undefined) {
-                    return;
-                }
-
-                image.src = source;
-            },  'POST', 
-                '/profile', {
+            AjaxModule.doPromisePost({
+                path: '/change_profile',
+                body: {
                     email: email,
                     login: login,
                     name: name,
-                    avatar: userAvatar
-                });
-            // const email = form.elements[ 'email' ].value;
-            // const login = form.elements[ 'login' ].value;
-            // const name = form.elements[ 'name' ].value;
-            // const picture = form.elements[ 'uploadAvatar' ].value;
-
-            // if (
-            //     email.localeCompare("") === 0 || 
-            //     login.localeCompare("") === 0 ||
-            //     name.localeCompare("") === 0
-            // ) {
-            //     alert('input error');
-            //     return;
-            // }
-            
-            // AjaxModule.doPost({
-            //     callback() { alert('Ok'); },
-            //     path: '/change_profile',
-            //     body: {
-            //         email: email,
-            //         login: login,
-            //         name: name,
-            //         avatar: picture
-            //     },
-            // });
-        //     AjaxModule.doPromisePost({
-        //         path: '/change_profile',
-        //         body: {
-        //             email: email,
-        //             login: login,
-        //             name: name,
-        //         },	
-        //     })
-        //     .then (
-        //         (data) => {
-        //             console.log(JSON.stringify(data));
-        //             if(data.status > 300) {
-        //                 throw new Error('Network response was not ok.'); 
-        //             }
-        //             return data; 
-        //         })
-        //     .then( () => {
-        //         application.innerHTML = '';
-        //         createProfile();
-        //     })
-        //     .catch( () => {
-        //         console.error;
-        //         application.innerHTML = '';
-        //         createMenu();
-        //     });
-        });
+                    avatarName: avatarName,
+                    avatarBlob: avatarBlob
+                },	
+            })
+            .then (
+                (res) => {
+                    // console.log(JSON.stringify(res));
+                    console.log(res);
+                    if(res.status > 400) {
+                        throw new Error('Network response was not ok.'); 
+                    }
+                    return res.json(); 
+                })
+            .then( (res) => {
+                avatar.src = res.result;
+            })
+            .catch( () => {
+                console.error;
+                application.innerHTML = '';
+                alert('ERROR');
+            }); 
+        }.bind(this));
 
         mainSection.appendChild(form);
-
+        mainSection.appendChild(err);
         return mainSection;
     }   
-
+       /**
+         * Рендеринг страницы.
+         */
     render() {
         const head = this._renderHeader();
         const body = this._renderBody();
@@ -244,5 +256,4 @@ export class ProfileComponent {
         this._el.appendChild(head);
         this._el.appendChild(body);
     }
-
 }

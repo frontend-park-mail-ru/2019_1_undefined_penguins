@@ -109,17 +109,18 @@ export class BoardComponent {
 			 * Рендеринг страницы 
 			 */
 	render() {
-		switch(this._type) {
-			case RENDER_TYPES.DOM:
-				this._renderDOM();
-				break;
-			case RENDER_TYPES.STRING:
-				this._renderString();
-				break;
-			case RENDER_TYPES.TMPL:
-				this.__renderTmpl();
-				break;
-			default:
-		}
-    }
+		this._renderDOM();
+		// switch(this._type) {
+		// 	case RENDER_TYPES.DOM:
+		// 		this._renderDOM();
+		// 		break;
+		// 	case RENDER_TYPES.STRING:
+		// 		this._renderString();
+		// 		break;
+		// 	case RENDER_TYPES.TMPL:
+		// 		this.__renderTmpl();
+		// 		break;
+		// 	default:
+		// }
+  }
 }
