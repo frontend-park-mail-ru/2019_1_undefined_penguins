@@ -91,7 +91,7 @@ export class SignUpComponent{
         mainSection.appendChild(form);
         mainSection.appendChild(err);
 
-        var status = 200;
+        let status = 200;
         form.addEventListener('submit', function (event) {
             err.innerText = '';
             event.preventDefault();
@@ -112,17 +112,17 @@ export class SignUpComponent{
             ){
                 errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
-                    errorString += 'email\n';
+                    errorString = `${errorString}email\n`;
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
                 if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
-                    errorString += 'пароль\n';
+                    errorString = `${errorString}пароль\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
                     form.elements[ 'password_repeat' ].classList.add('errorInput');
 
                 }
                 if (password !== password_repeat) {
-                    errorString += '\nПароли не совпадают';
+                    errorString = `${errorString}Пароли не совпадают\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
                     form.elements[ 'password_repeat' ].classList.add('errorInput');
     
