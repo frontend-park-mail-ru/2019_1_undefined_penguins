@@ -1,91 +1,92 @@
-(function() {
-	const noop = () => null;
-	const nowSh = 'https://penguins-corsairs.now.sh';
-	const home = 'http://localhost:3000';
-	
-	class AjaxModule {
-		_ajax({
-			callback = noop,
-			method = 'GET',
-			path = '/',
-			body = {},
-		} = {}) {
-			const xhr = new XMLHttpRequest();
-			xhr.open(method, home + path, true);
-			xhr.withCredentials = true;
+(function () {
+  const noop = () => null;
+  const nowSh = 'https://penguins-corsairs.now.sh';
+  const home = 'http://localhost:3000';
 
-			if (body) {
-				xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-			}
+  class AjaxModule {
+    _ajax({
+      callback = noop,
+      method = 'GET',
+      path = '/',
+      body = {},
+    } = {}) {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, home + path, true);
+      xhr.withCredentials = true;
 
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState !== 4) {
-					return;
-				}
+      if (body) {
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      }
 
-				callback(xhr);
-			};
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) {
+          return;
+        }
 
-			if (body) {
-				xhr.send(JSON.stringify(body));
-			} else {
-				xhr.send();
-			}
-		}
+        callback(xhr);
+      };
 
-		doGet({
-			callback = noop,
-			path = '/',
-			body = {},
-		} = {}) {
-			this._ajax({
-				callback,
-				path,
-				body,
-				method: 'GET',
-			});
-		}
-		doPost({
-			callback = noop,
-			path = '/',
-			body = {},
-		} = {}) {
-			this._ajax({
-				callback,
-				path,
-				body,
-				method: 'POST',
-			});
-		}
+      if (body) {
+        xhr.send(JSON.stringify(body));
+      } else {
+        xhr.send();
+      }
+    }
 
-		doPromisePost({
-			path = '/',
-			body = {},
-		} = {}) {
-			// return fetch(nowSh + path, {
-			return fetch(home + path, {
-				method: 'POST',
-				mode: 'cors',
-				credentials: 'include',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-				},
-				body: JSON.stringify(body)
-			})
-		}
+    doGet({
+      callback = noop,
+      path = '/',
+      body = {},
+    } = {}) {
+      this._ajax({
+        callback,
+        path,
+        body,
+        method: 'GET',
+      });
+    }
 
-		doPromiseGet({
-			path = '/',
-		} = {}) {
-			// return fetch(nowSh + path, {
-			return fetch(home + path, {
-				method: 'GET',
-				mode: 'cors',
-				credentials: 'include',
-				body: null,
-			});
-		}
-	}
+    doPost({
+      callback = noop,
+      path = '/',
+      body = {},
+    } = {}) {
+      this._ajax({
+        callback,
+        path,
+        body,
+        method: 'POST',
+      });
+    }
 
-	window.AjaxModule = new AjaxModule();
-})();
+    doPromisePost({
+      path = '/',
+      body = {},
+    } = {}) {
+      // return fetch(nowSh + path, {
+      return fetch(home + path, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify(body),
+      });
+    }
+
+    doPromiseGet({
+      path = '/',
+    } = {}) {
+      // return fetch(nowSh + path, {
+      return fetch(home + path, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        body: null,
+      });
+    }
+  }
+
+  window.AjaxModule = new AjaxModule();
+}());

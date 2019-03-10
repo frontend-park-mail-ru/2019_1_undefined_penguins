@@ -1,63 +1,63 @@
-import {RENDER_TYPES} from '../../utils/constants.js';
-import {makeSafe} from '../../utils/safe.js';
+import { RENDER_TYPES } from '../../utils/constants.js';
+import { makeSafe } from '../../utils/safe.js';
 
 export class BoardComponent {
-	constructor({
-		el = document.body,
-		type = RENDER_TYPES.DOM,
-	} = {}) {
-		this._el = el;
-		this._type = type;
-	}
+  constructor({
+    el = document.body,
+    type = RENDER_TYPES.DOM,
+  } = {}) {
+    this._el = el;
+    this._type = type;
+  }
 
-	get data() {
-		return this._data;
-	}
+  get data() {
+    return this._data;
+  }
 
-	set data(d = []) {
-		this._data = d;
-	}
+  set data(d = []) {
+    this._data = d;
+  }
 
-	_renderDOM() {
-		const table = document.createElement('table');
-		const thead = document.createElement('thead');
-		thead.innerHTML = `
+  _renderDOM() {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
 			<tr>
 				<th>Email</th>
 				<th>Score</th>
 			</th>
 		`;
-		const tbody = document.createElement('tbody');
+    const tbody = document.createElement('tbody');
 
-		table.appendChild(thead);
-		table.appendChild(tbody);
-		table.border = 1;
-		table.cellSpacing = table.cellPadding = 0;
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    table.border = 1;
+    table.cellSpacing = table.cellPadding = 0;
 
-		this._data.forEach(function ({
-			email = 'test@mail.ru',
-			score = 100500,
-		} = {}) {
-			const tr = document.createElement('tr');
-			const tdEmail = document.createElement('td');
-			const tdScore = document.createElement('td');
+    this._data.forEach(({
+      email = 'test@mail.ru',
+      score = 100500,
+    } = {}) => {
+      const tr = document.createElement('tr');
+      const tdEmail = document.createElement('td');
+      const tdScore = document.createElement('td');
 
-			tr.classList.add('table__row');
+      tr.classList.add('table__row');
 
-			tdEmail.innerHTML = makeSafe(email);
-			tdScore.textContent = score;
+      tdEmail.innerHTML = makeSafe(email);
+      tdScore.textContent = score;
 
-			tr.appendChild(tdEmail);
-			tr.appendChild(tdScore);
+      tr.appendChild(tdEmail);
+      tr.appendChild(tdScore);
 
-			tbody.appendChild(tr);
+      tbody.appendChild(tr);
 
-			this._el.appendChild(table);
-		}.bind(this));
-	}
+      this._el.appendChild(table);
+    });
+  }
 
-	_renderString() {
-		this._el.innerHTML = `
+  _renderString() {
+    this._el.innerHTML = `
 			<table border="1" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
@@ -67,40 +67,38 @@ export class BoardComponent {
 				</thead>
 				<tbody>
 					${this._data
-						.map(({
-							email = 'test@mail.ru',
-							score = 100500,
-						} = {}) => {
-							return `
+    .map(({
+      email = 'test@mail.ru',
+      score = 100500,
+    } = {}) => `
 								<tr class="table__row">
 									<td>${email}</td>
 									<td>${score}</td>
 								</tr>
-							`;
-						})
-						.join('\n')
-					}
+							`)
+    .join('\n')
+}
 				</tbody>
 			</table>
 		`;
-	}
+  }
 
-	__renderTmpl() {
-		this._el.innerHTML = window.fest['components/Board/Board.tmpl'](this._data);
-	}
+  __renderTmpl() {
+    this._el.innerHTML = window.fest['components/Board/Board.tmpl'](this._data);
+  }
 
-	render() {
-		switch(this._type) {
-			case RENDER_TYPES.DOM:
-				this._renderDOM();
-				break;
-			case RENDER_TYPES.STRING:
-				this._renderString();
-				break;
-			case RENDER_TYPES.TMPL:
-				this.__renderTmpl();
-				break;
-			default:
-		}
+  render() {
+    switch (this._type) {
+      case RENDER_TYPES.DOM:
+        this._renderDOM();
+        break;
+      case RENDER_TYPES.STRING:
+        this._renderString();
+        break;
+      case RENDER_TYPES.TMPL:
+        this.__renderTmpl();
+        break;
+      default:
     }
+  }
 }
