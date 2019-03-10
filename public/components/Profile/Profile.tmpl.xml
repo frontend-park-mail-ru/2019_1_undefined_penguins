@@ -14,15 +14,15 @@
                 <div class="data">
                     <div>
                         <label>Логин: </label>
-                        <input name="login" type="text" value="<fest:value>data.login</fest:value>"/>
+                        <input name="login" type="text" value="{data.login}"/>
                     </div>
                     <div>
                         <label>Имя: </label>
-                        <input name="name" type="text" value="<fest:value>data.name</fest:value>"/>
+                        <input name="name" type="text" value="{data.name}"/>
                     </div>
                     <div>
                         <label>Email: </label>
-                        <input name="email" type="email" value="<fest:value>data.email</fest:value>"/>
+                        <input name="email" type="email" value="{data.email}"/>
                     </div>
                 </div>
             </div>

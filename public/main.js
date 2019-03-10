@@ -347,8 +347,87 @@ function createProfile (me) {
 
 	}
 
-	application.appendChild(profileSection);
-	application.appendChild(createMenuLink());
+	//  const inputAvatar = getElementsByClassName('inputAvatar')[0];
+    //     inputAvatar.addEventListener('change', (event) => {
+    //         event.preventDefault();
+
+    //         let reader = new FileReader();
+    //         let file = event.target.files[0];
+
+    //         reader.onloadend = () => {
+    //             this._avatarName = file.name;
+    //             this._avatarBlob = reader.result;
+    //         };
+    //         reader.readAsDataURL(file);
+    //     }, false)
+    //     const form = getElementsByClassName('profile_form')[0];
+    //     form.addEventListener('submit', function (event) {
+    //         event.preventDefault();
+    //         err.innerText = '';
+    //         const userAvatar = document.getElementsByClassName('inputAvatar')[0].files[0];
+    //         const email = form.elements[ 'email' ].value;
+    //         const login = form.elements[ 'login' ].value;
+    //         const name = form.elements[ 'name' ].value;
+    //         form.elements[ 'email' ].classList.remove('errorInput');
+    //         form.elements[ 'login' ].classList.remove('errorInput');
+    //         form.elements[ 'name' ].classList.remove('errorInput');
+    //         if (
+    //                 email.localeCompare("") === 0 || 
+    //                 login.localeCompare("") === 0 ||
+    //                 name.localeCompare("") === 0
+    //             ) {
+    //                 var errorString = 'Вы не ввели следующие поля:\n';
+    //                 if (email.localeCompare("") === 0) {
+    //                     errorString += 'email\n';
+    //                     form.elements[ 'email' ].classList.add('errorInput');
+    //                 }
+    //                 if (login.localeCompare("") === 0) {
+    //                     errorString += 'логин\n';
+    //                     form.elements[ 'login' ].classList.add('errorInput');
+    //                 }
+    //                 if (name.localeCompare("") === 0) {
+    //                     errorString += 'имя\n';
+    //                     form.elements[ 'name' ].classList.add('errorInput');
+    //                 }
+                    
+    //                 err.innerText = errorString;
+    //                 return;
+    //             }
+
+    //         const avatarName = this._avatarName;
+    //         const avatarBlob = this._avatarBlob;
+
+    //         AjaxModule.doPromisePost({
+    //             path: '/change_profile',
+    //             body: {
+    //                 email: email,
+    //                 login: login,
+    //                 name: name,
+    //                 avatarName: avatarName,
+    //                 avatarBlob: avatarBlob
+    //             },	
+    //         })
+    //         .then (
+    //             (res) => {
+    //                 console.log(res);
+    //                 if(res.status > 400) {
+    //                     throw new Error('Network response was not ok.'); 
+    //                 }
+    //                 return res.json(); 
+    //             })
+    //         .then( (res) => {
+    //             avatar.src = res.result;
+    //         })
+    //         .catch( () => {
+    //             console.error;
+    //             application.innerHTML = '';
+    //             err.innerText = 'Ошибка при изменении профиля';
+
+    //         }); 
+    //     }.bind(this));
+
+	// application.appendChild(profileSection);
+	// application.appendChild(createMenuLink());
 }
 /**
  * Создание страницы с информацией об игре
