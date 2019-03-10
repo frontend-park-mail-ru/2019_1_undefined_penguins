@@ -232,6 +232,8 @@ function createSignUp () {
 
 /**
  * Создание страницы списка лидеров
+ * @param users - Массив пользователей
+ * @param pageNumber - Номер страницы
  */
 function createLeaderboard (users, pageNumber = 0) {
 

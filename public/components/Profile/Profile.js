@@ -11,19 +11,24 @@ export class ProfileComponent {
         this._avatarName = "";
         this._avatarBlob = "";
     }
-
+	/**
+     * Возврат значения data.
+     * @return  Значение data
+     */
     get data() {
 		return this._data;
 	}
-
+    /**
+     * Установка значения data.
+     * @param d - Входные данные
+     */
 	set data(d = []) {
 		this._data = d;
     }
     /**
-         * Рендеринг header.
-         * @return   headerSection
-
-         */
+     * Рендеринг header.
+     * @return   headerSection
+     */
     _renderHeader() {
         const headerSection = document.createElement('section');
         headerSection.dataset.sectionName = 'header';
@@ -51,11 +56,10 @@ export class ProfileComponent {
 
         return headerSection;
     }
-       /**
-         * Рендеринг тела.
-         * @return   mainSection
-
-         */
+    /**
+     * Рендеринг тела.
+     * @return   mainSection
+     */
     _renderBody() {
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main_profile';
@@ -246,9 +250,9 @@ export class ProfileComponent {
         mainSection.appendChild(err);
         return mainSection;
     }   
-       /**
-         * Рендеринг страницы.
-         */
+    /**
+     * Рендеринг страницы.
+     */
     render() {
         const head = this._renderHeader();
         const body = this._renderBody();
