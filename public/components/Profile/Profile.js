@@ -141,6 +141,10 @@ export class ProfileComponent {
         inputAvatar.accept = 'image/*';
         inputAvatar.classList = "inputAvatar";
 
+        const uploadImage = () => (new Promise((resolve, reject) => {
+            resolve(file.name, reader.result);
+        }));
+
         inputAvatar.addEventListener('change', (event) => {
             event.preventDefault();
 
@@ -148,8 +152,7 @@ export class ProfileComponent {
             let file = event.target.files[0];
 
             reader.onloadend = () => {
-                this._avatarName = file.name;
-                this._avatarBlob = reader.result;
+                uploadImage(file, reader);
             };
             reader.readAsDataURL(file);
         }, false)
