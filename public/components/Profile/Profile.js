@@ -157,28 +157,45 @@ export class ProfileComponent {
         form.appendChild(inputAvatar);
         form.appendChild(button);
         form.appendChild(infoInline);
-
+        const err = document.createElement('span')
+        err.classList.add('errorLabel');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-    
+            err.innerText = ''
             const userAvatar = document.getElementsByClassName('inputAvatar')[0].files[0];
             const email = form.elements[ 'email' ].value;
             const login = form.elements[ 'login' ].value;
             const name = form.elements[ 'name' ].value;
-
+            form.elements[ 'email' ].classList.remove('errorInput');
+            form.elements[ 'login' ].classList.remove('errorInput');
+            form.elements[ 'name' ].classList.remove('errorInput');
             if (
                     email.localeCompare("") === 0 || 
                     login.localeCompare("") === 0 ||
                     name.localeCompare("") === 0
                 ) {
-                    alert('input error');
+                    var errorString = 'Вы не ввели следующие поля:\n'
+                    if (email.localeCompare("") === 0) {
+                        errorString += 'email\n'
+                        form.elements[ 'email' ].classList.add('errorInput');
+                    }
+                    if (login.localeCompare("") === 0) {
+                        errorString += 'логин\n'
+                        form.elements[ 'login' ].classList.add('errorInput');
+                    }
+                    if (name.localeCompare("") === 0) {
+                        errorString += 'имя\n'
+                        form.elements[ 'name' ].classList.add('errorInput');
+                    }
+                    
+                    // err.innerText = errorString
                     return;
                 }
 
-            if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
-                alert('only jpeg or png photos!!');
-                return;
-            }
+            // if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
+            //     alert('only jpeg or png photos!!');
+            //     return;
+            // }
 
             const avatarName = this._avatarName;
             const avatarBlob = this._avatarBlob;
@@ -213,7 +230,7 @@ export class ProfileComponent {
         }.bind(this));
 
         mainSection.appendChild(form);
-
+        mainSection.appendChild(err);
         return mainSection;
     }   
 
