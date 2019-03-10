@@ -170,7 +170,7 @@ app.post('/change_profile', function (req, res) {
 
 // });
 
-app.get('/leaders', function (req, res) {
+app.post('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
@@ -179,7 +179,12 @@ app.get('/leaders', function (req, res) {
 				score: user.score,
 			}
 		});
-	res.json(scorelist);
+	const from = req.body.page * req.body.items
+	console.log(from)
+	const to = req.body.page * req.body.items + req.body.items
+	console.log(to)
+
+	res.json(scorelist.slice(from, to));
 });
 
 const port = process.env.PORT || 3000;

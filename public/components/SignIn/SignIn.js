@@ -10,7 +10,7 @@ export class SignInComponent{
     
     constructor({
         el = document.body,
-        type = RENDER_TYPES.TMPL,
+        type = RENDER_TYPES.DOM,
     } = {}) {
         this._el = el;
         this._type = type;

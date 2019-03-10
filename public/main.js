@@ -148,7 +148,8 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
-function createLeaderboard (users) {
+function createLeaderboard (users, pageNumber = 0) {
+
 	const leaderboardSection = document.createElement('section');
 	leaderboardSection.dataset.sectionName = 'leaders';
 
@@ -161,11 +162,11 @@ function createLeaderboard (users) {
 	leaderboardSection.appendChild(createMenuLink());
 	leaderboardSection.appendChild(document.createElement('br'));
 	leaderboardSection.appendChild(boardWrapper);
-
+	const itemsNumber = 3
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.STRING,
+			type: RENDER_TYPES.TMPL,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -173,9 +174,41 @@ function createLeaderboard (users) {
 		const em = document.createElement('em');
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
-
-		AjaxModule.doPromiseGet({
-			path: '/leaders',	
+		
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber,
+				items: itemsNumber,
+			},
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
+				application.innerHTML = '';
+				createLeaderboard(users, pageNumber);
+				
+			})
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+		
+	}
+	const prev = document.createElement('input');
+	prev.value = "Предыдущая страница"
+	prev.type = "button"
+	prev.addEventListener("click", function(){
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber - 1,
+				items: itemsNumber,
+			},
 		})
 			.then( response => {
 				console.log('Response status: ' + response.status);
@@ -185,12 +218,46 @@ function createLeaderboard (users) {
 			.then( users => {
 				console.log(users);
 				application.innerHTML = '';
-				createLeaderboard(users);
+				createLeaderboard(users, pageNumber - 1);
 			})
-			.catch( console.error);
-	}
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+	});
+
+	const next = document.createElement('input');
+	next.value = "Следующая страница"
+	next.type = "button"
+	next.addEventListener("click", function(){
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber + 1,
+				items: itemsNumber,
+			},
+		})
+			.then( response => {
+				console.log('Response status: ' + response.status);
+
+				return response.json();
+			})
+			.then( users => {
+				console.log(users);
+				application.innerHTML = '';
+				createLeaderboard(users, pageNumber + 1);
+			})
+			.catch( () => {
+				console.error;
+				application.innerHTML = '';
+				createMenu();
+			});
+	});
 
 	application.appendChild(leaderboardSection);
+	application.appendChild(prev);
+	application.appendChild(next);
 }
 
 function createProfile (me) {
@@ -200,6 +267,7 @@ function createProfile (me) {
 	if (me) {
 		const profile = new ProfileComponent({
 			el: profileSection,
+			type: RENDER_TYPES.TMPL,
 		});
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
@@ -222,23 +290,6 @@ function createProfile (me) {
 				createMenu();
 				return;
 			});
-
-// 		AjaxModule.doGet({
-// 			callback(xhr) {
-// 				if (!xhr.responseText) {
-// 					alert('Unauthorized');
-// 					application.innerHTML = '';
-// 					createMenu();
-// 					return;
-// 				}
-
-// 				const user = JSON.parse(xhr.responseText);
-// 				application.innerHTML = '';
-// 				createProfile(user);
-// 			},
-// 			path: '/me',
-// });
-
 	}
 
 	application.appendChild(profileSection);
