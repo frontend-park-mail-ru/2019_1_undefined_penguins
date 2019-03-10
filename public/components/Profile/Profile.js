@@ -174,11 +174,11 @@ export class ProfileComponent {
         form.appendChild(inputAvatar);
         form.appendChild(button);
         form.appendChild(infoInline);
-        const err = document.createElement('span')
+        const err = document.createElement('span');
         err.classList.add('errorLabel');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            err.innerText = ''
+            err.innerText = '';
             const userAvatar = document.getElementsByClassName('inputAvatar')[0].files[0];
             const email = form.elements[ 'email' ].value;
             const login = form.elements[ 'login' ].value;
@@ -191,21 +191,21 @@ export class ProfileComponent {
                     login.localeCompare("") === 0 ||
                     name.localeCompare("") === 0
                 ) {
-                    var errorString = 'Вы не ввели следующие поля:\n'
+                    var errorString = 'Вы не ввели следующие поля:\n';
                     if (email.localeCompare("") === 0) {
-                        errorString += 'email\n'
+                        errorString += 'email\n';
                         form.elements[ 'email' ].classList.add('errorInput');
                     }
                     if (login.localeCompare("") === 0) {
-                        errorString += 'логин\n'
+                        errorString += 'логин\n';
                         form.elements[ 'login' ].classList.add('errorInput');
                     }
                     if (name.localeCompare("") === 0) {
-                        errorString += 'имя\n'
+                        errorString += 'имя\n';
                         form.elements[ 'name' ].classList.add('errorInput');
                     }
                     
-                    // err.innerText = errorString
+                    err.innerText = errorString;
                     return;
                 }
 
@@ -242,7 +242,8 @@ export class ProfileComponent {
             .catch( () => {
                 console.error;
                 application.innerHTML = '';
-                alert('ERROR');
+                err.innerText = 'Ошибка при изменении профиля';
+
             }); 
         }.bind(this));
 
