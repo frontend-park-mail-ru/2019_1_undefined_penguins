@@ -148,8 +148,39 @@ export class SignInComponent{
             	break;
             case RENDER_TYPES.TMPL:
                 this._renderTmpl();
+                let form = this._el.getElementsByTagName('form')[0];
+
+                form.addEventListener('submit', function (event) {
+                    let err = this._el.getElementsByTagName('span')[0];
+                    err.innerText = '';
+                    event.preventDefault();
+
+                    console.log("hello");
+            
+                    const email = form.elements[ 'email' ].value;
+                    const password = form.elements[ 'password' ].value;
+                    form.elements[ 'email' ].classList.remove('errorInput');
+                    form.elements[ 'password' ].classList.remove('errorInput');
+                    if(
+                        email.localeCompare("") === 0 || 
+                        password.localeCompare("") === 0
+                    ){
+                        var errorString = 'Вы не ввели следующие поля:\n'
+                        if (email.localeCompare("") === 0) {
+                            errorString += 'email\n';
+                            form.elements[ 'email' ].classList.add('errorInput');
+                        }
+                        if (password.localeCompare("") === 0) {
+                            errorString += 'пароль\n';
+                            form.elements[ 'password' ].classList.add('errorInput');
+        
+                        }
+                        err.innerText = errorString;
+                        this._status = 300;
+                        return;
+                    }
+                }.bind(this));
             	break;
-            default:
         }
     }
 }

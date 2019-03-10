@@ -8,7 +8,7 @@ export class SignUpComponent{
      */
     constructor({
         el = document.body,
-        type = RENDER_TYPES.TMPL,
+        type = RENDER_TYPES.DOM,
     } = {}) {
         this._el = el;
         this._type = type;
@@ -132,10 +132,7 @@ export class SignUpComponent{
                 err.innerText = errorString;
                 this._status = 300;
                 return;
-            }
-    
-            
-        
+            }        
         }.bind(this));
         return mainSection;    
     }
@@ -170,6 +167,51 @@ export class SignUpComponent{
             	break;
             case RENDER_TYPES.TMPL:
                 this._renderTmpl();
+                let form = this._el.getElementsByTagName('form')[0];
+
+                form.addEventListener('submit', function (event) {
+                    let err = this._el.getElementsByTagName('span')[0];
+                    err.innerText = '';
+                    event.preventDefault();
+            
+                    const email = form.elements[ 'email' ].value;
+                    const password = form.elements[ 'password' ].value;
+                    const password_repeat = form.elements[ 'password_repeat' ].value;
+                    form.elements[ 'email' ].classList.remove('errorInput');
+                    form.elements[ 'password' ].classList.remove('errorInput');
+                    form.elements[ 'password_repeat' ].classList.remove('errorInput');
+                    
+                    let errorString;
+                    
+                    if(
+                        email.localeCompare("") === 0 || 
+                        password.localeCompare("") === 0 ||
+                        password !== password_repeat
+                    ){
+                        errorString = 'Вы не ввели следующие поля:\n'
+                        if (email.localeCompare("") === 0) {
+                            errorString += 'email\n';
+                            form.elements[ 'email' ].classList.add('errorInput');
+                        }
+                        if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
+                            errorString += 'пароль\n';
+                            form.elements[ 'password' ].classList.add('errorInput');
+                            form.elements[ 'password_repeat' ].classList.add('errorInput');
+        
+                        }
+                        if (password !== password_repeat) {
+                            errorString += '\nПароли не совпадают';
+                            form.elements[ 'password' ].classList.add('errorInput');
+                            form.elements[ 'password_repeat' ].classList.add('errorInput');
+            
+                            this._status = 300;
+                            return;
+                        }
+                        err.innerText = errorString;
+                        this._status = 300;
+                        return;
+                    }        
+                }.bind(this));
             	break;
             default:
         }
