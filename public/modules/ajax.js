@@ -1,6 +1,6 @@
 (function() {
 	const noop = () => null;
-	const nowSh = 'https://penguins-corsairs.now.sh';
+	const nowSh = 'https://penguins-corsairs-by-liza.now.sh';
 	const home = 'http://localhost:3000';
 	
 	class AjaxModule {
@@ -11,7 +11,7 @@
 			body = {},
 		} = {}) {
 			const xhr = new XMLHttpRequest();
-			xhr.open(method, home + path, true);
+			xhr.open(method, nowSh + path, true);
 			xhr.withCredentials = true;
 
 			if (body) {
@@ -62,8 +62,8 @@
 			path = '/',
 			body = {},
 		} = {}) {
-			// return fetch(nowSh + path, {
-			return fetch(home + path, {
+			return fetch(nowSh + path, {
+			// return fetch(home + path, {
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
@@ -77,8 +77,8 @@
 		doPromiseGet({
 			path = '/',
 		} = {}) {
-			// return fetch(nowSh + path, {
-			return fetch(home + path, {
+			return fetch(nowSh + path, {
+			// return fetch(home + path, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',

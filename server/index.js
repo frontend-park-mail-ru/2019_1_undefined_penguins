@@ -64,12 +64,12 @@ const users = {
 const ids = {};
 
 app.use( (req, res, next) => {
-		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	//	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+		res.setHeader('Access-Control-Allow-Origin', 'https://penguins-corsairs-backend-by-liza.now.sh');
 		res.setHeader('Access-Control-Allow-Credentials', 'true');
 		res.setHeader('Access-Control-Allow-Headers', 'content-type');
 		res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
     
-
 	next();
 });
 
