@@ -64,8 +64,7 @@ const users = {
 const ids = {};
 
 app.use( (req, res, next) => {
-	//	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-		res.setHeader('Access-Control-Allow-Origin', 'https://penguins-corsairs-backend-by-liza.now.sh');
+		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 		res.setHeader('Access-Control-Allow-Credentials', 'true');
 		res.setHeader('Access-Control-Allow-Headers', 'content-type');
 		res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
@@ -152,14 +151,9 @@ app.post('/change_profile', function (req, res) {
 	users[email].avatarBlob = req.body.avatarBlob;
 	const result = users[email].avatarBlob;
 
-	//what for?
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(201).json({result});
 });
-
-// app.get('/about', function (req, res) {
-
-// });
 
 app.get('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
