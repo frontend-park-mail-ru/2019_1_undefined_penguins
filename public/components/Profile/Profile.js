@@ -222,7 +222,7 @@ export class ProfileComponent {
             .catch( () => {
                 console.error;
                 application.innerHTML = '';
-                alert('ERROR');
+                console.log('ERROR');
             }); 
         }.bind(this));
 
