@@ -1,47 +1,37 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
+/** Класс компонента меню. */
 export class MenuComponent {
+    /**
+     * Конструктор компонента Menu.
+     * @param el - Тело документа
+     */
+    
     constructor({
         el = document.body,
+        type = RENDER_TYPES.DOM,
     } = {}) {
         this._el = el;
+        this._type = type;
     }
-
+	/**
+			 * Возврат значения header.
+			 * @return  Значение header
+			 */
     get header() {
         return this._header;
     }
-
+    /**
+         * Установка значения header.
+         * @param [data = ""] Значение, устанавливающееся в header
+         */
     set header(data = "") {
         this._header = data; 
     }
+    /**
+         * Рендеринг header.
+         * @return   headerSection
 
-
-    ////////////////////////////////////
-
-    // createMenuLink() {
-    //     const menuLink = document.createElement('a');
-    //     menuLink.href = menuLink.dataset.href = 'menu';
-    
-    //     menuLink.textContent = 'Back to main menu';
-    
-    //     return menuLink;
-    // }
-    
-    // createMenuButton(header, text, href) {
-    //     const buttonDiv = document.createElement('div');
-    //     buttonDiv.classList = 'buttons';
-        
-    //     const a = document.createElement('a');
-    
-    //     a.textContent = header;
-    //     a.href = href;
-    //     a.dataset.href = href;
-    
-    //     buttonDiv.appendChild(a);
-    
-    //     return buttonDiv;
-    // }
-
-    // ////////////////////////////////////////
-
+         */
     _renderHeader() {
         const headerSection = document.createElement('section');
         headerSection.dataset.sectionName = 'header';
@@ -80,7 +70,11 @@ export class MenuComponent {
 
         return headerSection;
     }
-    
+       /**
+         * Рендеринг тела.
+         * @return   mainSection
+
+         */
     _renderBody() {
         const mainSection = document.createElement('section');
         mainSection.dataset.sectionName = 'main';
@@ -114,8 +108,6 @@ export class MenuComponent {
             const header =  entry[1].header;
             const text =  entry[1].text;
 
-            // todo
-
             const buttonDiv = document.createElement('div');
             buttonDiv.classList = 'buttons';
             
@@ -126,8 +118,6 @@ export class MenuComponent {
             a.dataset.href = href;
         
             buttonDiv.appendChild(a);
-            
-            // end_todo
 
             menu.appendChild(buttonDiv);
         });
@@ -137,14 +127,23 @@ export class MenuComponent {
         return mainSection;
     }
 
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/Menu/Menu.tmpl']();
+	}
+       /**
+         * Рендеринг страницы.
+         */
     render() {
-        const head = this._renderHeader();
-        const body = this._renderBody();
-
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                this._renderTmpl();
+            	break;
+        }
     }
 }
-
-	
-

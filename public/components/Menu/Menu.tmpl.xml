@@ -1,0 +1,29 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <section data-section-name="header">
+        <div id="logo">
+            <h1>Penguin's Wars</h1>
+        </div>
+        <div id="auth">
+            <a href="signIn" data-href="signIn" class="auth-button">Sing In</a>
+            <a href="signUp" data-href="signUp" class="auth-button">Sign Up</a>
+            <a href="me" data-href="me" class="auth-button">Profile</a>
+            <a href="signout" data-href="signout" class="auth-button">Sign Out</a>
+        </div>
+    </section>
+    <section data-section-name="main">
+        <div id="menu">
+            <div class="buttons">
+                <a href="singlePlayer" data-href="singlePlayer">Singleplayer</a>
+            </div>
+            <div class="buttons">
+                <a href="multiPlayer" data-href="multiPlayer">Multiplayer</a>
+            </div>
+            <div class="buttons">
+                <a href="leaders" data-href="leaders">Leaders</a>
+            </div>
+            <div class="buttons">
+                <a href="about" data-href="about">About</a>
+            </div>
+        </div>
+    </section>
+</fest:template>

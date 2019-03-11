@@ -1,0 +1,19 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section data-section-name="header">
+        <div id="goBack">
+            <img src="../../images/home.png"/>
+        </div>
+        <div id="title">
+            <h2>Зарегистрироваться</h2>
+        </div>
+    </section>
+    <section data-section-name="main">
+        <form>
+            <input name="email" type="email" placeholder="Email"/><br/>
+            <input name="password" type="password" placeholder="Password"/><br/>
+            <input name="password_repeat" type="password" placeholder="Repeat Password"/><br/>
+            <input name="submit" type="submit" placeholder="undefined"/><br/>
+        </form>
+        <span class="errorLabel"></span>
+    </section>
+</fest:template>
