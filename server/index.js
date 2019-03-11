@@ -88,7 +88,16 @@ app.post('/signup', function (req, res) {
 	}
 
 	const id = uuid();
-	const user = {password, email, score: 0};
+	const user = {
+		login: '-не указан-', 
+		email, 
+		password, 
+		name: '-не указано-', 
+		lastVisit: 'today', 
+		score: 0,
+		avatarName: 'default.png',
+		avatarBlob: './images/user.svg'
+	};
 	ids[id] = email;
 	users[email] = user;
 
@@ -131,7 +140,7 @@ app.get('/me', function (req, res) {
 		return res.status(401).end();
 	}
 
-	users[email].score += 1;
+	// users[email].score += 1;
 
 	res.json(users[email]);
 });
@@ -161,7 +170,7 @@ app.post('/change_profile', function (req, res) {
 
 // });
 
-app.get('/leaders', function (req, res) {
+app.post('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
 		.sort((l, r) => r.score - l.score)
 		.map(user => {
@@ -170,7 +179,12 @@ app.get('/leaders', function (req, res) {
 				score: user.score,
 			}
 		});
-	res.json(scorelist);
+	const from = req.body.page * req.body.items
+	console.log(from)
+	const to = req.body.page * req.body.items + req.body.items
+	console.log(to)
+
+	res.json(scorelist.slice(from, to));
 });
 
 const port = process.env.PORT || 3000;
