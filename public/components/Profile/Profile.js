@@ -67,6 +67,9 @@ export class ProfileComponent {
     form.classList = 'profile_form';
     form.enctype = 'multipart/form-data';
 
+    const err = document.createElement('span');
+    err.classList.add('errorLabel');
+
     const dataInline = document.createElement('div');
     dataInline.classList = 'data_inline';
 
@@ -250,6 +253,8 @@ export class ProfileComponent {
         });
     });
     mainSection.appendChild(form);
+    mainSection.appendChild(err);
+
     return mainSection;
   }
 
