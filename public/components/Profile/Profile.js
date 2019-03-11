@@ -188,13 +188,13 @@ export class ProfileComponent {
       const email = form.elements.email.value;
       const login = form.elements.login.value;
       const name = form.elements.name.value;
+      let errorString = 'Вы не ввели следующие поля:\n';
 
       if (
         email.length === 0
                     || login.length === 0
                     || name.length === 0
       ) {
-        let errorString = 'Вы не ввели следующие поля:\n';
         if (email.length === 0) {
           errorString = `${errorString}email\n`;
           form.elements.email.classList.add('errorInput');
