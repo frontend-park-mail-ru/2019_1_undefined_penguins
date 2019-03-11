@@ -1,25 +1,25 @@
-'use strict';
 
-import {BoardComponent} from './components/Board/Board.js';
-import {RENDER_TYPES} from './utils/constants.js';
-import {MenuComponent} from "./components/Menu/Menu.js";
-import {AboutComponent} from "./components/About/About.js";
-import {ProfileComponent} from "./components/Profile/Profile.js";
+
+import { BoardComponent } from './components/Board/Board.js';
+import { RENDER_TYPES } from './utils/constants.js';
+import { MenuComponent } from './components/Menu/Menu.js';
+import { AboutComponent } from './components/About/About.js';
+import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
 
 
-const {AjaxModule} = window; 
+const { AjaxModule } = window;
 const application = document.getElementById('application');
 
 
-function createMenuLink () {
-	const menuLink = document.createElement('a');
-	menuLink.href = menuLink.dataset.href = 'menu';
+function createMenuLink() {
+  const menuLink = document.createElement('a');
+  menuLink.href = menuLink.dataset.href = 'menu';
 
-	menuLink.textContent = 'Back to main menu';
+  menuLink.textContent = 'Back to main menu';
 
-	return menuLink;
+  return menuLink;
 }
 
 function createMenu () {	
@@ -33,8 +33,11 @@ function createMenu () {
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
 
-	application.appendChild(menuSection);
+  const menu = new MenuComponent({ el: menuSection });
+  menu.header = 'Penguin\'s Wars';
+  menu.render();
 
+  application.appendChild(menuSection);
 }
 
 function createSignIn () {
@@ -91,9 +94,9 @@ function createSignIn () {
 	application.appendChild(createMenuLink());
 }
 
-function createSignUp () {
-	const signUpSection = document.createElement('section');
-	signUpSection.dataset.sectionName = 'sign_up';
+function createSignUp() {
+  const signUpSection = document.createElement('section');
+  signUpSection.dataset.sectionName = 'sign_up';
 
   const signUp = new SignUpComponent({
 		el: signUpSection,
@@ -302,66 +305,64 @@ function createProfile (me) {
 }
 
 function createAbout() {
-	const aboutSection = document.createElement('section');
-	aboutSection.dataset.sectionName = 'about';
+  const aboutSection = document.createElement('section');
+  aboutSection.dataset.sectionName = 'about';
 
-	const about = new AboutComponent({
-		el: aboutSection
-	});
-	about.render();
-	application.appendChild(aboutSection);
-	application.appendChild(createMenuLink());
+  const about = new AboutComponent({
+    el: aboutSection,
+  });
+  about.render();
+  application.appendChild(aboutSection);
+  application.appendChild(createMenuLink());
 }
 
 function signOut() {
-	AjaxModule.doPromiseGet({
-		path: '/signout',	
-	})
-		.then( response => {
-			console.log('Response status: ' + response.status);
+  AjaxModule.doPromiseGet({
+    path: '/signout',
+  })
+    .then((response) => {
+      console.log(`Response status: ${response.status}`);
 
-			return response.json();
-		})
-		.then( status => {
-			console.log(status);
-			application.innerHTML = '';
-			createMenu();
-		})
-		.catch( () => {
-			alert('Unauthorized');
-			application.innerHTML = '';
-			createMenu();
-			return;
-		});
-	
+      return response.json();
+    })
+    .then((status) => {
+      console.log(status);
+      application.innerHTML = '';
+      createMenu();
+    })
+    .catch(() => {
+      alert('Unauthorized');
+      application.innerHTML = '';
+      createMenu();
+    });
 }
 
 const pages = {
-	menu: createMenu,
-	signIn: createSignIn,
-	signUp: createSignUp,
-	leaders: createLeaderboard,
-	me: createProfile,
-	about: createAbout,
-	signout: signOut
+  menu: createMenu,
+  signIn: createSignIn,
+  signUp: createSignUp,
+  leaders: createLeaderboard,
+  me: createProfile,
+  about: createAbout,
+  signout: signOut,
 };
 
 createMenu();
 
-application.addEventListener('click', function (event) {
-	if (!(event.target instanceof HTMLAnchorElement)) {
-		return;
-	}
+application.addEventListener('click', (event) => {
+  if (!(event.target instanceof HTMLAnchorElement)) {
+    return;
+  }
 
-	event.preventDefault();
-	const link = event.target;
+  event.preventDefault();
+  const link = event.target;
 
-	console.log({
-		href: link.href,
-		dataHref: link.dataset.href
-	});
+  console.log({
+    href: link.href,
+    dataHref: link.dataset.href,
+  });
 
-	application.innerHTML = '';
+  application.innerHTML = '';
 
-	pages[ link.dataset.href ]();
+  pages[link.dataset.href]();
 });

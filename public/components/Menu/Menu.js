@@ -27,35 +27,6 @@ export class MenuComponent {
     set header(data = "") {
         this._header = data; 
     }
-
-
-    ////////////////////////////////////
-
-    // createMenuLink() {
-    //     const menuLink = document.createElement('a');
-    //     menuLink.href = menuLink.dataset.href = 'menu';
-    
-    //     menuLink.textContent = 'Back to main menu';
-    
-    //     return menuLink;
-    // }
-    
-    // createMenuButton(header, text, href) {
-    //     const buttonDiv = document.createElement('div');
-    //     buttonDiv.classList = 'buttons';
-        
-    //     const a = document.createElement('a');
-    
-    //     a.textContent = header;
-    //     a.href = href;
-    //     a.dataset.href = href;
-    
-    //     buttonDiv.appendChild(a);
-    
-    //     return buttonDiv;
-    // }
-
-    // ////////////////////////////////////////
     /**
          * Рендеринг header.
          * @return   headerSection
@@ -137,8 +108,6 @@ export class MenuComponent {
             const header =  entry[1].header;
             const text =  entry[1].text;
 
-            // todo
-
             const buttonDiv = document.createElement('div');
             buttonDiv.classList = 'buttons';
             
@@ -149,8 +118,6 @@ export class MenuComponent {
             a.dataset.href = href;
         
             buttonDiv.appendChild(a);
-            
-            // end_todo
 
             menu.appendChild(buttonDiv);
         });

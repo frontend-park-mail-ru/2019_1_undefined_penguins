@@ -1,5 +1,5 @@
-import {RENDER_TYPES} from '../../utils/constants.js';
-import {makeSafe} from '../../utils/safe.js';
+import { RENDER_TYPES } from '../../utils/constants.js';
+import { makeSafe } from '../../utils/safe.js';
 
 export class BoardComponent {
 	constructor({
@@ -35,30 +35,30 @@ export class BoardComponent {
 				<th>Score</th>
 			</th>
 		`;
-		const tbody = document.createElement('tbody');
+    const tbody = document.createElement('tbody');
 
-		table.appendChild(thead);
-		table.appendChild(tbody);
-		table.border = 1;
-		table.cellSpacing = table.cellPadding = 0;
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    table.border = 1;
+    table.cellSpacing = table.cellPadding = 0;
 
-		this._data.forEach(function ({
-			email = 'test@mail.ru',
-			score = 100500,
-		} = {}) {
-			const tr = document.createElement('tr');
-			const tdEmail = document.createElement('td');
-			const tdScore = document.createElement('td');
+    this._data.forEach(({
+      email = 'test@mail.ru',
+      score = 100500,
+    } = {}) => {
+      const tr = document.createElement('tr');
+      const tdEmail = document.createElement('td');
+      const tdScore = document.createElement('td');
 
-			tr.classList.add('table__row');
+      tr.classList.add('table__row');
 
-			tdEmail.innerHTML = makeSafe(email);
-			tdScore.textContent = score;
+      tdEmail.innerHTML = makeSafe(email);
+      tdScore.textContent = score;
 
-			tr.appendChild(tdEmail);
-			tr.appendChild(tdScore);
+      tr.appendChild(tdEmail);
+      tr.appendChild(tdScore);
 
-			tbody.appendChild(tr);
+      tbody.appendChild(tr);
 
 			this._el.appendChild(table);
 		}.bind(this));
@@ -77,23 +77,21 @@ export class BoardComponent {
 				</thead>
 				<tbody>
 					${this._data
-						.map(({
-							email = 'test@mail.ru',
-							score = 100500,
-						} = {}) => {
-							return `
+    .map(({
+      email = 'test@mail.ru',
+      score = 100500,
+    } = {}) => `
 								<tr class="table__row">
 									<td>${email}</td>
 									<td>${score}</td>
 								</tr>
-							`;
-						})
-						.join('\n')
-					}
+							`)
+    .join('\n')
+}
 				</tbody>
 			</table>
 		`;
-	}
+  }
 
 	/**
 	 * Рендеринг страницы с помощью шаблонизатора
@@ -118,4 +116,5 @@ export class BoardComponent {
 				break;
 		}
     }
+  }
 }

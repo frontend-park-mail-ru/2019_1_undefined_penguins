@@ -97,54 +97,19 @@ export class ProfileComponent {
                 title: 'Email: ',
                 value: this._data.email
             }
-        ];
-
-        inputs.forEach(function (item) {
-            const inputString = document.createElement('div');
-            const label = document.createElement('label');
-            label.textContent = item.title;
-
-            const input = document.createElement('input');
-            input.name = item.name;
-            input.type = item.type;
-            input.value = item.value;
-
-            inputString.appendChild(label);
-            inputString.appendChild(input);
-            data.appendChild(inputString);
+            return res;
+          },
+        )
+        .then((res) => {
+          application.innerHTML = '';
+          createProfile();
+        })
+        .catch(() => {
+          console.error;
+          application.innerHTML = '';
+          alert('ERROR');
         });
-
-        dataInline.appendChild(avatar);
-        dataInline.appendChild(data);
-
-        const infoInline = document.createElement('div');
-        infoInline.classList = 'data_inline info';
-
-        const info = [
-            {
-                name: 'Лучший результат:',
-                data: this._data.score
-            },
-            {
-                name: 'Последняя игра:',
-                data: this._data.lastVisit
-            }
-        ];
-
-        info.forEach(function (item) {
-            const div = document.createElement('div');
-            div.classList = 'info_block';
-
-            const labelTitle = document.createElement('label');
-            labelTitle.textContent = item.name;
-
-            const labelInfo = document.createElement('label');
-            labelInfo.textContent = item.data;
-
-            div.appendChild(labelTitle);
-            div.appendChild(labelInfo);
-            infoInline.appendChild(div);
-        });
+          
         form.appendChild(dataInline);
 
         const button = document.createElement('input');

@@ -1,7 +1,6 @@
-(function() {
-	const noop = () => null;
-	const nowSh = 'https://penguins-corsairs.now.sh';
-	const home = 'http://localhost:3000';
+(function () {
+  const noop = () => null;
+  const home = 'http://localhost:3000';
 
 	/** Класс модуля для работы с Ajax. */
 	class AjaxModule {
@@ -14,7 +13,6 @@
 			path = '/',
 			body = {},
 		} = {}) {
-			// return fetch(nowSh + path, {
 			return fetch(home + path, {
 				method: 'POST',
 				mode: 'cors',
@@ -23,7 +21,7 @@
 					'Content-Type': 'application/json; charset=utf-8',
 				},
 				body: JSON.stringify(body)
-			})
+			});
 		}
 		/**
          * Послать ajax GET-запрос c помощью Promise.
@@ -32,7 +30,6 @@
 		doPromiseGet({
 			path = '/',
 		} = {}) {
-			// return fetch(nowSh + path, {
 			return fetch(home + path, {
 				method: 'GET',
 				mode: 'cors',
@@ -42,5 +39,5 @@
 		}
 	}
 
-	window.AjaxModule = new AjaxModule();
-})();
+  window.AjaxModule = new AjaxModule();
+}());
