@@ -150,7 +150,7 @@ export class ProfileComponent {
         const button = document.createElement('input');
         button.name = 'save';
         button.type = 'submit';
-        button.value = 'Сохранить'; 
+        button.value = 'Сохранить';
         
         const inputAvatar = document.createElement('input');
         inputAvatar.name = 'inputAvatar';
@@ -206,6 +206,11 @@ export class ProfileComponent {
                     return;
                 }
 
+            if (userAvatar.size > 70000) {
+                alert('photo is very large (70Кб)!!');
+                return;
+            }
+          
             const avatarName = this._avatarName;
             const avatarBlob = this._avatarBlob;
 
@@ -221,7 +226,6 @@ export class ProfileComponent {
             })
             .then (
                 (res) => {
-                    // console.log(JSON.stringify(res));
                     console.log(res);
                     if(res.status > 400) {
                         throw new Error('Network response was not ok.'); 
