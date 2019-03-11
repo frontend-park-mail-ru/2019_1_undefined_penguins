@@ -1,4 +1,4 @@
-
+import {RENDER_TYPES} from '../../utils/constants.js';
 
 /** Класс компонента авторизации */
 
@@ -10,8 +10,10 @@ export class SignInComponent{
     
     constructor({
         el = document.body,
+        type = RENDER_TYPES.TMPL,
     } = {}) {
         this._el = el;
+        this._type = type;
         this._status = 200;
     }
         /**
@@ -129,14 +131,56 @@ export class SignInComponent{
     get status() {
         return this._status;
     }
+
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/SignIn/SignIn.tmpl'](this._data);
+	}
        /**
          * Рендеринг страницы.
          */
-    render(){
-        const head = this._renderHeader();
-        const body = this._renderBody();
+    render() {
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                this._renderTmpl();
+                let form = this._el.getElementsByTagName('form')[0];
 
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+                form.addEventListener('submit', function (event) {
+                    let err = this._el.getElementsByTagName('span')[0];
+                    err.innerText = '';
+                    event.preventDefault();
+
+                    console.log("hello");
+            
+                    const email = form.elements[ 'email' ].value;
+                    const password = form.elements[ 'password' ].value;
+                    form.elements[ 'email' ].classList.remove('errorInput');
+                    form.elements[ 'password' ].classList.remove('errorInput');
+                    if(
+                        email.localeCompare("") === 0 || 
+                        password.localeCompare("") === 0
+                    ){
+                        var errorString = 'Вы не ввели следующие поля:\n'
+                        if (email.localeCompare("") === 0) {
+                            errorString += 'email\n';
+                            form.elements[ 'email' ].classList.add('errorInput');
+                        }
+                        if (password.localeCompare("") === 0) {
+                            errorString += 'пароль\n';
+                            form.elements[ 'password' ].classList.add('errorInput');
+        
+                        }
+                        err.innerText = errorString;
+                        this._status = 300;
+                        return;
+                    }
+                }.bind(this));
+            	break;
+        }
     }
 }

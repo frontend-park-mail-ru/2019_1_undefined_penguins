@@ -1,8 +1,11 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
 export class AboutComponent {
     constructor({
         el = document.body,
+        type = RENDER_TYPES.TMPL,
     } = {}) {
         this._el = el;
+        this._type = type;
     }
 
     _renderHeader() {        	
@@ -114,12 +117,23 @@ export class AboutComponent {
         return mainSection;
     }
 
-    render() {
-        const head = this._renderHeader();
-        const body = this._renderBody();
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/About/About.tmpl']();
+	}
 
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+    render() {
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                this._renderTmpl();
+            	break;
+            default:
+        }
     }
 }
 

@@ -1,5 +1,5 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
 /** Класс компонента меню. */
-
 export class MenuComponent {
     /**
      * Конструктор компонента Menu.
@@ -8,8 +8,10 @@ export class MenuComponent {
     
     constructor({
         el = document.body,
+        type = RENDER_TYPES.DOM,
     } = {}) {
         this._el = el;
+        this._type = type;
     }
 	/**
 			 * Возврат значения header.
@@ -157,17 +159,25 @@ export class MenuComponent {
         
         return mainSection;
     }
+
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/Menu/Menu.tmpl']();
+	}
        /**
          * Рендеринг страницы.
          */
     render() {
-        const head = this._renderHeader();
-        const body = this._renderBody();
-
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                this._renderTmpl();
+            	break;
+            default:
+        }
     }
 }
-
-	
-
