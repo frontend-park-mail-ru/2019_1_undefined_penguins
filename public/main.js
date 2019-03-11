@@ -174,8 +174,25 @@ function createLeaderboard (users) {
 		em.textContent = 'Loading';
 		leaderboardSection.appendChild(em);
 
+
+
+	
+
+
+	const next = document.createElement('input');
+	next.value = "Следующая страница"
+	next.type = "button"
+	next.addEventListener("click", function(){
+		AjaxModule.doPromisePost({
+			path: '/leaders',
+			body: {
+				page: pageNumber + 1,
+				items: itemsNumber,
+			},
+
 		AjaxModule.doPromiseGet({
 			path: '/leaders',	
+
 		})
 			.then( response => {
 				console.log('Response status: ' + response.status);
