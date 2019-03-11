@@ -192,7 +192,21 @@ export class ProfileComponent {
                     login.localeCompare("") === 0 ||
                     name.localeCompare("") === 0
                 ) {
-                    alert('input error');
+                    let errorString = 'Вы не ввели следующие поля:\n';
+                    if (email.localeCompare("") === 0) {
+                        errorString = `${errorString}email\n`;
+                        form.elements[ 'email' ].classList.add('errorInput');
+                    }
+                    if (login.localeCompare("") === 0) {
+                        errorString = `${errorString}логин\n`;
+                        form.elements[ 'login' ].classList.add('errorInput');
+                    }
+                    if (name.localeCompare("") === 0) {
+                        errorString = `${errorString}имя\n`;
+                        form.elements[ 'name' ].classList.add('errorInput');
+                    }
+                    
+                    err.innerText = errorString;
                     return;
                 }
 
