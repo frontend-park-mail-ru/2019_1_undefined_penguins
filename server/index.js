@@ -172,9 +172,7 @@ app.post('/leaders', function (req, res) {
 			}
 		});
 	const from = req.body.page * req.body.items
-	console.log(from)
 	const to = req.body.page * req.body.items + req.body.items
-	console.log(to)
 
 	res.json(scorelist.slice(from, to));
 });

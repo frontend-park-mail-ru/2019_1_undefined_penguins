@@ -95,15 +95,15 @@ export class SignInComponent{
             form.elements[ 'email' ].classList.remove('errorInput');
             form.elements[ 'password' ].classList.remove('errorInput');
             if(
-                email.localeCompare("") === 0 || 
-                password.localeCompare("") === 0
+                email.length === 0 || 
+                password.length === 0
             ){
                 let errorString = 'Вы не ввели следующие поля:\n'
-                if (email.localeCompare("") === 0) {
+                if (email.length === 0) {
                     errorString = `${errorString}email\n`;
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
-                if (password.localeCompare("") === 0) {
+                if (password.length === 0) {
                     errorString = `${errorString}пароль\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
 
@@ -162,15 +162,15 @@ export class SignInComponent{
                     form.elements[ 'email' ].classList.remove('errorInput');
                     form.elements[ 'password' ].classList.remove('errorInput');
                     if(
-                        email.localeCompare("") === 0 || 
-                        password.localeCompare("") === 0
+                        email.length === 0 || 
+                        password.length === 0
                     ){
                         var errorString = 'Вы не ввели следующие поля:\n'
-                        if (email.localeCompare("") === 0) {
+                        if (email.length === 0) {
                             errorString += 'email\n';
                             form.elements[ 'email' ].classList.add('errorInput');
                         }
-                        if (password.localeCompare("") === 0) {
+                        if (password.length === 0) {
                             errorString += 'пароль\n';
                             form.elements[ 'password' ].classList.add('errorInput');
         
