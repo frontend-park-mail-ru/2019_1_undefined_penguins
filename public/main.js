@@ -148,6 +148,11 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
+/**
+ * Создание страницы списка лидеров
+ * @param users - Массив пользователей
+ * @param pageNumber - Номер страницы
+ */
 function createLeaderboard (users, pageNumber = 0) {
 
 	const leaderboardSection = document.createElement('section');
