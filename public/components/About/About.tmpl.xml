@@ -1,0 +1,40 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <section data-section-name="header">
+        <div id="goBack">
+            <img src="../../images/home.png"/>
+        </div>
+        <div id="title"><h2>Об игре</h2></div>
+    </section>
+    <section data-section-name="main">
+        <div id="idea" class="text-area">
+            <h3>Идея</h3>
+            <div>Abusus non tollit usum. Accepto damno. Accessio 
+                cedit principali. Actio bonae fidei. Actio in 
+                factum concepta. Actio in ius concepta.  
+                Actio in personam. Actio in rem. Actio noxalis.
+                Actio poenalis. Alibi. A potiori. 
+                Argumenta ponderantur, non numerantur. 
+                Argumentum ad oculos.</div>
+        </div>
+        <div id="howPlay" class="text-area">
+            <h3>Как играть</h3>
+            <div>Abusus non tollit usum. Accepto damno. Accessio 
+                cedit principali. Actio bonae fidei. Actio in 
+                factum concepta. Actio in ius concepta.  
+                Actio in personam. Actio in rem. Actio noxalis. 
+                Actio poenalis. Alibi. A potiori. 
+                Argumenta ponderantur, non numerantur. 
+                Argumentum ad oculos.</div>
+            <div id="tutorial">
+                <div id="desktop">
+                    <h3>Desktop</h3>
+                    <img src="../../images/game1.svg"/>
+                </div>
+                <div id="mobile">
+                    <h3>Mobile</h3>
+                    <img src="../../images/game1.svg"/>
+                </div>
+            </div>
+        </div>
+    </section>
+</fest:template>

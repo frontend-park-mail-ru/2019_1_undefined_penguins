@@ -12,10 +12,7 @@ import { SignUpComponent } from './components/SignUp/SignUp.js';
 const {AjaxModule} = window; 
 const application = document.getElementById('application');
 
-/**
- * Создать ссылку на главное меню
- * @return  ссылка на главное меню
- */
+
 function createMenuLink () {
 	const menuLink = document.createElement('a');
 	menuLink.href = menuLink.dataset.href = 'menu';
@@ -25,38 +22,28 @@ function createMenuLink () {
 	return menuLink;
 }
 
-/**
- * Создание главного меню
- */
-function createMenu (errors) {
+function createMenu () {	
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
 
-	const menu = new MenuComponent({el: menuSection});
+	const menu = new MenuComponent({
+		el: menuSection,
+		type: RENDER_TYPES.DOM,
+	});
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
-	if (errors) {
-		const errorsSection	= document.createElement('section');
-		errorsSection.dataset.sectionName = 'errors';
-		const err = document.createElement('span');
-		err.classList.add('errorLabel');
-		err.innerText = errors;
-		errorsSection.appendChild(err);
-		application.appendChild(errorsSection);
-	}
 
 	application.appendChild(menuSection);
 
 }
-/**
- * Создание страницы авторизации
- */
+
 function createSignIn () {
 	const signInSection = document.createElement('section');
 	signInSection.dataset.sectionName = "sign_in"
 
 	const signIn = new SignInComponent({
-		el: signInSection
+		el: signInSection,
+		type: RENDER_TYPES.TMPL,
 	})
 
 	signIn.render();  
@@ -100,29 +87,17 @@ function createSignIn () {
 			createMenu();
 		});
 	}
-	// AjaxModule.doPost({
-	// 	callback() {
-	// 		application.innerHTML = '';
-	// 		createProfile();
-	// 	},
-	// 	path: '/login',
-	// 	body: {
-	// 		email: email,
-	// 		password: password,
-	// 	},
-	// });
 	});
 	application.appendChild(createMenuLink());
 }
-/**
- * Создание страницы регистрации
- */
+
 function createSignUp () {
 	const signUpSection = document.createElement('section');
 	signUpSection.dataset.sectionName = 'sign_up';
 
   const signUp = new SignUpComponent({
-		el: signUpSection
+		el: signUpSection,
+		type: RENDER_TYPES.TMPL,
 	})
 
 	signUp.render();
@@ -173,9 +148,6 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
-
-
-
 /**
  * Создание страницы списка лидеров
  * @param users - Массив пользователей
@@ -199,7 +171,7 @@ function createLeaderboard (users, pageNumber = 0) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.STRING,
+			type: RENDER_TYPES.TMPL,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -260,8 +232,6 @@ function createLeaderboard (users, pageNumber = 0) {
 			});
 	});
 
-
-
 	const next = document.createElement('input');
 	next.value = "Следующая страница"
 	next.type = "button"
@@ -295,12 +265,6 @@ function createLeaderboard (users, pageNumber = 0) {
 	application.appendChild(next);
 }
 
-
-
-/**
- * Создание страницы профиля пользователя
- */
-
 function createProfile (me) {
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
@@ -308,6 +272,7 @@ function createProfile (me) {
 	if (me) {
 		const profile = new ProfileComponent({
 			el: profileSection,
+			type: RENDER_TYPES.TMPL,
 		});
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
@@ -325,35 +290,17 @@ function createProfile (me) {
 				createProfile(user);
 			})
 			.catch( () => {
+				alert('Unauthorized');
 				application.innerHTML = '';
-				createMenu('Unauthorized');
+				createMenu();
 				return;
 			});
-
-// 		AjaxModule.doGet({
-// 			callback(xhr) {
-// 				if (!xhr.responseText) {
-// 					alert('Unauthorized');
-// 					application.innerHTML = '';
-// 					createMenu();
-// 					return;
-// 				}
-
-// 				const user = JSON.parse(xhr.responseText);
-// 				application.innerHTML = '';
-// 				createProfile(user);
-// 			},
-// 			path: '/me',
-// });
-
 	}
 
 	application.appendChild(profileSection);
 	application.appendChild(createMenuLink());
 }
-/**
- * Создание страницы с информацией об игре
- */
+
 function createAbout() {
 	const aboutSection = document.createElement('section');
 	aboutSection.dataset.sectionName = 'about';
@@ -365,9 +312,7 @@ function createAbout() {
 	application.appendChild(aboutSection);
 	application.appendChild(createMenuLink());
 }
-/**
- * Выход пользователя из аккаунта
- */
+
 function signOut() {
 	AjaxModule.doPromiseGet({
 		path: '/signout',	
@@ -383,8 +328,9 @@ function signOut() {
 			createMenu();
 		})
 		.catch( () => {
+			alert('Unauthorized');
 			application.innerHTML = '';
-			createMenu('Unauthorized');
+			createMenu();
 			return;
 		});
 	

@@ -1,12 +1,7 @@
 import {RENDER_TYPES} from '../../utils/constants.js';
 import {makeSafe} from '../../utils/safe.js';
-/** Класс компонента доски лидеров */
+
 export class BoardComponent {
-	/**
-     * Конструктор компонента Board.
-     * @param el - Тело документа
-     * @param type - Вид рендеринга страницы
-     */
 	constructor({
 		el = document.body,
 		type = RENDER_TYPES.DOM,
@@ -99,28 +94,28 @@ export class BoardComponent {
 			</table>
 		`;
 	}
+
 	/**
 	 * Рендеринг страницы с помощью шаблонизатора
 	 */
 	__renderTmpl() {
 		this._el.innerHTML = window.fest['components/Board/Board.tmpl'](this._data);
 	}
+  
 	/**
 	 * Рендеринг страницы 
 	 */
 	render() {
-		this._renderDOM();
-		// switch(this._type) {
-		// 	case RENDER_TYPES.DOM:
-		// 		this._renderDOM();
-		// 		break;
-		// 	case RENDER_TYPES.STRING:
-		// 		this._renderString();
-		// 		break;
-		// 	case RENDER_TYPES.TMPL:
-		// 		this.__renderTmpl();
-		// 		break;
-		// 	default:
-		// }
-  }
+		switch(this._type) {
+			case RENDER_TYPES.DOM:
+				this._renderDOM();
+				break;
+			case RENDER_TYPES.STRING:
+				this._renderString();
+				break;
+			case RENDER_TYPES.TMPL:
+				this.__renderTmpl();
+				break;
+		}
+    }
 }

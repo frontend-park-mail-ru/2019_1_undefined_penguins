@@ -1,5 +1,5 @@
+import {RENDER_TYPES} from '../../utils/constants.js';
 /** Класс компонента регистрации */
-
 export class SignUpComponent{
 
      /**
@@ -8,8 +8,10 @@ export class SignUpComponent{
      */
     constructor({
         el = document.body,
+        type = RENDER_TYPES.DOM,
     } = {}) {
         this._el = el;
+        this._type = type;
         this._status = 200;
     }
         /**
@@ -89,7 +91,7 @@ export class SignUpComponent{
         mainSection.appendChild(form);
         mainSection.appendChild(err);
 
-        var status = 200;
+        let status = 200;
         form.addEventListener('submit', function (event) {
             err.innerText = '';
             event.preventDefault();
@@ -110,17 +112,17 @@ export class SignUpComponent{
             ){
                 errorString = 'Вы не ввели следующие поля:\n'
                 if (email.localeCompare("") === 0) {
-                    errorString += 'email\n';
+                    errorString = `${errorString}email\n`;
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
                 if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
-                    errorString += 'пароль\n';
+                    errorString = `${errorString}пароль\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
                     form.elements[ 'password_repeat' ].classList.add('errorInput');
 
                 }
                 if (password !== password_repeat) {
-                    errorString += '\nПароли не совпадают';
+                    errorString = `${errorString}Пароли не совпадают\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
                     form.elements[ 'password_repeat' ].classList.add('errorInput');
     
@@ -130,10 +132,7 @@ export class SignUpComponent{
                 err.innerText = errorString;
                 this._status = 300;
                 return;
-            }
-    
-            
-        
+            }        
         }.bind(this));
         return mainSection;    
     }
@@ -151,14 +150,69 @@ export class SignUpComponent{
     get status() {
         return this._status;
     }
+
+    _renderTmpl() {
+		this._el.innerHTML = window.fest['components/SignUp/SignUp.tmpl'](this._data);
+	}
        /**
          * Рендеринг страницы.
          */
-    render(){
-        const head = this._renderHeader();
-        const body = this._renderBody();
+    render() {
+        switch(this._type) {
+            case RENDER_TYPES.DOM:
+                const head = this._renderHeader();
+                const body = this._renderBody();
+                this._el.appendChild(head);
+                this._el.appendChild(body);
+            	break;
+            case RENDER_TYPES.TMPL:
+                this._renderTmpl();
+                let form = this._el.getElementsByTagName('form')[0];
 
-        this._el.appendChild(head);
-        this._el.appendChild(body);
+                form.addEventListener('submit', function (event) {
+                    let err = this._el.getElementsByTagName('span')[0];
+                    err.innerText = '';
+                    event.preventDefault();
+            
+                    const email = form.elements[ 'email' ].value;
+                    const password = form.elements[ 'password' ].value;
+                    const password_repeat = form.elements[ 'password_repeat' ].value;
+                    form.elements[ 'email' ].classList.remove('errorInput');
+                    form.elements[ 'password' ].classList.remove('errorInput');
+                    form.elements[ 'password_repeat' ].classList.remove('errorInput');
+                    
+                    let errorString;
+                    
+                    if(
+                        email.localeCompare("") === 0 || 
+                        password.localeCompare("") === 0 ||
+                        password !== password_repeat
+                    ){
+                        errorString = 'Вы не ввели следующие поля:\n'
+                        if (email.localeCompare("") === 0) {
+                            errorString += 'email\n';
+                            form.elements[ 'email' ].classList.add('errorInput');
+                        }
+                        if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
+                            errorString += 'пароль\n';
+                            form.elements[ 'password' ].classList.add('errorInput');
+                            form.elements[ 'password_repeat' ].classList.add('errorInput');
+        
+                        }
+                        if (password !== password_repeat) {
+                            errorString += '\nПароли не совпадают';
+                            form.elements[ 'password' ].classList.add('errorInput');
+                            form.elements[ 'password_repeat' ].classList.add('errorInput');
+            
+                            this._status = 300;
+                            return;
+                        }
+                        err.innerText = errorString;
+                        this._status = 300;
+                        return;
+                    }        
+                }.bind(this));
+            	break;
+        }
     }
 }

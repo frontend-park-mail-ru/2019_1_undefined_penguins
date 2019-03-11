@@ -88,7 +88,16 @@ app.post('/signup', function (req, res) {
 	}
 
 	const id = uuid();
-	const user = {password, email, score: 0};
+	const user = {
+		login: '-не указан-', 
+		email, 
+		password, 
+		name: '-не указано-', 
+		lastVisit: 'today', 
+		score: 0,
+		avatarName: 'default.png',
+		avatarBlob: './images/user.svg'
+	};
 	ids[id] = email;
 	users[email] = user;
 
@@ -131,7 +140,7 @@ app.get('/me', function (req, res) {
 		return res.status(401).end();
 	}
 
-	users[email].score += 1;
+	// users[email].score += 1;
 
 	res.json(users[email]);
 });
