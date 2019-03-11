@@ -177,7 +177,6 @@ export class MenuComponent {
             case RENDER_TYPES.TMPL:
                 this._renderTmpl();
             	break;
-            default:
         }
     }
 }

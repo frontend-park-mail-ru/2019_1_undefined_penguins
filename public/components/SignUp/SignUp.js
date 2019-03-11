@@ -213,7 +213,6 @@ export class SignUpComponent{
                     }        
                 }.bind(this));
             	break;
-            default:
         }
     }
 }

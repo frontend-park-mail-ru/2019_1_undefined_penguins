@@ -100,7 +100,6 @@ export class BoardComponent {
 			case RENDER_TYPES.TMPL:
 				this.__renderTmpl();
 				break;
-			default:
 		}
     }
 }
