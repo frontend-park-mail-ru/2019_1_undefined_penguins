@@ -192,11 +192,6 @@ export class ProfileComponent {
                     return;
                 }
 
-            if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
-                alert('only jpeg or png photos!!');
-                return;
-            }
-
             const avatarName = this._avatarName;
             const avatarBlob = this._avatarBlob;
 
@@ -296,11 +291,7 @@ export class ProfileComponent {
                             err.innerText = errorString;
                             return;
                         }
-        
-                    if ((userAvatar.type !== "image/png") && (userAvatar.type !== "image/jpeg")) {
-                        alert('only jpeg or png photos!!');
-                        return;
-                    }
+
         
                     const avatarName = this._avatarName;
                     const avatarBlob = this._avatarBlob;
