@@ -1,15 +1,15 @@
-'use strict';
 
-import {BoardComponent} from './components/Board/Board.js';
-import {RENDER_TYPES} from './utils/constants.js';
-import {MenuComponent} from "./components/Menu/Menu.js";
-import {AboutComponent} from "./components/About/About.js";
-import {ProfileComponent} from "./components/Profile/Profile.js";
+
+import { BoardComponent } from './components/Board/Board.js';
+import { RENDER_TYPES } from './utils/constants.js';
+import { MenuComponent } from './components/Menu/Menu.js';
+import { AboutComponent } from './components/About/About.js';
+import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
 
 
-const {AjaxModule} = window; 
+const { AjaxModule } = window;
 const application = document.getElementById('application');
 
 /**
@@ -19,10 +19,9 @@ const application = document.getElementById('application');
 function createMenuLink () {
 	const menuLink = document.createElement('a');
 	menuLink.href = menuLink.dataset.href = 'menu';
+  menuLink.textContent = 'Back to main menu';
 
-	menuLink.textContent = 'Back to main menu';
-
-	return menuLink;
+  return menuLink;
 }
 
 /**
@@ -45,8 +44,11 @@ function createMenu (errors) {
 		application.appendChild(errorsSection);
 	}
 
-	application.appendChild(menuSection);
+  const menu = new MenuComponent({ el: menuSection });
+  menu.header = 'Penguin\'s Wars';
+  menu.render();
 
+  application.appendChild(menuSection);
 }
 /**
  * Создание страницы авторизации
@@ -114,6 +116,7 @@ function createSignIn () {
 	});
 	application.appendChild(createMenuLink());
 }
+
 /**
  * Создание страницы регистрации
  */
@@ -173,11 +176,10 @@ function createSignUp () {
 	application.appendChild(createMenuLink());
 }
 
-
-
-
 /**
  * Создание страницы списка лидеров
+ * @param users - Массив пользователей
+ * @param pageNumber - Номер страницы
  */
 function createLeaderboard (users, pageNumber = 0) {
 
@@ -197,7 +199,7 @@ function createLeaderboard (users, pageNumber = 0) {
 	if (users) {
 		const board = new BoardComponent({
 			el: boardWrapper,
-			type: RENDER_TYPES.STRING,
+			type: RENDER_TYPES.TMPL,
 		});
 		board.data = JSON.parse(JSON.stringify(users));
 		board.render();
@@ -258,11 +260,6 @@ function createLeaderboard (users, pageNumber = 0) {
 			});
 	});
 
-
-
-	
-
-
 	const next = document.createElement('input');
 	next.value = "Следующая страница"
 	next.type = "button"
@@ -296,8 +293,6 @@ function createLeaderboard (users, pageNumber = 0) {
 	application.appendChild(next);
 }
 
-
-
 /**
  * Создание страницы профиля пользователя
  */
@@ -309,6 +304,7 @@ function createProfile (me) {
 	if (me) {
 		const profile = new ProfileComponent({
 			el: profileSection,
+			type: RENDER_TYPES.TMPL,
 		});
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
@@ -330,23 +326,6 @@ function createProfile (me) {
 				createMenu('Unauthorized');
 				return;
 			});
-
-// 		AjaxModule.doGet({
-// 			callback(xhr) {
-// 				if (!xhr.responseText) {
-// 					alert('Unauthorized');
-// 					application.innerHTML = '';
-// 					createMenu();
-// 					return;
-// 				}
-
-// 				const user = JSON.parse(xhr.responseText);
-// 				application.innerHTML = '';
-// 				createProfile(user);
-// 			},
-// 			path: '/me',
-// });
-
 	}
 
 	application.appendChild(profileSection);
@@ -356,67 +335,66 @@ function createProfile (me) {
  * Создание страницы с информацией об игре
  */
 function createAbout() {
-	const aboutSection = document.createElement('section');
-	aboutSection.dataset.sectionName = 'about';
+  const aboutSection = document.createElement('section');
+  aboutSection.dataset.sectionName = 'about';
 
-	const about = new AboutComponent({
-		el: aboutSection
-	});
-	about.render();
-	application.appendChild(aboutSection);
-	application.appendChild(createMenuLink());
+  const about = new AboutComponent({
+    el: aboutSection,
+  });
+  about.render();
+  application.appendChild(aboutSection);
+  application.appendChild(createMenuLink());
 }
 /**
  * Выход пользователя из аккаунта
  */
 function signOut() {
-	AjaxModule.doPromiseGet({
-		path: '/signout',	
-	})
-		.then( response => {
-			console.log('Response status: ' + response.status);
+  AjaxModule.doPromiseGet({
+    path: '/signout',
+  })
+    .then((response) => {
+      console.log(`Response status: ${response.status}`);
 
-			return response.json();
-		})
-		.then( status => {
-			console.log(status);
-			application.innerHTML = '';
-			createMenu();
-		})
-		.catch( () => {
-			application.innerHTML = '';
-			createMenu('Unauthorized');
-			return;
-		});
-	
+      return response.json();
+    })
+    .then((status) => {
+      console.log(status);
+      application.innerHTML = '';
+      createMenu();
+    })
+    .catch(() => {
+      alert('Unauthorized');
+      application.innerHTML = '';
+      createMenu();
+    });
 }
 
 const pages = {
-	menu: createMenu,
-	signIn: createSignIn,
-	signUp: createSignUp,
-	leaders: createLeaderboard,
-	me: createProfile,
-	about: createAbout,
-	signout: signOut
+  menu: createMenu,
+  signIn: createSignIn,
+  signUp: createSignUp,
+  leaders: createLeaderboard,
+  me: createProfile,
+  about: createAbout,
+  signout: signOut,
 };
 
 createMenu();
 
-application.addEventListener('click', function (event) {
-	if (!(event.target instanceof HTMLAnchorElement)) {
-		return;
-	}
+application.addEventListener('click', (event) => {
+  if (!(event.target instanceof HTMLAnchorElement)) {
+    return;
+  }
 
-	event.preventDefault();
-	const link = event.target;
+  event.preventDefault();
+  const link = event.target;
 
-	console.log({
-		href: link.href,
-		dataHref: link.dataset.href
-	});
+  console.log({
+    href: link.href,
+    dataHref: link.dataset.href,
+  });
 
-	application.innerHTML = '';
+  application.innerHTML = '';
 
-	pages[ link.dataset.href ]();
+  pages[link.dataset.href]();
 });

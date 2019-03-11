@@ -1,4 +1,4 @@
-'use strict';
+
 
 const express = require('express');
 const body = require('body-parser');
@@ -6,6 +6,7 @@ const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const uuid = require('uuid/v4');
 const path = require('path');
+
 const app = express();
 
 
@@ -69,7 +70,6 @@ app.use( (req, res, next) => {
 		res.setHeader('Access-Control-Allow-Headers', 'content-type');
 		res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
     
-
 	next();
 });
 
@@ -105,54 +105,51 @@ app.post('/signup', function (req, res) {
 	res.status(201).json({id});
 });
 
-app.post('/login', function (req, res) {
-	const password = req.body.password;
-	const email = req.body.email;
-	if (!password || !email) {
-		return res.status(400).json({error: 'Не указан E-Mail или пароль'});
-	}
-	if (!users[email] || users[email].password !== password) {
-		return res.status(400).json({error: 'Неверный E-Mail и/или пароль'});
-	}
+app.post('/login', (req, res) => {
+  const { password } = req.body;
+  const { email } = req.body;
+  if (!password || !email) {
+    return res.status(400).json({ error: 'Не указан E-Mail или пароль' });
+  }
+  if (!users[email] || users[email].password !== password) {
+    return res.status(400).json({ error: 'Неверный E-Mail и/или пароль' });
+  }
 
-	const id = uuid();
-	ids[id] = email;
+  const id = uuid();
+  ids[id] = email;
 
-	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(200).json({id});
+  res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+  res.status(200).json({ id });
 });
 
-app.get('/signout', function (req, res){
-	const id = req.cookies['sessionid'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
-	res.clearCookie('sessionid');
-	res.json({ status: 'successfully signed out' })
-
+app.get('/signout', (req, res) => {
+  const id = req.cookies.sessionid;
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
+  res.clearCookie('sessionid');
+  res.json({ status: 'successfully signed out' });
 });
 
-app.get('/me', function (req, res) {
-	const id = req.cookies['sessionid'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
+app.get('/me', (req, res) => {
+  const id = req.cookies.sessionid;
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
 
-	// users[email].score += 1;
-
-	res.json(users[email]);
+  res.json(users[email]);
 });
 
-app.post('/change_profile', function (req, res) {
-	const id = req.cookies['sessionid'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return res.status(401).end();
-	}
+app.post('/change_profile', (req, res) => {
+  const id = req.cookies.sessionid;
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
 
-	ids[id] = email;
+  ids[id] = email;
 
 	users[email].email = req.body.email;
 	users[email].login = req.body.login;
@@ -161,14 +158,9 @@ app.post('/change_profile', function (req, res) {
 	users[email].avatarBlob = req.body.avatarBlob;
 	const result = users[email].avatarBlob;
 
-	//what for?
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	res.status(201).json({result});
 });
-
-// app.get('/about', function (req, res) {
-
-// });
 
 app.post('/leaders', function (req, res) {
 	const scorelist = Object.values(users)
@@ -187,6 +179,6 @@ app.post('/leaders', function (req, res) {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
-	console.log(`Server listening port ${port}`);
+app.listen(port, () => {
+  console.log(`Server listening port ${port}`);
 });
