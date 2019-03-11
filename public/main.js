@@ -352,9 +352,8 @@ function signOut() {
       createMenu();
     })
     .catch(() => {
-      alert('Unauthorized');
       application.innerHTML = '';
-      createMenu();
+      createMenu('Unauthorized');
     });
 }
 
