@@ -106,16 +106,16 @@ export class SignUpComponent{
             let errorString;
             
             if(
-                email.localeCompare("") === 0 || 
-                password.localeCompare("") === 0 ||
+                email.length === 0 || 
+                password.length === 0 ||
                 password !== password_repeat
             ){
                 errorString = 'Вы не ввели следующие поля:\n'
-                if (email.localeCompare("") === 0) {
+                if (email.length === 0) {
                     errorString = `${errorString}email\n`;
                     form.elements[ 'email' ].classList.add('errorInput');
                 }
-                if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
+                if (password.length === 0 || !password.match(/^\S{4,}$/)) {
                     errorString = `${errorString}пароль\n`;
                     form.elements[ 'password' ].classList.add('errorInput');
                     form.elements[ 'password_repeat' ].classList.add('errorInput');
@@ -184,16 +184,16 @@ export class SignUpComponent{
                     let errorString;
                     
                     if(
-                        email.localeCompare("") === 0 || 
-                        password.localeCompare("") === 0 ||
+                        email.length === 0 || 
+                        password.length === 0 ||
                         password !== password_repeat
                     ){
                         errorString = 'Вы не ввели следующие поля:\n'
-                        if (email.localeCompare("") === 0) {
+                        if (email.length === 0) {
                             errorString += 'email\n';
                             form.elements[ 'email' ].classList.add('errorInput');
                         }
-                        if (password.localeCompare("") === 0 || !password.match(/^\S{4,}$/)) {
+                        if (password.length === 0 || !password.match(/^\S{4,}$/)) {
                             errorString += 'пароль\n';
                             form.elements[ 'password' ].classList.add('errorInput');
                             form.elements[ 'password_repeat' ].classList.add('errorInput');

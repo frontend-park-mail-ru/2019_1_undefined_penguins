@@ -167,20 +167,20 @@ export class ProfileComponent {
             const name = form.elements[ 'name' ].value;
 
             if (
-                    email.localeCompare("") === 0 || 
-                    login.localeCompare("") === 0 ||
-                    name.localeCompare("") === 0
+                    email.length === 0 || 
+                    login.length === 0 ||
+                    name.length === 0
                 ) {
                     let errorString = 'Вы не ввели следующие поля:\n';
-                    if (email.localeCompare("") === 0) {
+                    if (email.length === 0) {
                         errorString = `${errorString}email\n`;
                         form.elements[ 'email' ].classList.add('errorInput');
                     }
-                    if (login.localeCompare("") === 0) {
+                    if (login.length === 0) {
                         errorString = `${errorString}логин\n`;
                         form.elements[ 'login' ].classList.add('errorInput');
                     }
-                    if (name.localeCompare("") === 0) {
+                    if (name.length === 0) {
                         errorString = `${errorString}имя\n`;
                         form.elements[ 'name' ].classList.add('errorInput');
                     }
