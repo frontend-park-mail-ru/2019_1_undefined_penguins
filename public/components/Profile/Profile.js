@@ -83,39 +83,78 @@ export class ProfileComponent {
                 name: 'login',
                 type: 'text',
                 title: 'Логин: ',
-                value: this._data.login
+                value: this._data.login,
+                disabled: false
             },
             {
                 name: 'name',
                 type: 'text',
                 title: 'Имя: ',
-                value: this._data.name
+                value: this._data.name,
+                disabled: false
             },
             {
                 name: 'email',
                 type: 'email',
                 title: 'Email: ',
-                value: this._data.email
+                value: this._data.email,
+                disabled: true
             }
-            return res;
-          },
-        )
-        .then((res) => {
-          application.innerHTML = '';
-          createProfile();
-        })
-        .catch(() => {
-          console.error;
-          application.innerHTML = '';
-          alert('ERROR');
+        ];
+
+        inputs.forEach(function (item) {
+            const inputString = document.createElement('div');
+            const label = document.createElement('label');
+            label.textContent = item.title;
+
+            const input = document.createElement('input');
+            input.name = item.name;
+            input.type = item.type;
+            input.value = item.value;
+            input.disabled = item.disabled;
+
+            inputString.appendChild(label);
+            inputString.appendChild(input);
+            data.appendChild(inputString);
         });
-          
+
+        dataInline.appendChild(avatar);
+        dataInline.appendChild(data);
+
+        const infoInline = document.createElement('div');
+        infoInline.classList = 'data_inline info';
+
+        const info = [
+            {
+                name: 'Лучший результат:',
+                data: this._data.score
+            },
+            {
+                name: 'Последняя игра:',
+                data: this._data.lastVisit
+            }
+        ];
+
+        info.forEach(function (item) {
+            const div = document.createElement('div');
+            div.classList = 'info_block';
+
+            const labelTitle = document.createElement('label');
+            labelTitle.textContent = item.name;
+
+            const labelInfo = document.createElement('label');
+            labelInfo.textContent = item.data;
+
+            div.appendChild(labelTitle);
+            div.appendChild(labelInfo);
+            infoInline.appendChild(div);
+        });
         form.appendChild(dataInline);
 
         const button = document.createElement('input');
         button.name = 'save';
         button.type = 'submit';
-        button.value = 'Сохранить';
+        button.value = 'Сохранить'; 
         
         const inputAvatar = document.createElement('input');
         inputAvatar.name = 'inputAvatar';
@@ -149,35 +188,25 @@ export class ProfileComponent {
             const name = form.elements[ 'name' ].value;
 
             if (
-                    email.length === 0 || 
-                    login.length === 0 ||
-                    name.length === 0
+                    email.localeCompare("") === 0 || 
+                    login.localeCompare("") === 0 ||
+                    name.localeCompare("") === 0
                 ) {
-                    let errorString = 'Вы не ввели следующие поля:\n';
-                    if (email.length === 0) {
-                        errorString = `${errorString}email\n`;
-                        form.elements[ 'email' ].classList.add('errorInput');
-                    }
-                    if (login.length === 0) {
-                        errorString = `${errorString}логин\n`;
-                        form.elements[ 'login' ].classList.add('errorInput');
-                    }
-                    if (name.length === 0) {
-                        errorString = `${errorString}имя\n`;
-                        form.elements[ 'name' ].classList.add('errorInput');
-                    }
-                    
-                    err.innerText = errorString;
+                    alert('input error');
                     return;
                 }
 
-            if (userAvatar.size > 70000) {
+            if ((userAvatar !== undefined) && (userAvatar.size > 70000)) {
                 alert('photo is very large (70Кб)!!');
                 return;
             }
-          
-            const avatarName = this._avatarName;
-            const avatarBlob = this._avatarBlob;
+
+            let avatarName = this._data.avatarName;
+            let avatarBlob = this._data.avatarBlob;
+            if ((userAvatar !== undefined)) {
+                avatarName = this._avatarName;
+                avatarBlob = this._avatarBlob;
+            }
 
             AjaxModule.doPromisePost({
                 path: '/change_profile',
@@ -187,10 +216,11 @@ export class ProfileComponent {
                     name: name,
                     avatarName: avatarName,
                     avatarBlob: avatarBlob
-                },	
+                },  
             })
             .then (
                 (res) => {
+                    // console.log(JSON.stringify(res));
                     console.log(res);
                     if(res.status > 400) {
                         throw new Error('Network response was not ok.'); 
@@ -198,19 +228,22 @@ export class ProfileComponent {
                     return res.json(); 
                 })
             .then( (res) => {
-                avatar.src = res.result;
+                if (res.result !== "") {
+                    avatar.src = res.result;
+                }
             })
             .catch( () => {
                 console.error;
-                application.innerHTML = '';
-                console.log('ERROR');
+                alert('ERROR');
             }); 
         }.bind(this));
+    mainSection.appendChild(form);
+    return mainSection;
+}  
 
-        mainSection.appendChild(form);
-
-        return mainSection;
-    }   
+_renderTmpl() {
+this._el.innerHTML = window.fest['components/Profile/Profile.tmpl'](this._data);
+}
     /**
      * Рендеринг страницы.
      */

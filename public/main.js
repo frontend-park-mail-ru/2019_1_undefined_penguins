@@ -31,7 +31,10 @@ function createMenu (errors) {
 	const menuSection = document.createElement('section');
 	menuSection.dataset.sectionName = 'menu';
 
-	const menu = new MenuComponent({el: menuSection});
+	const menu = new MenuComponent({
+		el: menuSection,
+		type: RENDER_TYPES.DOM,
+	});
 	menu.header = 'Penguin\'s Wars';
 	menu.render();
 	if (errors) {
@@ -44,10 +47,6 @@ function createMenu (errors) {
 		application.appendChild(errorsSection);
 	}
 
-  const menu = new MenuComponent({ el: menuSection });
-  menu.header = 'Penguin\'s Wars';
-  menu.render();
-
   application.appendChild(menuSection);
 }
 /**
@@ -58,7 +57,8 @@ function createSignIn () {
 	signInSection.dataset.sectionName = "sign_in"
 
 	const signIn = new SignInComponent({
-		el: signInSection
+		el: signInSection,
+		type: RENDER_TYPES.TMPL,
 	})
 
 	signIn.render();  
@@ -102,17 +102,6 @@ function createSignIn () {
 			createMenu();
 		});
 	}
-	// AjaxModule.doPost({
-	// 	callback() {
-	// 		application.innerHTML = '';
-	// 		createProfile();
-	// 	},
-	// 	path: '/login',
-	// 	body: {
-	// 		email: email,
-	// 		password: password,
-	// 	},
-	// });
 	});
 	application.appendChild(createMenuLink());
 }
@@ -125,7 +114,8 @@ function createSignUp () {
 	signUpSection.dataset.sectionName = 'sign_up';
 
   const signUp = new SignUpComponent({
-		el: signUpSection
+		el: signUpSection,
+    type: RENDER_TYPES.TMPL,
 	})
 
 	signUp.render();
@@ -172,7 +162,6 @@ function createSignUp () {
 		});          
 	}
 	})
-
 	application.appendChild(createMenuLink());
 }
 
@@ -304,7 +293,7 @@ function createProfile (me) {
 	if (me) {
 		const profile = new ProfileComponent({
 			el: profileSection,
-			type: RENDER_TYPES.TMPL,
+			type: RENDER_TYPES.DOM,
 		});
 		profile.data = JSON.parse(JSON.stringify(me));
 		profile.render();
@@ -398,3 +387,4 @@ application.addEventListener('click', (event) => {
 
   pages[link.dataset.href]();
 });
+

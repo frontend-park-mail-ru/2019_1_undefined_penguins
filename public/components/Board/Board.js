@@ -42,10 +42,10 @@ export class BoardComponent {
     table.border = 1;
     table.cellSpacing = table.cellPadding = 0;
 
-    this._data.forEach(({
+    this._data.forEach(function ({
       email = 'test@mail.ru',
       score = 100500,
-    } = {}) => {
+    } = {}) {
       const tr = document.createElement('tr');
       const tdEmail = document.createElement('td');
       const tdScore = document.createElement('td');
@@ -115,6 +115,5 @@ export class BoardComponent {
 				this.__renderTmpl();
 				break;
 		}
-    }
   }
 }

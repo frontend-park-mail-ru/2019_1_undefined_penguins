@@ -151,7 +151,7 @@ app.post('/change_profile', (req, res) => {
 
   ids[id] = email;
 
-	users[email].email = req.body.email;
+	// users[email].email = req.body.email;
 	users[email].login = req.body.login;
 	users[email].name = req.body.name;
 	users[email].avatarName = req.body.avatarName;
