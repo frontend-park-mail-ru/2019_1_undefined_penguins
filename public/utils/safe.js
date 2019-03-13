@@ -10,7 +10,7 @@ const WHITELIST_ATTRS = [
 
 const R_TAG = /<(\w+)\s?(.*?)>.*?(<\/(.*?)>)?/;
 const R_ATTRIBUTES = /(\w+\s*)=(\s*".*?")/g;
-	/**
+/**
      * Функция защиты от XSS
 	 * @param unsafeString - Входная априори небезопасная строка
      * @return  Строка, очищенная от небезопасных элементов
