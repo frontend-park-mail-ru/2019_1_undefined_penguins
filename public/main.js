@@ -187,7 +187,7 @@ function createLeaderboard(users, pageNumber = 0) {
   if (users) {
     const board = new BoardComponent({
       el: boardWrapper,
-      type: RENDER_TYPES.TMPL,
+      type: RENDER_TYPES.DOM,
     });
     board.data = JSON.parse(JSON.stringify(users));
     board.render();
@@ -196,12 +196,9 @@ function createLeaderboard(users, pageNumber = 0) {
     em.textContent = 'Loading';
     leaderboardSection.appendChild(em);
 
-    AjaxModule.doPromisePost({
-      path: '/leaders',
-      body: {
-        page: pageNumber,
-        items: itemsNumber,
-      },
+    AjaxModule.doPromiseGet({
+			path: '/leaders',
+			
     })
       .then((response) => {
         console.log(`Response status: ${response.status}`);
@@ -212,71 +209,59 @@ function createLeaderboard(users, pageNumber = 0) {
         application.innerHTML = '';
         createLeaderboard(users, pageNumber);
       })
-      .catch(() => {
-        console.error;
-        application.innerHTML = '';
-        createMenu();
-      });
+      ;
   }
-  const prev = document.createElement('input');
-  prev.value = 'Предыдущая страница';
-  prev.type = 'button';
-  prev.addEventListener('click', () => {
-    AjaxModule.doPromisePost({
-      path: '/leaders',
-      body: {
-        page: pageNumber - 1,
-        items: itemsNumber,
-      },
-    })
-      .then((response) => {
-        console.log(`Response status: ${response.status}`);
+  // const prev = document.createElement('input');
+  // prev.value = 'Предыдущая страница';
+  // prev.type = 'button';
+  // prev.addEventListener('click', () => {
+  //   AjaxModule.doPromiseGet({
+  //     path: '/leaders',
+  //   })
+  //     .then((response) => {
+  //       console.log(`Response status: ${response.status}`);
 
-        return response.json();
-      })
-      .then((users) => {
-        console.log(users);
-        application.innerHTML = '';
-        createLeaderboard(users, pageNumber - 1);
-      })
-      .catch(() => {
-        console.error;
-        application.innerHTML = '';
-        createMenu();
-      });
-  });
+  //       return response.json();
+  //     })
+  //     .then((users) => {
+  //       console.log(users);
+  //       application.innerHTML = '';
+  //       createLeaderboard(users, pageNumber - 1);
+  //     })
+  //     .catch(() => {
+  //       console.error;
+  //       application.innerHTML = '';
+  //       createMenu();
+  //     });
+  // });
 
-  const next = document.createElement('input');
-  next.value = 'Следующая страница';
-  next.type = 'button';
-  next.addEventListener('click', () => {
-    AjaxModule.doPromisePost({
-      path: '/leaders',
-      body: {
-        page: pageNumber + 1,
-        items: itemsNumber,
-      },
-    })
-      .then((response) => {
-        console.log(`Response status: ${response.status}`);
+  // const next = document.createElement('input');
+  // next.value = 'Следующая страница';
+  // next.type = 'button';
+  // next.addEventListener('click', () => {
+  //   AjaxModule.doPromiseGet({
+  //     path: '/leaders',
+  //   })
+  //     .then((response) => {
+  //       console.log(`Response status: ${response.status}`);
 
-        return response.json();
-      })
-      .then((users) => {
-        console.log(users);
-        application.innerHTML = '';
-        createLeaderboard(users, pageNumber + 1);
-      })
-      .catch(() => {
-        console.error;
-        application.innerHTML = '';
-        createMenu();
-      });
-  });
+  //       return response.json();
+  //     })
+  //     .then((users) => {
+  //       console.log(users);
+  //       application.innerHTML = '';
+  //       createLeaderboard(users, pageNumber + 1);
+  //     })
+  //     .catch(() => {
+  //       console.error;
+  //       application.innerHTML = '';
+  //       createMenu();
+  //     });
+  // });
 
   application.appendChild(leaderboardSection);
-  application.appendChild(prev);
-  application.appendChild(next);
+  // application.appendChild(prev);
+  // application.appendChild(next);
 }
 
 /**
