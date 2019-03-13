@@ -142,7 +142,7 @@ app.get('/me', (req, res) => {
   res.json(users[email]);
 });
 
-app.post('/change_profile', (req, res) => {
+app.put('/change_profile', (req, res) => {
   const id = req.cookies.sessionid;
   const email = ids[id];
   if (!email || !users[email]) {
@@ -159,7 +159,7 @@ app.post('/change_profile', (req, res) => {
 	const result = users[email].avatarBlob;
 
 	res.cookie('sessionid', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	res.status(201).json({result});
+	res.status(200).json({result});
 });
 
 app.post('/leaders', function (req, res) {

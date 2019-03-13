@@ -222,7 +222,7 @@ export class ProfileComponent {
                 avatarBlob = this._avatarBlob;
             }
 
-            AjaxModule.doPromisePost({
+            AjaxModule.doPromisePut({
                 path: '/change_profile',
                 body: {
                     email: email,
