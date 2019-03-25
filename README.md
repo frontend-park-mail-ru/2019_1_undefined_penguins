@@ -1,6 +1,6 @@
 # Ссылка на поиграть
 
-https://penguin-wars.sytes.pro/
+https://penguin-wars.sytes.pro
 
 # ESLint
 
