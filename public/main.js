@@ -58,7 +58,7 @@ function createSignIn() {
 
   const signIn = new SignInComponent({
     el: signInSection,
-    type: RENDER_TYPES.TMPL,
+    type: RENDER_TYPES.DOM,
   });
 
   signIn.render();
@@ -97,9 +97,12 @@ function createSignIn() {
           createProfile();
         })
         .catch(() => {
-          console.error;
-          application.innerHTML = '';
-          createMenu();
+          const err = document.getElementsByTagName('span')[0];
+          err.classList.add('errorLabel');
+          err.innerText = "Такого пользователя не существует!";
+          // form.elements.password.classList.add('errorInput');
+          // application.innerHTML = '';
+          // createMenu();
         });
     }
   });
@@ -260,8 +263,6 @@ function createLeaderboard(users, pageNumber = 0) {
   // });
 
   application.appendChild(leaderboardSection);
-  // application.appendChild(prev);
-  // application.appendChild(next);
 }
 
 /**
