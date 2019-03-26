@@ -1,5 +1,3 @@
-
-
 import { BoardComponent } from './components/Board/Board.js';
 import { RENDER_TYPES } from './utils/constants.js';
 import { MenuComponent } from './components/Menu/Menu.js';
@@ -7,6 +5,7 @@ import { AboutComponent } from './components/About/About.js';
 import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
+import { But } from './scripts/EventBus.js';
 
 
 const { AjaxModule } = window;
