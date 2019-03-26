@@ -5,12 +5,29 @@ import { AboutComponent } from './components/About/About.js';
 import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
-import { But } from './scripts/EventBus.js';
-import Router from './Router.js';
+import Bus from './scripts/EventBus.js';
+import Router from './scripts/Router.js';
+import ScoreboardView from './views/ScoreboardView.js'
+import MenuView from './views/MenuView.js';
+
+import UsersService from './scripts/UsersService.js';
 
 
 const { AjaxModule } = window;
 const application = document.getElementById('application');
+
+
+
+Bus.on('fetch-users', function () {
+	UsersService
+		.FetchUsers()
+		.then(function (users) {
+      Bus.emit('users-loaded', users);
+		})
+		.catch(function (error) {
+			console.error(error);
+		});
+});
 
 /**
  * Создать ссылку на главное меню
@@ -351,29 +368,29 @@ const pages = {
 
 createMenu();
 
-application.addEventListener('click', (event) => {
-  if (!(event.target instanceof HTMLAnchorElement)) {
-    return;
-  }
+// application.addEventListener('click', (event) => {
+//   if (!(event.target instanceof HTMLAnchorElement)) {
+//     return;
+//   }
 
-  event.preventDefault();
-  const link = event.target;
+//   event.preventDefault();
+//   const link = event.target;
 
-  console.log({
-    href: link.href,
-    dataHref: link.dataset.href,
-  });
+//   console.log({
+//     href: link.href,
+//     dataHref: link.dataset.href,
+//   });
 
-  application.innerHTML = '';
+//   application.innerHTML = '';
 
-  pages[link.dataset.href]();
-});
+//   pages[link.dataset.href]();
+// });
 
 
 const router = new Router(application);
 
 router
 	.register('/', MenuView)
-	.register('/scoreboard', ScoreboardView);
+	.register('/leaders', ScoreboardView);
 
 router.start();

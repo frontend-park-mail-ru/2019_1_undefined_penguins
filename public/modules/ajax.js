@@ -1,6 +1,6 @@
 (function () {
   const noop = () => null;
-  const home = 'http://localhost:8080';
+  const home = 'http://localhost:3000';
 
   /** Класс модуля для работы с Ajax. */
   class AjaxModule {
@@ -33,7 +33,7 @@
 		} = {}) {
 			return fetch(home + path, {
 				method: 'GET',
-				mode: 'cors',
+				// mode: 'cors',
 				credentials: 'include',
 				body: null,
 			});
