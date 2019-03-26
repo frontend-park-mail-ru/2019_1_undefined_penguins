@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
 import { But } from './scripts/EventBus.js';
+import Router from './Router.js';
 
 
 const { AjaxModule } = window;
@@ -367,3 +368,12 @@ application.addEventListener('click', (event) => {
 
   pages[link.dataset.href]();
 });
+
+
+const router = new Router(application);
+
+router
+	.register('/', MenuView)
+	.register('/scoreboard', ScoreboardView);
+
+router.start();
