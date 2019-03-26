@@ -1,5 +1,3 @@
-
-
 import { BoardComponent } from './components/Board/Board.js';
 import { RENDER_TYPES } from './utils/constants.js';
 import { MenuComponent } from './components/Menu/Menu.js';
@@ -7,6 +5,7 @@ import { AboutComponent } from './components/About/About.js';
 import { ProfileComponent } from './components/Profile/Profile.js';
 import { SignInComponent } from './components/SignIn/SignIn.js';
 import { SignUpComponent } from './components/SignUp/SignUp.js';
+import { But } from './scripts/EventBus.js';
 
 
 const { AjaxModule } = window;
@@ -58,7 +57,7 @@ function createSignIn() {
 
   const signIn = new SignInComponent({
     el: signInSection,
-    type: RENDER_TYPES.TMPL,
+    type: RENDER_TYPES.DOM,
   });
 
   signIn.render();
@@ -97,9 +96,12 @@ function createSignIn() {
           createProfile();
         })
         .catch(() => {
-          console.error;
-          application.innerHTML = '';
-          createMenu();
+          const err = document.getElementsByTagName('span')[0];
+          err.classList.add('errorLabel');
+          err.innerText = "Такого пользователя не существует!";
+          // form.elements.password.classList.add('errorInput');
+          // application.innerHTML = '';
+          // createMenu();
         });
     }
   });
@@ -260,8 +262,6 @@ function createLeaderboard(users, pageNumber = 0) {
   // });
 
   application.appendChild(leaderboardSection);
-  // application.appendChild(prev);
-  // application.appendChild(next);
 }
 
 /**
