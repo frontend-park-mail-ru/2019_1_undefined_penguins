@@ -1,15 +1,13 @@
 const AjaxModule = window.AjaxModule;
 
 export default class UsersService {
-	static FetchUsers () {
+	static FetchUsers (path) {
 		return AjaxModule
 			.doPromiseGet({
-				path: '/users'
+				path: path
 			})
 			.then(function (res) {
-
-                console.log(JSON.stringify(res));
-				return res.json();
+				return res.status;
 			});
 	}
 };

@@ -27,27 +27,39 @@ router.start();
 
 Bus.on('fetch-users', function () {
 	UsersService
-		.FetchUsers()
+		.FetchUsers('/users')
 		.then(function (users) {
-      Bus.emit('users-loaded', users);
+			Bus.emit('users-loaded', users);
 		})
 		.catch(function (error) {
 			console.error(error);
 		});
 });
 
-Bus.on('user:logged-in', () => {         
-	// const menuHeader = header({'headerType': 'loggedIn'});
-	const navigationPart = document.getElementsByClassName('menu_header');
+// Bus.on('user:logged-in', () => {
+// 	// const menuHeader = header({'headerType': 'loggedIn'});
+// 	const navigationPart = document.getElementsByClassName('menu_header');
 
-	if (navigationPart[0]) {
-		navigationPart[0].innerHTML = '';
-		navigationPart[0].textContent = "BUGAGA";
-	}
-});
+// 	if (navigationPart[0]) {
+// 		navigationPart[0].innerHTML = '';
+// 		navigationPart[0].textContent = "BUGAGA";
+// 	}
+// });
+
+
+
+Bus.on('logged-in', (func) => {
+	UsersService
+		.FetchUsers('/logged')
+		.then(function (status) {
+			if (status === 200 ) {
+				func();
+			}
+		}) 
+})
 
 if (document.cookie) {
-	Bus.emit('user:logged-in');
+	Bus.emit('logged-in');
 }
 
 // /**
@@ -239,7 +251,7 @@ if (document.cookie) {
 
 //     AjaxModule.doPromiseGet({
 // 			path: '/leaders',
-			
+
 //     })
 //       .then((response) => {
 //         console.log(`Response status: ${response.status}`);

@@ -59,10 +59,20 @@ app.get('/users', function (req, res) {
         score: user.score
       };
     });
-  console.log(JSON.stringify(scorelist));
+  // console.log(JSON.stringify(scorelist));
   res.json(scorelist);
 });
 
+app.get('/logged', (req, res) => {
+  const id = req.cookies.sessionid;
+  const email = ids[id];
+  if (!email || !users[email]) {
+		console.log(res.status(401).end());
+    return res.status(401).end();
+	}
+	console.log(res.status(200).end());
+	return res.status(200).end();
+});
 
 const port = process.env.PORT || 3000;
 
