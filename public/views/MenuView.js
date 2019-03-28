@@ -1,8 +1,27 @@
 import BaseView from './BaseView.js';
+import Bus from '../scripts/EventBus.js';
 
 export default class MenuView extends BaseView {
 	constructor (el) {
 		super(el);
+		this.logged = false;
+		console.log("PRE LOGGED IN");
+		Bus.on('logged-in', this.setUser.bind(this));
+	}
+
+	show () {
+		super.show();
+		// this.fetchUser();
+	}
+
+	fetchUser () {
+		Bus.emit('fetch-user');
+	}
+
+	setUser (logged) {
+		console.log("SET USER");
+		this.logged = logged;
+		this.render();
 	}
 
 	render () {
@@ -20,12 +39,7 @@ export default class MenuView extends BaseView {
 		const auth = document.createElement('div');
 		auth.id = 'auth';
 
-		const authTitles = {
-			signIn: 'Sing In',
-			signUp: 'Sign Up',
-			me: 'Profile',
-			signout: 'Sign Out',
-		};
+		let authTitles = (!this.logged) ? this._headersUnauthorized() : this._headersAuthorized();
 
 		Object.entries(authTitles).forEach((entry) => {
 			const href = entry[0];
@@ -88,5 +102,19 @@ export default class MenuView extends BaseView {
 		mainSection.appendChild(menu);
 
 		this.el.appendChild(mainSection);
+	}
+
+	_headersAuthorized() {
+		return {
+			me: 'Profile',
+			signout: 'Sign Out',
+		};
+	}
+
+	_headersUnauthorized() {
+		return {
+			signIn: 'Sing In',
+			signUp: 'Sign Up',
+		};
 	}
 }

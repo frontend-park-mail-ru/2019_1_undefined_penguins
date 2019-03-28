@@ -9,6 +9,7 @@ import Bus from './scripts/EventBus.js';
 import Router from './scripts/Router.js';
 import ScoreboardView from './views/ScoreboardView.js'
 import MenuView from './views/MenuView.js';
+import SignInView from './views/SignInView.js';
 
 import UsersService from './scripts/UsersService.js';
 
@@ -21,13 +22,14 @@ const router = new Router(application);
 
 router
 	.register('/', MenuView)
-	.register('/leaders', ScoreboardView);
+	.register('/leaders', ScoreboardView)
+	.register('/signIn', SignInView);
 
 router.start();
 
 Bus.on('fetch-users', function () {
 	UsersService
-		.FetchUsers('/users')
+		.FetchUsers()
 		.then(function (users) {
 			Bus.emit('users-loaded', users);
 		})
@@ -46,21 +48,25 @@ Bus.on('fetch-users', function () {
 // 	}
 // });
 
-
-
-Bus.on('logged-in', (func) => {
+Bus.on('fetch-user', () => {
 	UsersService
-		.FetchUsers('/logged')
+		.FetchLogged('/logged')
 		.then(function (status) {
 			if (status === 200 ) {
-				func();
+				console.log('CHECK EMIT');
+				Bus.emit('logged-in', true);
 			}
 		}) 
+		.catch(function (error) {
+			console.error(error);
+		});
 })
 
-if (document.cookie) {
-	Bus.emit('logged-in');
-}
+// Bus.emit('fetch-user');
+
+// if (document.cookie) {
+	// Bus.emit('logged-in');
+// }
 
 // /**
 //  * Создать ссылку на главное меню
