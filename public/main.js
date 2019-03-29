@@ -10,22 +10,33 @@ import Router from './scripts/Router.js';
 import ScoreboardView from './views/ScoreboardView.js'
 import MenuView from './views/MenuView.js';
 import SignInView from './views/SignInView.js';
+import SignUpView from './views/SignUpView.js';
+import AboutView from './views/SignInView.js';
+import ProfileView from './views/ProfileView.js';
 
-import UsersService from './scripts/UsersService.js';
+import UsersService from './services/UsersService.js';
+import SignInController from './controllers/SignInController.js'
 
 
-const { AjaxModule } = window;
+// const { AjaxModule } = window;
 const application = document.getElementById('application');
-
-
 const router = new Router(application);
 
 router
 	.register('/', MenuView)
 	.register('/leaders', ScoreboardView)
-	.register('/signIn', SignInView);
+	.register('/signIn', SignInView)
+	.register('/signUp', SignUpView)
+	.register('/about', AboutView)
+	.register('/me', ProfileView);
 
 router.start();
+
+Bus.on('open-profile', () => {
+	router.open('/me');
+})
+
+const signInController = new SignInController();
 
 Bus.on('fetch-users', function () {
 	UsersService
