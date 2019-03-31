@@ -16,6 +16,7 @@ import ProfileView from './views/ProfileView.js';
 
 import UsersService from './services/UsersService.js';
 import SignInController from './controllers/SignInController.js'
+import ProfileController from './controllers/ProfileController.js'
 
 
 // const { AjaxModule } = window;
@@ -32,8 +33,21 @@ router
 
 router.start();
 
+(function () {
+	ProfileController.FetchGetUser();
+	Bus.emit('fetch-get-user');
+	router.open('/');
+}());	
+
+
 Bus.on('open-profile', () => {
 	router.open('/me');
+})
+
+Bus.on('open-menu', () => {
+	//TODO: тут надо публиковать fetch-get-user в общем случае
+	Bus.emit('logged-in');
+	router.open('/');
 })
 
 const signInController = new SignInController();
@@ -59,19 +73,19 @@ Bus.on('fetch-users', function () {
 // 	}
 // });
 
-Bus.on('fetch-user', () => {
-	UsersService
-		.FetchLogged('/logged')
-		.then(function (status) {
-			if (status === 200 ) {
-				console.log('CHECK EMIT');
-				Bus.emit('logged-in', true);
-			}
-		}) 
-		.catch(function (error) {
-			console.error(error);
-		});
-})
+// Bus.on('fetch-user', () => {
+// 	UsersService
+// 		.FetchLogged('/logged')
+// 		.then(function (status) {
+// 			if (status === 200 ) {
+// 				console.log('CHECK EMIT');
+// 				Bus.emit('logged-in', true);
+// 			}
+// 		}) 
+// 		.catch(function (error) {
+// 			console.error(error);
+// 		});
+// })
 
 // Bus.emit('fetch-user');
 

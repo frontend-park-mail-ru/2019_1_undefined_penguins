@@ -8,10 +8,9 @@ export default class SignInController {
 
     _fetchLogin(){
         Bus.on('fetch-sign-in', (form) => {
-            //TODO: делаем запрос на сервер и в случае успеха эмитим открытие профиля
+            //TODO: делаем запрос на сервер и в случае успеха эмитим открытие меню
             const response = SignInService.FetchLogin(form);
-            console.log(response);
-            Bus.emit('open-profile');
+            Bus.emit('open-menu');
         })
     }
 }

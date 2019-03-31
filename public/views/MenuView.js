@@ -5,23 +5,21 @@ export default class MenuView extends BaseView {
 	constructor (el) {
 		super(el);
 		this.logged = false;
-		console.log("PRE LOGGED IN");
 		Bus.on('logged-in', this.setUser.bind(this));
 	}
 
 	show () {
 		super.show();
-		// this.fetchUser();
 	}
 
 	fetchUser () {
 		Bus.emit('fetch-user');
 	}
 
-	setUser (logged) {
+	setUser () {
 		console.log("SET USER");
-		this.logged = logged;
-		this.render();
+		this.logged = true;
+		// this.render();
 	}
 
 	render () {
