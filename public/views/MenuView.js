@@ -24,20 +24,8 @@ export default class MenuView extends BaseView {
 
 	render () {
 		this.el.innerHTML = '';
-		const headerSection = document.createElement('section');
-		headerSection.dataset.sectionName = 'header';
-		headerSection.classList.add("menu_header");
 
-		const logo = document.createElement('div');
-		logo.id = 'logo';
-		const logoHeader = document.createElement('h1');
-		logoHeader.textContent = "Penguins Wars";
-		logo.appendChild(logoHeader);
-
-		const auth = document.createElement('div');
-		auth.id = 'auth';
-
-		Bus.emit('select-menu-header');
+		Bus.emit('select-menu-header', this);
 
 		const mainSection = document.createElement('section');
 		mainSection.dataset.sectionName = 'main';
@@ -86,6 +74,18 @@ export default class MenuView extends BaseView {
 	}
 
 	RenderHeader(isAutorized) {
+		const headerSection = document.createElement('section');
+		headerSection.dataset.sectionName = 'header';
+		headerSection.classList.add("menu_header");
+
+		const logo = document.createElement('div');
+		logo.id = 'logo';
+		const logoHeader = document.createElement('h1');
+		logoHeader.textContent = "Penguins Wars";
+		logo.appendChild(logoHeader);
+		const auth = document.createElement('div');
+		auth.id = 'auth';
+
 		let authTitles = (!isAutorized) ? this._headersUnauthorized() : this._headersAuthorized();
 
 		Object.entries(authTitles).forEach((entry) => {

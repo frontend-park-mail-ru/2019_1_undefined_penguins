@@ -84,10 +84,8 @@ app.post('/logged', (req, res) => {
   const id = req.cookies.sessionid;
   const email = ids[id];
   if (!email || !users[email]) {
-		console.log('Я В 401');
     return res.status(401).end();
 	}
-	console.log('Я В 200');
 	return res.status(200).end();
 });
 

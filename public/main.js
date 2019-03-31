@@ -1,11 +1,3 @@
-import { BoardComponent } from './components/Board/Board.js';
-import { RENDER_TYPES } from './utils/constants.js';
-import { MenuComponent } from './components/Menu/Menu.js';
-import { AboutComponent } from './components/About/About.js';
-import { ProfileComponent } from './components/Profile/Profile.js';
-import { SignInComponent } from './components/SignIn/SignIn.js';
-import { SignUpComponent } from './components/SignUp/SignUp.js';
-import Bus from './scripts/EventBus.js';
 import Router from './scripts/Router.js';
 import ScoreboardView from './views/ScoreboardView.js'
 import MenuView from './views/MenuView.js';
@@ -13,10 +5,6 @@ import SignInView from './views/SignInView.js';
 import SignUpView from './views/SignUpView.js';
 import AboutView from './views/SignInView.js';
 import ProfileView from './views/ProfileView.js';
-
-import UsersService from './services/UsersService.js';
-import SignInController from './controllers/SignInController.js'
-import ProfileController from './controllers/ProfileController.js'
 
 import EventController from './scripts/EventController.js'
 
