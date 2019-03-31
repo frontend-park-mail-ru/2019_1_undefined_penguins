@@ -1,7 +1,7 @@
-export default class Router {
-	constructor (root) {
+export class Router {
+	constructor () {
 		this.routes = {};
-
+		const root = document.getElementById('application');
 		this.root = root;
 	}
 
@@ -89,3 +89,5 @@ export default class Router {
 		this.open(currentPath);
 	}
 }
+
+export default new Router;

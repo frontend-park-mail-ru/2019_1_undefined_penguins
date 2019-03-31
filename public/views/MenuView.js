@@ -4,23 +4,23 @@ import Bus from '../scripts/EventBus.js';
 export default class MenuView extends BaseView {
 	constructor (el) {
 		super(el);
-		this.logged = false;
-		Bus.on('logged-in', this.setUser.bind(this));
+		// this.logged = false;
+		Bus.emit('check-autorized');
 	}
 
 	show () {
 		super.show();
 	}
 
-	fetchUser () {
-		Bus.emit('fetch-user');
-	}
+	// fetchUser () {
+	// 	Bus.emit('fetch-user');
+	// }
 
-	setUser () {
-		console.log("SET USER");
-		this.logged = true;
-		// this.render();
-	}
+	// setUser () {
+	// 	console.log("SET USER");
+	// 	this.logged = true;
+	// 	// this.render();
+	// }
 
 	render () {
 		this.el.innerHTML = '';
@@ -37,24 +37,7 @@ export default class MenuView extends BaseView {
 		const auth = document.createElement('div');
 		auth.id = 'auth';
 
-		let authTitles = (!this.logged) ? this._headersUnauthorized() : this._headersAuthorized();
-
-		Object.entries(authTitles).forEach((entry) => {
-			const href = entry[0];
-			const title = entry[1];
-
-			const a = document.createElement('a');
-			a.textContent = title;
-			a.href = href;
-			a.dataset.href = href;
-			a.classList.add('auth-button');
-
-			auth.appendChild(a);
-		});
-
-		headerSection.appendChild(logo);
-		headerSection.appendChild(auth);
-		this.el.appendChild(headerSection);
+		Bus.emit('select-menu-header');
 
 		const mainSection = document.createElement('section');
 		mainSection.dataset.sectionName = 'main';
@@ -100,6 +83,27 @@ export default class MenuView extends BaseView {
 		mainSection.appendChild(menu);
 
 		this.el.appendChild(mainSection);
+	}
+
+	RenderHeader(isAutorized) {
+		let authTitles = (!isAutorized) ? this._headersUnauthorized() : this._headersAuthorized();
+
+		Object.entries(authTitles).forEach((entry) => {
+			const href = entry[0];
+			const title = entry[1];
+
+			const a = document.createElement('a');
+			a.textContent = title;
+			a.href = href;
+			a.dataset.href = href;
+			a.classList.add('auth-button');
+
+			auth.appendChild(a);
+		});
+
+		headerSection.appendChild(logo);
+		headerSection.appendChild(auth);
+		this.el.appendChild(headerSection);
 	}
 
 	_headersAuthorized() {

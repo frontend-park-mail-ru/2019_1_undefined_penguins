@@ -18,12 +18,16 @@ import UsersService from './services/UsersService.js';
 import SignInController from './controllers/SignInController.js'
 import ProfileController from './controllers/ProfileController.js'
 
+import EventController from './scripts/EventController.js'
+
 
 // const { AjaxModule } = window;
-const application = document.getElementById('application');
-const router = new Router(application);
+// const application = document.getElementById('application');
+// const router = new Router(application);
 
-router
+EventController.Init();
+
+Router
 	.register('/', MenuView)
 	.register('/leaders', ScoreboardView)
 	.register('/signIn', SignInView)
@@ -31,37 +35,35 @@ router
 	.register('/about', AboutView)
 	.register('/me', ProfileView);
 
-router.start();
+Router.start();
 
-(function () {
-	ProfileController.FetchGetUser();
-	Bus.emit('fetch-get-user');
-	router.open('/');
-}());	
+// (function () {
+// 	ProfileController.FetchGetUser();
+// 	Bus.emit('fetch-get-user');
+// 	router.open('/');
+// }());	
 
 
-Bus.on('open-profile', () => {
-	router.open('/me');
-})
+// Bus.on('open-profile', () => {
+// 	router.open('/me');
+// })
 
-Bus.on('open-menu', () => {
-	//TODO: тут надо публиковать fetch-get-user в общем случае
-	Bus.emit('logged-in');
-	router.open('/');
-})
+// Bus.on('open-menu', () => {
+// 	//TODO: тут надо публиковать fetch-get-user в общем случае
+// 	Bus.emit('logged-in');
+// 	router.open('/');
+// })
 
-const signInController = new SignInController();
-
-Bus.on('fetch-users', function () {
-	UsersService
-		.FetchUsers()
-		.then(function (users) {
-			Bus.emit('users-loaded', users);
-		})
-		.catch(function (error) {
-			console.error(error);
-		});
-});
+// Bus.on('fetch-users', function () {
+// 	UsersService
+// 		.FetchUsers()
+// 		.then(function (users) {
+// 			Bus.emit('users-loaded', users);
+// 		})
+// 		.catch(function (error) {
+// 			console.error(error);
+// 		});
+// });
 
 // Bus.on('user:logged-in', () => {
 // 	// const menuHeader = header({'headerType': 'loggedIn'});

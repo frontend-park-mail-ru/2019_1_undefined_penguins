@@ -80,7 +80,7 @@ app.get('/users', function (req, res) {
   res.json(scorelist);
 });
 
-app.get('/logged', (req, res) => {
+app.post('/logged', (req, res) => {
   const id = req.cookies.sessionid;
   const email = ids[id];
   if (!email || !users[email]) {
