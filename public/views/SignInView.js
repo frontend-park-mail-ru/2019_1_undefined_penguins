@@ -22,12 +22,7 @@ export default class SignInView extends BaseView {
             // const err = this.el.getElementsByTagName('span')[0];
             // err.innerText = '';
             event.preventDefault();
-            
-            this._fetchSignIn(form);
-            });
-    }
-    
-    _fetchSignIn(form) {
-        Bus.emit('fetch-sign-in', form);
+            Bus.emit('sign-in', form);
+        });
     }
 }

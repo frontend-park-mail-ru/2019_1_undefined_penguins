@@ -16,9 +16,14 @@ export class Bus {
 	}
 
 	emit (event, data) {      // публикуем (диспатчим, эмитим) событие
-		this.listeners[ event ].forEach(function (listener) {
-			listener(data);
-		});
+		try {
+			this.listeners[ event ].forEach(function (listener) {
+				listener(data);
+			});
+		}
+		catch (e) {
+			console.log(e.message);
+		}
 	}
 
 }
