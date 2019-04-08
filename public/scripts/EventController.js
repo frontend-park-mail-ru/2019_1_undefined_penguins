@@ -14,10 +14,30 @@ export default class EventController {
 
         Bus.on('sign-in', (form) => {
             UserModel.SignIn(form);
+        });
+
+        Bus.on('sign-up', (form) => {
+            UserModel.SignUp(form);
         })
 
         Bus.on('open-menu', () => {
             Router.open('/');
-        })
+        });
+
+        Bus.on('get-current-user', () => {
+            UserModel.Profile();
+        });
+        
+        Bus.on('open-profile', () => {
+            Router.open('/me');
+        });
+        // Bus.on('open-sign-up', () => {
+        //     Router.open('/signUp');
+        // });
+
+        // Bus.on('open-sign-in', () => {
+        //     Router.open('/signIn');
+        // });
+
     }
 }

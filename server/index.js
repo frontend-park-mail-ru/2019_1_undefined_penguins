@@ -109,6 +109,49 @@ app.post('/login', (req, res) => {
   res.status(200).json(users[email]);
 });
 
+app.post('/signup', (req, res) => {
+  const { password } = req.body;
+  const { email } = req.body;
+  if (
+    !password || !email
+		|| !password.match(/^\S{4,}$/)
+		|| !email.match(/@/)
+  ) {
+    return res.status(400).json({ error: 'Невалидные данные пользователя' });
+  }
+  if (users[email]) {
+    return res.status(400).json({ error: 'Пользователь уже существует' });
+  }
+
+  const id = uuid();
+  const user = {
+    login: '-не указан-',
+    email,
+    password,
+    name: '-не указано-',
+    lastVisit: 'today',
+    score: 0,
+    avatarName: 'default.png',
+    avatarBlob: './images/user.svg',
+  };
+  ids[id] = email;
+  users[email] = user;
+
+  res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+  //TODO: вернуть данные зарегистрированнго пользователя без пароля
+  res.status(201).json(user);
+});
+
+app.get('/me', (req, res) => {
+  const id = req.cookies.sessionid;
+  const email = ids[id];
+  if (!email || !users[email]) {
+    return res.status(401).end();
+  }
+
+  res.json(users[email]);
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
