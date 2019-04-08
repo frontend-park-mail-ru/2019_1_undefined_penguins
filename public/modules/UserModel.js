@@ -47,16 +47,16 @@ export class UserModel {
                 password,
             },
             })
-            .then(
-                (data) => {
-                    if (data.status > 300) {
-                        throw new Error('Network response was not ok.');
-                    }
-                    // TODO: получить данные пользователя и сделать SetUser()
-                    UserModel.SetUser(JSON.parse(JSON.stringify(data)));
-                    Bus.emit('open-menu');
-                },
-            )
+            .then((data) => {
+                if (data.status > 300) {
+                    throw new Error('Network response was not ok.');
+                }
+                return data.json();
+            })
+            .then((data) => {
+                this.SetUser(data);
+                Bus.emit('open-menu');
+            })
             .catch(() => {
                 // TODO: написать, что такого юзера нетю
                 console.log('SignIn promise fall down :(');
