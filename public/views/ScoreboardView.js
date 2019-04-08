@@ -7,42 +7,40 @@ const templateFunc = window.fest[ 'components/Board/Board.tmpl' ];
 export default class ScoreboardView extends BaseView {
 	constructor (el) {
 		super(el);
-
-		this.users = null;
-
-		bus.on('users-loaded', this.setUsers.bind(this));
+		// this.users = null;
+		// bus.on('users-loaded', this.setUsers.bind(this));
 	}
 
 	show () {
 		super.show();
 
-		this.fetchUsers();
+		// this.fetchUsers();
 	}
 
-	fetchUsers () {
-		bus.emit('fetch-users');
-	}
+	// fetchUsers () {
+	// 	bus.emit('fetch-users');
+	// }
 
-	setUsers (users) {
-		this.users = users;
-		this.render();
-	}
+	// setUsers (users) {
+	// 	this.users = users;
+	// 	this.render();
+	// }
 
 	render () {
 		this.el.innerHTML = '';
 
-		if (!this.users) {
-			this.renderLoading();
-		} else {
+		// if (!this.users) {
+		// 	this.renderLoading();
+		// } else {
 			this.renderScoreboard();
-		}
+		// }
 	}
 
-	renderLoading () {
-		const loading = document.createElement('strong');
-		loading.textContent = 'Loading';
-		this.el.appendChild(loading);
-	}
+	// renderLoading () {
+	// 	const loading = document.createElement('strong');
+	// 	loading.textContent = 'Loading';
+	// 	this.el.appendChild(loading);
+	// }
 
 	renderScoreboard () {
 		this.el.innerHTML = templateFunc(this.users);

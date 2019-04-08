@@ -67,20 +67,20 @@ const users = {
 
 const ids = {};
 
-app.get('/users', function (req, res) {
-  // console.log(res);
-  const scorelist = Object.values(users)
-    .sort((l, r) => r.score - l.score)
-    .map(user => {
-      return {
-        email: user.email,
-        age: user.age,
-        score: user.score
-      };
-    });
-  // console.log(JSON.stringify(scorelist));
-  res.json(scorelist);
-});
+// app.get('/users', function (req, res) {
+//   // console.log(res);
+//   const scorelist = Object.values(users)
+//     .sort((l, r) => r.score - l.score)
+//     .map(user => {
+//       return {
+//         email: user.email,
+//         age: user.age,
+//         score: user.score
+//       };
+//     });
+//   // console.log(JSON.stringify(scorelist));
+//   res.json(scorelist);
+// });
 
 app.post('/logged', (req, res) => {
   const id = req.cookies.sessionid;
@@ -150,6 +150,19 @@ app.get('/me', (req, res) => {
   }
 
   res.json(users[email]);
+});
+
+app.post('/leaders', (req, res) => {
+  const scorelist = Object.values(users)
+    .sort((l, r) => r.score - l.score)
+    .map(user => ({
+      email: user.email,
+      score: user.score,
+    }));
+  const from = req.body.page * req.body.items;
+  const to = req.body.page * req.body.items + req.body.items;
+
+  res.json(scorelist.slice(from, to));
 });
 
 const port = process.env.PORT || 3000;

@@ -107,7 +107,7 @@ export class UserModel {
                 })
                 .catch(() => {
                   // TODO: написать, что такого юзера нетю
-                    console.log('SignIn promise fall down :(');
+                    console.log('Profile promise fall down :(');
                 });
     }
 }

@@ -31,12 +31,17 @@ export default class EventController {
         Bus.on('open-profile', () => {
             Router.open('/me');
         });
+
         // Bus.on('open-sign-up', () => {
         //     Router.open('/signUp');
         // });
 
         // Bus.on('open-sign-in', () => {
         //     Router.open('/signIn');
+        // });
+
+        // Bus.on('open-about', () => {
+        //     Router.open('/about');
         // });
 
     }

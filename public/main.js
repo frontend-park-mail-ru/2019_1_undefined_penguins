@@ -3,7 +3,7 @@ import ScoreboardView from './views/ScoreboardView.js'
 import MenuView from './views/MenuView.js';
 import SignInView from './views/SignInView.js';
 import SignUpView from './views/SignUpView.js';
-import AboutView from './views/SignInView.js';
+import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
 
 import EventController from './scripts/EventController.js'
