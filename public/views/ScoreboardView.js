@@ -8,6 +8,7 @@ export default class ScoreboardView extends BaseView {
 	constructor (el) {
 		super(el);
 		this.users = null;
+		this.page = 1;
 		// bus.on('users-loaded', this.setUsers.bind(this));
 	}
 
@@ -26,6 +27,10 @@ export default class ScoreboardView extends BaseView {
 			return users;
 		})
 		this.users = u;
+	}
+
+	GetPage() {
+		return this.page;
 	}
 
 	render () {

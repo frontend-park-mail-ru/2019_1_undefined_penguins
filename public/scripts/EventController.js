@@ -37,7 +37,7 @@ export default class EventController {
         });
 
         Bus.on('get-users', (leadersView) => {
-            leadersView.SetUsers(UserModel.Leaders());
+            leadersView.SetUsers(UserModel.Leaders(leadersView.GetPage()));
         });
 
         // Bus.on('open-sign-up', () => {

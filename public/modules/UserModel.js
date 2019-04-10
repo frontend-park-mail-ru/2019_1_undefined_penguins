@@ -139,9 +139,9 @@ export class UserModel {
               });
   }
 
-  Leaders() {
+  Leaders(page) {
         return AjaxModule.doPromiseGet({
-          path: '/leaders/1',
+          path: '/leaders' + '/' + page,
         })
           .then((response) => {
             console.log(`Response status: ${response.status}`);
