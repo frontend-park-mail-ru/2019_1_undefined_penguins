@@ -70,17 +70,17 @@ export default class MenuView extends BaseView {
 
 	RenderHeader(isAutorized) {
 		const headerSection = document.createElement('section');
-		headerSection.dataset.sectionName = 'header';
-		headerSection.classList.add('header');
+		headerSection.dataset.sectionName = 'menu-header';
+		headerSection.classList.add('menu-header');
 
 		const logo = document.createElement('div');
-		logo.classList.add('header__logo');
+		logo.classList.add('menu-header__logo');
 		const logoHeader = document.createElement('h1');
 		logoHeader.textContent = "Penguins Wars";
-		logoHeader.classList.add('header__title');
+		logoHeader.classList.add('menu-header__title');
 		logo.appendChild(logoHeader);
 		const auth = document.createElement('div');
-		auth.classList.add('header__buttons');
+		auth.classList.add('menu-header__buttons');
 
 		let authTitles = (!isAutorized) ? this._headersUnauthorized() : this._headersAuthorized();
 

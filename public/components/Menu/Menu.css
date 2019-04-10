@@ -1,11 +1,11 @@
-.header {
+.menu-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 200px;
 }
 
-.header__logo {
+.menu-header__logo {
     font-family: IndieFlower;
     font-size: 70px;
     color: #EDEFF0;
@@ -13,7 +13,7 @@
     margin: -30px 20px
 }
 
-.header__buttons {
+.menu-header__buttons {
     margin: 80px 0;
     display: flex;
     align-items: center;

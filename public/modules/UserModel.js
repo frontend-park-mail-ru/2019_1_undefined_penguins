@@ -19,6 +19,14 @@ export class UserModel {
       }
   }
 
+  SetUserDefault() {
+      this.isAutorised = null;
+      this.login = "";
+      this.email = "";
+      this.score = 0;
+      this.avatarUrl = "";
+  }
+
   GetUser(){
     return {
       email: this.email,
@@ -92,11 +100,11 @@ export class UserModel {
                     throw new Error('Network response was not ok.');
                 }
                 
-                data.text().then((data) => {
-                  console.log(data);
-                })
-                // this.SetUser(data);
-                // Bus.emit('open-menu');
+                // data.text().then((data) => {
+                //   console.log(data);
+                // })
+                this.SetUser(data);
+                Bus.emit('open-menu');
             })
             .catch(() => {
                 console.log('SignIn promise fall down :(');
@@ -158,16 +166,32 @@ export class UserModel {
         AjaxModule.doPromiseGet({
           path: '/leaders' + '/' + view.GetPage(),
         })
-          .then((response) => {
+        .then((response) => {
             console.log(`Response status: ${response.status}`);
             return response.json();
           })
         .then((data) => {
             view.SetUsers(data);
         })
-          .catch(() => {
-            console.error("Can't get leaders!");
-          });
+        .catch(() => {
+          console.error("Can't get leaders!");
+        });
+    }
+
+  SignOut() {
+      AjaxModule.doPromiseGet({
+        path: '/signout',
+      })
+      .then((response) => {
+        console.log(`Response status: ${response.status}`);
+        if (response.status === 200) {
+          this.SetUserDefault();
+          Bus.emit('open-sign-in');
+        }
+      })
+      .catch(() => {
+        console.error("Can't sign put!");
+      });
     }
 }
 

@@ -1,5 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
 	<div class="header">
+		<div class="home">
+			<img src="/images/home.png"/>
+		</div>
 		<div class="header__logo">
 			<h1 class="header__title">Penguins Wars</h1>
 		</div>

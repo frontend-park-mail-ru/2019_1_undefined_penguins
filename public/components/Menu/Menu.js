@@ -37,7 +37,7 @@ export class MenuComponent {
          */
   _renderHeader() {
     const headerSection = document.createElement('section');
-    headerSection.dataset.sectionName = 'header';
+    headerSection.dataset.sectionName = 'menu-header';
 
     const logo = document.createElement('div');
     logo.id = 'logo';
