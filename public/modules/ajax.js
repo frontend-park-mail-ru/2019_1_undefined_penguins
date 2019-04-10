@@ -1,6 +1,6 @@
 (function () {
   const noop = () => null;
-  const home = 'http://localhost:3000';
+  const home = 'http://localhost:8080';
 
   /** Класс модуля для работы с Ajax. */
   class AjaxModule {

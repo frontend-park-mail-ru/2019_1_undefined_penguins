@@ -8,6 +8,10 @@ export default class EventController {
             UserModel.CheckAuthorized()
         });
 
+        // Bus.on('autorization-checked', () => {
+        //     UserModel.SetAutorised();
+        // });
+
         Bus.on('select-menu-header', (menu) => {
             menu.RenderHeader(UserModel.IsAutorised());
         });
@@ -30,6 +34,10 @@ export default class EventController {
         
         Bus.on('open-profile', () => {
             Router.open('/me');
+        });
+
+        Bus.on('get-users', (leadersView) => {
+            leadersView.SetUsers(UserModel.Leaders());
         });
 
         // Bus.on('open-sign-up', () => {

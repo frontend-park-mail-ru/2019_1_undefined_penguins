@@ -6,19 +6,25 @@ const templateFunc = window.fest[ 'components/Profile/Profile.tmpl' ];
 export default class ProfileView extends BaseView {
     constructor (el) {
 		super(el);
+		this.user = null;
 	}
 
 	show () {
+		Bus.emit('get-current-user', this);
 		super.show();
+	}
+
+	SetUser(user) {
+		this.user = user;
 	}
 
 	render () {
 		Bus.emit('get-current-user');
 		this.el.innerHTML = '';
-		this.renderScoreboard();
+		this.renderProfile();
 	}
 
-	renderScoreboard () {
-		this.el.innerHTML = templateFunc();
+	renderProfile () {
+		this.el.innerHTML = templateFunc(this.user);
 	}
 }

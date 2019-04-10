@@ -1,42 +1,67 @@
 import Bus from "../scripts/EventBus.js";
-
 export class UserModel {
-    constructor() {
-        this.isAutorised = null;
-        this.name = "";
-        this.login = "";
-        this.score = 0;
-    }
+   constructor() {
+      this.isAutorised = null;
+      this.name = "";
+      this.login = "";
+      this.score = 0;
+  }
 
-    // TODO: get user in SetUser
-    SetUser(data){
-        this.isAutorised = true;
-        this.name = data.name;
-        this.login = data.login;
-        this.score = data.score;
-    }
+  // TODO: get user in SetUser
+  SetUser(data){
+      this.isAutorised = true;
+      this.name = data.name;
+      this.login = data.login;
+      this.score = data.score;
+  }
 
-    IsAutorised() {
+  IsAutorised() {
         return this.isAutorised;
     }
 
+  // SetAutorised() {
+  //     this.isAutorised = true;
+  // }
+
     CheckAuthorized() {
-        AjaxModule
-        .doPromisePost({
-            path: '/logged'
-        })
-        .then(function (res) {
-            return res.status
-        })
-        .then((status) => {
-            if (status == 200) {
-                // TODO: другой способ сказать, что юзер есть
-                this.isAutorised = true;
-            }
-        }) 
+      AjaxModule.doPromiseGet({
+        path: '/me',
+      })
+      .then((response) => {
+          console.log(`Response status: ${response.status}`);
+          if (response.status === 200) {
+            response.json().then((data) => {
+              this.SetUser(data);
+              Bus.emit('authorization-checked');
+            })
+          } else if (response.status === 401) {
+            this.isAutorised = false;      
+            Bus.emit('authorization-checked');
+          } else {
+            //TODO: отрисовать кастомно ошибульку (страница не рендерится!)
+            throw "Unknown response"; 
+          }
+      })
+      .catch(() => {
+          //TODO: рендер ошибки
+          console.log('Profile promise fall down :(');
+      });
+      // AjaxModule
+      // .doPromisePost({
+      //     path: '/logged'
+      // })
+      // .then(function (res) {
+      //     return res.status
+      // })
+      // .then((status) => {
+      //     if (status == 200) {
+      //         // TODO: другой способ сказать, что юзер есть
+      //         this.isAutorised = true;
+      //     }
+      // }) 
     }
 
-    SignIn(form) {
+  SignIn(form) {
         const email = form.elements.email.value;
         const password = form.elements.password.value;
 
@@ -48,32 +73,35 @@ export class UserModel {
             },
             })
             .then((data) => {
+              console.log(`Response status: ${data.status}`);
                 if (data.status > 300) {
+                    // TODO: написать, что такого юзера нетю
                     throw new Error('Network response was not ok.');
                 }
-                return data.json();
-            })
-            .then((data) => {
-                this.SetUser(data);
-                Bus.emit('open-menu');
+                
+                data.text().then((data) => {
+                  console.log(data);
+                })
+                // this.SetUser(data);
+                // Bus.emit('open-menu');
             })
             .catch(() => {
-                // TODO: написать, что такого юзера нетю
                 console.log('SignIn promise fall down :(');
-            });
-    }
-    
-    SignUp(form) {
-        const email = form.elements.email.value;
-        const password = form.elements.password.value;
+          });
+  }
+      
+  
+  SignUp(form) {
+      const email = form.elements.email.value;
+      const password = form.elements.password.value;
 
-        AjaxModule.doPromisePost({
-            path: '/signup',
-            body: {
-              email,
-              password,
-            },
-          })
+      AjaxModule.doPromisePost({
+          path: '/signup',
+          body: {
+            email,
+            password,
+          },
+        })
             .then((data) => {
                 if (data.status > 300) {
                   throw new Error('Network response was not ok.');
@@ -86,29 +114,42 @@ export class UserModel {
                 Bus.emit('open-menu');
             })
             .catch(() => {
-                // TODO: написать, что есть ошибки в регистрации
+               // TODO: написать, что есть ошибки в регистрации
                 console.error;
-            });
-    }
+          });
+  }
 
-    Profile() {
-       //TODO: чекнуть check-autorized
-            AjaxModule.doPromiseGet({
-                path: '/me',
+  Profile() {
+      //TODO: чекнуть check-autorized
+          AjaxModule.doPromiseGet({
+              path: '/',
+            })
+              .then((response) => {
+                console.log(`Response status: ${response.status}`);
+                return response.json();
               })
-                .then((response) => {
-                  console.log(`Response status: ${response.status}`);
-                  return response.json();
-                })
-                .then((user) => {
-                  console.log(user);
+              .then((user) => {
+                console.log(user);
                   this.SetUser(user);
-                  Bus.emit('open-profile');
-                })
-                .catch(() => {
+                Bus.emit('open-profile');
+              })
+              .catch(() => {
                   // TODO: написать, что такого юзера нетю
-                    console.log('Profile promise fall down :(');
-                });
+                  console.log('Profile promise fall down :(');
+              });
+  }
+
+  Leaders() {
+        return AjaxModule.doPromiseGet({
+          path: '/leaders/1',
+        })
+          .then((response) => {
+            console.log(`Response status: ${response.status}`);
+            return response.json();
+          })
+          .catch(() => {
+            console.error;
+          });
     }
 }
 
