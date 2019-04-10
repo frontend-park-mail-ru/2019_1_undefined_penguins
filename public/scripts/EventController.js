@@ -8,6 +8,10 @@ export default class EventController {
             UserModel.CheckAuthorized()
         });
 
+        // Bus.on('autorization-checked', () => {
+        //     UserModel.SetAutorised();
+        // });
+
         Bus.on('select-menu-header', (menu) => {
             menu.RenderHeader(UserModel.IsAutorised());
         });
@@ -24,12 +28,26 @@ export default class EventController {
             Router.open('/');
         });
 
-        Bus.on('get-current-user', () => {
-            UserModel.Profile();
+        Bus.on('get-current-user', (profileView) => {
+            profileView.SetUser(UserModel.GetUser());
         });
         
         Bus.on('open-profile', () => {
             Router.open('/me');
+        });
+
+        Bus.on('get-users', (leadersView) => {
+            UserModel.Leaders(leadersView);
+        });
+
+        Bus.on('previous-page', (leadersView) => {
+            console.log("Пришел эмит на previous page");
+            //TODO: делаем запрос на получение юзеров на предыдущей странице и отрисовываем
+        });
+
+        Bus.on('next-page', (leadersView) => {
+            console.log("Пришел эмит на next page");
+            //TODO: делаем запрос на получение юзеров на следующей странице и отрисовываем
         });
 
         // Bus.on('open-sign-up', () => {

@@ -152,7 +152,7 @@ app.get('/me', (req, res) => {
   res.json(users[email]);
 });
 
-app.post('/leaders', (req, res) => {
+app.get('/leaders', (req, res) => {
   const scorelist = Object.values(users)
     .sort((l, r) => r.score - l.score)
     .map(user => ({

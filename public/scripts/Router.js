@@ -1,3 +1,5 @@
+import Bus from "./EventBus.js";
+
 export class Router {
 	constructor () {
 		this.routes = {};
@@ -84,9 +86,11 @@ export class Router {
 			this.open(currentPath);
 		}.bind(this));
 
-		const currentPath = window.location.pathname;
-
-		this.open(currentPath);
+		Bus.on('authorization-checked', () => {
+			const currentPath = window.location.pathname;
+			this.open(currentPath);
+		})
+		Bus.emit('check-autorized');
 	}
 }
 
