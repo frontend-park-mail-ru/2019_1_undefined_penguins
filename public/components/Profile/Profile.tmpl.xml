@@ -10,7 +10,7 @@
     <section data-section-name="main_profile">
         <form class="profile_form" enctype="multipart/form-data">
             <div class="data_inline">
-                <img class="avatar" src="{data.avatarBlob}"/>
+                <img class="avatar" src="{data.avatarUrl}"/>
                 <div class="data">
                     <div>
                         <label>Логин: </label>

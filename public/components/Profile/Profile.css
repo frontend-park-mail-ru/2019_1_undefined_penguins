@@ -1,4 +1,4 @@
-section[data-section-name = header] {
+/* section[data-section-name = header] {
     display: flex;
     flex-direction: row;
     margin-bottom: 25px;
@@ -56,4 +56,4 @@ section[data-section-name = main_profile] {
 .info {
     display: flex;
     justify-content: space-between;
-}
+} */

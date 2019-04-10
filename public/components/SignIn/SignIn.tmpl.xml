@@ -11,8 +11,8 @@
         <form>
             <input name="email" type="email" placeholder="Email"/><br/>
             <input name="password" type="password" placeholder="Password"/><br/>
-            <input name="submit" type="submit" placeholder="undefined"/><br/>
+            <input name="submit" type="submit"/><br/>
         </form>
-        <span class="errorLabel"></span>
+        <!-- <span class="errorLabel"></span> -->
     </section>
 </fest:template>
