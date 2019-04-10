@@ -9,6 +9,7 @@ export default class ScoreboardView extends BaseView {
 		super(el);
 		this.users = null;
 		this.page = 1;
+		this.el.classList.add("leaders-section");
 		// bus.on('users-loaded', this.setUsers.bind(this));
 	}
 
@@ -23,10 +24,8 @@ export default class ScoreboardView extends BaseView {
 	// }
 
 	SetUsers (users) {
-		const u = users.then((users) => {
-			return users;
-		})
-		this.users = u;
+		this.users = users;
+		super.show();
 	}
 
 	GetPage() {
@@ -51,5 +50,18 @@ export default class ScoreboardView extends BaseView {
 
 	renderScoreboard () {
 		this.el.innerHTML = templateFunc(this.users);
+
+		const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
+		const nextButton = this.el.getElementsByClassName('js-button-next')[0];
+
+        prevButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            Bus.emit('previous-page', this);
+		});
+		
+		nextButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            Bus.emit('next-page', this);
+        });
 	}
 }

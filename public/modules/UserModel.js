@@ -2,18 +2,31 @@ import Bus from "../scripts/EventBus.js";
 export class UserModel {
    constructor() {
       this.isAutorised = null;
-      this.name = "";
       this.login = "";
+      this.email = "";
       this.score = 0;
+      this.avatarUrl = "";
   }
 
   // TODO: get user in SetUser
   SetUser(data){
       this.isAutorised = true;
-      this.name = data.name;
+      this.email = data.email;
       this.login = data.login;
       this.score = data.score;
+      if (data.avatarUrl === undefined) {
+        this.avatarUrl = "/images/user.svg";
+      }
   }
+
+  GetUser(){
+    return {
+      email: this.email,
+      login: this.login,
+      score: this.score,
+      avatarUrl: this.avatarUrl,
+    }
+}
 
   IsAutorised() {
         return this.isAutorised;
@@ -120,35 +133,40 @@ export class UserModel {
   }
 
   Profile() {
-      //TODO: чекнуть check-autorized
-          AjaxModule.doPromiseGet({
-              path: '/',
-            })
-              .then((response) => {
-                console.log(`Response status: ${response.status}`);
-                return response.json();
-              })
-              .then((user) => {
-                console.log(user);
-                  this.SetUser(user);
-                Bus.emit('open-profile');
-              })
-              .catch(() => {
-                  // TODO: написать, что такого юзера нетю
-                  console.log('Profile promise fall down :(');
-              });
+    // console.log(this);
+      // //TODO: чекнуть check-autorized
+      //     AjaxModule.doPromiseGet({
+      //         path: '/me',
+      //       })
+      //         .then((response) => {
+      //           console.log(`Response status: ${response.status}`);
+      //           return response.json();
+      //         })
+      //         .then((user) => {
+      //           console.log(user);
+      //             this.SetUser(user);
+      //           Bus.emit('open-profile');
+      //         })
+      //         .catch(() => {
+      //             // TODO: написать, что такого юзера нетю
+      //             console.log('Profile promise fall down :(');
+      //         });
+      // Bus.emit('open-profile');
   }
 
-  Leaders(page) {
-        return AjaxModule.doPromiseGet({
-          path: '/leaders' + '/' + page,
+  Leaders(view) {
+        AjaxModule.doPromiseGet({
+          path: '/leaders' + '/' + view.GetPage(),
         })
           .then((response) => {
             console.log(`Response status: ${response.status}`);
             return response.json();
           })
+        .then((data) => {
+            view.SetUsers(data);
+        })
           .catch(() => {
-            console.error;
+            console.error("Can't get leaders!");
           });
     }
 }

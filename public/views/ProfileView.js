@@ -11,15 +11,14 @@ export default class ProfileView extends BaseView {
 
 	show () {
 		Bus.emit('get-current-user', this);
+	}
+	
+	SetUser(user) {
+		this.user = user;
 		super.show();
 	}
 
-	SetUser(user) {
-		this.user = user;
-	}
-
 	render () {
-		Bus.emit('get-current-user');
 		this.el.innerHTML = '';
 		this.renderProfile();
 	}

@@ -4,24 +4,12 @@ import Bus from '../scripts/EventBus.js';
 export default class MenuView extends BaseView {
 	constructor (el) {
 		super(el);
-		// this.logged = false;
 		this.el.classList.add("menu-section");
-		// Bus.emit('check-autorized');
 	}
 
 	show () {
 		super.show();
 	}
-
-	// fetchUser () {
-	// 	Bus.emit('fetch-user');
-	// }
-
-	// setUser () {
-	// 	console.log("SET USER");
-	// 	this.logged = true;
-	// 	// this.render();
-	// }
 
 	render () {
 		this.el.innerHTML = '';
