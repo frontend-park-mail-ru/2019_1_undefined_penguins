@@ -5,6 +5,7 @@ import SignInView from './views/SignInView.js';
 import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
+import SignOutView from './views/SignOutView.js';
 
 import EventController from './scripts/EventController.js'
 
@@ -30,7 +31,8 @@ Router
 	.register('/signIn', SignInView)
 	.register('/signUp', SignUpView)
 	.register('/about', AboutView)
-	.register('/me', ProfileView);
+	.register('/me', ProfileView)
+	.register('/signout', SignOutView);
 
 Router.start();
 

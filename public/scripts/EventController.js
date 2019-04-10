@@ -22,6 +22,10 @@ export default class EventController {
 
         Bus.on('sign-up', (form) => {
             UserModel.SignUp(form);
+        });
+
+        Bus.on('sign-out', () => {
+            UserModel.SignOut();
         })
 
         Bus.on('open-menu', () => {
@@ -54,9 +58,9 @@ export default class EventController {
         //     Router.open('/signUp');
         // });
 
-        // Bus.on('open-sign-in', () => {
-        //     Router.open('/signIn');
-        // });
+        Bus.on('open-sign-in', () => {
+            Router.open('/signIn');
+        });
 
         // Bus.on('open-about', () => {
         //     Router.open('/about');
