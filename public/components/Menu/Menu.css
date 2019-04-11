@@ -22,8 +22,7 @@
     justify-content: space-between;
 }
 
-
-.header__button  {
+.menu-header__button  {
     border: 2px solid #979797;
     border-radius: 12px;
     font-family: Roboto-Regular;
@@ -36,15 +35,15 @@
     text-decoration: none;
 }
 
-.header__profile {
+.menu-header__profile {
     margin-left: 100px;
 }
 
-.header__sign-out {
+.menu-header__sign-out {
     margin-right: 100px;
 }
 
-.header__button:hover, .header__button:focus {
+.menu-header__button:hover, .menu-header__button:focus {
     font-size: 34px;
     height: 39px;
 } 
