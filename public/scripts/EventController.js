@@ -37,16 +37,18 @@ export default class EventController {
         });
 
         Bus.on('get-users', (leadersView) => {
-            UserModel.Leaders(leadersView);
+            UserModel.Leaders(leadersView, 0);
         });
 
         Bus.on('previous-page', (leadersView) => {
             console.log("Пришел эмит на previous page");
+            UserModel.Leaders(leadersView, -1);
             //TODO: делаем запрос на получение юзеров на предыдущей странице и отрисовываем
         });
 
         Bus.on('next-page', (leadersView) => {
             console.log("Пришел эмит на next page");
+            UserModel.Leaders(leadersView, 1);
             //TODO: делаем запрос на получение юзеров на следующей странице и отрисовываем
         });
 

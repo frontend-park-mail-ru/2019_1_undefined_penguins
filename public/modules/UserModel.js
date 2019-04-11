@@ -154,21 +154,44 @@ export class UserModel {
       // Bus.emit('open-profile');
   }
 
-  Leaders(view) {
-        AjaxModule.doPromiseGet({
-          path: '/leaders' + '/' + view.GetPage(),
-        })
-          .then((response) => {
-            console.log(`Response status: ${response.status}`);
-            return response.json();
-          })
-        .then((data) => {
-            view.SetUsers(data);
-        })
-          .catch(() => {
-            console.error("Can't get leaders!");
-          });
+  Leaders(view, page) {
+    if (page > 0) {
+      view.PlusPage()
+    } else if (page < 0) {
+      view.MinusPage()
     }
+    AjaxModule.doPromiseGet({
+      path: '/leaders' + '/' + view.GetPage(),
+    })
+      .then((response) => {
+        console.log(`Response status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+          view.SetUsers(data);
+      })
+      .catch(() => {
+        console.error("Can't get leaders!");
+      });
+  }
+
+
+  LeadersNextPage(view){
+    
+    AjaxModule.doPromiseGet({
+      path: '/leaders' + '/' + view.GetPage(),
+    })
+      .then((response) => {
+        console.log(`Response status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+          view.SetUsers(data);
+      })
+      .catch(() => {
+        console.error("Can't get leaders!");
+      });
+  }
 }
 
 export default new UserModel;
