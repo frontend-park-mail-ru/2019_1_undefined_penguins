@@ -25,5 +25,13 @@ export default class ProfileView extends BaseView {
 
 	renderProfile () {
 		this.el.innerHTML = templateFunc(this.user);
+
+		const home = this.el.getElementsByClassName('js-header__home-button')[0];
+		if (home !== undefined) {
+			home.addEventListener('click', (event) => {
+				event.preventDefault();
+				Bus.emit('open-menu');
+			});
+		}
 	}
 }
