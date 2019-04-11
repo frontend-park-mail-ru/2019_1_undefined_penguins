@@ -62,6 +62,16 @@ export default class ScoreboardView extends BaseView {
 		nextButton.addEventListener('click', (event) => {
             event.preventDefault();
             Bus.emit('next-page', this);
-        });
+		});
+		
+		const home = this.el.getElementsByClassName('js-header__home-button')[0];
+		if (home !== undefined) {
+			home.addEventListener('click', (event) => {
+				// const err = this.el.getElementsByTagName('span')[0];
+				// err.innerText = '';
+				event.preventDefault();
+				Bus.emit('open-menu');
+			});
+		}
 	}
 }
