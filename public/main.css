@@ -3,6 +3,7 @@
 @import url('components/About/About.css');
 @import url('components/Profile/Profile.css');
 @import url('components/SignIn/SignIn.css');
+@import url('components/SignUp/SignUp.css');
 
 /* html {     
     font-family: Arial, Helvetica, sans-serif;

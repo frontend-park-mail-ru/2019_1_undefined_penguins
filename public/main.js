@@ -6,6 +6,8 @@ import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
 import SignOutView from './views/SignOutView.js';
+import SingleplayerView from './views/SingleplayerView.js';
+import MultiplayerView from './views/MultiplayerView.js';
 
 import EventController from './scripts/EventController.js'
 
@@ -32,7 +34,9 @@ Router
 	.register('/signUp', SignUpView)
 	.register('/about', AboutView)
 	.register('/me', ProfileView)
-	.register('/signout', SignOutView);
+	.register('/signout', SignOutView)
+	.register('/singlePlayer', SingleplayerView)
+	.register('/multiPlayer', MultiplayerView);
 
 Router.start();
 
