@@ -33,7 +33,7 @@
 		} = {}) {
 			return fetch(home + path, {
 				method: 'GET',
-				mode: 'cors',
+				// mode: 'cors',
 				credentials: 'include',
 				body: null,
 			});
