@@ -7,8 +7,8 @@
     </section> -->
     <div class="header">
         <div class="header__home">
-            <img src="/images/home.svg" class="header__home-button"/>
-        </div>
+			<img src="/images/home.svg" class="js-header__home-button"/>
+		</div>
         <div class="header__logo">
             <h1 class="header__title">Penguins Wars</h1>
         </div>

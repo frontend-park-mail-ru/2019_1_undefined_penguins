@@ -6,6 +6,7 @@ export class UserModel {
       this.email = "";
       this.score = 0;
       this.avatarUrl = "";
+      this.count = 0;
   }
 
   // TODO: get user in SetUser
@@ -17,6 +18,8 @@ export class UserModel {
       if (data.avatarUrl === undefined) {
         this.avatarUrl = "/images/default.png";
       }
+      this.avatarUrl = data.avatarUrl;
+      this.count = 0;
   }
 
   SetUserDefault() {
@@ -25,6 +28,8 @@ export class UserModel {
       this.email = "";
       this.score = 0;
       this.avatarUrl = "";
+      this.count = 0;
+
   }
 
   GetUser(){
@@ -33,6 +38,7 @@ export class UserModel {
       login: this.login,
       score: this.score,
       avatarUrl: this.avatarUrl,
+      count: this.count,
     }
 }
 
@@ -115,12 +121,14 @@ export class UserModel {
   SignUp(form) {
       const email = form.elements.email.value;
       const password = form.elements.password.value;
+      const login = form.elements.login.value;
 
       AjaxModule.doPromisePost({
           path: '/signup',
           body: {
             email,
             password,
+            login, 
           },
         })
             .then((data) => {
