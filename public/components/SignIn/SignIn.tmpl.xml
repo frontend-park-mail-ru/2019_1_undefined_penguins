@@ -16,6 +16,6 @@
         </form>
     </section>
     <div class="signin__no-account">
-        <span class="signin__ask-for-account">Нет аккаунта?</span><a class="signin__link">Зарегистрируйтесь!</a>
+        <span class="signin__ask-for-account">Нет аккаунта?</span><a class="signin__link" href="/">Зарегистрируйтесь!</a>
     </div>
 </fest:template>
