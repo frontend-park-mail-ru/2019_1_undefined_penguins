@@ -32,6 +32,15 @@ export default class ScoreboardView extends BaseView {
 		return this.page;
 	}
 
+	PlusPage(){
+		this.page++
+	}
+	MinusPage(){
+		if (this.page > 1) {
+			this.page--
+		}
+	}
+
 	render () {
 		this.el.innerHTML = '';
 
@@ -50,6 +59,7 @@ export default class ScoreboardView extends BaseView {
 
 	renderScoreboard () {
 		this.el.innerHTML = templateFunc(this.users);
+		
 
 		const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
 		const nextButton = this.el.getElementsByClassName('js-button-next')[0];

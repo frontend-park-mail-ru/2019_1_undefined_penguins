@@ -162,37 +162,44 @@ export class UserModel {
       // Bus.emit('open-profile');
   }
 
-  Leaders(view) {
-        AjaxModule.doPromiseGet({
-          path: '/leaders' + '/' + view.GetPage(),
-        })
-        .then((response) => {
-            console.log(`Response status: ${response.status}`);
-            return response.json();
-          })
-        .then((data) => {
-            view.SetUsers(data);
-        })
-        .catch(() => {
-          console.error("Can't get leaders!");
-        });
-    }
 
-  SignOut() {
-      AjaxModule.doPromiseGet({
-        path: '/signout',
-      })
+  Leaders(view, page) {
+    if (page > 0) {
+      view.PlusPage()
+    } else if (page < 0) {
+      view.MinusPage()
+    }
+    AjaxModule.doPromiseGet({
+      path: '/leaders' + '/' + view.GetPage(),
+    })
       .then((response) => {
         console.log(`Response status: ${response.status}`);
-        if (response.status === 200) {
-          this.SetUserDefault();
-          Bus.emit('open-sign-in');
-        }
+        return response.json();
+      })
+      .then((data) => {
+          view.SetUsers(data);
       })
       .catch(() => {
-        console.error("Can't sign put!");
+        console.error("Can't get leaders!");
       });
-    }
+  }
+
+
+  SignOut() {
+    AjaxModule.doPromiseGet({
+      path: '/signout',
+    })
+    .then((response) => {
+      console.log(`Response status: ${response.status}`);
+      if (response.status === 200) {
+        this.SetUserDefault();
+        Bus.emit('open-sign-in');
+      }
+    })
+    .catch(() => {
+      console.error("Can't sign put!");
+    });
+  }
 }
 
 export default new UserModel;

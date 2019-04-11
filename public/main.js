@@ -11,6 +11,15 @@ import MultiplayerView from './views/MultiplayerView.js';
 
 import EventController from './scripts/EventController.js'
 
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('sw.js')
+		.then((reg) => {
+			console.log('registred', reg)
+		})
+		.catch((err) => {
+			console.error('error', err)
+		})
+}
 
 // const { AjaxModule } = window;
 // const application = document.getElementById('application');
