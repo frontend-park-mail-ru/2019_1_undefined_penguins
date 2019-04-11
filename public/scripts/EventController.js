@@ -22,6 +22,10 @@ export default class EventController {
 
         Bus.on('sign-up', (form) => {
             UserModel.SignUp(form);
+        });
+
+        Bus.on('sign-out', () => {
+            UserModel.SignOut();
         })
 
         Bus.on('open-menu', () => {
@@ -41,13 +45,11 @@ export default class EventController {
         });
 
         Bus.on('previous-page', (leadersView) => {
-            console.log("Пришел эмит на previous page");
             UserModel.Leaders(leadersView, -1);
             //TODO: делаем запрос на получение юзеров на предыдущей странице и отрисовываем
         });
 
         Bus.on('next-page', (leadersView) => {
-            console.log("Пришел эмит на next page");
             UserModel.Leaders(leadersView, 1);
             //TODO: делаем запрос на получение юзеров на следующей странице и отрисовываем
         });
@@ -56,9 +58,9 @@ export default class EventController {
         //     Router.open('/signUp');
         // });
 
-        // Bus.on('open-sign-in', () => {
-        //     Router.open('/signIn');
-        // });
+        Bus.on('open-sign-in', () => {
+            Router.open('/signIn');
+        });
 
         // Bus.on('open-about', () => {
         //     Router.open('/about');
