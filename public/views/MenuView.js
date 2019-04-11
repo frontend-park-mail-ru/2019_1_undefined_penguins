@@ -107,11 +107,11 @@ export default class MenuView extends BaseView {
 		return {
 			me: {
 				title: 'ПРОФИЛЬ',
-				style: 'header__profile header__button js-profile-button',
+				style: 'menu-header__profile header__button js-profile-button',
 			},
 			signout: {
 				title: 'ВЫЙТИ',
-				style: 'header__sign-out header__button js-sign-out-button',
+				style: 'menu-header__sign-out header__button js-sign-out-button',
 			}
 		};
 	}
@@ -120,11 +120,11 @@ export default class MenuView extends BaseView {
 		return {
 			signUp: {
 				title: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-				style: 'header__sign-up header__button js-sign-up-button',
+				style: 'menu-header__sign-up header__button js-sign-up-button',
 			},
 			signIn: {
 				title: 'ВОЙТИ',
-				style: 'header__sign-in header__button js-sign-in-button',
+				style: 'menu-header__sign-in header__button js-sign-in-button',
 			},				
 		};
 	}

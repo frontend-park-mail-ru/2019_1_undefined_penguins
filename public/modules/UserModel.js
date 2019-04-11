@@ -15,7 +15,7 @@ export class UserModel {
       this.login = data.login;
       this.score = data.score;
       if (data.avatarUrl === undefined) {
-        this.avatarUrl = "/images/user.svg";
+        this.avatarUrl = "/images/default.png";
       }
   }
 
