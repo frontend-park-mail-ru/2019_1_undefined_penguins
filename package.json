@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
     "prestart": "npm run tmpl",
-    "linter": "./node_modules/.bin/eslint -c .eslintrc.json './**/*.js'"
+    "linter": "./node_modules/.bin/eslint -c .eslintrc.json './**/*.js'",
+    "build": "webpack --mode development"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +24,12 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "babel-loader": "^8.0.5",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "serviceworker-webpack-plugin": "^1.0.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
