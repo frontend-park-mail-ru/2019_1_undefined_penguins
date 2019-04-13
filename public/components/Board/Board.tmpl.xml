@@ -32,7 +32,7 @@
 		</table>
 		<div class="leaders__buttons">
 			<img src="/images/prev.svg" class="leaders__button js-button-prev leaders__button__disabled"/>
-			<fest:value>data[0].Page</fest:value>
+			<div class="leaders__page-number"><fest:value>data[0].Page</fest:value></div>
 			<img src="/images/next.svg" class="leaders__button js-button-next"/>
 		</div>
 	</div>

@@ -20,23 +20,17 @@
     <section data-section-name="about-main" class="about-main">
         <div class="about-main__content about-main__idea">
             <h3 class="about-main__title">Идея</h3>
-            <div>Abusus non tollit usum. Accepto damno. Accessio 
-                cedit principali. Actio bonae fidei. Actio in 
-                factum concepta. Actio in ius concepta.  
-                Actio in personam. Actio in rem. Actio noxalis.
-                Actio poenalis. Alibi. A potiori. 
-                Argumenta ponderantur, non numerantur. 
-                Argumentum ad oculos.</div>
+            <div>Ты самый голодный пингвин и сделаешь всё, чтобы съесть как можно больше рыбок. 
+                Но ты такой не один, у тебя есть конкурент! И он хочет от тебя избавиться!
+                Покажи, на что ты способен ради своей цели!
+                Уничтожь врага и забери заслуженную награду!</div>
         </div>
         <div class="about-main__content about-main__how-play">
             <h3 class="about-main__title">Как играть</h3>
-            <div>Abusus non tollit usum. Accepto damno. Accessio 
-                cedit principali. Actio bonae fidei. Actio in 
-                factum concepta. Actio in ius concepta.  
-                Actio in personam. Actio in rem. Actio noxalis. 
-                Actio poenalis. Alibi. A potiori. 
-                Argumenta ponderantur, non numerantur. 
-                Argumentum ad oculos.</div>
+            <div>В настольной версии используй клавишу ПРОБЕЛ 
+                для изменения направления движения пингвина/пушки.
+                В мобильной версии используй обычный ТАП для той же цели. 
+            </div>
             <div class="about-main__tutorial">
                 <div class="about-main-tutorial__item">
                     <h3 class="about-main-tutorial__title">Desktop</h3>
