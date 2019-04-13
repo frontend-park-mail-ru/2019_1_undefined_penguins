@@ -3,7 +3,6 @@ import Bus from '../scripts/EventBus.js';
 
 const templateFunc = window.fest[ 'components/Board/Board.tmpl' ];
 
-
 export default class ScoreboardView extends BaseView {
 	constructor (el) {
 		super(el);
