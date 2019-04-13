@@ -24,5 +24,15 @@ export default class SignInView extends BaseView {
             event.preventDefault();
             Bus.emit('sign-in', form);
         });
+
+        const home = this.el.getElementsByClassName('header__home-button')[0];
+		if (home !== undefined) {
+			home.addEventListener('click', (event) => {
+				// const err = this.el.getElementsByTagName('span')[0];
+				// err.innerText = '';
+				event.preventDefault();
+				Bus.emit('open-menu');
+			});
+		}
     }
 }

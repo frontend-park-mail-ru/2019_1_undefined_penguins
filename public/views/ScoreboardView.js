@@ -3,7 +3,6 @@ import Bus from '../scripts/EventBus.js';
 
 const templateFunc = window.fest[ 'components/Board/Board.tmpl' ];
 
-
 export default class ScoreboardView extends BaseView {
 	constructor (el) {
 		super(el);
@@ -32,6 +31,15 @@ export default class ScoreboardView extends BaseView {
 		return this.page;
 	}
 
+	PlusPage(){
+		this.page++
+	}
+	MinusPage(){
+		if (this.page > 1) {
+			this.page--
+		}
+	}
+
 	render () {
 		this.el.innerHTML = '';
 
@@ -49,7 +57,13 @@ export default class ScoreboardView extends BaseView {
 	}
 
 	renderScoreboard () {
+	
+		this.users.map((obj) => {
+			obj.Page = this.page;
+			return obj;
+		})
 		this.el.innerHTML = templateFunc(this.users);
+	
 
 		const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
 		const nextButton = this.el.getElementsByClassName('js-button-next')[0];

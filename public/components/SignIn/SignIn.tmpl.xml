@@ -1,18 +1,21 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <section data-section-name="header">
-        <div id="goBack">
-            <img src="../../images/home.png"/>
+    <div class="header" style="margin: 0 0 -20px 0;">
+        <div class="header__home">
+            <img src="/images/home.svg" class="header__home-button"/>
         </div>
-        <div id="title">
-            <h2>Войти</h2>
+        <div class="header__logo" style="margin: -25px 330px;">
+            <h1 class="header__title">Penguins Wars</h1>
         </div>
-    </section>
-    <section data-section-name="main">
-        <form>
-            <input name="email" type="email" placeholder="Email"/><br/>
-            <input name="password" type="password" placeholder="Password"/><br/>
-            <input name="submit" type="submit"/><br/>
+    </div>
+    <section data-section-name="main" class="signin-content">
+        <h3 class="signin__header">Вход</h3>
+        <form class="signin-form">
+            <input name="email" type="email" placeholder="Email" class="signin-form__input" /><br/>
+            <input name="password" type="password" placeholder="Password" class="signin-form__input input-last" /><br/>
+            <input name="submit" type="submit" class="signin-form__submit" value="ВОЙТИ"/><br/>
         </form>
-        <!-- <span class="errorLabel"></span> -->
     </section>
+    <div class="signin__no-account">
+        <span class="signin__ask-for-account">Нет аккаунта?</span><a class="signin__link" href="/signUp">Зарегистрируйтесь!</a>
+    </div>
 </fest:template>

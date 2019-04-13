@@ -102,3 +102,10 @@
 	width: 70px;
 	height: 70px;
 }
+
+.leaders__page-number {
+    font-family: Roboto-Regular;
+	font-size: 32px;
+    color: #FFFFFF;
+    margin-top: 15px;
+}

@@ -1,4 +1,4 @@
-export class Bus {
+class Bus {
 	constructor () {
 		this.listeners = {};
 	}

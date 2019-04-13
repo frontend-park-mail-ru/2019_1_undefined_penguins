@@ -27,7 +27,8 @@ export default class MenuView extends BaseView {
 			},
 			multiPlayer: {
 				header: 'ИГРА С ДРУГОМ',
-				style: 'menu__button js-multiplayer-button menu__button__disabled',
+				// style: 'menu__button js-multiplayer-button menu__button__disabled',
+				style: 'menu__button js-multiplayer-button',
 			},
 			leaders: {
 				header: 'ТАБЛИЦА ЛИДЕРОВ',
