@@ -34,5 +34,14 @@ export default class ProfileView extends BaseView {
 				Bus.emit('open-menu');
 			});
 		}
+
+		const form = this.el.getElementsByTagName('form')[0];
+
+		form.addEventListener('submit', (event) => {
+			// const err = this.el.getElementsByTagName('span')[0];
+			// err.innerText = '';
+			event.preventDefault();
+			Bus.emit('change-profile', this);
+		});
 	}
 }

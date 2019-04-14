@@ -17,9 +17,10 @@ export class UserModel {
       this.score = data.score;
       if (data.avatarUrl === undefined) {
         this.avatarUrl = "/images/default.png";
+      } else {
+        this.avatarUrl = data.avatarUrl;
       }
-      this.avatarUrl = data.avatarUrl;
-      this.count = 0;
+      this.count = data.count;
   }
 
   SetUserDefault() {
@@ -89,10 +90,10 @@ export class UserModel {
     }
 
   SignIn(form) {
-        const email = form.elements.email.value;
-        const password = form.elements.password.value;
+      const email = form.elements.email.value;
+      const password = form.elements.password.value;
 
-		AjaxModule.doPromisePost({
+    AjaxModule.doPromisePost({
             path: '/login',
             body: {
                 email,
@@ -106,16 +107,16 @@ export class UserModel {
                     throw new Error('Network response was not ok.');
                 }
                 
-                // data.text().then((data) => {
-                //   console.log(data);
-                // })
-                this.SetUser(data);
-                Bus.emit('open-menu');
+                data.json().then((data) => {
+                  console.log(data);
+                  this.SetUser(data);
+                  Bus.emit('open-menu');
+                })
             })
             .catch(() => {
                 console.log('SignIn promise fall down :(');
           });
-  }
+}
       
   
   SignUp(form) {
@@ -148,7 +149,7 @@ export class UserModel {
           });
   }
 
-  Profile() {
+  // Profile() {
     // console.log(this);
       // //TODO: чекнуть check-autorized
       //     AjaxModule.doPromiseGet({
@@ -168,8 +169,7 @@ export class UserModel {
       //             console.log('Profile promise fall down :(');
       //         });
       // Bus.emit('open-profile');
-  }
-
+  // }
 
   Leaders(view, page) {
     if (page > 0) {
@@ -192,7 +192,6 @@ export class UserModel {
       });
   }
 
-
   SignOut() {
     AjaxModule.doPromiseGet({
       path: '/signout',
@@ -208,6 +207,58 @@ export class UserModel {
       console.error("Can't sign put!");
     });
   }
+
+  async ChangeProfile(form) {
+    const email = form.email.value;
+    const login = form.login.value;
+    const image = form.inputAvatar;
+
+    if (image.value !== '') {
+      console.log(image.files[0]);
+      const avatarData = new FormData();
+      avatarData.append('avatar', image.files[0], image.value);
+
+      const responseAvatar = await this.UpdateAvatar(avatarData);
+
+      if (responseAvatar.status !== 200) {
+          console.error('Unable to load avatar');
+          // return data;
+      }
+    }
+
+     //TODO: провалидировать поля email и логин
+     await AjaxModule.doPromisePut({
+        path: '/change_profile',
+        body: {
+          email,
+          login,
+        },
+      })
+      .then((res) => {
+            console.log(res);
+            if (res.status > 400) {
+              throw new Error('Network response was not ok.');
+            }
+            res.json().then((res) => {
+              this.SetUser(res);
+              Bus.emit('redraw-profile');
+        // if (res.result !== '') {
+        //     avatar.src = res.result;
+        // }
+            })
+      })
+      .catch(() => {
+        console.error;
+      });
+  }
+
+  UpdateAvatar(body) {
+    return AjaxModule.doPromisePost({
+            path: '/upload',
+            contentType: 'multipart/form-data',
+            body: body,
+        });
+  }  
 }
 
 export default new UserModel;

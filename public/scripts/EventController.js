@@ -8,10 +8,6 @@ export default class EventController {
             UserModel.CheckAuthorized()
         });
 
-        // Bus.on('autorization-checked', () => {
-        //     UserModel.SetAutorised();
-        // });
-
         Bus.on('select-menu-header', (menu) => {
             menu.RenderHeader(UserModel.IsAutorised());
         });
@@ -47,12 +43,10 @@ export default class EventController {
 
         Bus.on('previous-page', (leadersView) => {
             UserModel.Leaders(leadersView, -1);
-            //TODO: делаем запрос на получение юзеров на предыдущей странице и отрисовываем
         });
 
         Bus.on('next-page', (leadersView) => {
             UserModel.Leaders(leadersView, 1);
-            //TODO: делаем запрос на получение юзеров на следующей странице и отрисовываем
         });
 
         // Bus.on('open-sign-up', () => {
@@ -62,6 +56,14 @@ export default class EventController {
         Bus.on('open-sign-in', () => {
             Router.open('/signIn');
         });
+
+        Bus.on('change-profile', async (view) => {
+            Bus.on('redraw-profile', () => {
+                view.SetUser(UserModel.GetUser());
+            })
+            const form = view.el.getElementsByTagName('form')[0];
+            await UserModel.ChangeProfile(form);
+        })
 
         // Bus.on('open-about', () => {
         //     Router.open('/about');
