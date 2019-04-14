@@ -95,21 +95,6 @@ export class UserModel {
       const email = form.elements.email.value;
       const password = form.elements.password.value;
 
-      const elEmail = form.elements.email;
-      const elPassword = form.elements.password;
-
-      const ok = Validate.ValidateEmail(email)
-      //JSON parsing
-      if (!ok) {
-        //тут не совсем аппенд, 
-        //хочу вернуть переданный элемент
-        //но с уже добавленной подписью ошибки
-        // с соответствующим стилем
-        const em = document.getElementsByName("email")[0]
-        em.value = "NONONO"
-        return
-      }
-
     AjaxModule.doPromisePost({
             path: '/login',
             body: {
@@ -140,7 +125,7 @@ export class UserModel {
       const email = form.elements.email.value;
       const password = form.elements.password.value;
       const login = form.elements.login.value;
-
+      
       AjaxModule.doPromisePost({
           path: '/signup',
           body: {
