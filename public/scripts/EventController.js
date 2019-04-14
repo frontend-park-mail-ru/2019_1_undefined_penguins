@@ -57,6 +57,11 @@ export default class EventController {
             Router.open('/signIn');
         });
 
+        Bus.on('validate', (form) => {
+            form.style.border = '5px solid red';
+            console.log(form);
+        });
+
         Bus.on('change-profile', async (view) => {
             Bus.on('redraw-profile', () => {
                 view.SetUser(UserModel.GetUser());

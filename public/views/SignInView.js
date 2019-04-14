@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+import Validate from '../modules/Validate.js';
 
 const templateFunc = window.fest['components/SignIn/SignIn.tmpl'];
 
@@ -19,10 +20,12 @@ export default class SignInView extends BaseView {
         const form = this.el.getElementsByTagName('form')[0];
 
         form.addEventListener('submit', (event) => {
-            // const err = this.el.getElementsByTagName('span')[0];
-            // err.innerText = '';
             event.preventDefault();
-            Bus.emit('sign-in', form);
+            if (Validate.ValidateEmail(form.elements.email.value)) {
+                Bus.emit('sign-in', form);
+            } else {
+                Bus.emit('validate', form.elements.email);
+            }
         });
 
         const home = this.el.getElementsByClassName('header__home-button')[0];
