@@ -57,7 +57,7 @@ export default class EventController {
             Router.open('/signIn');
         });
 
-        Bus.on('validate', (form) => {
+        Bus.on('error', (form) => {
             form.style.border = '5px solid red';
             console.log(form);
         });

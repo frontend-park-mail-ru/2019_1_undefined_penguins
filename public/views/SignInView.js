@@ -24,7 +24,7 @@ export default class SignInView extends BaseView {
             if (Validate.ValidateEmail(form.elements.email.value)) {
                 Bus.emit('sign-in', form);
             } else {
-                Bus.emit('validate', form.elements.email);
+                Bus.emit('error', form.elements.email);
             }
         });
 

@@ -95,6 +95,7 @@ export class UserModel {
       const email = form.elements.email.value;
       const password = form.elements.password.value;
 
+
     AjaxModule.doPromisePost({
             path: '/login',
             body: {
@@ -105,8 +106,9 @@ export class UserModel {
             .then((data) => {
               console.log(`Response status: ${data.status}`);
                 if (data.status > 300) {
+                    Bus.emit('error', form.elements.password)
                     // TODO: написать, что такого юзера нетю
-                    throw new Error('Network response was not ok.');
+                    // throw new Error('Network response was not ok.');
                 }
                 
                 data.json().then((data) => {
