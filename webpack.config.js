@@ -9,11 +9,17 @@ const PATHS = {
     modules: path.resolve(__dirname, 'public/modules'),
     utils: path.resolve(__dirname, 'public/utils'),
     views: path.resolve(__dirname, 'public/views'),
-	build: path.resolve(__dirname, 'public/build')
 }
 
 module.exports = {
-    entry: PATHS.public + "/main.js",
+    entry: [
+        PATHS.components + '/About/About.tmpl.js',
+        PATHS.components + '/Board/Board.tmpl.js',
+        PATHS.components + '/Profile/Profile.tmpl.js',
+        PATHS.components + '/SignIn/SignIn.tmpl.js',
+        PATHS.components + '/SignUp/SignUp.tmpl.js',
+        PATHS.public + '/main.js'
+    ],
 
     module: {
         rules: [
@@ -22,17 +28,25 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel-loader"
             }
+            // {
+            //     test: /\.xml$/,
+            //     use: [
+            //       {
+            //         loader: 'fest-webpack-loader'
+            //       }
+            //     ]
+            // }
         ],
     },
 
     output: {
-		path: PATHS.build,
+		path: PATHS.public,
 		filename: 'bundle.js'
     },
     
     plugins: [
         new ServiceWorkerWebpackPlugin({
-			entry: PATHS.public + "/sw.js",	
+			entry: PATHS.public + "/service-worker.js",	
 		}),
     ]
 }

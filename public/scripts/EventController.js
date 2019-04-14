@@ -57,12 +57,12 @@ export default class EventController {
             Router.open('/signIn');
         });
 
-        Bus.on('change-profile', async (view) => {
+        Bus.on('change-profile', (view) => {
             Bus.on('redraw-profile', () => {
                 view.SetUser(UserModel.GetUser());
             })
             const form = view.el.getElementsByTagName('form')[0];
-            await UserModel.ChangeProfile(form);
+            UserModel.ChangeProfile(form);
         })
 
         // Bus.on('open-about', () => {

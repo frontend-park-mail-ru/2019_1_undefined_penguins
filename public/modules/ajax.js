@@ -1,4 +1,3 @@
-(function () {
   const noop = () => null;
   const home = 'http://localhost:8080';
 
@@ -69,5 +68,4 @@
         }
     }
 
-  window.AjaxModule = new AjaxModule();
-}());
+export default new AjaxModule();

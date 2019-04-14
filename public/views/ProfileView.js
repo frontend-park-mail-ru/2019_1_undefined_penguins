@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+// import ProfileTemplate from '../components/Profile/Profile.tmpl.xml';
 
 const templateFunc = window.fest[ 'components/Profile/Profile.tmpl' ];
 

@@ -1,4 +1,6 @@
 import Bus from "../scripts/EventBus.js";
+import AjaxModule from "./ajax.js"
+
 export class UserModel {
    constructor() {
       this.isAutorised = null;
@@ -208,7 +210,7 @@ export class UserModel {
     });
   }
 
-  async ChangeProfile(form) {
+  ChangeProfile(form) {
     const email = form.email.value;
     const login = form.login.value;
     const image = form.inputAvatar;
@@ -218,7 +220,7 @@ export class UserModel {
       const avatarData = new FormData();
       avatarData.append('avatar', image.files[0], image.value);
 
-      const responseAvatar = await this.UpdateAvatar(avatarData);
+      const responseAvatar = this.UpdateAvatar(avatarData);
 
       if (responseAvatar.status !== 200) {
           console.error('Unable to load avatar');
@@ -227,7 +229,7 @@ export class UserModel {
     }
 
      //TODO: провалидировать поля email и логин
-     await AjaxModule.doPromisePut({
+     AjaxModule.doPromisePut({
         path: '/change_profile',
         body: {
           email,
