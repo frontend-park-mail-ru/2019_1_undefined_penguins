@@ -4,3 +4,5 @@ package-lock.json
 .idea/
 documents/
 dist/
+sw.js
+bundle.js
