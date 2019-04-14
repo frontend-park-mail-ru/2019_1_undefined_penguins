@@ -1,22 +1,22 @@
-.header {
+.sign-in-header {
     justify-content: space-around;
     margin-right: 220px;
 }
     
-.header__buttons {
+.sign-in-header__buttons {
     width: auto;
 }
 
-.header__home {
+.sign-in-header__home {
     margin: 60px 0;
 }
 
-.header__home-button {
+.sign-in-header__home-button {
     width: 70px;
     height: 70px;
 }
 
-.header__logo {
+.sign-in-header__logo {
     font-family: IndieFlower;
     font-size: 50px;
     color: #EDEFF0;

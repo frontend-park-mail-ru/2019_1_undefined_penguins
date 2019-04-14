@@ -1,6 +1,6 @@
 import Bus from "./EventBus.js";
 
-export class Router {
+class Router {
 	constructor () {
 		this.routes = {};
 		const root = document.getElementById('application');

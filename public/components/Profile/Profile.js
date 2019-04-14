@@ -1,4 +1,5 @@
 import { RENDER_TYPES } from '../../utils/constants.js';
+import AjaxModule from '../../modules/ajax.js';
 
 export class ProfileComponent {
   constructor({

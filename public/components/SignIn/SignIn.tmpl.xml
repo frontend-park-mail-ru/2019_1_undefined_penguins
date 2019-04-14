@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="header">
+    <div class="header" style="margin: 0 0 -20px 0;">
         <div class="header__home">
             <img src="/images/home.svg" class="header__home-button"/>
         </div>
-        <div class="header__logo">
+        <div class="header__logo" style="margin: -25px 330px;">
             <h1 class="header__title">Penguins Wars</h1>
         </div>
     </div>
@@ -16,6 +16,6 @@
         </form>
     </section>
     <div class="signin__no-account">
-        <span class="signin__ask-for-account">Нет аккаунта?</span><a class="signin__link" href="/">Зарегистрируйтесь!</a>
+        <span class="signin__ask-for-account">Нет аккаунта?</span><a class="signin__link" href="/signUp">Зарегистрируйтесь!</a>
     </div>
 </fest:template>

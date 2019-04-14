@@ -1,8 +1,8 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+// import ScoreboardTemplate from '../components/Board/Board.tmpl.xml';
 
 const templateFunc = window.fest[ 'components/Board/Board.tmpl' ];
-
 
 export default class ScoreboardView extends BaseView {
 	constructor (el) {
@@ -58,8 +58,13 @@ export default class ScoreboardView extends BaseView {
 	}
 
 	renderScoreboard () {
+	
+		this.users.map((obj) => {
+			obj.Page = this.page;
+			return obj;
+		})
 		this.el.innerHTML = templateFunc(this.users);
-		
+	
 
 		const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
 		const nextButton = this.el.getElementsByClassName('js-button-next')[0];
