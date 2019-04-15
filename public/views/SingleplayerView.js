@@ -20,7 +20,6 @@ export default class SingleplayerView extends BaseView {
         title.style = 'color: white; display: flex; align-items: center; justify-content: center; font-size: 50px;';
         mainSection.appendChild(title);
         this.el.appendChild(mainSection);
-        
 
         let canvas = document.createElement('canvas');
         canvas.id = "gc";
@@ -29,7 +28,9 @@ export default class SingleplayerView extends BaseView {
         canvas.style.position = "absolute";
         this.el.appendChild(canvas);
 
+        let score = document.createElement('h1');
+        score.id = "score";
+        this.el.appendChild(score);
         const name = new Game(arguments);
-        
     }
 }

@@ -1,23 +1,3 @@
-// window.onload=function() {
-//     this.canv=document.getElementById("gc");
-    
-//     ctx=this.canv.getContext("2d");
-//     init();
-//     document.addEventListener("keydown",keyPush);
-//     setInterval(game,15);
-//     setInterval(shot,15);
-// }
-
-// (function(){
-//     this.canv=document.getElementById("gc");
-    
-//     ctx=this.canv.getContext("2d");
-//     init();
-//     document.addEventListener("keydown",keyPush);
-//     setInterval(game,15);
-//     setInterval(shot,15);
-// }())
-
 export default class Game{
     constructor() {
         this.circleSize = 1000;
@@ -58,9 +38,13 @@ export default class Game{
 
         this.ctx=this.canv.getContext("2d");
         this.init();
-        document.addEventListener("keydown",this.keyPush);
-        setInterval(this.game(this.pisces),15);
-        setInterval(this.shot,15);
+        document.addEventListener("keydown", (event) => {
+            event.preventDefault();
+            this.keyPush(event);
+        });
+        // document.getElementById('application').onkeypress = function(e) {
+        //     this.keyPush(e);
+        // }
     }
     degreesToRadians(degrees){
         return degrees * (Math.PI/180);
@@ -98,12 +82,9 @@ export default class Game{
         //назначаем стартовую позицию пингвину
         this.penguinAlpha =  Math.floor(Math.random()*360);
 
-        console.log(10)
         this.penguinX = Math.floor(1200/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
-        console.log(11)
 
         this.penguinY = Math.floor(1200/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
-        console.log(12)
 
         //рисуем пингвина
         this.ctx.fillStyle="#9932CC";
@@ -111,11 +92,16 @@ export default class Game{
     
         //направление движения пингвина
         this.clockwise = true;
-    
+        console.log(this)
+        // setInterval(this.game(this.pisces),15);
+        // setInterval(this.shot(),15);
+        this.interval1 = setInterval(() => this.game(), 15);
+        this.interval2 = setInterval(() => this.shot(), 15);
     
     }
 
-    game(pisces) {
+    game() {
+        console.log(this)
 
         if (this.penguinAlpha == 360) {
             this.penguinAlpha = 0;
@@ -126,29 +112,29 @@ export default class Game{
         //если съедает рыбку полностью, то увеличивается количество очков
         let eaten = -1;
 
-        for (let i = 0; i < pisces.length; i++) {
-            if (this.penguinAlpha == pisces[i].degree) {
+        for (let i = 0; i < this.pisces.length; i++) {
+            if (this.penguinAlpha == this.pisces[i].degree) {
                 this.score++;
-                document.getElementById("score").innerText = this.score;
+                this.scoreElement.innerText = this.score;
                 
                 eaten = i;
                 break;
             }
             this.ctx.fillStyle="lime";
-            this.ctx.fillRect(pisces[i].x, pisces[i].y, this.fishWidth, this.fishHeigth);
+            this.ctx.fillRect(this.pisces[i].x, this.pisces[i].y, this.fishWidth, this.fishHeigth);
             
         }
 
 
         if (eaten != -1) {
-            pisces.splice(eaten, 1);
-            if (pisces.length == 0) {
+            this.pisces.splice(eaten, 1);
+            if (this.pisces.length == 0) {
                 alert("Вы выиграли")
             }
         }
     
         //удаляем старого пингвина
-        // this.ctx.clearRect(this.penguinX-5, this.penguinY-5, this.penguinWidth+10, this.penguinHeigth+10);
+        this.ctx.clearRect(this.penguinX-5, this.penguinY-5, this.penguinWidth+10, this.penguinHeigth+10);
         
         //считаем нового пингвина
         if (this.clockwise) {
@@ -156,18 +142,16 @@ export default class Game{
         } else {
             this.penguinAlpha--;
         }
-        console.log(1)
         this.penguinX = Math.floor(1200/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
-        console.log(2)
         this.penguinY = Math.floor(1200/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
        
-        console.log(3)
         //назначаем нового пингвина 
         this.ctx.fillStyle="#9932CC";
         this.ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
     }
 
     shot() {
+        console.log(this)
         if (!this.shoted) {
             this.shoted = true;
             if (this.clockwise) {
@@ -178,14 +162,11 @@ export default class Game{
             
             this.bulletLength = 20;
         }
-        // this.ctx.clearRect(this.bulletX, this.bulletY, this.bulletWidth, this.bulletHeight);
+        this.ctx.clearRect(this.bulletX, this.bulletY, this.bulletWidth, this.bulletHeight);
 
-        console.log(4)
         // degrees * (Math.PI/180);
         this.bulletX = Math.floor(1200/2 + Math.sin(this.bulletAlpha*(Math.PI/180))*this.bulletLength);  
-        console.log(5)
         this.bulletY = Math.floor(1200/2 - Math.cos(this.bulletAlpha*(Math.PI/180))*this.bulletLength); 
-        console.log(6)
         this.bulletLength+=15;
         this.ctx.fillStyle="red";
         this.ctx.fillRect(1200/2, this.canv.height/2, this.gunWidth, this.gunHeigth);
@@ -212,6 +193,3 @@ export default class Game{
         }
     }
 }
-
-
-
