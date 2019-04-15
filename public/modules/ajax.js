@@ -24,7 +24,6 @@ class AjaxModule {
         options.headers = { 'Content-Type': 'application/json; charset=utf-8' };
         options.body = JSON.stringify(body);
       } else {
-        console.log('dcdsdff');
         // options.headers = { 'Content-Type': 'multipart/form-data' };
         options.body = body;
       }

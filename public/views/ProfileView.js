@@ -25,7 +25,7 @@ export default class ProfileView extends BaseView {
   }
 
   renderProfile() {
-    console.log(this.user);
+    
     this.el.innerHTML = templateFunc(this.user);
 
     const home = this.el.getElementsByClassName('js-header__home-button')[0];

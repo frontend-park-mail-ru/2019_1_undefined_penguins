@@ -237,7 +237,6 @@ export class ProfileComponent {
       })
         .then(
           (res) => {
-            console.log(res);
             if (res.status > 400) {
               throw new Error('Network response was not ok.');
             }
@@ -245,7 +244,6 @@ export class ProfileComponent {
           },
         )
         .then((res) => {
-          console.log(res.result);
           if (res.result !== '') {
             avatar.src = res.result;
           }

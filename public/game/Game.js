@@ -93,14 +93,12 @@ export default class Game {
 
     // направление движения пингвина
     this.clockwise = true;
-    console.log(this);
 
     this.interval1 = setInterval(() => this.game(), 15);
     this.interval2 = setInterval(() => this.shot(), 20);
   }
 
   game() {
-    console.log(this);
 
     if (this.penguinAlpha == 360) {
       this.penguinAlpha = 0;
@@ -152,7 +150,6 @@ export default class Game {
   }
 
   shot() {
-    console.log(this);
     if (!this.shoted) {
       this.shoted = true;
       if (this.clockwise) {

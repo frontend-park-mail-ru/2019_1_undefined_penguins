@@ -161,7 +161,6 @@ export class SignInComponent {
           err.innerText = '';
           event.preventDefault();
 
-          console.log('hello');
 
           const email = form.elements.email.value;
           const password = form.elements.password.value;
