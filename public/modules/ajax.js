@@ -29,7 +29,7 @@ class AjaxModule {
       }
     }
 
-    return fetch(home + path, options);
+    return fetch(`${home}${path}`, options);
   }
 
   /**
@@ -39,7 +39,7 @@ class AjaxModule {
   doPromiseGet({
     path = '/',
   } = {}) {
-    return fetch(home + path, {
+    return fetch(`${home}${path}`, {
       method: 'GET',
       // mode: 'cors',
       credentials: 'include',
@@ -56,7 +56,7 @@ class AjaxModule {
     path = '/',
     body = {},
   } = {}) {
-    return fetch(home + path, {
+    return fetch(`${home}${path}`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
