@@ -42,7 +42,7 @@ export class MenuComponent {
     const logo = document.createElement('div');
     logo.id = 'logo';
     const logoHeader = document.createElement('h1');
-    logoHeader.textContent = "Penguins Wars";
+    logoHeader.textContent = 'Penguins Wars';
     logo.appendChild(logoHeader);
 
     const auth = document.createElement('div');
