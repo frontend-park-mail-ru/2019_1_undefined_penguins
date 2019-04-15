@@ -1,6 +1,7 @@
+import Bus from '../scripts/EventBus.js';
 export default class Game{
     constructor() {
-        this.circleSize = 1000;
+        this.circleSize = 500;
         this.piscesCount = 24;
 
 
@@ -57,13 +58,13 @@ export default class Game{
         //рисуем бэкграунд
         this.ctx.fillStyle='rgba(130,130,130,0)';
         // ctx.fillStyle = 'rgba(130,130,130,0)'; //прозрачный
-        this.ctx.fillRect(0,0,1200,this.canv.height);
+        this.ctx.fillRect(0,0,this.canv.width,this.canv.height);
     
     
     
         //рисуем пушку
         this.ctx.fillStyle="red";
-        this.ctx.fillRect(1200/2, this.canv.height/2, this.gunWidth, this.gunHeigth);
+        this.ctx.fillRect(this.canv.width/2, this.canv.height/2, this.gunWidth, this.gunHeigth);
     
         //рисуем рыбок
         this.ctx.fillStyle="lime";
@@ -73,7 +74,7 @@ export default class Game{
 
     
             let alphaRad = this.degreesToRadians(alpha);
-            let x = Math.floor(1200/2 + Math.sin(alphaRad)*length); 
+            let x = Math.floor(this.canv.width/2 + Math.sin(alphaRad)*length); 
             let y = Math.floor(this.canv.height/2 - Math.cos(alphaRad)*length);
  
             this.pisces.push({x:x,y:y, degree:alpha});
@@ -82,9 +83,9 @@ export default class Game{
         //назначаем стартовую позицию пингвину
         this.penguinAlpha =  Math.floor(Math.random()*360);
 
-        this.penguinX = Math.floor(1200/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
+        this.penguinX = Math.floor(this.canv.width/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
 
-        this.penguinY = Math.floor(1200/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
+        this.penguinY = Math.floor(this.canv.width/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
 
         //рисуем пингвина
         this.ctx.fillStyle="#9932CC";
@@ -93,10 +94,9 @@ export default class Game{
         //направление движения пингвина
         this.clockwise = true;
         console.log(this)
-        // setInterval(this.game(this.pisces),15);
-        // setInterval(this.shot(),15);
+
         this.interval1 = setInterval(() => this.game(), 15);
-        this.interval2 = setInterval(() => this.shot(), 15);
+        this.interval2 = setInterval(() => this.shot(), 20);
     
     }
 
@@ -129,7 +129,11 @@ export default class Game{
         if (eaten != -1) {
             this.pisces.splice(eaten, 1);
             if (this.pisces.length == 0) {
-                alert("Вы выиграли")
+                alert("Вы выиграли");
+                clearInterval(this.interval1);
+                clearInterval(this.interval2);
+                Bus.emit('open-menu');
+
             }
         }
     
@@ -142,8 +146,8 @@ export default class Game{
         } else {
             this.penguinAlpha--;
         }
-        this.penguinX = Math.floor(1200/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
-        this.penguinY = Math.floor(1200/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
+        this.penguinX = Math.floor(this.canv.width/2 + Math.sin(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
+        this.penguinY = Math.floor(this.canv.width/2 - Math.cos(this.degreesToRadians(this.penguinAlpha))*this.circleSize/2); 
        
         //назначаем нового пингвина 
         this.ctx.fillStyle="#9932CC";
@@ -165,11 +169,11 @@ export default class Game{
         this.ctx.clearRect(this.bulletX, this.bulletY, this.bulletWidth, this.bulletHeight);
 
         // degrees * (Math.PI/180);
-        this.bulletX = Math.floor(1200/2 + Math.sin(this.bulletAlpha*(Math.PI/180))*this.bulletLength);  
-        this.bulletY = Math.floor(1200/2 - Math.cos(this.bulletAlpha*(Math.PI/180))*this.bulletLength); 
-        this.bulletLength+=15;
+        this.bulletX = Math.floor(this.canv.width/2 + Math.sin(this.bulletAlpha*(Math.PI/180))*this.bulletLength);  
+        this.bulletY = Math.floor(this.canv.width/2 - Math.cos(this.bulletAlpha*(Math.PI/180))*this.bulletLength); 
+        this.bulletLength+=8;
         this.ctx.fillStyle="red";
-        this.ctx.fillRect(1200/2, this.canv.height/2, this.gunWidth, this.gunHeigth);
+        this.ctx.fillRect(this.canv.width/2, this.canv.height/2, this.gunWidth, this.gunHeigth);
         this.ctx.fillStyle="black";
         this.ctx.fillRect(this.bulletX, this.bulletY, this.bulletWidth, this.bulletHeight);
         if (this.bulletLength > this.circleSize/2) {
@@ -178,7 +182,10 @@ export default class Game{
         }
         if (this.bulletLength > this.circleSize/2 - this.penguinHeigth && this.bulletAlpha >= this.penguinAlpha - 3 && this.bulletAlpha <= this.penguinAlpha + 3) {
             alert("Вы проиграли");
-            this.shoted = false;
+            clearInterval(this.interval1);
+            clearInterval(this.interval2);
+            Bus.emit('open-menu');
+            // this.shoted = false;
         }
         
     
