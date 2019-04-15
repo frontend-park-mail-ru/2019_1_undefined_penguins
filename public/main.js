@@ -1,5 +1,5 @@
 import Router from './scripts/Router.js';
-import ScoreboardView from './views/ScoreboardView.js'
+import ScoreboardView from './views/ScoreboardView.js';
 import MenuView from './views/MenuView.js';
 import SignInView from './views/SignInView.js';
 import SignUpView from './views/SignUpView.js';
@@ -9,7 +9,7 @@ import SignOutView from './views/SignOutView.js';
 import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 
-import EventController from './scripts/EventController.js'
+import EventController from './scripts/EventController.js';
 // runtime = require ('../node_modules/serviceworker-webpack-plugin/lib/runtime');
 
 // if ('serviceWorker' in navigator) {
@@ -26,26 +26,26 @@ import EventController from './scripts/EventController.js'
 // }
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-        .then((registration) => {
-            console.log('ServiceWorker registration', registration);
-        })
-        .catch((error) => {
-            throw new Error(`ServiceWorker error: ${error}`);
-        });
+  navigator.serviceWorker.register('sw.js')
+    .then((registration) => {
+      console.log('ServiceWorker registration', registration);
+    })
+    .catch((error) => {
+      throw new Error(`ServiceWorker error: ${error}`);
+    });
 }
 
 EventController.Init();
 
 Router
-	.register('/', MenuView)
-	.register('/leaders', ScoreboardView)
-	.register('/signIn', SignInView)
-	.register('/signUp', SignUpView)
-	.register('/about', AboutView)
-	.register('/me', ProfileView)
-	.register('/signout', SignOutView)
-	.register('/singlePlayer', SingleplayerView)
-	.register('/multiPlayer', MultiplayerView);
+  .register('/', MenuView)
+  .register('/leaders', ScoreboardView)
+  .register('/signIn', SignInView)
+  .register('/signUp', SignUpView)
+  .register('/about', AboutView)
+  .register('/me', ProfileView)
+  .register('/signout', SignOutView)
+  .register('/singlePlayer', SingleplayerView)
+  .register('/multiPlayer', MultiplayerView);
 
 Router.start();

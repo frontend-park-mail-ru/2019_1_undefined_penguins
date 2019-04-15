@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fallback = require('express-history-api-fallback');
 const express = require('express');
@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.static(rootDir));
 app.use(body.json());
 app.use(cookie());
-app.use(fallback('index.html', {root: rootDir}));
+app.use(fallback('index.html', { root: rootDir }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
