@@ -73,7 +73,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
     console.log(event);
     event.respondWith(
-        global.caches.match(event.request)
+        caches.match(event.request)
             .then((cachedResponse) => {
                 // return cacheedResponse || fetch(event.request).then(function(response) {
 				// 	const cloning = response.clone();
