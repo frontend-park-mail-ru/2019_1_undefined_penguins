@@ -1,4 +1,5 @@
 import { RENDER_TYPES } from '../../utils/constants.js';
+import AjaxModule from '../../modules/ajax.js';
 
 export class ProfileComponent {
   constructor({
@@ -224,7 +225,7 @@ export class ProfileComponent {
         avatarBlob = this._avatarBlob;
       }
 
-      AjaxModule.doPromisePost({
+      AjaxModule.doPromisePut({
         path: '/change_profile',
         body: {
           email,
@@ -236,7 +237,6 @@ export class ProfileComponent {
       })
         .then(
           (res) => {
-            console.log(res);
             if (res.status > 400) {
               throw new Error('Network response was not ok.');
             }
@@ -323,10 +323,19 @@ export class ProfileComponent {
             return;
           }
 
-          const avatarName = this._avatarName;
-          const avatarBlob = this._avatarBlob;
+          if ((userAvatar !== undefined) && (userAvatar.size > 70000)) {
+            err.innerText = `${errorString}Картинка слишком большая (70Кб)!!`;
+            return;
+          }
 
-          AjaxModule.doPromisePost({
+          let { avatarName } = this._data;
+          let { avatarBlob } = this._data;
+          if ((userAvatar !== undefined)) {
+            avatarName = this._avatarName;
+            avatarBlob = this._avatarBlob;
+          }
+
+          AjaxModule.doPromisePut({
             path: '/change_profile',
             body: {
               email,
@@ -346,16 +355,17 @@ export class ProfileComponent {
               },
             )
             .then((res) => {
-              const avatar = this._el.getElementsByClassName('avatar')[0];
-              avatar.src = res.result;
+              if (res.result !== '') {
+                const avatar = this._el.getElementsByClassName('avatar')[0];
+                avatar.src = res.result;
+              }
             })
             .catch(() => {
               console.error;
               application.innerHTML = '';
             });
         });
-
-            	break;
+        break;
     }
   }
 }

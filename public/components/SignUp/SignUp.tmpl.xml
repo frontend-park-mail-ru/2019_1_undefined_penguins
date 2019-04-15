@@ -1,19 +1,20 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <section data-section-name="header">
-        <div id="goBack">
-            <img src="../../images/home.png"/>
+    <div class="header">
+        <div class="header__home">
+            <img src="/images/home.svg" class="js-header__home-button"/>
         </div>
-        <div id="title">
-            <h2>Зарегистрироваться</h2>
+        <div class="header__logo">
+            <h1 class="header__title">Penguins Wars</h1>
         </div>
-    </section>
-    <section data-section-name="main">
-        <form>
-            <input name="email" type="email" placeholder="Email"/><br/>
-            <input name="password" type="password" placeholder="Password"/><br/>
-            <input name="password_repeat" type="password" placeholder="Repeat Password"/><br/>
-            <input name="submit" type="submit" placeholder="undefined"/><br/>
+    </div>
+    <section class="sign-up-content" class="sign-up-content">
+        <p class="sign-up__header">Регистрация</p>
+        <form class="sign-up-form">
+            <input name="email" type="email" placeholder="Email" class="sign-up-form__input"/>
+            <input name="login" type="text" placeholder="Логин" class="sign-up-form__input"/>
+            <input name="password" type="password" placeholder="Пароль" class="sign-up-form__input"/>
+            <input name="password_repeat" type="password" placeholder="Повторите пароль" class="sign-up-form__input"/>
+            <input name="submit" type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ" class="sign-up-form__submit js-sign-up-button"/><br/>
         </form>
-        <span class="errorLabel"></span>
     </section>
 </fest:template>

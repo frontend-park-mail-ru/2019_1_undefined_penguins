@@ -45,26 +45,28 @@ export class BoardComponent {
     table.border = 1;
     table.cellSpacing = table.cellPadding = 0;
 
-    this._data.forEach(({
-      email = 'test@mail.ru',
-      score = 100500,
-    } = {}) => {
-      const tr = document.createElement('tr');
-      const tdEmail = document.createElement('td');
-      const tdScore = document.createElement('td');
+    const users = [];
+    users.push(this._data);
+    const usersNew = users[0];
+    for (const key in usersNew) {
+      if (usersNew.hasOwnProperty(key)) {
+        const tr = document.createElement('tr');
+        const tdEmail = document.createElement('td');
+        const tdScore = document.createElement('td');
 
-      tr.classList.add('table__row');
+        tr.classList.add('table__row');
 
-      tdEmail.innerHTML = makeSafe(email);
-      tdScore.textContent = score;
+        tdEmail.innerHTML = makeSafe(usersNew[key].email);
+        tdScore.textContent = usersNew[key].score;
 
-      tr.appendChild(tdEmail);
-      tr.appendChild(tdScore);
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdScore);
 
-      tbody.appendChild(tr);
+        tbody.appendChild(tr);
 
-      this._el.appendChild(table);
-    });
+        this._el.appendChild(table);
+      }
+    }
   }
 
   /**

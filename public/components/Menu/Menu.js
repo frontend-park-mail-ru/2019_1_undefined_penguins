@@ -37,12 +37,12 @@ export class MenuComponent {
          */
   _renderHeader() {
     const headerSection = document.createElement('section');
-    headerSection.dataset.sectionName = 'header';
+    headerSection.dataset.sectionName = 'menu-header';
 
     const logo = document.createElement('div');
     logo.id = 'logo';
     const logoHeader = document.createElement('h1');
-    logoHeader.textContent = this._header;
+    logoHeader.textContent = 'Penguins Wars';
     logo.appendChild(logoHeader);
 
     const auth = document.createElement('div');

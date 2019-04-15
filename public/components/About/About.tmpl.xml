@@ -1,38 +1,44 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-    <section data-section-name="header">
-        <div id="goBack">
-            <img src="../../images/home.png"/>
+    <!-- <section data-section-name="header" class="header">
+        <div class="header__home">
+            <img src="../../images/home.svg" class="header__home-button" />
         </div>
-        <div id="title"><h2>Об игре</h2></div>
-    </section>
-    <section data-section-name="main">
-        <div id="idea" class="text-area">
-            <h3>Идея</h3>
-            <div>Abusus non tollit usum. Accepto damno. Accessio 
-                cedit principali. Actio bonae fidei. Actio in 
-                factum concepta. Actio in ius concepta.  
-                Actio in personam. Actio in rem. Actio noxalis.
-                Actio poenalis. Alibi. A potiori. 
-                Argumenta ponderantur, non numerantur. 
-                Argumentum ad oculos.</div>
+        <div class="header__logo"><h2>Об игре</h2></div>
+    </section> -->
+    <div class="header">
+        <div class="header__home">
+			<img src="/images/home.svg" class="js-header__home-button"/>
+		</div>
+        <div class="header__logo">
+            <h1 class="header__title">Penguins Wars</h1>
         </div>
-        <div id="howPlay" class="text-area">
-            <h3>Как играть</h3>
-            <div>Abusus non tollit usum. Accepto damno. Accessio 
-                cedit principali. Actio bonae fidei. Actio in 
-                factum concepta. Actio in ius concepta.  
-                Actio in personam. Actio in rem. Actio noxalis. 
-                Actio poenalis. Alibi. A potiori. 
-                Argumenta ponderantur, non numerantur. 
-                Argumentum ad oculos.</div>
-            <div id="tutorial">
-                <div id="desktop">
-                    <h3>Desktop</h3>
-                    <img src="../../images/game1.svg"/>
+        <!-- <div class="header__buttons">
+            <a href="me" data-href="me" class="header__profile header__button js-profile-button">ПРОФИЛЬ</a>
+            <a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
+        </div> -->
+    </div>
+    <section data-section-name="about-main" class="about-main">
+        <div class="about-main__content about-main__idea">
+            <h3 class="about-main__title">Идея</h3>
+            <div>Ты самый голодный пингвин и сделаешь всё, чтобы съесть как можно больше рыбок. 
+                Но ты такой не один, у тебя есть конкурент! И он хочет от тебя избавиться!
+                Покажи, на что ты способен ради своей цели!
+                Уничтожь врага и забери заслуженную награду!</div>
+        </div>
+        <div class="about-main__content about-main__how-play">
+            <h3 class="about-main__title">Как играть</h3>
+            <div>В настольной версии используй клавишу ПРОБЕЛ 
+                для изменения направления движения пингвина/пушки.
+                В мобильной версии используй обычный ТАП для той же цели. 
+            </div>
+            <div class="about-main__tutorial">
+                <div class="about-main-tutorial__item">
+                    <h3 class="about-main-tutorial__title">Desktop</h3>
+                    <img src="../../images/space.jpg" class="about-main-tutorial__space"/>
                 </div>
-                <div id="mobile">
-                    <h3>Mobile</h3>
-                    <img src="../../images/game1.svg"/>
+                <div class="about-main-tutorial__item">
+                    <h3 class="about-main-tutorial__title">Mobile</h3>
+                    <img src="../../images/tap.jpg" class="about-main-tutorial__tap"/>
                 </div>
             </div>
         </div>
