@@ -1,15 +1,15 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
 	<div class="header">
 		<div class="header__home">
-			<img src="/images/home.svg" class="js-header__home-button"/>
+			<img src="/images/home.svg" class="header__home-button js-header__home-button"/>
 		</div>
 		<div class="header__logo">
 			<h1 class="header__title">Penguins Wars</h1>
 		</div>
-		<div class="header__buttons">
+		<!-- <div class="header__buttons">
 			<a href="me" data-href="me" class="header__profile header__button js-profile-button">ПРОФИЛЬ</a>
 			<a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
-		</div>
+		</div> -->
 	</div>
 	<div class="leaders-content">
 		<p class="leaders__header">Таблица лидеров</p>

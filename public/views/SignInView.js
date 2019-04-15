@@ -26,7 +26,7 @@ export default class SignInView extends BaseView {
             Bus.emit('sign-in', form);
         });
 
-        const home = this.el.getElementsByClassName('header__home-button')[0];
+        const home = this.el.getElementsByClassName('js-header__home-button')[0];
 		if (home !== undefined) {
 			home.addEventListener('click', (event) => {
 				// const err = this.el.getElementsByTagName('span')[0];

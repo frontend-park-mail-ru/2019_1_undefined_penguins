@@ -5,7 +5,7 @@ const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
 const morgan = require('morgan');
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 const path = require('path');
 
 const app = express();
@@ -22,50 +22,50 @@ app.get('/', (req, res) => {
 });
 
 
-const users = {
-  'a.penguin1@corp.mail.ru': {
-    login: 'Penguin1',
-    email: 'a.penguin1@corp.mail.ru',
-    password: 'password',
-    name: 'Пингвин Северного Полюса',
-    lastVisit: '25.02.2019',
-    score: 0,
-    avatarName: 'default1.png',
-    avatarBlob: './images/user.svg',
-  },
-  'b.penguin2@corp.mail.ru': {
-    login: 'Penguin2',
-    email: 'b.penguin2@corp.mail.ru',
-    password: 'password',
-    name: 'Пингвин Южного Полюса',
-    lastVisit: '26.02.2019',
-    score: 100500,
-    avatarName: 'default2.png',
-    avatarBlob: './images/user.svg',
-  },
-  'c.penguin3@corp.mail.ru': {
-    login: 'Penguin3',
-    email: 'c.pengin3@corp.mail.ru',
-    password: 'password',
-    name: 'Залетный Пингвин',
-    lastVisit: '14.02.2019',
-    score: 172,
-    avatarName: 'default3.png',
-    avatarBlob: './images/user.svg',
-  },
-  'd.penguin4@corp.mail.ru': {
-    login: 'Penguin4',
-    email: 'd.penguin4@corp.mail.ru',
-    password: 'password',
-    name: 'Рядовой Пингвин',
-    lastVisit: '15.02.2019',
-    score: 72,
-    avatarName: 'default4.png',
-    avatarBlob: './images/user.svg',
-  },
-};
+// const users = {
+//   'a.penguin1@corp.mail.ru': {
+//     login: 'Penguin1',
+//     email: 'a.penguin1@corp.mail.ru',
+//     password: 'password',
+//     name: 'Пингвин Северного Полюса',
+//     lastVisit: '25.02.2019',
+//     score: 0,
+//     avatarName: 'default1.png',
+//     avatarBlob: './images/user.svg',
+//   },
+//   'b.penguin2@corp.mail.ru': {
+//     login: 'Penguin2',
+//     email: 'b.penguin2@corp.mail.ru',
+//     password: 'password',
+//     name: 'Пингвин Южного Полюса',
+//     lastVisit: '26.02.2019',
+//     score: 100500,
+//     avatarName: 'default2.png',
+//     avatarBlob: './images/user.svg',
+//   },
+//   'c.penguin3@corp.mail.ru': {
+//     login: 'Penguin3',
+//     email: 'c.pengin3@corp.mail.ru',
+//     password: 'password',
+//     name: 'Залетный Пингвин',
+//     lastVisit: '14.02.2019',
+//     score: 172,
+//     avatarName: 'default3.png',
+//     avatarBlob: './images/user.svg',
+//   },
+//   'd.penguin4@corp.mail.ru': {
+//     login: 'Penguin4',
+//     email: 'd.penguin4@corp.mail.ru',
+//     password: 'password',
+//     name: 'Рядовой Пингвин',
+//     lastVisit: '15.02.2019',
+//     score: 72,
+//     avatarName: 'default4.png',
+//     avatarBlob: './images/user.svg',
+//   },
+// };
 
-const ids = {};
+// const ids = {};
 
 // app.get('/users', function (req, res) {
 //   // console.log(res);
@@ -82,88 +82,88 @@ const ids = {};
 //   res.json(scorelist);
 // });
 
-app.post('/logged', (req, res) => {
-  const id = req.cookies.sessionid;
-  const email = ids[id];
-  if (!email || !users[email]) {
-    return res.status(401).end();
-	}
-	return res.status(200).end();
-});
+// app.post('/logged', (req, res) => {
+//   const id = req.cookies.sessionid;
+//   const email = ids[id];
+//   if (!email || !users[email]) {
+//     return res.status(401).end();
+// 	}
+// 	return res.status(200).end();
+// });
 
-app.post('/login', (req, res) => {
-  const { password } = req.body;
-  const { email } = req.body;
-  if (!password || !email) {
-    return res.status(400).json({ error: 'Не указан E-Mail или пароль' });
-  }
-  if (!users[email] || users[email].password !== password) {
-    return res.status(400).json({ error: 'Неверный E-Mail и/или пароль' });
-  }
+// app.post('/login', (req, res) => {
+//   const { password } = req.body;
+//   const { email } = req.body;
+//   if (!password || !email) {
+//     return res.status(400).json({ error: 'Не указан E-Mail или пароль' });
+//   }
+//   if (!users[email] || users[email].password !== password) {
+//     return res.status(400).json({ error: 'Неверный E-Mail и/или пароль' });
+//   }
 
-  const id = uuid();
-  ids[id] = email;
+//   const id = uuid();
+//   ids[id] = email;
 
-  res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-  console.log('User is: ', users[email]);
-  res.status(200).json(users[email]);
-});
+//   res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+//   console.log('User is: ', users[email]);
+//   res.status(200).json(users[email]);
+// });
 
-app.post('/signup', (req, res) => {
-  const { password } = req.body;
-  const { email } = req.body;
-  if (
-    !password || !email
-		|| !password.match(/^\S{4,}$/)
-		|| !email.match(/@/)
-  ) {
-    return res.status(400).json({ error: 'Невалидные данные пользователя' });
-  }
-  if (users[email]) {
-    return res.status(400).json({ error: 'Пользователь уже существует' });
-  }
+// app.post('/signup', (req, res) => {
+//   const { password } = req.body;
+//   const { email } = req.body;
+//   if (
+//     !password || !email
+// 		|| !password.match(/^\S{4,}$/)
+// 		|| !email.match(/@/)
+//   ) {
+//     return res.status(400).json({ error: 'Невалидные данные пользователя' });
+//   }
+//   if (users[email]) {
+//     return res.status(400).json({ error: 'Пользователь уже существует' });
+//   }
 
-  const id = uuid();
-  const user = {
-    login: '-не указан-',
-    email,
-    password,
-    name: '-не указано-',
-    lastVisit: 'today',
-    score: 0,
-    avatarName: 'default.png',
-    avatarBlob: './images/user.svg',
-  };
-  ids[id] = email;
-  users[email] = user;
+//   const id = uuid();
+//   const user = {
+//     login: '-не указан-',
+//     email,
+//     password,
+//     name: '-не указано-',
+//     lastVisit: 'today',
+//     score: 0,
+//     avatarName: 'default.png',
+//     avatarBlob: './images/user.svg',
+//   };
+//   ids[id] = email;
+//   users[email] = user;
 
-  res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-  //TODO: вернуть данные зарегистрированнго пользователя без пароля
-  res.status(201).json(user);
-});
+//   res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+//   //TODO: вернуть данные зарегистрированнго пользователя без пароля
+//   res.status(201).json(user);
+// });
 
-app.get('/me', (req, res) => {
-  const id = req.cookies.sessionid;
-  const email = ids[id];
-  if (!email || !users[email]) {
-    return res.status(401).end();
-  }
+// app.get('/me', (req, res) => {
+//   const id = req.cookies.sessionid;
+//   const email = ids[id];
+//   if (!email || !users[email]) {
+//     return res.status(401).end();
+//   }
 
-  res.json(users[email]);
-});
+//   res.json(users[email]);
+// });
 
-app.get('/leaders', (req, res) => {
-  const scorelist = Object.values(users)
-    .sort((l, r) => r.score - l.score)
-    .map(user => ({
-      email: user.email,
-      score: user.score,
-    }));
-  const from = req.body.page * req.body.items;
-  const to = req.body.page * req.body.items + req.body.items;
+// app.get('/leaders', (req, res) => {
+//   const scorelist = Object.values(users)
+//     .sort((l, r) => r.score - l.score)
+//     .map(user => ({
+//       email: user.email,
+//       score: user.score,
+//     }));
+//   const from = req.body.page * req.body.items;
+//   const to = req.body.page * req.body.items + req.body.items;
 
-  res.json(scorelist.slice(from, to));
-});
+//   res.json(scorelist.slice(from, to));
+// });
 
 const port = process.env.PORT || 3000;
 

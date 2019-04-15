@@ -1,22 +1,23 @@
-.sign-in-header {
+.header {
     justify-content: space-around;
-    margin-right: 220px;
+    margin-right: 250px;
 }
     
-.sign-in-header__buttons {
+.header__buttons {
     width: auto;
 }
 
-.sign-in-header__home {
+.header__home {
     margin: 60px 0;
 }
 
-.sign-in-header__home-button {
+.header__home-button {
     width: 70px;
     height: 70px;
+    cursor: pointer;
 }
 
-.sign-in-header__logo {
+.header__logo {
     font-family: IndieFlower;
     font-size: 50px;
     color: #EDEFF0;
@@ -24,13 +25,8 @@
     margin: -25px 20px
 }
 
-
-/* .header__home-button:hover, .header__home-button:focus {
-    height: 80px;
-    width: 80px;
-} */
-
 .signin-content {
+    font-family: Roboto-Regular;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -40,7 +36,7 @@
     opacity: 1;
     border: 2px solid #979797;
     border-radius: 16px;
-    margin: 0 120px 15px 370px
+    margin: 0 350px 15px 350px;
 }
 
 .signin__header {
@@ -57,11 +53,11 @@
 }
 
 .signin-form__submit {
+    font-family: Roboto-Bold;
     background: #DA8F56;
     border-radius: 8px;
     width: 260px;
     height: 55px;
-    font-family: Roboto-Regular;
     font-size: 20px;
     color: #ffffff;
     text-align: center;
@@ -73,7 +69,6 @@
 }
 
 .signin-form__input {
-    font-family: Roboto-Bold;
     font-size: 22px;
     opacity: 0.98;
     background: #BEDFEE;
@@ -82,7 +77,7 @@
     color: #101C45;
     width: 350px;
     height: 30px;
-    padding: 10px;
+    padding: 12px;
     margin: 0px 0 10px 0;
 }
 
