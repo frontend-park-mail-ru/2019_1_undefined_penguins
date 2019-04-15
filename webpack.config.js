@@ -29,14 +29,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      // {
-      //     test: /\.xml$/,
-      //     use: [
-      //       {
-      //         loader: 'fest-webpack-loader'
-      //       }
-      //     ]
-      // }
     ],
   },
 

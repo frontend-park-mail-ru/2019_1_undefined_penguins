@@ -5,7 +5,6 @@ export default class Game {
     this.circleSize = 500;
     this.piscesCount = 24;
 
-
     // размеры рыбы
     this.fishWidth = 20;
     this.fishHeigth = 20;
@@ -44,9 +43,6 @@ export default class Game {
       event.preventDefault();
       this.keyPush(event);
     });
-    // document.getElementById('application').onkeypress = function(e) {
-    //     this.keyPush(e);
-    // }
   }
 
   degreesToRadians(degrees) {

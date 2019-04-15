@@ -20,17 +20,13 @@ export default class SignUpView extends BaseView {
     const form = this.el.getElementsByTagName('form')[0];
 
     form.addEventListener('submit', (event) => {
-      // const err = this.el.getElementsByTagName('span')[0];
-      // err.innerText = '';
       event.preventDefault();
       Bus.emit('sign-up', form);
     });
 
     const home = this.el.getElementsByClassName('js-header__home-button')[0];
     if (home !== undefined) {
-      home.addEventListener('click', (event) => {
-        // const err = this.el.getElementsByTagName('span')[0];
-        // err.innerText = '';
+        home.addEventListener('click', (event) => {
         event.preventDefault();
         Bus.emit('open-menu');
       });

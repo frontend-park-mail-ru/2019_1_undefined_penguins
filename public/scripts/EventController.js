@@ -49,10 +49,6 @@ export default class EventController {
       UserModel.Leaders(leadersView, 1);
     });
 
-    // Bus.on('open-sign-up', () => {
-    //     Router.open('/signUp');
-    // });
-
     Bus.on('open-sign-in', () => {
       Router.open('/signIn');
     });
@@ -64,9 +60,5 @@ export default class EventController {
       const form = view.el.getElementsByTagName('form')[0];
       UserModel.ChangeProfile(form);
     });
-
-    // Bus.on('open-about', () => {
-    //     Router.open('/about');
-    // });
   }
 }

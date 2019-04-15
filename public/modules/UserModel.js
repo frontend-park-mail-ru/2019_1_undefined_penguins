@@ -48,10 +48,6 @@ export class UserModel {
     return this.isAutorised;
   }
 
-  // SetAutorised() {
-  //     this.isAutorised = true;
-  // }
-
   CheckAuthorized() {
     AjaxModule.doPromiseGet({
       path: '/me',
@@ -75,19 +71,6 @@ export class UserModel {
         // TODO: рендер ошибки
         console.log('Profile promise fall down :(');
       });
-    // AjaxModule
-    // .doPromisePost({
-    //     path: '/logged'
-    // })
-    // .then(function (res) {
-    //     return res.status
-    // })
-    // .then((status) => {
-    //     if (status == 200) {
-    //         // TODO: другой способ сказать, что юзер есть
-    //         this.isAutorised = true;
-    //     }
-    // })
   }
 
   SignIn(form) {
@@ -148,28 +131,6 @@ export class UserModel {
         console.error;
       });
   }
-
-  // Profile() {
-  // console.log(this);
-  // //TODO: чекнуть check-autorized
-  //     AjaxModule.doPromiseGet({
-  //         path: '/me',
-  //       })
-  //         .then((response) => {
-  //           console.log(`Response status: ${response.status}`);
-  //           return response.json();
-  //         })
-  //         .then((user) => {
-  //           console.log(user);
-  //             this.SetUser(user);
-  //           Bus.emit('open-profile');
-  //         })
-  //         .catch(() => {
-  //             // TODO: написать, что такого юзера нетю
-  //             console.log('Profile promise fall down :(');
-  //         });
-  // Bus.emit('open-profile');
-  // }
 
   Leaders(view, page) {
     if (page > 0) {
@@ -242,9 +203,6 @@ export class UserModel {
         res.json().then((res) => {
           this.SetUser(res);
           Bus.emit('redraw-profile');
-        // if (res.result !== '') {
-        //     avatar.src = res.result;
-        // }
         });
       })
       .catch(() => {
