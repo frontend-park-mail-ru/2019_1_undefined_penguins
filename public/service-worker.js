@@ -3,8 +3,9 @@ const CACHE_NAME = 'penguins-sw-cache'
 // const cacheUrls = [...global.serviceWorkerOption.assets.map( asset => '.' + asset), '/index.html'];	// кэшируемые файлы
 
 const Urls = [
+    '/',
     'index.html',
-    // 'fonts/IndieFlower.ttf',
+    'fonts/IndieFlower.ttf',
     // '.DS_Store',
     'images/background-main.jpg',
     'images/default.png',
@@ -58,7 +59,6 @@ const Urls = [
     'views/MenuView.js',
     'views/BaseView.js',
     'views/ScoreboardView.js',
-    'sw.js',
 ]
 
 self.addEventListener('install', (event) => {

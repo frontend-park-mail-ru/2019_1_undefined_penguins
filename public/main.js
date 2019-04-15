@@ -26,7 +26,7 @@ import EventController from './scripts/EventController.js'
 // }
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js', { scope: '/' })
+    navigator.serviceWorker.register('sw.js')
         .then((registration) => {
             console.log('ServiceWorker registration', registration);
         })
