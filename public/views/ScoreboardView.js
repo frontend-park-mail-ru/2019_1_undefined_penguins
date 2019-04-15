@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+// import ScoreboardTemplate from '../components/Board/Board.tmpl.xml';
 
 const templateFunc = window.fest[ 'components/Board/Board.tmpl' ];
 

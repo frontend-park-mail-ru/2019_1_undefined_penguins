@@ -10,7 +10,11 @@ import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 
 import EventController from './scripts/EventController.js'
+// runtime = require ('../node_modules/serviceworker-webpack-plugin/lib/runtime');
 
+// if ('serviceWorker' in navigator) {
+//   const registration = runtime.register();
+// }
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('sw.js')
 		.then((reg) => {

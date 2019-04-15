@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+// import SignInTemplate from '../components/SignIn/SignIn.tmpl.xml';
 
 const templateFunc = window.fest['components/SignIn/SignIn.tmpl'];
 
