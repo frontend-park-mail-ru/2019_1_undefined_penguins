@@ -69,12 +69,12 @@
 	opacity: 1;
 	border: 2px solid #979797;
 	border-radius: 16px;
-	margin: 0 360px 100px 360px;
+	margin: 0 330px 100px 350px;
 }
 
 .leaders__header {
 	font-size: 36px;
-	font-family: Roboto-Regular;
+	font-family: Roboto-Bold;
 	color: #DA8F56;
 }
 
