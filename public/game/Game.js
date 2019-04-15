@@ -1,3 +1,4 @@
+import Bus from '../scripts/EventBus.js';
 export default class Game{
     constructor() {
         this.circleSize = 1000;
@@ -93,8 +94,7 @@ export default class Game{
         //направление движения пингвина
         this.clockwise = true;
         console.log(this)
-        // setInterval(this.game(this.pisces),15);
-        // setInterval(this.shot(),15);
+
         this.interval1 = setInterval(() => this.game(), 15);
         this.interval2 = setInterval(() => this.shot(), 15);
     
@@ -129,7 +129,11 @@ export default class Game{
         if (eaten != -1) {
             this.pisces.splice(eaten, 1);
             if (this.pisces.length == 0) {
-                alert("Вы выиграли")
+                alert("Вы выиграли");
+                clearInterval(this.interval1);
+                clearInterval(this.interval2);
+                Bus.emit('open-menu');
+
             }
         }
     
@@ -178,7 +182,10 @@ export default class Game{
         }
         if (this.bulletLength > this.circleSize/2 - this.penguinHeigth && this.bulletAlpha >= this.penguinAlpha - 3 && this.bulletAlpha <= this.penguinAlpha + 3) {
             alert("Вы проиграли");
-            this.shoted = false;
+            clearInterval(this.interval1);
+            clearInterval(this.interval2);
+            Bus.emit('open-menu');
+            // this.shoted = false;
         }
         
     
