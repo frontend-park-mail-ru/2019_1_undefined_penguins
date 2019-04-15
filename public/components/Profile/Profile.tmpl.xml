@@ -1,15 +1,15 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="profile-header">
-		<div class="profile-header__home">
-			<img src="/images/home.svg" class="profile-header__home js-header__home-button"/>
-		</div>
-		<div class="profile-header__logo">
-			<h1 class="profile-header__title">Penguins Wars</h1>
-		</div>
-		<div class="profile-header__buttons">
-			<a href="signout" data-href="signout" class="profile-header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
-		</div>
-	</div>
+    <div class="header">
+        <div class="header__home">
+            <img src="/images/home.svg" class="js-header__home-button"/>
+        </div>
+        <div class="header__logo">
+            <h1 class="header__title">Penguins Wars</h1>
+        </div>
+		<!-- <div class="header__buttons">
+			<a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
+		</div> -->
+    </div>
     <section class="profile-content">
         <p class="profile__header">Профиль игрока</p>
         <form class="profile-form" enctype="multipart/form-data">
