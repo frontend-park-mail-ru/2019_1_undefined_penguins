@@ -12,6 +12,7 @@ const PATHS = {
 }
 
 module.exports = {
+    mode: 'development',
     entry: [
         PATHS.components + '/About/About.tmpl.js',
         PATHS.components + '/Board/Board.tmpl.js',
