@@ -15,14 +15,24 @@ import EventController from './scripts/EventController.js'
 // if ('serviceWorker' in navigator) {
 //   const registration = runtime.register();
 // }
+// if ('serviceWorker' in navigator) {
+// 	navigator.serviceWorker.register('sw.js')
+// 		.then((reg) => {
+// 			console.log('registred', reg)
+// 		})
+// 		.catch((err) => {
+// 			console.error('error', err)
+// 		})
+// }
+
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('sw.js')
-		.then((reg) => {
-			console.log('registred', reg)
-		})
-		.catch((err) => {
-			console.error('error', err)
-		})
+    navigator.serviceWorker.register('sw.js', { scope: '/' })
+        .then((registration) => {
+            console.log('ServiceWorker registration', registration);
+        })
+        .catch((error) => {
+            throw new Error(`ServiceWorker error: ${error}`);
+        });
 }
 
 EventController.Init();
