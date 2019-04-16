@@ -9,8 +9,7 @@ import SignOutView from './views/SignOutView.js';
 import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 import EventController from './scripts/EventController.js';
-import './modules/WebSocket.js';
-// import { STRATEGIES } from './utils/strategies.js';
+import WS from './modules/WebSocket.js';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js')
@@ -23,6 +22,8 @@ import './modules/WebSocket.js';
 // }
 
 EventController.Init();
+
+WS.send('newCommand', {code: 'FIRE'});
 
 Router
   .register('/', MenuView)

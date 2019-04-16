@@ -1,6 +1,6 @@
 import Bus from '../scripts/EventBus.js';
 
-export default class WS {
+class WS {
     constructor() {
         if (WS.__instance) {
             return WS.__instance;
@@ -12,7 +12,7 @@ export default class WS {
             : `ws://${location.host}/ws`;
 
         this.ws = new WebSocket(address);
-        ws.onopen = function() {
+        this.ws.onopen = function() {
             console.log(`WebSocket on address ${address} opened`);
             console.dir(this.ws);
 
@@ -40,8 +40,6 @@ export default class WS {
     send(type, payload) {
         this.ws.send(JSON.stringify({type, payload}));
     }
-
-    static initialize() {
-        new WS;
-    }
 }
+
+export default new WS;
