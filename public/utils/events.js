@@ -1,0 +1,3 @@
+export const EVENTS = {
+    OPEN_GAME_WINDOW: 'OPEN_GAME_WINDOW',
+}

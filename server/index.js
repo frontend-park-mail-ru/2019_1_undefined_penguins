@@ -4,8 +4,13 @@ const body = require('body-parser');
 const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
-
+const ws = require('express-ws');
 const app = express();
+
+ws(app);
+// app.ws('/ws', (ws) => {
+//   //добавить игрока
+// });
 
 const rootDir = path.resolve(__dirname, '..', 'public');
 app.use(morgan('dev'));

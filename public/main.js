@@ -8,18 +8,19 @@ import ProfileView from './views/ProfileView.js';
 import SignOutView from './views/SignOutView.js';
 import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
-
 import EventController from './scripts/EventController.js';
+import './modules/WebSocket.js';
+// import { STRATEGIES } from './utils/strategies.js';
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then((registration) => {
-      console.log('ServiceWorker registration', registration);
-    })
-    .catch((error) => {
-      throw new Error(`ServiceWorker error: ${error}`);
-    });
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('sw.js')
+//     .then((registration) => {
+//       console.log('ServiceWorker registration', registration);
+//     })
+//     .catch((error) => {
+//       throw new Error(`ServiceWorker error: ${error}`);
+//     });
+// }
 
 EventController.Init();
 
