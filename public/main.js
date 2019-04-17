@@ -10,6 +10,7 @@ import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 import EventController from './scripts/EventController.js';
 import WS from './modules/WebSocket.js';
+import Bus from './scripts/EventBus.js';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js')
@@ -23,7 +24,7 @@ import WS from './modules/WebSocket.js';
 
 EventController.Init();
 
-WS.send('newCommand', {code: 'FIRE'});
+const ws = new WS();
 
 Router
   .register('/', MenuView)

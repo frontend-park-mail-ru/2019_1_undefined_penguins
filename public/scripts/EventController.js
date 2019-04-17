@@ -4,6 +4,10 @@ import Router from './Router.js';
 
 export default class EventController {
   static Init() {
+    Bus.on('open-ws', () => {
+      console.log('ws connected');
+    });
+
     Bus.on('check-autorized', () => {
       UserModel.CheckAuthorized();
     });
