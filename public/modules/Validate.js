@@ -1,6 +1,16 @@
 import Bus from "../scripts/EventBus.js";
 
 export class Validate {
+
+    ValidateEmpty(form) {
+        for (let i = 0; i < form.length; i++) {
+            if (form.elements[i].value === '') {
+                return (false)
+            }
+        }
+        return (true)
+    }
+
     ValidateEmail(email) {
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
         {

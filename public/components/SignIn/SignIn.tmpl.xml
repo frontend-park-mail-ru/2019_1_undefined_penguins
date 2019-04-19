@@ -9,6 +9,7 @@
     </div>
     <section data-section-name="main" class="signin-content">
         <h3 class="signin__header">Вход</h3>
+        <span class="error error__hidden"></span>
         <form class="signin-form">
             <input name="email" type="email" placeholder="Email" class="signin-form__input" /><br/>
             <input name="password" type="password" placeholder="Password" class="signin-form__input input-last" /><br/>

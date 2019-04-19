@@ -57,15 +57,34 @@ export default class EventController {
       Router.open('/signIn');
     });
 
-    Bus.on('404error', (param) => {
-        let form = param.param1;
-        let elem = param.param2;
-        form.elements.email.style.border = '3px solid red';
-        form.elements.password.style.border = '3px solid red';
-        let error = document.createElement('span');
-        insertAfter(error, elem); 
+    Bus.on('error-404', () => {
+        // let form = param.param1;
+        // let elem = param.param2;
+        // form.elements.email.style.border = '3px solid red';
+        // form.elements.password.style.border = '3px solid red';
+        // let error = document.createElement('span');
+        // insertAfter(error, elem); 
+        let error = document.getElementsByClassName('error')[0];
         error.innerText = "Неверный email или пароль!"; 
-        error.className = "error__404";
+        error.classList.remove("error__hidden");
+    });
+
+    Bus.on('error-email', (param) => {
+        let error = document.getElementsByClassName('error')[0];
+        error.innerText = "Некорректный email!"; 
+        error.classList.remove("error__hidden");
+    });
+
+    Bus.on('error-password', (param) => {
+        let error = document.getElementsByClassName('error')[0];
+        error.innerText = "Некорректный пароль!"; 
+        error.classList.remove("error__hidden");
+    });
+
+    Bus.on('error-empty', (param) => {
+        let error = document.getElementsByClassName('error')[0];
+        error.innerText = "Все поля долждны быть заполнены!"; 
+        error.classList.remove("error__hidden");
     });
 
     Bus.on('change-profile', async (view) => {

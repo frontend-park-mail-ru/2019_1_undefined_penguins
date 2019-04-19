@@ -1,6 +1,10 @@
-.error__404 {
+.error {
     color: #f10000;
     font-size: 19px;
     margin-bottom: 10px;
     margin-top: -20px;
+}
+
+.error__hidden {
+    visibility: hidden;
 }
