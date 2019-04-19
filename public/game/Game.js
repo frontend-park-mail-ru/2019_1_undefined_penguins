@@ -52,6 +52,18 @@ export default class Game {
     this.interval1 = setInterval(() => this.game(), 20);
     this.interval2 = setInterval(() => this.shot(), 20);
 
+    // this.requestID = requestAnimationFrame(this.game.bind(this));
+
+    // let last = perfomance.now(); // точное время в наносекундах
+ 
+    // function animation(now) { // передаётся текущее perfomance.now()
+    //     const delay = now - last;
+    //     redraw(delay); // перерисовываем кадр
+    
+    //     window.requestAnimationFrame(animation);
+    // }
+    
+    // animation(perfomance.now());
   }
 
   drawCanvas() {
@@ -176,7 +188,8 @@ export default class Game {
       if (this.pisces.length == 0) {
         clearInterval(this.interval1);
         clearInterval(this.interval2);
-        // Bus.emit('open-win-view');
+        // cancelAnimationFrame(this.requestID);
+        Bus.emit('open-win-view');
       }
     }
     //считаем нового пингвина
@@ -187,6 +200,7 @@ export default class Game {
     }
     this.penguinPosition.x = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinPosition.Alpha)) * this.circleSize / 2);
     this.penguinPosition.y = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinPosition.Alpha)) * this.circleSize / 2);
+    // this.requestID = requestAnimationFrame(this.game.bind(this));
   }
 
   shot() {
@@ -210,7 +224,8 @@ export default class Game {
     if (this.bullet.length > this.circleSize / 2 && this.bullet.Alpha >= this.penguinPosition.Alpha - 7 && this.bullet.Alpha <= this.penguinPosition.Alpha + 7) {
       clearInterval(this.interval1);
       clearInterval(this.interval2);
-      // Bus.emit('open-lost-view');
+      // cancelAnimationFrame(this.requestID);
+      Bus.emit('open-lost-view');
     }
     this.drawCanvas()
   }
