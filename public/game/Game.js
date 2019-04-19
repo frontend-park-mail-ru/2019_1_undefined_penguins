@@ -77,8 +77,8 @@ export default class Game {
     }
     //ОТРИСОВКА ПИНГВИНА
     //параметры пингвина
-    const penguinWidth = 40;
-    const penguinHeigth = 60;
+    const penguinWidth = 60;
+    const penguinHeigth = 90;
 
     // ctx.translate(this.penguinPosition.x, this.penguinPosition.y);
     // if (this.penguinPosition.clockwise) {
@@ -176,7 +176,7 @@ export default class Game {
       if (this.pisces.length == 0) {
         clearInterval(this.interval1);
         clearInterval(this.interval2);
-        Bus.emit('open-win-view');
+        // Bus.emit('open-win-view');
       }
     }
     //считаем нового пингвина
@@ -210,7 +210,7 @@ export default class Game {
     if (this.bullet.length > this.circleSize / 2 && this.bullet.Alpha >= this.penguinPosition.Alpha - 7 && this.bullet.Alpha <= this.penguinPosition.Alpha + 7) {
       clearInterval(this.interval1);
       clearInterval(this.interval2);
-      Bus.emit('open-lost-view');
+      // Bus.emit('open-lost-view');
     }
     this.drawCanvas()
   }
