@@ -107,24 +107,24 @@ export default class MenuView extends BaseView {
     return {
       me: {
         title: 'ПРОФИЛЬ',
-        style: 'menu-header__profile header__button js-profile-button',
+        style: 'menu-header__profile menu-header__button js-profile-button',
       },
       signout: {
         title: 'ВЫЙТИ',
-        style: 'menu-header__sign-out header__button js-sign-out-button',
+        style: 'menu-header__sign-out menu-header__button js-sign-out-button',
       },
     };
   }
 
   _headersUnauthorized() {
     return {
-      signUp: {
-        title: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-        style: 'menu-header__sign-up header__button js-sign-up-button',
-      },
       signIn: {
         title: 'ВОЙТИ',
-        style: 'menu-header__sign-in header__button js-sign-in-button',
+        style: 'menu-header__sign-in menu-header__button js-sign-in-button',
+      },
+      signUp: {
+        title: 'ЗАРЕГИСТРИРОВАТЬСЯ',
+        style: 'menu-header__sign-up menu-header__button js-sign-up-button',
       },
     };
   }

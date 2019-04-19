@@ -1,0 +1,44 @@
+.win-content {
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+	height: 580px;
+	opacity: 1;
+	border: 2px solid #979797;
+	border-radius: 16px;
+	margin: 0 120px 100px 120px
+}
+
+.win__header {
+	font-size: 46px;
+	font-family: Roboto-Regular;
+    color: #DA8F56;
+    margin-bottom: 20px;
+}
+
+.win-form {
+    width: 800px;
+}
+
+.win-form__inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.win-form__image {
+    width: 270px;
+    height: 270px;
+}
+
+.win-form__item {
+    font-family: Roboto-Bold;
+    font-size: 30px;
+    color: #DA8F56;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    margin-bottom: 30px;
+}

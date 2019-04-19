@@ -4,6 +4,8 @@
 @import url('components/Profile/Profile.css');
 @import url('components/SignIn/SignIn.css');
 @import url('components/SignUp/SignUp.css');
+@import url('components/Win/Win.css');
+@import url('components/Lost/Lost.css');
 
 body {
     margin: 0;

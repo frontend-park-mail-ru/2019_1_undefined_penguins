@@ -60,5 +60,13 @@ export default class EventController {
       const form = view.el.getElementsByTagName('form')[0];
       UserModel.ChangeProfile(form);
     });
+
+    Bus.on('open-win-view', () => {
+      Router.open('/game/win');
+    })
+
+    Bus.on('open-lost-view', () => {
+      Router.open('/game/lost');
+    })
   }
 }

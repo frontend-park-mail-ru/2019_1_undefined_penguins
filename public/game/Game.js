@@ -121,10 +121,10 @@ export default class Game {
     if (eaten != -1) {
       this.pisces.splice(eaten, 1);
       if (this.pisces.length == 0) {
-        alert('Вы выиграли');
+        // alert('Вы выиграли');
         clearInterval(this.interval1);
         clearInterval(this.interval2);
-        Bus.emit('open-menu');
+        Bus.emit('open-win-view');
       }
     }
 
@@ -171,10 +171,10 @@ export default class Game {
       return;
     }
     if (this.bulletLength > this.circleSize / 2 - this.penguinHeigth && this.bulletAlpha >= this.penguinAlpha - 3 && this.bulletAlpha <= this.penguinAlpha + 3) {
-      alert('Вы проиграли');
+      // alert('Вы проиграли');
       clearInterval(this.interval1);
       clearInterval(this.interval2);
-      Bus.emit('open-menu');
+      Bus.emit('open-lost-view');
       // this.shoted = false;
     }
   }
