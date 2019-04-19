@@ -3,3 +3,6 @@ package-lock.json
 .DS_Store
 .idea/
 documents/
+dist/
+sw.js
+bundle.js

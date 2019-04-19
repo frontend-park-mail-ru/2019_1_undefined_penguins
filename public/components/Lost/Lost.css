@@ -1,0 +1,49 @@
+.lost-content {
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+	height: 580px;
+	opacity: 1;
+	border: 2px solid #979797;
+	border-radius: 16px;
+	margin: 0 120px 100px 120px
+}
+
+.lost__header {
+	font-size: 46px;
+	font-family: Roboto-Regular;
+    color: #DA8F56;
+    margin-bottom: 20px;
+}
+
+.lost-form {
+    width: 800px;
+}
+
+.lost-form__inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lost-form__image {
+    width: 270px;
+    height: 270px;
+}
+
+.lost-form__item {
+    font-family: Roboto-Bold;
+    font-size: 30px;
+    color: #DA8F56;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    margin-bottom: 30px;
+}
+
+.js-header__repeat-button {
+    width: 70px;
+    height: 70px;
+}

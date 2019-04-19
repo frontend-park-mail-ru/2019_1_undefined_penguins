@@ -96,10 +96,10 @@ export class SignInComponent {
       const password = form.elements.password.value;
       form.elements.email.classList.remove('errorInput');
       form.elements.password.classList.remove('errorInput');
-      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
       if (reg.test(email) == false) {
-         alert('Введите корректный e-mail');
-         return false;
+        alert('Введите корректный e-mail');
+        return false;
       }
       if (
         email.length === 0
@@ -161,7 +161,6 @@ export class SignInComponent {
           err.innerText = '';
           event.preventDefault();
 
-          console.log('hello');
 
           const email = form.elements.email.value;
           const password = form.elements.password.value;

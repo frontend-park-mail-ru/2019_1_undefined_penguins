@@ -1,23 +1,30 @@
 import BaseView from './BaseView.js';
+import Game from '../game/Game.js';
 
 export default class SingleplayerView extends BaseView {
-    constructor(el) {
-        super(el);
-    }
+  constructor(el) {
+    super(el);
+  }
 
-    show() {
-        super.show();
-    }
+  show() {
+    super.show();
+  }
 
-    render() {
-        this.el.innerHTML = '';
-        // TODO: ПОТОМ НОРМАЛЬНО СДЕЛАЕМ
-        const mainSection = document.createElement('div');
-		mainSection.dataset.sectionName = 'main';
-        const title = document.createElement('h1');
-        title.textContent = 'Здесь будет игра в режиме Singleplayer';
-        title.style = 'color: white; display: flex; align-items: center; justify-content: center; font-size: 50px;';
-        mainSection.appendChild(title);
-        this.el.appendChild(mainSection);
-    }
+  render() {
+    this.el.innerHTML = '';
+    // TODO: ПОТОМ НОРМАЛЬНО СДЕЛАЕМ
+
+    const canvas = document.createElement('canvas');
+    canvas.id = 'gc';
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.position = 'absolute';
+    this.el.appendChild(canvas);
+
+    const score = document.createElement('h1');
+    score.id = 'score';
+    score.style = 'color: white; display: flex; align-items: center; justify-content: center; font-size: 50px;';
+    this.el.appendChild(score);
+    const name = new Game(arguments);
+  }
 }

@@ -5,19 +5,19 @@ import Validate from '../modules/Validate.js';
 const templateFunc = window.fest['components/SignIn/SignIn.tmpl'];
 
 export default class SignInView extends BaseView {
-    constructor(el) {
-        super(el);
-    }
+  constructor(el) {
+    super(el);
+  }
 
-    show() {
-        super.show();
-    }
+  show() {
+    super.show();
+  }
 
-    render() {
-        this.el.innerHTML = '';
-        this.el.innerHTML = templateFunc();
+  render() {
+    this.el.innerHTML = '';
+    this.el.innerHTML = templateFunc();
 
-        const form = this.el.getElementsByTagName('form')[0];
+    const form = this.el.getElementsByTagName('form')[0];
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -27,15 +27,13 @@ export default class SignInView extends BaseView {
                 Bus.emit('error', form.elements.email);
             }
         });
-
-        const home = this.el.getElementsByClassName('header__home-button')[0];
-		if (home !== undefined) {
-			home.addEventListener('click', (event) => {
-				// const err = this.el.getElementsByTagName('span')[0];
-				// err.innerText = '';
-				event.preventDefault();
-				Bus.emit('open-menu');
-			});
-		}
+    
+    const home = this.el.getElementsByClassName('js-header__home-button')[0];
+    if (home !== undefined) {
+      home.addEventListener('click', (event) => {
+        event.preventDefault();
+        Bus.emit('open-menu');
+      });
     }
+  }
 }

@@ -1,4 +1,5 @@
 import { RENDER_TYPES } from '../../utils/constants.js';
+import AjaxModule from '../../modules/ajax.js';
 
 export class ProfileComponent {
   constructor({
@@ -217,8 +218,8 @@ export class ProfileComponent {
         return;
       }
 
-      let avatarName = this._data.avatarName;
-      let avatarBlob = this._data.avatarBlob;
+      let { avatarName } = this._data;
+      let { avatarBlob } = this._data;
       if ((userAvatar !== undefined)) {
         avatarName = this._avatarName;
         avatarBlob = this._avatarBlob;
@@ -236,7 +237,6 @@ export class ProfileComponent {
       })
         .then(
           (res) => {
-            console.log(res);
             if (res.status > 400) {
               throw new Error('Network response was not ok.');
             }
@@ -244,8 +244,7 @@ export class ProfileComponent {
           },
         )
         .then((res) => {
-            console.log(res.result)
-          if (res.result !== "") {
+          if (res.result !== '') {
             avatar.src = res.result;
           }
         })
@@ -329,12 +328,12 @@ export class ProfileComponent {
             return;
           }
 
-        let avatarName = this._data.avatarName;
-        let avatarBlob = this._data.avatarBlob;
-        if ((userAvatar !== undefined)) {
+          let { avatarName } = this._data;
+          let { avatarBlob } = this._data;
+          if ((userAvatar !== undefined)) {
             avatarName = this._avatarName;
             avatarBlob = this._avatarBlob;
-        }
+          }
 
           AjaxModule.doPromisePut({
             path: '/change_profile',
@@ -356,10 +355,10 @@ export class ProfileComponent {
               },
             )
             .then((res) => {
-                if (res.result !== "") {
-                    const avatar = this._el.getElementsByClassName('avatar')[0];
-                    avatar.src = res.result;
-                }
+              if (res.result !== '') {
+                const avatar = this._el.getElementsByClassName('avatar')[0];
+                avatar.src = res.result;
+              }
             })
             .catch(() => {
               console.error;

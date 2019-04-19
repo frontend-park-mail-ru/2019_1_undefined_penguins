@@ -22,12 +22,6 @@
     margin: -25px 20px
 }
 
-
-.header__home-button:hover, .header__home-button:focus {
-    height: 80px;
-    width: 80px;
-}
-
 .about-main {
     display: flex;
     flex-direction: row;
@@ -119,10 +113,10 @@
 
 .about-main-tutorial__space {
     align-self: center;
-    width: 90%
+    width: 300px;
 }
 
 .about-main-tutorial__tap {
     align-self: center;
-    width: 50%
+    width: 150px;
 }

@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="header" style="margin: 0 0 -20px 0;">
+    <div class="header">
         <div class="header__home">
-            <img src="/images/home.svg" class="header__home-button"/>
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
-        <div class="header__logo" style="margin: -25px 330px;">
+        <div class="header__logo">
             <h1 class="header__title">Penguins Wars</h1>
         </div>
     </div>

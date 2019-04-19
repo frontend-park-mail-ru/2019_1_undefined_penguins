@@ -3,59 +3,55 @@ import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
 
 export default class EventController {
-    static Init(){
-        Bus.on('check-autorized', () => {
-            UserModel.CheckAuthorized()
-        });
+  static Init() {
+    Bus.on('check-autorized', () => {
+      UserModel.CheckAuthorized();
+    });
 
-        Bus.on('select-menu-header', (menu) => {
-            menu.RenderHeader(UserModel.IsAutorised());
-        });
+    Bus.on('select-menu-header', (menu) => {
+      menu.RenderHeader(UserModel.IsAutorised());
+    });
 
-        Bus.on('sign-in', (form) => {
-            UserModel.SignIn(form);
-        });
+    Bus.on('sign-in', (form) => {
+      UserModel.SignIn(form);
+    });
 
-        Bus.on('sign-up', (form) => {
-            UserModel.SignUp(form);
-        });
+    Bus.on('sign-up', (form) => {
+      UserModel.SignUp(form);
+    });
 
-        Bus.on('sign-out', () => {
-            UserModel.SignOut();
-        })
+    Bus.on('sign-out', () => {
+      UserModel.SignOut();
+    });
 
-        Bus.on('open-menu', () => {
-            console.log("Пришел эмит на open menu");
-            Router.open('/');
-        });
+    Bus.on('open-menu', () => {
+      console.log('Пришел эмит на open menu');
+      Router.open('/');
+    });
 
-        Bus.on('get-current-user', (profileView) => {
-            profileView.SetUser(UserModel.GetUser());
-        });
-        
-        Bus.on('open-profile', () => {
-            Router.open('/me');
-        });
+    Bus.on('get-current-user', (profileView) => {
+      profileView.SetUser(UserModel.GetUser());
+    });
 
-        Bus.on('get-users', (leadersView) => {
-            UserModel.Leaders(leadersView, 0);
-        });
+    Bus.on('open-profile', () => {
+      Router.open('/me');
+    });
 
-        Bus.on('previous-page', (leadersView) => {
-            UserModel.Leaders(leadersView, -1);
-        });
+    Bus.on('get-users', (leadersView) => {
+      UserModel.Leaders(leadersView, 0);
+    });
 
-        Bus.on('next-page', (leadersView) => {
-            UserModel.Leaders(leadersView, 1);
-        });
+    Bus.on('previous-page', (leadersView) => {
+      UserModel.Leaders(leadersView, -1);
+    });
 
-        // Bus.on('open-sign-up', () => {
-        //     Router.open('/signUp');
-        // });
+    Bus.on('next-page', (leadersView) => {
+      UserModel.Leaders(leadersView, 1);
+    });
 
-        Bus.on('open-sign-in', () => {
-            Router.open('/signIn');
-        });
+    Bus.on('open-sign-in', () => {
+      Router.open('/signIn');
+    });
 
         Bus.on('error', (form) => {
             form.style.border = '5px solid red';
@@ -67,12 +63,15 @@ export default class EventController {
                 view.SetUser(UserModel.GetUser());
             })
             const form = view.el.getElementsByTagName('form')[0];
-            await UserModel.ChangeProfile(form);
+            UserModel.ChangeProfile(form);
         })
 
-        // Bus.on('open-about', () => {
-        //     Router.open('/about');
-        // });
+    Bus.on('open-win-view', () => {
+      Router.open('/game/win');
+    })
 
-    }
+    Bus.on('open-lost-view', () => {
+      Router.open('/game/lost');
+    })
+  }
 }
