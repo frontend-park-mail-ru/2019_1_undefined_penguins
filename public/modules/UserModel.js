@@ -89,7 +89,12 @@ export class UserModel {
             .then((data) => {
               console.log(`Response status: ${data.status}`);
                 if (data.status > 300) {
-                    Bus.emit('error', form.elements.password)
+                    const elem = document.getElementsByClassName('signin__header')[0];
+                    const param = {
+                      param1: form,
+                      param2: elem, 
+                    }
+                    Bus.emit('404error', param);
                     // TODO: написать, что такого юзера нетю
                     // throw new Error('Network response was not ok.');
                 }

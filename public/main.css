@@ -6,6 +6,7 @@
 @import url('components/SignUp/SignUp.css');
 @import url('components/Win/Win.css');
 @import url('components/Lost/Lost.css');
+@import url('error.css');
 
 body {
     margin: 0;

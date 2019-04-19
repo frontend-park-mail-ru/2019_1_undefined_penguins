@@ -2,6 +2,10 @@ import Bus from './EventBus.js';
 import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
 
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
 export default class EventController {
   static Init() {
     Bus.on('check-autorized', () => {
@@ -53,18 +57,24 @@ export default class EventController {
       Router.open('/signIn');
     });
 
-        Bus.on('error', (form) => {
-            form.style.border = '5px solid red';
-            console.log(form);
-        });
+    Bus.on('404error', (param) => {
+        let form = param.param1;
+        let elem = param.param2;
+        form.elements.email.style.border = '3px solid red';
+        form.elements.password.style.border = '3px solid red';
+        let error = document.createElement('span');
+        insertAfter(error, elem); 
+        error.innerText = "Неверный email или пароль!"; 
+        error.className = "error__404";
+    });
 
-        Bus.on('change-profile', async (view) => {
-            Bus.on('redraw-profile', () => {
-                view.SetUser(UserModel.GetUser());
-            })
-            const form = view.el.getElementsByTagName('form')[0];
-            UserModel.ChangeProfile(form);
+    Bus.on('change-profile', async (view) => {
+        Bus.on('redraw-profile', () => {
+            view.SetUser(UserModel.GetUser());
         })
+        const form = view.el.getElementsByTagName('form')[0];
+        UserModel.ChangeProfile(form);
+    })
 
     Bus.on('open-win-view', () => {
       Router.open('/game/win');

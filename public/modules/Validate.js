@@ -10,6 +10,7 @@ export class Validate {
     }
 
     ValidatePassword(password) {
+        //different types of difficulty
         // var passwreg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         // var paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
