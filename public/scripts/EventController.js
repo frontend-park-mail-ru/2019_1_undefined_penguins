@@ -1,9 +1,31 @@
 import Bus from './EventBus.js';
 import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
+import { EVENTS } from '../utils/events.js';
+import GameView from '../views/GameView.js';
+import Game from '../game/Game.js';
 
 export default class EventController {
   static Init() {
+    Bus.on(EVENTS.OPEN_GAME_VIEW, () => {
+      Router.open('/game');
+    });
+
+    Bus.on(EVENTS.MODE_CHOOSED, (payload) => {
+      console.log(`Application.fn.onGreet`, payload);
+
+      const gamemode = (payload.mode || '').toUpperCase();
+      const username = (payload.username || '').toUpperCase();
+
+      if (gamemode && STRATEGIES[gamemode]) {
+        const Strategy = STRATEGIES[gamemode];
+        GameView.opts = { Strategy, username };
+        const gameCanvas = this.views.game.canvas;
+        GameView.game = new Game(Strategy, username, gameCanvas);
+        // Bus.off(EVENTS.MODE_CHOOSED);
+      }
+    });
+
     Bus.on('open-ws', () => {
       console.log('ws connected');
     });

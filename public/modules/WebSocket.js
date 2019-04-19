@@ -10,6 +10,8 @@ export default class WS {
         const address = ['https', 'https:'].includes(location.protocol)
             ? `wss://${location.host}/ws`
             : `ws://${location.host}/ws`;
+            // ? `wss://localhost:8080/ws`
+            // : `ws://localhost:8080/ws`;
 
         this.ws = new WebSocket(address);
         this.ws.onopen = function() {
@@ -40,8 +42,6 @@ export default class WS {
     send(type, payload) {
         this.ws.send(JSON.stringify({type, payload}));
     }
-
-
 }
 
 // export default new WS;

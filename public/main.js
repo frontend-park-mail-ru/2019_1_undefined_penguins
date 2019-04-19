@@ -6,11 +6,11 @@ import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
 import SignOutView from './views/SignOutView.js';
-import SingleplayerView from './views/SingleplayerView.js';
-import MultiplayerView from './views/MultiplayerView.js';
+import GameView from './views/GameView.js';
+// import MultiplayerView from './views/MultiplayerView.js';
 import EventController from './scripts/EventController.js';
 import WS from './modules/WebSocket.js';
-import Bus from './scripts/EventBus.js';
+// import Bus from './scripts/EventBus.js';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js')
@@ -34,7 +34,7 @@ Router
   .register('/about', AboutView)
   .register('/me', ProfileView)
   .register('/signout', SignOutView)
-  .register('/singlePlayer', SingleplayerView)
-  .register('/multiPlayer', MultiplayerView);
+  .register('/game', GameView);
+  // .register('/multiPlayer', MultiplayerView);
 
 Router.start();
