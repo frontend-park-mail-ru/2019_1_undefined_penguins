@@ -54,16 +54,6 @@ export default class Game {
 
     // this.requestID = requestAnimationFrame(this.game.bind(this));
 
-    // let last = perfomance.now(); // точное время в наносекундах
- 
-    // function animation(now) { // передаётся текущее perfomance.now()
-    //     const delay = now - last;
-    //     redraw(delay); // перерисовываем кадр
-    
-    //     window.requestAnimationFrame(animation);
-    // }
-    
-    // animation(perfomance.now());
   }
 
   drawCanvas() {
@@ -83,7 +73,6 @@ export default class Game {
 
       fishImage.onload = function () {
         ctx.drawImage(fishImage, pisces[i].x, pisces[i].y, fishWidth, fishHeigth);
-
       };
       fishImage.src = "../images/fish-3.png";
     }
@@ -164,7 +153,6 @@ export default class Game {
       ctx.drawImage(gunImage, canv.width / 2 - gunWidth / 2, canv.height / 2 - gunHeigth / 2, gunWidth, gunHeigth);
     };
     gunImage.src = "../images/cloud.png";
-
   }
 
   game() {
@@ -189,7 +177,7 @@ export default class Game {
         clearInterval(this.interval1);
         clearInterval(this.interval2);
         // cancelAnimationFrame(this.requestID);
-        Bus.emit('open-win-view');
+        Bus.emit('open-win-view', this.score);
       }
     }
     //считаем нового пингвина
@@ -200,7 +188,7 @@ export default class Game {
     }
     this.penguinPosition.x = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinPosition.Alpha)) * this.circleSize / 2);
     this.penguinPosition.y = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinPosition.Alpha)) * this.circleSize / 2);
-    // this.requestID = requestAnimationFrame(this.game.bind(this));
+    // this.requestID = requestAnimationFrame(this.shot.bind(this));
   }
 
   shot() {
@@ -225,9 +213,10 @@ export default class Game {
       clearInterval(this.interval1);
       clearInterval(this.interval2);
       // cancelAnimationFrame(this.requestID);
-      Bus.emit('open-lost-view');
+      Bus.emit('open-lost-view', this.score);
     }
     this.drawCanvas()
+    // this.requestID = requestAnimationFrame(this.game.bind(this));
   }
 
   keyPush(evt) {

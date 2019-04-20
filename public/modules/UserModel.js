@@ -35,6 +35,11 @@ export class UserModel {
     this.count = 0;
   }
 
+  setUserScore(score) {
+    this.score = score;
+    this.count++;
+  }
+
   GetUser() {
     return {
       email: this.email,
