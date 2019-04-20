@@ -126,6 +126,7 @@ export class UserModel {
         })
             .then((data) => {
                 if (data.status > 300) {
+                    Bus.emit('error-409');
                   throw new Error('Network response was not ok.');
                 }
                 return data.json();
