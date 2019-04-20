@@ -80,8 +80,8 @@ export default class Game {
     }
     //ОТРИСОВКА ПИНГВИНА
     //параметры пингвина
-    const penguinWidth = 60;
-    const penguinHeigth = 90;
+    const penguinWidth = 45;
+    const penguinHeigth = 60;
 
     // ctx.translate(this.penguinPosition.x, this.penguinPosition.y);
     // if (this.penguinPosition.clockwise) {
