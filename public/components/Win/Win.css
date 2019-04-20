@@ -64,6 +64,7 @@
 .js-button__repeat-button {
     width: 85px;
     transition: all 250ms ease-out;
+    cursor: pointer;
 }
 
 .js-button__repeat-button:hover {

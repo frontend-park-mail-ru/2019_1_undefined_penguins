@@ -59,4 +59,5 @@
 .lost__repeat-button {
     text-align: center;
     margin-top: 90px;
+    cursor: pointer;
 }
