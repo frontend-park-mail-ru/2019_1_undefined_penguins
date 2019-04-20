@@ -149,8 +149,9 @@ export default class Game {
       } else {
         ctx.rotate((Math.PI / 180) * (penguinPosition.Alpha - 90));
       }
-
+      ctx.clearRect(-penguinWidth / 2, -penguinHeigth / 2+5, penguinWidth+10, penguinHeigth);
       ctx.drawImage(penguinImage, -penguinWidth / 2, -penguinHeigth / 2, penguinWidth, penguinHeigth);
+
       if (penguinPosition.clockwise) {
         ctx.rotate(-(Math.PI / 180) * (penguinPosition.Alpha + 90));
       } else {
