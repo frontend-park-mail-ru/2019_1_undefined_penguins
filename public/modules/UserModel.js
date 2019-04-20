@@ -1,5 +1,6 @@
 import Bus from '../scripts/EventBus.js';
 import AjaxModule from './ajax.js';
+import Validate from "./Validate.js";
 
 export class UserModel {
   constructor() {
@@ -32,6 +33,11 @@ export class UserModel {
     this.score = 0;
     this.avatarUrl = '';
     this.count = 0;
+  }
+
+  setUserScore(score) {
+    this.score = score;
+    this.count++;
   }
 
   GetUser() {
@@ -77,59 +83,62 @@ export class UserModel {
     const email = form.elements.email.value;
     const password = form.elements.password.value;
 
+
     AjaxModule.doPromisePost({
-      path: '/login',
-      body: {
-        email,
-        password,
-      },
-    })
-      .then((data) => {
-        console.log(`Response status: ${data.status}`);
-        if (data.status > 300) {
-          // TODO: написать, что такого юзера нетю
-          throw new Error('Network response was not ok.');
-        }
-
-        data.json().then((data) => {
-          console.log(data);
-          this.SetUser(data);
-          Bus.emit('open-menu');
-        });
-      })
-      .catch(() => {
-        console.log('SignIn promise fall down :(');
-      });
-  }
-
-
+            path: '/login',
+            body: {
+                email,
+                password,
+            },
+            })
+            .then((data) => {
+              console.log(`Response status: ${data.status}`);
+                if (data.status > 300) {
+                    Bus.emit('error', form.elements.password)
+                    // TODO: написать, что такого юзера нетю
+                    // throw new Error('Network response was not ok.');
+                }
+                
+                data.json().then((data) => {
+                  console.log(data);
+                  this.SetUser(data);
+                  Bus.emit('open-menu');
+                })
+            })
+            .catch(() => {
+                console.log('SignIn promise fall down :(');
+          });
+}
+      
+  
   SignUp(form) {
-    const email = form.elements.email.value;
-    const password = form.elements.password.value;
-    const login = form.elements.login.value;
-
-    AjaxModule.doPromisePost({
-      path: '/signup',
-      body: {
-        email,
-        password,
-        login,
-      },
-    })
-      .then((data) => {
-        if (data.status > 300) {
-          throw new Error('Network response was not ok.');
-        }
-        return data.json();
-      })
-      .then((data) => {
-        this.SetUser(data);
-        Bus.emit('open-menu');
-      })
-      .catch(() => {
-        // TODO: написать, что есть ошибки в регистрации
-        console.error;
-      });
+      const email = form.elements.email.value;
+      const password = form.elements.password.value;
+      const login = form.elements.login.value;
+      
+      AjaxModule.doPromisePost({
+          path: '/signup',
+          body: {
+            email,
+            password,
+            login, 
+          },
+        })
+            .then((data) => {
+                if (data.status > 300) {
+                  throw new Error('Network response was not ok.');
+                }
+                return data.json();
+              },
+            )
+            .then((data) => {
+                this.SetUser(data);
+                Bus.emit('open-menu');
+            })
+            .catch(() => {
+               // TODO: написать, что есть ошибки в регистрации
+                console.error;
+          });
   }
 
   Leaders(view, page) {

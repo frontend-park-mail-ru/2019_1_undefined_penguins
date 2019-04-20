@@ -7,10 +7,8 @@
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
-    "prestart": "npm run build",
-    "linter": "./node_modules/.bin/eslint -c .eslintrc.json './**/*.js' --fix",
-    "dev": "npm run tmpl && webpack --mode development",
-    "build": "npm run tmpl && webpack --mode production"
+    "prestart": "npm run tmpl",
+    "linter": "./node_modules/.bin/eslint -c .eslintrc.json './**/*.js' --fix"
   },
   "keywords": [],
   "author": "",

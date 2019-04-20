@@ -22,12 +22,6 @@
     margin: -25px 20px
 }
 
-
-.header__home-button:hover, .header__home-button:focus {
-    height: 80px;
-    width: 80px;
-}
-
 .about-main {
     display: flex;
     flex-direction: row;
