@@ -1,14 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="header">
         <div class="header__home">
-            <img src="/images/home.svg" class="js-header__home-button"/>
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
         <div class="header__logo">
             <h1 class="header__title">Penguins Wars</h1>
         </div>
     </div>
     <section class="win-content">
-        <p class="win__header">Поздравляем, <fest:value>data.login</fest:value>!</p>
+        <p class="win__header">Поздравляем!</p>    
         <form class="win-form" enctype="multipart/form-data">
             <div class="win-form__inline">
                 <img class="win-form__image" src="../../images/win.png"/>
@@ -17,10 +17,15 @@
                         <p>Вы побили свой рекорд!</p>
                     </div>
                     <div class="win-form__item">
-                        <p>Ваш результат: <fest:value>data.score</fest:value></p>
+                        <span>Ваш результат: </span>
+                        <span class="win-form__item-score"> <fest:value> data.score</fest:value></span>
+                        <span> очка</span>
                     </div>
                 </div>
             </div>
         </form>
+        <div class="repeat-button">
+            <img src="../../images/refresh.svg" class="js-button__repeat-button"/>
+        </div>
     </section>    
 </fest:template>

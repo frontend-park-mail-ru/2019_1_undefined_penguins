@@ -2,16 +2,16 @@
 	display: flex;
     flex-direction: column;
 	align-items: center;
-	height: 580px;
+	height: 430px;
 	opacity: 1;
 	border: 2px solid #979797;
 	border-radius: 16px;
-	margin: 0 120px 100px 120px
+	margin: -30px 200px 100px 200px;
 }
 
 .lost__header {
 	font-size: 46px;
-	font-family: Roboto-Regular;
+	font-family: Roboto-Bold;
     color: #DA8F56;
     margin-bottom: 20px;
 }
@@ -28,22 +28,36 @@
 }
 
 .lost-form__image {
-    width: 270px;
-    height: 270px;
+    width: 230px;
+    height: 230px;
+    margin: -10px 0 0 60px;
 }
 
 .lost-form__item {
-    font-family: Roboto-Bold;
+    font-family: Roboto--Regular;
     font-size: 30px;
-    color: #DA8F56;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    color: white;
     width: 500px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
-.js-header__repeat-button {
-    width: 70px;
-    height: 70px;
+.lost-form__data {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: -40px;
+}
+
+.lost-form__item-score {
+    font-size: 70px;
+	font-family: Roboto-Bold;
+    color: #DA8F56;
+}
+
+.lost__repeat-button {
+    text-align: center;
+    margin-top: 90px;
+    cursor: pointer;
 }

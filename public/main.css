@@ -35,3 +35,19 @@ body {
     font-family: "Roboto-Bold";
     src: url("./fonts/Roboto-Bold.ttf");
 }
+
+.game-view__game-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-view__score-element {
+    color: #DA8F56;
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+#gc {
+    margin-top: -35px;
+}

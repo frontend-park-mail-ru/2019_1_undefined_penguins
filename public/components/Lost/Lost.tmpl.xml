@@ -1,14 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="header">
         <div class="header__home">
-            <img src="/images/home.svg" class="js-header__home-button"/>
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
         <div class="header__logo">
             <h1 class="header__title">Penguins Wars</h1>
         </div>
     </div>
     <section class="lost-content">
-        <p class="lost__header">Увы, <fest:value>data.login</fest:value>!</p>
+        <p class="lost__header">Увы!</p>
         <form class="lost-form" enctype="multipart/form-data">
             <div class="lost-form__inline">
                 <img class="lost-form__image" src="../../images/lost.png"/>
@@ -16,14 +16,16 @@
                     <div class="lost-form__item">
                         <p>Игра закончена!</p>
                     </div>
-                    <div class="win-form__item">
-                        <p>Ваш результат: <fest:value>data.score</fest:value></p>
+                    <div class="lost-form__item">
+                        <span>Ваш результат: </span>
+                        <span class="lost-form__item-score"> <fest:value> data.score</fest:value></span>
+                        <span> очков(-а)</span>
                     </div>
                 </div>
             </div>
         </form>
         <div class="lost__repeat-button">
-            <img src="../../images/refresh.svg" class="js-header__repeat-button"/>
+            <img src="../../images/refresh.svg" class="js-button__repeat-button"/>
         </div>
     </section>    
 </fest:template>

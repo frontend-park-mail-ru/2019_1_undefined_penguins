@@ -104,21 +104,27 @@ export default class EventController {
         error.innerText = "Пароли должны совпадать!"; 
         error.classList.remove("error__hidden");
     });
+  
+    Bus.on('change-profile', (view) => {
+      Bus.on('redraw-profile', () => {
+        view.SetUser(UserModel.GetUser());
+      });
+      const form = view.el.getElementsByTagName('form')[0];
+      UserModel.ChangeProfile(form);
+    });
 
-    Bus.on('change-profile', async (view) => {
-        Bus.on('redraw-profile', () => {
-            view.SetUser(UserModel.GetUser());
-        })
-        const form = view.el.getElementsByTagName('form')[0];
-        UserModel.ChangeProfile(form);
-    })
-
-    Bus.on('open-win-view', () => {
+    Bus.on('open-win-view', (score) => {
+      UserModel.setUserScore(score);
       Router.open('/game/win');
-    })
+    });
 
-    Bus.on('open-lost-view', () => {
+    Bus.on('open-lost-view', (score) => {
+      UserModel.setUserScore(score);
       Router.open('/game/lost');
+    });
+
+    Bus.on('open-single', () => {
+      Router.open('/singlePlayer');
     })
   }
 }
