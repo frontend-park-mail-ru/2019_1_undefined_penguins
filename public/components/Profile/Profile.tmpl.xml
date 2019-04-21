@@ -23,7 +23,7 @@
                     </div>
                     <div class="profile-form__item">
                         <label>Email: </label>
-                        <input name="email" type="email" value="{data.email}" class="profile-form__input"/>
+                        <input name="email" type="text" value="{data.email}" class="profile-form__input"/>
                     </div>
                     <input name="inputAvatar" type="file" accept="image/*" class="profile-form__input-file"/>
                     <input name="save" type="submit" value="Сохранить" class="profile-form__submit js-button-save"/>

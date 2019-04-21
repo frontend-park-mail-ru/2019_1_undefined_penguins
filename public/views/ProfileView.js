@@ -43,7 +43,7 @@ export default class ProfileView extends BaseView {
       if (!Validate.ValidateEmpty(form)) {
         Bus.emit('error-empty');           
       } else {
-          if (!Validate.ValidateLogin(form.elements.email.login)) {
+          if (!Validate.ValidateLogin(form.elements.login.value)) {
             Bus.emit('error-login');
           } else {
             if (!Validate.ValidateEmail(form.elements.email.value)) {
