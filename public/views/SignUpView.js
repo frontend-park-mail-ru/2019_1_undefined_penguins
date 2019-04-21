@@ -26,16 +26,16 @@ export default class SignUpView extends BaseView {
       //
        //TODO rewrite with norm condition  
        if (!Validate.ValidateEmpty(form)) {
-        Bus.emit('error-empty', form.elements.email);           
+        Bus.emit('error-empty');           
       } else {
           if (!Validate.ValidateEmail(form.elements.email.value)) {
-            Bus.emit('error-email', form.elements.email);
+            Bus.emit('error-email');
           } else {
             if (!Validate.ValidatePassword(form.elements.password.value)) {
-              Bus.emit('error-password', form.elements.password);
+              Bus.emit('error-password');
             } else {
               if (!Validate.ValidateEqualPassword(form.elements.password.value, form.elements.password_repeat.value)) {
-                Bus.emit('error-equal-password', form);
+                Bus.emit('error-equal-password');
               } else {
                 Bus.emit('sign-up', form);
               }

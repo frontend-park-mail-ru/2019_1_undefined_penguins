@@ -75,25 +75,31 @@ export default class EventController {
       error.classList.remove("error__hidden");
   });
 
-    Bus.on('error-email', (param) => {
+    Bus.on('error-email', () => {
         let error = document.getElementsByClassName('error')[0];
         error.innerText = "Некорректный email!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-password', (param) => {
+    Bus.on('error-password', () => {
         let error = document.getElementsByClassName('error')[0];
         error.innerText = "Некорректный пароль!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-empty', (param) => {
+    Bus.on('error-empty', () => {
         let error = document.getElementsByClassName('error')[0];
         error.innerText = "Все поля должны быть заполнены!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-equal-password', (param) => {
+    Bus.on('error-login', () => {
+      let error = document.getElementsByClassName('error')[0];
+      error.innerText = "Некорректный логин!"; 
+      error.classList.remove("error__hidden");
+    });
+
+    Bus.on('error-equal-password', () => {
         let error = document.getElementsByClassName('error')[0];
         error.innerText = "Пароли должны совпадать!"; 
         error.classList.remove("error__hidden");

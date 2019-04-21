@@ -200,7 +200,6 @@ export class UserModel {
       }
     }
 
-    // TODO: провалидировать поля email и логин
     AjaxModule.doPromisePut({
       path: '/change_profile',
       body: {
@@ -210,7 +209,13 @@ export class UserModel {
     })
       .then((res) => {
         console.log(res);
-        if (res.status > 400) {
+        if (data.status > 300 && data.status < 500) {
+          Bus.emit('error-409');
+          console.log('Server status: ' + data.status);
+          throw new Error('Network response was not ok.');
+        }
+        if (data.status >= 500) {
+          Bus.emit('error-5xx');
           throw new Error('Network response was not ok.');
         }
         res.json().then((res) => {

@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+import Validate from '../modules/Validate.js';
 
 const templateFunc = window.fest['components/Profile/Profile.tmpl'];
 
@@ -39,7 +40,21 @@ export default class ProfileView extends BaseView {
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      Bus.emit('change-profile', this);
+      if (!Validate.ValidateEmpty(form)) {
+        Bus.emit('error-empty');           
+      } else {
+          if (!Validate.ValidateLogin(form.elements.email.login)) {
+            Bus.emit('error-login');
+          } else {
+            if (!Validate.ValidateEmail(form.elements.email.value)) {
+              Bus.emit('error-email');
+            } else {
+              {
+                Bus.emit('change-profile', this);
+              }
+            }
+          }
+        }
     });
   }
 }
