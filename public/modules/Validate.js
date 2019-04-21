@@ -21,10 +21,10 @@ export class Validate {
 
     ValidatePassword(password) {
         //different types of difficulty
-        // var passwreg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-        // var paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        let passwreg=  /^(?=.*[a-z]).{4,20}$/;
+        // let passwreg = /^(?=.*\d)(?=.*[a-z]).{4,20}$/;
+        // let paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
-        var passwreg=  /^[A-Za-z]\w{4,14}$/;
         if (password.match(passwreg)) 
         { 
             return true;
@@ -46,7 +46,7 @@ export class Validate {
     }
 
     ValidateLogin(login) {
-        var logreg =  /^[A-Za-z]\w{4,14}$/;
+        let logreg =  /^[A-Za-z]\w{4,14}$/;
         if (login.match(logreg)) 
         { 
             return true;
