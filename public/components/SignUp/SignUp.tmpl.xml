@@ -11,7 +11,7 @@
         <p class="sign-up__header">Регистрация</p>
         <span class="error error__hidden"></span>
         <form class="sign-up-form">
-            <input name="email" type="email" placeholder="Email" class="sign-up-form__input"/>
+            <input name="email" type="text" placeholder="Email" class="sign-up-form__input"/>
             <input name="login" type="text" placeholder="Логин" class="sign-up-form__input"/>
             <input name="password" type="password" placeholder="Пароль" class="sign-up-form__input"/>
             <input name="password_repeat" type="password" placeholder="Повторите пароль" class="sign-up-form__input"/>
