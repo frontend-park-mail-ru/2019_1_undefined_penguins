@@ -83,7 +83,8 @@ export default class EventController {
 
     Bus.on('error-password', () => {
         let error = document.getElementsByClassName('error')[0];
-        error.innerText = "Некорректный пароль!"; 
+        // error.innerText = "Некорректный пароль!"; 
+        error.innerText = "Длина пароля должна быть от 4 до 20 символов!";  
         error.classList.remove("error__hidden");
     });
 

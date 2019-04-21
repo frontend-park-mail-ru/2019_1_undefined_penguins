@@ -24,8 +24,8 @@ export class Validate {
 
     ValidatePassword(password) {
         //different types of difficulty
-        let passwreg=  /^(?=.*[a-z]).{4,20}$/;
-        // let passwreg = /^(?=.*\d)(?=.*[a-z]).{4,20}$/;
+        let passwreg=  /^(?=.*[a-zA-Z0-9]).{4,20}$/;
+        // let passwreg = /^(?=.*\d)(?=.*[a-zA-Z]).{4,20}$/;
         // let paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
         if (password.match(passwreg)) 
