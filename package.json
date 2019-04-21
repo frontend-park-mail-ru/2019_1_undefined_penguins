@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
     "prestart": "npm run tmpl",
-    "linter": "./node_modules/.bin/eslint -c .eslintrc.json './**/*.js' --fix"
+    "linter": "npx eslint -c .eslintrc.json './**/*.js' --fix"
   },
   "keywords": [],
   "author": "",
@@ -26,9 +26,13 @@
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
     "fest-webpack-loader": "^1.1.1",
     "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.30.0",
