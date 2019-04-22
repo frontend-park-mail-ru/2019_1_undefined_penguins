@@ -1,5 +1,6 @@
 const noop = () => null;
 const home = 'http://localhost:8080';
+// const home = 'https://penguin-wars-backend.sytes.pro';
 
 /** Класс модуля для работы с Ajax. */
 class AjaxModule {

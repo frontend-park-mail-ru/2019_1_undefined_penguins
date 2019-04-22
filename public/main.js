@@ -10,7 +10,7 @@ import GameView from './views/GameView.js';
 // import MultiplayerView from './views/MultiplayerView.js';
 import EventController from './scripts/EventController.js';
 import WS from './modules/WebSocket.js';
-// import Bus from './scripts/EventBus.js';
+import Bus from './scripts/EventBus.js';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js')
@@ -25,6 +25,10 @@ import WS from './modules/WebSocket.js';
 EventController.Init();
 
 const ws = new WS();
+
+Bus.on('ws:connected', () => {
+  ws.send("playerFRONT", "BUGAGA");
+});
 
 Router
   .register('/', MenuView)

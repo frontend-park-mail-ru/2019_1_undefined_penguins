@@ -89,7 +89,7 @@ export default class GameScene {
         ctx.fillStyle = '#9932CC';
         ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
     }
-}
+
 
 _init() {
     // устанавливаем счетчик

@@ -7,11 +7,15 @@ export default class WS {
         }
         WS.__instance = this;
 
-        const address = ['https', 'https:'].includes(location.protocol)
-            ? `wss://${location.host}/ws`
-            : `ws://${location.host}/ws`;
-            // ? `wss://localhost:8080/ws`
-            // : `ws://localhost:8080/ws`;
+        const home = 'localhost:8080';
+        // const home = 'penguin-wars-backend.sytes.pro';
+
+
+        // const address = ['https', 'https:'].includes(location.protocol)
+            // ? `wss://${location.host}/ws`
+            // : `ws://${location.host}/ws`;
+            const address = `ws://` + home + `/ws/ws`;
+            // : `ws://` + home + `/ws`;
 
         this.ws = new WebSocket(address);
         this.ws.onopen = function() {
@@ -19,10 +23,11 @@ export default class WS {
             console.dir(this.ws);
             this.ws.onmessage = this.handleMessage.bind(this);
             Bus.emit('ws:connected');
-            const interval = this.interval = setInterval(() => this.ws.send('update'), 10 * 1000);
+            // const interval = this.interval = setInterval(() => this.ws.send('update'), 10 * 1000);
             
             this.ws.onclose = function () {
-                clearInterval(interval);
+                console.log(`WebSocket on address ${address} closed`);
+                // clearInterval(interval);
             };
         }.bind(this);
     }
