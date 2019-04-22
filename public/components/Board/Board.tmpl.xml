@@ -31,7 +31,15 @@
 			</tbody>
 		</table>
 		<div class="leaders__buttons">
-			<img src="/images/prev.svg" class="leaders__button js-button-prev leaders__button__disabled"/>
+			<fest:choose>
+				<fest:var name="test">data[0].Page</fest:var>
+				<fest:when test="1">
+					<img src="/images/prev_disabled.svg" class="leaders__button js-button-prev"/>
+				</fest:when>
+				<fest:otherwise>
+					<img src="/images/prev.svg" class="leaders__button js-button-prev"/>
+				</fest:otherwise>
+			</fest:choose>
 			<div class="leaders__page-number"><fest:value>data[0].Page</fest:value></div>
 			<img src="/images/next.svg" class="leaders__button js-button-next"/>
 		</div>

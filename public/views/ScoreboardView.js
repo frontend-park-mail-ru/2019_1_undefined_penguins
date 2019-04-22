@@ -27,6 +27,7 @@ export default class ScoreboardView extends BaseView {
   }
 
   PlusPage() {
+    console.log(this.page);
     this.page++;
   }
 
@@ -63,10 +64,15 @@ export default class ScoreboardView extends BaseView {
     const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
     const nextButton = this.el.getElementsByClassName('js-button-next')[0];
 
-    prevButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      Bus.emit('previous-page', this);
-    });
+
+
+    if (this.page >1) {
+      prevButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        Bus.emit('previous-page', this);
+      });
+    }
+
 
     nextButton.addEventListener('click', (event) => {
       event.preventDefault();

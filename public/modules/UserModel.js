@@ -164,6 +164,7 @@ export class UserModel {
         view.SetUsers(data);
       })
       .catch(() => {
+        view.MinusPage();
         console.error("Can't get leaders!");
       });
   }
