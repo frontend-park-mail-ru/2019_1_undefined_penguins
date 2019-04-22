@@ -24,11 +24,11 @@ import Bus from './scripts/EventBus.js';
 
 EventController.Init();
 
-const ws = new WS();
-
-Bus.on('ws:connected', () => {
+Bus.on('ws:connected', (ws) => {
   ws.send("playerFRONT", "BUGAGA");
 });
+
+const ws = new WS('game');
 
 Router
   .register('/', MenuView)
