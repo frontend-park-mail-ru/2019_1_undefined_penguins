@@ -11,18 +11,14 @@ import MultiplayerView from './views/MultiplayerView.js';
 import WinView from './views/WinView.js';
 import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
-import WS from './modules/WebSocket.js';
+
+import WS from './chat/ChatWebSocket.js';
 import Bus from './scripts/EventBus.js';
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js')
-//     .then((registration) => {
-//       console.log('ServiceWorker registration', registration);
-//     })
-//     .catch((error) => {
-//       throw new Error(`ServiceWorker error: ${error}`);
-//     });
-// }
+const ws = new WS();
+Bus.on('opened', () => {
+  ws.send({login: "kek", message: "Hello!"});
+})
 
 EventController.Init();
 
