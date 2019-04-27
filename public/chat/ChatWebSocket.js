@@ -37,6 +37,7 @@ export default class WS {
         const messageText = event.data;
         try {
             const message = JSON.parse(messageText);
+            this._makeNotify(message);
             Bus.emit('chat:handle-message', message);
         }
         catch {
@@ -73,5 +74,30 @@ export default class WS {
 
             this.ws.onmessage = this.handleMessage.bind(this);
         };
+    }
+
+    _makeNotify(data) {
+        if (!'Notification' in window) {
+            console.error('not not sup');
+            return;
+        }
+
+        if (Notification.permission === 'granted') {
+            const msg = data.login + ': ' + data.message;
+            new Notification(msg);
+            return;
+        }
+
+        if (Notification.permission !== 'denied') {
+            Notification
+                .requestPermission()
+                .then((permission) => {
+                    if (permission === 'granted') {
+                        const msg = data.login + ': ' + data.message;
+                        new Notification(msg);
+                        return;
+                    }
+                })
+        }
     }
 }
