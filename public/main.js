@@ -10,6 +10,7 @@ import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 import WinView from './views/WinView.js';
 import LostView from './views/LostView.js';
+import ChatView from './views/ChatView.js';
 import EventController from './scripts/EventController.js';
 import ChatComponent from './chat/ChatComponent.js';
 
@@ -51,6 +52,7 @@ Router
   .register('/singlePlayer', SingleplayerView)
   .register('/multiPlayer', MultiplayerView)
   .register('/game/win', WinView)
+  .register('/messanger', ChatView)
   .register('/game/lost', LostView);
 
 Router.start();
