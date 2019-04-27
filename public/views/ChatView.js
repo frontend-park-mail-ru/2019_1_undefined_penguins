@@ -1,10 +1,14 @@
 import BaseView from './BaseView.js';
 import WS from '../chat/ChatWebSocket.js';
 import Bus from '../scripts/EventBus.js';
+import UserModel from '../modules/UserModel.js';
 
 export default class ChatView extends BaseView {
   constructor(el) {
     super(el);
+    this.chat = null;
+    // const minichat = document.getElementsByClassName('chat-open-close')[0];
+    // minichat.classList.add('button__hidden');
   }
 
   show() {
@@ -13,6 +17,15 @@ export default class ChatView extends BaseView {
 
   render() {
     this.el.innerHTML = '';
+
+    this.chat = document.createElement('div');
+    this.chat.className = 'main-chat-block';
+
+    const chatHead = document.createElement('div');
+    chatHead.className = 'chat-block__head';
+    chatHead.innerText = "Penguins Chat";
+    this.chat.appendChild(chatHead);
+
     const mainSection = document.createElement('div');
     mainSection.id = 'chat';
 
@@ -36,7 +49,8 @@ export default class ChatView extends BaseView {
     form.appendChild(button);
 
     mainSection.appendChild(form);
-    this.el.appendChild(mainSection);
+    this.chat.appendChild(mainSection);
+    this.el.appendChild(this.chat);
     this.start();
   }
 
@@ -48,9 +62,39 @@ export default class ChatView extends BaseView {
         messages.scrollTop = messages.scrollHeight - messages.clientHeight;
     }
   }
+
   start() {
     const newMessage = document.getElementsByClassName('chat_input-message')[0];
     const form = document.getElementsByClassName('chat__form')[0];
+
+    Bus.on('chat:handle-message', (msg) => {
+      const item = document.createElement("div");
+      item.classList.add('chat__message');
+
+      const login = document.createElement('span');
+      login.classList.add('message__login');
+      login.textContent = msg.login + ': ';
+      item.appendChild(login);
+
+      const text = document.createElement('span');
+      text.classList.add('message__text');
+      text.textContent = msg.message;
+      item.appendChild(text);
+
+      this.appendMessages(item);
+
+    });
+
+    Bus.on('recieved-messages', (msg) => {
+      console.log(msg);
+      if (msg) {
+          const data = msg.reverse();
+          data.forEach(elem => {
+              Bus.emit('chat:handle-message', elem);
+          });
+      }
+    });
+    UserModel.getMessages();
 
     const ws = new WS('chat');
 
@@ -65,30 +109,9 @@ export default class ChatView extends BaseView {
             return;
         }
 
-        // TODO: chech valid user
-        // console.log('MESSAGE:', newMessage.value);
-
         ws.send(newMessage.value);
         newMessage.value = "";
         return;
-    });
-
-    Bus.on('chat:handle-message', (msg) => {
-        const item = document.createElement("div");
-        item.classList.add('chat__message');
-
-        const login = document.createElement('span');
-        login.classList.add('message__login');
-        login.textContent = msg.login + ': ';
-        item.appendChild(login);
-
-        const text = document.createElement('span');
-        text.classList.add('message__text');
-        text.textContent = msg.message;
-        item.appendChild(text);
-
-        this.appendMessages(item);
-
     });
   }
 }

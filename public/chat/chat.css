@@ -39,6 +39,7 @@
     margin-bottom: 10px;
     padding: 15px;
     background-color: #BEDFEE;
+    overflow: scroll;
 }
 
 .chat__form {
