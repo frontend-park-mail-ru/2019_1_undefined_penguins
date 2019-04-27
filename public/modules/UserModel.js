@@ -10,6 +10,7 @@ class UserModel {
     this.score = 0;
     this.avatarUrl = '';
     this.count = 0;
+    this.messages = null;
   }
 
   // TODO: get user in SetUser
@@ -85,66 +86,66 @@ class UserModel {
 
 
     AjaxModule.doPromisePost({
-            path: '/login',
-            body: {
-                email,
-                password,
-            },
-            })
-            .then((data) => {
-              console.log(`Response status: ${data.status}`);
-                if (data.status > 300) {
-                    // const elem = document.getElementsByClassName('signin__header')[0];
-                    // const param = {
-                    //   param1: form,
-                    //   param2: elem, 
-                    // }
-                    Bus.emit('error-404');
-                    // TODO: написать, что такого юзера нетю
-                    // throw new Error('Network response was not ok.');
-                }
-                
-                data.json().then((data) => {
-                  console.log(data);
-                  this.SetUser(data);
-                  Bus.emit('open-menu');
-                })
-            })
-            .catch(() => {
-                console.log('SignIn promise fall down :(');
-          });
-}
-      
-  
-  SignUp(form) {
-      const email = form.elements.email.value;
-      const password = form.elements.password.value;
-      const login = form.elements.login.value;
-      
-      AjaxModule.doPromisePost({
-          path: '/signup',
-          body: {
-            email,
-            password,
-            login, 
-          },
+      path: '/login',
+      body: {
+        email,
+        password,
+      },
+    })
+      .then((data) => {
+        console.log(`Response status: ${data.status}`);
+        if (data.status > 300) {
+          // const elem = document.getElementsByClassName('signin__header')[0];
+          // const param = {
+          //   param1: form,
+          //   param2: elem, 
+          // }
+          Bus.emit('error-404');
+          // TODO: написать, что такого юзера нетю
+          // throw new Error('Network response was not ok.');
+        }
+
+        data.json().then((data) => {
+          console.log(data);
+          this.SetUser(data);
+          Bus.emit('open-menu');
         })
-            .then((data) => {
-                if (data.status > 300) {
-                    Bus.emit('error-409');
-                  throw new Error('Network response was not ok.');
-                }
-                return data.json();
-              },
-            )
-            .then((data) => {
-                this.SetUser(data);
-                Bus.emit('open-menu');
-            })
-            .catch(() => {
-               // TODO: написать, что есть ошибки в регистрации
-                console.error;
-          });
+      })
+      .catch(() => {
+        console.log('SignIn promise fall down :(');
+      });
+  }
+
+
+  SignUp(form) {
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+    const login = form.elements.login.value;
+
+    AjaxModule.doPromisePost({
+      path: '/signup',
+      body: {
+        email,
+        password,
+        login,
+      },
+    })
+      .then((data) => {
+        if (data.status > 300) {
+          Bus.emit('error-409');
+          throw new Error('Network response was not ok.');
+        }
+        return data.json();
+      },
+      )
+      .then((data) => {
+        this.SetUser(data);
+        Bus.emit('open-menu');
+      })
+      .catch(() => {
+        // TODO: написать, что есть ошибки в регистрации
+        console.error;
+      });
   }
 
   Leaders(view, page) {
@@ -231,6 +232,40 @@ class UserModel {
       contentType: 'multipart/form-data',
       body,
     });
+  }
+
+  getMessages() {
+    // const data = [{
+    //   login: "tannos",
+    //   message: "i kill you"
+    // },
+    // {
+    //   login: "cap",
+    //   message: "no"
+    // },
+    // {
+    //   login: "JustTony",
+    //   message: "i want to EAT"
+    // }];
+    // return data;
+
+    AjaxModule.doPromiseGetTwo({
+      path: '/messages',
+    })
+      .then((response) => {
+        console.log(`Response status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        Bus.emit('recieved-messages', data);
+      })
+      .catch(() => {
+        console.error("Can't get messages!");
+      });
+  }
+
+  setMessages(data){
+    this.messages = data;
   }
 }
 

@@ -52,6 +52,17 @@ class AjaxModule {
     });
   }
 
+  doPromiseGetTwo({
+    path = '/',
+    } = {}) {
+    return fetch(`${path}`, {
+      method: 'GET',
+      // mode: 'cors',
+      credentials: 'include',
+      body: null,
+    });
+  }
+
   /**
          * Послать ajax Put-запрос c помощью Promise.
          * @param [path = '/'] адрес запроса

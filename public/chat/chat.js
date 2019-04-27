@@ -1,5 +1,6 @@
 import WS from './ChatWebSocket.js';
 import Bus from '../scripts/EventBus.js';
+import UserModel from "../modules/UserModel.js";
 
 const root = (() => {
     const root = document.getElementById('chat');
@@ -40,27 +41,6 @@ function start() {
     const newMessage = document.getElementsByClassName('chat_input-message')[0];
     const form = document.getElementsByClassName('chat__form')[0];
 
-    const ws = new WS('chat');
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        if (!ws) {
-            return;
-        }
-
-        if (!newMessage.value) {
-            return;
-        }
-
-        // TODO: chech valid user
-        // console.log('MESSAGE:', newMessage.value);
-
-        ws.send(newMessage.value);
-        newMessage.value = "";
-        return;
-    });
-
     Bus.on('chat:handle-message', (msg) => {
         const item = document.createElement("div");
         item.classList.add('chat__message');
@@ -78,7 +58,35 @@ function start() {
         appendMessages(item);
 
     });
+
+    Bus.on('recieved-messages', (msg) => {
+        console.log(msg);
+        if (msg) {
+            const data = msg.reverse();
+            data.forEach(elem => {
+                Bus.emit('chat:handle-message', elem);
+            });
+        }
+    })
+    UserModel.getMessages();
+
+    const ws = new WS('chat');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if (!ws) {
+            return;
+        }
+
+        if (!newMessage.value) {
+            return;
+        }
+
+        ws.send(newMessage.value);
+        newMessage.value = "";
+        return;
+    });
 }
 
-console.log(root);
 start();
