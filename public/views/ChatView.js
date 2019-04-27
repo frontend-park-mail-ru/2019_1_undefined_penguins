@@ -7,8 +7,8 @@ export default class ChatView extends BaseView {
   constructor(el) {
     super(el);
     this.chat = null;
-    // const minichat = document.getElementsByClassName('chat-open-close')[0];
-    // minichat.classList.add('button__hidden');
+    const minichat = document.getElementsByClassName('chat-open-button')[0];
+    minichat.classList.add('button_hidden');
   }
 
   show() {
