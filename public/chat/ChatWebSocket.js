@@ -23,6 +23,14 @@ export default class WS {
         Bus.on('chat:ws-close', () => {
             this.ws.close();
         });
+
+        window.addEventListener('message', (event) => {
+            const json = JSON.parse(event.data);
+            if (json.type === 'refresh-user') {
+                Bus.emit('chat:ws-close');
+                Bus.emit('chat:ws-open');
+            }
+        });
     }
 
     handleMessage(event) {
@@ -58,15 +66,12 @@ export default class WS {
 
         this.ws.onclose = (event) => {
             console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
-            Bus.emit('chat:close-connection');
         };
 
         this.ws.onopen = () => {
             console.log(`WebSocket on address ${address} opened`);
 
             this.ws.onmessage = this.handleMessage.bind(this);
-
-            Bus.emit('opened');
         };
     }
 }

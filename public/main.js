@@ -13,11 +13,11 @@ import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
 import ChatComponent from './chat/ChatComponent.js';
 
+EventController.Init();
+
 const root = document.getElementById('application');
 const chat = new ChatComponent(root);
 chat.render();
-
-EventController.Init();
 
 Router
   .register('/', MenuView)
