@@ -11,14 +11,11 @@ import MultiplayerView from './views/MultiplayerView.js';
 import WinView from './views/WinView.js';
 import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
+import ChatComponent from './chat/ChatComponent.js';
 
-import WS from './chat/ChatWebSocket.js';
-import Bus from './scripts/EventBus.js';
-
-const ws = new WS();
-Bus.on('opened', () => {
-  ws.send({login: "kek", message: "Hello!"});
-})
+const root = document.getElementById('application');
+const chat = new ChatComponent(root);
+chat.render();
 
 EventController.Init();
 
