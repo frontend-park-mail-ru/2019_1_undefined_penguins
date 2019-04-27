@@ -19,6 +19,27 @@ const root = document.getElementById('application');
 const chat = new ChatComponent(root);
 chat.render();
 
+const chatButton = document.createElement('input');
+chatButton.type = 'submit';
+chatButton.value = "Чатик :)";
+chatButton.classList.add('chat-open-button');
+chatButton.addEventListener('click', () => {
+  event.preventDefault();
+  chat.show();
+  chatButton.classList.add('button_hidden');
+});
+root.appendChild(chatButton);
+
+
+const chatClose = document.getElementsByClassName('chat-block__close')[0];
+
+chatClose.addEventListener('click', () => {
+    event.preventDefault();
+    chat.hide();
+    chatButton.classList.remove('button_hidden');
+});
+
+
 Router
   .register('/', MenuView)
   .register('/leaders', ScoreboardView)

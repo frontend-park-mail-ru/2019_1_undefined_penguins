@@ -12,13 +12,17 @@
     height: 400px;
     padding: 15px;
     border-radius: 8px;
+    text-align: center;
 }
 
 .chat-block__head {
     color: #DA8F56;
     font-size: 26px;
     font-family: Roboto-Bold;
-    margin: 10px;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .chat-block__iframe-block {
@@ -89,4 +93,10 @@
     font-family: Roboto-Regular;
     font-size: 13px;
     color: #101C45;
+}
+
+.chat-block__close {
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
 }

@@ -52,3 +52,30 @@ body {
 #gc {
     margin-top: -35px;
 }
+
+.chat-open-button {
+    position: absolute;
+    right: 5%;
+    bottom: 17.5%;
+    z-index: 2;
+    width: 90px;
+    height: 60px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #00B7DE;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #979797;
+    border-radius: 8px;
+    font-family: Roboto-Regular;
+    background: none;
+    transition: all 250ms ease-out;
+}
+
+.chat-open-button:hover {
+    transform: scale(1.1);
+} 
+
+.button_hidden {
+    display: none;
+}

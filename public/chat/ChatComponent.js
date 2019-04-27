@@ -7,12 +7,13 @@ export default class ChatComponent {
     }
 
     show() {
-        console.log("SHOW CHAT");
-        this.chat.hidden = false;
+        // TODO: make modificator class 
+        this.chat.style = "display: block";
     }
 
     hide() {
-        this.chat.hidden = true;
+        // TODO: make modificator class 
+        this.chat.style = "display: none";
     }
 
     render() {
@@ -21,12 +22,21 @@ export default class ChatComponent {
         this.chat = document.createElement('div');
         this.chat.className = 'chat-block';
 
-        // TODO: hide before push a button
-        // this.hide();
+        this.hide();
 
         const chatHead = document.createElement('div');
         chatHead.className = 'chat-block__head';
-        chatHead.innerText = "Penguins Chat";
+
+        const chatTitle = document.createElement('div');
+        chatTitle.innerText = "Penguins Chat";
+        chatTitle.className = 'chat-block__title';
+        chatHead.appendChild(chatTitle);
+
+        const chatClose = document.createElement('img');
+        chatClose.src = "/images/cancel.svg";
+        chatClose.className = 'chat-block__close js-button';
+        chatHead.appendChild(chatClose);
+
         this.chat.appendChild(chatHead);
 
         const iframeDiv = document.createElement('div');

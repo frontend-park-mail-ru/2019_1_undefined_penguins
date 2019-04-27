@@ -1,6 +1,5 @@
 import WS from './ChatWebSocket.js';
 import Bus from '../scripts/EventBus.js';
-import UserModel from '../modules/UserModel.js';
 
 const root = (() => {
     const root = document.getElementById('chat');
