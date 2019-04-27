@@ -26,12 +26,6 @@ import Bus from './scripts/EventBus.js';
 
 EventController.Init();
 
-Bus.on('ws:connected', (ws) => {
-  ws.send("playerFRONT", "BUGAGA");
-});
-
-const ws = new WS('game');
-
 Router
   .register('/', MenuView)
   .register('/leaders', ScoreboardView)
