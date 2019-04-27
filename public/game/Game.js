@@ -1,4 +1,5 @@
-import Bus from '../scripts/EventBus.js';
+import GameStrategy from '../game/GameStrategy.js';
+import GameManager from '../game/GameManager.js';
 
 export default class Game {
   constructor() {

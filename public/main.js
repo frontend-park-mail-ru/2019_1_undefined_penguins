@@ -10,8 +10,9 @@ import SingleplayerView from './views/SingleplayerView.js';
 import MultiplayerView from './views/MultiplayerView.js';
 import WinView from './views/WinView.js';
 import LostView from './views/LostView.js';
-
 import EventController from './scripts/EventController.js';
+import WS from './modules/WebSocket.js';
+import Bus from './scripts/EventBus.js';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js')
@@ -24,6 +25,12 @@ import EventController from './scripts/EventController.js';
 // }
 
 EventController.Init();
+
+Bus.on('ws:connected', (ws) => {
+  ws.send("playerFRONT", "BUGAGA");
+});
+
+const ws = new WS('game');
 
 Router
   .register('/', MenuView)

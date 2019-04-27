@@ -1,11 +1,10 @@
 const noop = () => null;
 
 // use it if you run backend on localhost
-// const home = 'http://localhost:8080';
+const home = 'http://localhost:8080';
 
 // use it if you run backend on deploy
-const home = 'https://penguin-wars-backend.sytes.pro';
-
+// const home = 'https://penguin-wars-backend.sytes.pro';
 
 /** Класс модуля для работы с Ajax. */
 class AjaxModule {
