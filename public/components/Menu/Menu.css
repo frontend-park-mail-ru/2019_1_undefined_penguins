@@ -14,7 +14,7 @@
 }
 
 .menu-header__buttons {
-    margin: 80px 0;
+    margin: 80px -20px;
     display: flex;
     align-items: center;
     height: 80px;
@@ -33,6 +33,7 @@
     padding: 15px;
     text-align: center;
     text-decoration: none;
+    transition: all 250ms ease-out;
 }
 
 .menu-header__profile {
@@ -43,9 +44,8 @@
     margin-right: 100px;
 }
 
-.menu-header__button:hover, .menu-header__button:focus {
-    font-size: 34px;
-    height: 39px;
+.menu-header__button:hover {
+    transform: scale(1.1);
 } 
 
 .menu {
@@ -73,13 +73,11 @@
     margin: 20px 0;
     width: 320px;
     height: 35px;
+    transition: all 250ms ease-out;
 }
 
-.menu__button:hover, .menu__button:focus {
-    font-size: 34px;
-    width: 350px;
-    height: 39px;
-    margin: 18px 0;
+.menu__button:hover {
+    transform: scale(1.1);
 }
 
 .menu__button__disabled {

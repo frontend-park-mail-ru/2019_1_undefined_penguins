@@ -4,6 +4,9 @@
 @import url('components/Profile/Profile.css');
 @import url('components/SignIn/SignIn.css');
 @import url('components/SignUp/SignUp.css');
+@import url('components/Win/Win.css');
+@import url('components/Lost/Lost.css');
+@import url('error.css');
 
 body {
     margin: 0;
@@ -31,4 +34,20 @@ body {
 @font-face {
     font-family: "Roboto-Bold";
     src: url("./fonts/Roboto-Bold.ttf");
+}
+
+.game-view__game-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-view__score-element {
+    color: #DA8F56;
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+#gc {
+    margin-top: -35px;
 }
