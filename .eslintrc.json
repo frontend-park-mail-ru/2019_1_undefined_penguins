@@ -18,8 +18,8 @@
         ],
         "eqeqeq": "warn",
         "indent": [
-            "error",
-            "tab"
+            "warn",
+            4
         ]
     }
 }

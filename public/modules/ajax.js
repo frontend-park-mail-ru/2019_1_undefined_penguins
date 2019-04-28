@@ -1,10 +1,10 @@
 const noop = () => null
 
 // use it if you run backend on localhost
-// const home = 'http://localhost:8080';
+const home = 'http://localhost:8080';
 
 // use it if you run backend on deploy
-const home = 'https://penguin-wars-backend.sytes.pro'
+// const home = 'https://penguin-wars-backend.sytes.pro'
 
 /** Класс модуля для работы с Ajax. */
 class AjaxModule {
@@ -13,7 +13,7 @@ class AjaxModule {
          * @param [path = '/'] адрес запроса
          * @param [body = {}] тело запроса
          */
-  doPromisePost ({
+doPromisePost({
     path = '/',
     contentType = null,
     body
@@ -41,7 +41,7 @@ class AjaxModule {
          * Послать ajax GET-запрос c помощью Promise.
          * @param [path = '/'] адрес запроса
          */
-  doPromiseGet ({
+  doPromiseGet({
     path = '/'
   } = {}) {
     return fetch(`${home}${path}`, {
@@ -57,7 +57,7 @@ class AjaxModule {
          * @param [path = '/'] адрес запроса
          * @param [body = {}] тело запроса
          */
-  doPromisePut ({
+  doPromisePut({
     path = '/',
     body = {}
   } = {}) {
