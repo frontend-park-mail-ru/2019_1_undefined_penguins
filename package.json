@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
     "prestart": "npm run tmpl",
-    "linter": "npx eslint -c .eslintrc.json './**/*.js' --fix"
+    "linter": "npx eslint -c .eslintrc.json './**/*.js'",
+    "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix"
   },
   "keywords": [],
   "author": "",

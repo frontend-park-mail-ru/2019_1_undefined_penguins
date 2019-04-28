@@ -16,6 +16,10 @@
             "error",
             "always"
         ],
-        "eqeqeq": "warn"
+        "eqeqeq": "warn",
+        "indent": [
+            "error",
+            "tab"
+        ]
     }
 }
