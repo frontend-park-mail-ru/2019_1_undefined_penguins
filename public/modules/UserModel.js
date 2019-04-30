@@ -221,7 +221,7 @@ export class UserModel {
 
     // TODO: провалидировать поля email и логин
     AjaxModule.doPromisePut({
-      path: '/change_profile',
+      path: '/me',
       body: {
         email,
         login,
