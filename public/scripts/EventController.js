@@ -57,50 +57,38 @@ export default class EventController {
       Router.open('/signIn');
     });
 
-    Bus.on('error-404', () => {
-        // let form = param.param1;
-        // let elem = param.param2;
-        // form.elements.email.style.border = '3px solid red';
-        // form.elements.password.style.border = '3px solid red';
-        // let error = document.createElement('span');
-        // insertAfter(error, elem); 
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-404', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Неверный email или пароль!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-409', () => {
-        // let form = param.param1;
-        // let elem = param.param2;
-        // form.elements.email.style.border = '3px solid red';
-        // form.elements.password.style.border = '3px solid red';
-        // let error = document.createElement('span');
-        // insertAfter(error, elem); 
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-409', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Такой пользователь уже существует!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-email', (param) => {
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-email', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Некорректный email!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-password', (param) => {
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-password', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Некорректный пароль!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-empty', (param) => {
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-empty', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Все поля должны быть заполнены!"; 
         error.classList.remove("error__hidden");
     });
 
-    Bus.on('error-equal-password', (param) => {
-        let error = document.getElementsByClassName('error')[0];
+    Bus.on('error-equal-password', (el) => {
+        let error = el.getElementsByClassName('error')[0];
         error.innerText = "Пароли должны совпадать!"; 
         error.classList.remove("error__hidden");
     });

@@ -18,18 +18,19 @@ export default class SignInView extends BaseView {
     this.el.innerHTML = templateFunc();
 
     const form = this.el.getElementsByTagName('form')[0];
+    const viewForm = document.getElementsByClassName('signin-content')[0]; 
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             //TODO rewrite with norm condition  
           if (!Validate.ValidateEmpty(form)) {
-            Bus.emit('error-empty', form.elements.email);           
+            Bus.emit('error-empty', viewForm);           
           } else {
               if (!Validate.ValidateEmail(form.elements.email.value)) {
-                Bus.emit('error-email', form.elements.email);
+                Bus.emit('error-email', viewForm);
               } else {
                 if (!Validate.ValidatePassword(form.elements.password.value)) {
-                  Bus.emit('error-password', form.elements.password);
+                  Bus.emit('error-password', viewForm);
                 } else {
                   Bus.emit('sign-in', form);
                 }

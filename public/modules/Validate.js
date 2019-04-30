@@ -1,8 +1,8 @@
 import Bus from "../scripts/EventBus.js";
 
 export class Validate {
-
     ValidateEmpty(form) {
+        //check for profile
         for (let i = 0; i < form.length; i++) {
             if (form.elements[i].value === '') {
                 return (false)
