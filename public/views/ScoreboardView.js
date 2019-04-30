@@ -10,11 +10,19 @@ export default class ScoreboardView extends BaseView {
     this.users = null;
     this.page = 1;
     this.el.classList.add('leaders-section');
+    this.usersOnPage = 3;
   }
 
   show() {
     Bus.emit('get-users', this);
     super.show();
+  }
+
+  SetCountOfUsers(info){
+    console.log(info);
+    this.count = info.count;
+    this.usersOnPage = info.usersOnPage;
+    
   }
 
   SetUsers(users) {
@@ -32,9 +40,12 @@ export default class ScoreboardView extends BaseView {
   }
 
   MinusPage() {
-    if (this.page > 1) {
-      this.page--;
-    }
+    console.log(this.page);
+    this.page--;
+  }
+
+  StartPage() {
+    this.page=1;
   }
 
   render() {
@@ -54,10 +65,14 @@ export default class ScoreboardView extends BaseView {
   }
 
   renderScoreboard() {
-    this.users.map((obj) => {
-      obj.Page = this.page;
-      return obj;
-    });
+
+    this.users[0].Page = this.page;
+    if (this.page<=this.usersOnPage/3) {
+      this.users[0].Right = true;
+    } else {
+      this.users[0].Right = false;
+    }
+    
     this.el.innerHTML = templateFunc(this.users);
 
 
@@ -69,15 +84,19 @@ export default class ScoreboardView extends BaseView {
     if (this.page >1) {
       prevButton.addEventListener('click', (event) => {
         event.preventDefault();
-        Bus.emit('previous-page', this);
+        this.MinusPage();
+        Bus.emit('new-page', this);
       });
     }
 
-
-    nextButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      Bus.emit('next-page', this);
-    });
+    if (this.page<=this.usersOnPage/3) {
+      nextButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.PlusPage();
+        Bus.emit('new-page', this);
+      });
+    }
+    
 
     const home = this.el.getElementsByClassName('js-header__home-button')[0];
     if (home !== undefined) {

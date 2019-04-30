@@ -42,16 +42,14 @@ export default class EventController {
     });
 
     Bus.on('get-users', (leadersView) => {
-      UserModel.Leaders(leadersView, 0);
+      UserModel.Leaders(leadersView);
     });
 
-    Bus.on('previous-page', (leadersView) => {
-      UserModel.Leaders(leadersView, -1);
+    Bus.on('new-page', (leadersView) => {
+      UserModel.LeadersPage(leadersView);
     });
 
-    Bus.on('next-page', (leadersView) => {
-      UserModel.Leaders(leadersView, 1);
-    });
+
 
     Bus.on('open-sign-in', () => {
       Router.open('/signIn');

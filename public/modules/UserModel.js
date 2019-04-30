@@ -147,27 +147,43 @@ export class UserModel {
           });
   }
 
-  Leaders(view, page) {
-    if (page > 0) {
-      view.PlusPage();
-    } else if (page < 0) {
-      view.MinusPage();
-    }
+  Leaders(view) {
+    AjaxModule.doPromiseGet({
+      path: `/leaders/info`,
+    })
+      .then((response)=>{
+        return response.json();
+      })
+      .then((data)=>{
+        view.SetCountOfUsers(data);
+      })
+      .catch(()=>{
+        console.error("Can't get leaders info!");
+        view.StartPage();
+        Bus.emit('open-menu');
+        return;
+      })
+    this.LeadersPage(view);
+  }
+
+  LeadersPage(view){
     AjaxModule.doPromiseGet({
       path: `${'/leaders' + '/'}${view.GetPage()}`,
     })
       .then((response) => {
-        console.log(`Response status: ${response.status}`);
+        // console.log(`Response status: ${response.status}`);
         return response.json();
       })
       .then((data) => {
         view.SetUsers(data);
       })
       .catch(() => {
-        view.MinusPage();
+        Bus.emit('open-menu');
+        view.StartPage();
         console.error("Can't get leaders!");
       });
   }
+
 
   SignOut() {
     AjaxModule.doPromiseGet({
