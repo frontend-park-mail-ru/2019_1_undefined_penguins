@@ -83,6 +83,7 @@ export default class MenuView extends BaseView {
     auth.classList.add('menu-header__buttons')
 
     const authTitles = (!isAutorized) ? this._headersUnauthorized() : this._headersAuthorized()
+    // const authTitles = this._headersUnauthorized();
 
     Object.entries(authTitles).forEach((entry) => {
       const href = entry[0]

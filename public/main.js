@@ -13,16 +13,6 @@ import LostView from './views/LostView.js'
 
 import EventController from './scripts/EventController.js'
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js')
-//     .then((registration) => {
-//       console.log('ServiceWorker registration', registration);
-//     })
-//     .catch((error) => {
-//       throw new Error(`ServiceWorker error: ${error}`);
-//     });
-// }
-
 EventController.Init()
 
 Router
@@ -38,4 +28,15 @@ Router
   .register('/game/win', WinView)
   .register('/game/lost', LostView)
 
+  
 Router.start()
+  
+if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js")
+            .then((registration) => {
+                console.log('ServiceWorker registration', registration);
+            })
+            .catch((error) => {
+                console.error(`ServiceWorker error: ${error}`);
+            });
+    }
