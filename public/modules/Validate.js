@@ -24,7 +24,7 @@ export class Validate {
         // var passwreg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         // var paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
-        var passwreg=  /^[A-Za-z]\w{4,14}$/;
+        var passwreg=  /^[A-Za-z0-9]\w{4,14}$/;
         if (password.match(passwreg)) 
         { 
             return true;
