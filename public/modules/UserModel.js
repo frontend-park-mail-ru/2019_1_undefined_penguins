@@ -99,7 +99,7 @@ export class UserModel {
                   Bus.emit('open-menu');
                 })
             })
-            .catch(() => {
+            .catch((data) => {
               switch (data.status) {
                 case 404:
                   Bus.emit('error-404', el);
@@ -232,7 +232,7 @@ export class UserModel {
           Bus.emit('redraw-profile');
         });
       })
-      .catch(() => {
+      .catch((data) => {
         switch (data.status) {
           case 409:
             Bus.emit('error-409', el);
