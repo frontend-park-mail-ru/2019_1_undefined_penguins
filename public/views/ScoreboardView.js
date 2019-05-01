@@ -35,12 +35,10 @@ export default class ScoreboardView extends BaseView {
   }
 
   PlusPage() {
-    console.log(this.page);
     this.page++;
   }
 
   MinusPage() {
-    console.log(this.page);
     this.page--;
   }
 
@@ -81,7 +79,7 @@ export default class ScoreboardView extends BaseView {
 
 
 
-    if (this.page >1) {
+    if (this.page > 1) {
       prevButton.addEventListener('click', (event) => {
         event.preventDefault();
         this.MinusPage();
