@@ -49,7 +49,7 @@ export class Validate {
     }
 
     ValidateLogin(login) {
-        let logreg =  /^[A-Za-z]\w{4,14}$/;
+        let logreg =  /^[A-Za-z]\w{3,14}$/;
         if (login.match(logreg)) 
         { 
             return true;

@@ -74,12 +74,13 @@ export class UserModel {
       });
   }
 
-  SignIn(form) {
+  SignIn(el) {
+    const form = el.getElementsByTagName('form')[0];
+
     const email = form.elements.email.value;
     const password = form.elements.password.value;
 
-    const viewForm = document.getElementsByClassName('signin-content')[0];
-
+    //const viewForm = document.getElementsByClassName('signin-content')[0];
 
     AjaxModule.doPromisePost({
             path: '/login',
@@ -91,12 +92,12 @@ export class UserModel {
             .then((data) => {
               console.log(`Response status: ${data.status}`);
                 if (data.status > 300 && data.status < 500) { 
-                    Bus.emit('error-404', viewForm);
+                    Bus.emit('error-404', el);
                     // TODO: написать, что такого юзера нетю
                     throw new Error('Network response was not ok.');
                 }
                 if (data.status >= 500) {
-                  Bus.emit('error-5xx', viewForm);
+                  Bus.emit('error-5xx', el);
                   throw new Error('Network response was not ok.');
                 }
                 
@@ -112,12 +113,14 @@ export class UserModel {
 }
       
   
-  SignUp(form) {
+  SignUp(el) {
+      const form = el.getElementsByTagName('form')[0];
+
       const email = form.elements.email.value;
       const password = form.elements.password.value;
       const login = form.elements.login.value;
 
-      const viewForm = document.getElementsByClassName('sign-up-content')[0];
+      //const viewForm = document.getElementsByClassName('sign-up-content')[0];
       
       AjaxModule.doPromisePost({
           path: '/signup',
@@ -129,11 +132,11 @@ export class UserModel {
         })
             .then((data) => {
                 if (data.status > 300 && data.status < 500) {
-                  Bus.emit('error-409', viewForm);
+                  Bus.emit('error-409', el);
                   throw new Error('Network response was not ok.');
                 }
                 if (data.status >= 500) {
-                  Bus.emit('error-5xx', viewForm);
+                  Bus.emit('error-5xx', el);
                   throw new Error('Network response was not ok.');
                 }
                 return data.json();
@@ -186,12 +189,14 @@ export class UserModel {
       });
   }
 
-  ChangeProfile(form) {
+  ChangeProfile(el) {
+    const form = el.getElementsByTagName('form')[0];
+
     const email = form.email.value;
     const login = form.login.value;
     const image = form.inputAvatar;
 
-    const viewForm = document.getElementsByClassName('profile-content')[0];
+    //const viewForm = document.getElementsByClassName('profile-content')[0];
 
     if (image.value !== '') {
       console.log(image.files[0]);
@@ -216,12 +221,12 @@ export class UserModel {
       .then((res) => {
         console.log(res);
         if (data.status > 300 && data.status < 500) {
-          Bus.emit('error-409', viewForm);
+          Bus.emit('error-409', el);
           console.log('Server status: ' + data.status);
           throw new Error('Network response was not ok.');
         }
         if (data.status >= 500) {
-          Bus.emit('error-5xx', viewForm);
+          Bus.emit('error-5xx', el);
           throw new Error('Network response was not ok.');
         }
         res.json().then((res) => {

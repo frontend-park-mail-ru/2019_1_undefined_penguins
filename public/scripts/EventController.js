@@ -16,12 +16,12 @@ export default class EventController {
       menu.RenderHeader(UserModel.IsAutorised());
     });
 
-    Bus.on('sign-in', (form) => {
-      UserModel.SignIn(form);
+    Bus.on('sign-in', (el) => {
+      UserModel.SignIn(el);
     });
 
-    Bus.on('sign-up', (form) => {
-      UserModel.SignUp(form);
+    Bus.on('sign-up', (el) => {
+      UserModel.SignUp(el);
     });
 
     Bus.on('sign-out', () => {
@@ -110,8 +110,8 @@ export default class EventController {
         Bus.on('redraw-profile', () => {
             view.SetUser(UserModel.GetUser());
         })
-        const form = view.el.getElementsByTagName('form')[0];
-        UserModel.ChangeProfile(form);
+        //const form = view.el.getElementsByTagName('form')[0];
+        UserModel.ChangeProfile(view.el);
     })
 
     Bus.on('open-win-view', () => {

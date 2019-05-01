@@ -31,7 +31,7 @@ export default class SignInView extends BaseView {
                 if (!Validate.ValidatePassword(form.elements.password.value)) {
                   Bus.emit('error-password', this.el);
                 } else {
-                  Bus.emit('sign-in', form);
+                  Bus.emit('sign-in', this.el);
                 }
               }
             }

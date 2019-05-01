@@ -39,7 +39,7 @@ export default class SignUpView extends BaseView {
               if (!Validate.ValidateEqualPassword(form.elements.password.value, form.elements.password_repeat.value)) {
                 Bus.emit('error-equal-password', this.el);
               } else {
-                Bus.emit('sign-up', form);
+                Bus.emit('sign-up', this.el);
               }
             }
           }
