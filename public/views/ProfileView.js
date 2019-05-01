@@ -41,20 +41,18 @@ export default class ProfileView extends BaseView {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       if (!Validate.ValidateEmpty(form)) {
-        Bus.emit('error-empty', this.el);           
-      } else {
-          if (!Validate.ValidateLogin(form.elements.login.value)) {
-            Bus.emit('error-login', this.el);
-          } else {
-            if (!Validate.ValidateEmail(form.elements.email.value)) {
-              Bus.emit('error-email', this.el);
-            } else {
-              {
-                Bus.emit('change-profile', this);
-              }
-            }
-          }
-        }
+        Bus.emit('error-empty', this.el);   
+        return;        
+      } 
+      if (!Validate.ValidateLogin(form.elements.login.value)) {
+        Bus.emit('error-login', this.el);   
+        return;
+      }
+      if (!Validate.ValidateEmail(form.elements.email.value)) {
+        Bus.emit('error-email', this.el);   
+        return;
+      }
+      Bus.emit('change-profile', this);
     });
   }
 }
