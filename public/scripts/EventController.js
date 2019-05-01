@@ -96,7 +96,8 @@ export default class EventController {
 
     Bus.on('error-login', (el) => {
       let error = el.getElementsByClassName('error')[0];
-      error.innerText = "Некорректный логин!"; 
+      //error.innerText = "Некорректный логин!"; 
+      error.innerText = "Длина логина должна быть от 4 до 14 символов!";
       error.classList.remove("error__hidden");
     });
 
