@@ -72,7 +72,6 @@ export class UserModel {
             .catch(() => {
                 this.isAutorised = false;
                 Bus.emit("authorization-checked");
-                console.log("Profile promise fall down :(");
             });
     }
 
@@ -88,7 +87,7 @@ SignIn(form) {
     }
   })
     .then((data) => {
-      console.log(`Response status: ${data.status}`)
+      console.log(`Response status: ${data.status}`);
       if (data.status > 300) {
         // const elem = document.getElementsByClassName('signin__header')[0];
         // const param = {
@@ -101,13 +100,11 @@ SignIn(form) {
       }
 
       data.json().then((data) => {
-        console.log(data)
         this.SetUser(data)
         Bus.emit('open-menu')
       })
     })
     .catch(() => {
-      console.log('SignIn promise fall down :(')
     })
 }
 
@@ -185,7 +182,6 @@ ChangeProfile(form) {
   const image = form.inputAvatar
 
   if (image.value !== '') {
-    console.log(image.files[0])
     const avatarData = new FormData()
     avatarData.append('avatar', image.files[0], image.value)
 
@@ -206,7 +202,6 @@ ChangeProfile(form) {
     }
   })
     .then((res) => {
-      console.log(res)
       if (res.status > 400) {
         throw new Error('Network response was not ok.')
       }

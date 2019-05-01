@@ -346,7 +346,6 @@ export class ProfileComponent {
           })
             .then(
               (res) => {
-                console.log(res)
                 if (res.status > 400) {
                   throw new Error('Network response was not ok.')
                 }

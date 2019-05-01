@@ -7,7 +7,7 @@ const  PATHS  =  {
     public:  path.resolve(__dirname,  "public"),
 };
 
-module.exports  =  {
+module.exports = {
     mode:  "development",
     entry: `${PATHS.public}/main.js`,
 
@@ -26,17 +26,17 @@ module.exports  =  {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract(
                     {
-                        fallback: 'style-loader',
-                        use: ['css-loader']
+                        fallback: "style-loader",
+                        use: ["css-loader"]
                     })
             }, 
             {
                 test: /\.(png|jpg|gif|svg)$/,
-				loader: 'url-loader',
-				options: {
-					name: 'images/[name].[ext]',
-					limit: 4096
-				},
+                loader: "url-loader",
+                options: {
+                    name: "images/[name].[ext]",
+                    limit: 4096
+                },
             },
             {
                 test: /\.(ico)$/,

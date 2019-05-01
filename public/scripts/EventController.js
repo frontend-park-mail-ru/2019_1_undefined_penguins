@@ -29,7 +29,6 @@ export default class EventController {
     })
 
     Bus.on('open-menu', () => {
-      console.log('Пришел эмит на open menu')
       Router.open('/')
     })
 
