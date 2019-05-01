@@ -4,7 +4,7 @@ export class Validate {
 
     ValidateEmpty(form) {
         for (let i = 0; i < form.length; i++) {
-            if (form.elements[i].name === "inputAvatar") {
+            if (form.elements[i].type === "file") {
                 continue;
             }
             if (form.elements[i].value === '') {
