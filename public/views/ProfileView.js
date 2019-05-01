@@ -1,7 +1,7 @@
 import BaseView from './BaseView.js'
 import Bus from '../scripts/EventBus.js'
-
-const templateFunc = window.fest['components/Profile/Profile.tmpl']
+import ProfileTmpl from "../components/Profile/Profile.tmpl.xml";
+// const templateFunc = window.fest['components/Profile/Profile.tmpl']
 
 export default class ProfileView extends BaseView {
   constructor (el) {
@@ -24,7 +24,7 @@ export default class ProfileView extends BaseView {
   }
 
   renderProfile () {
-    this.el.innerHTML = templateFunc(this.user)
+    this.el.innerHTML = ProfileTmpl(this.user);
 
     const home = this.el.getElementsByClassName('js-header__home-button')[0]
     if (home !== undefined) {

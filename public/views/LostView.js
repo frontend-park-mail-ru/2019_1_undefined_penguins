@@ -1,8 +1,8 @@
 import BaseView from './BaseView.js'
 import Bus from '../scripts/EventBus.js'
 import UserModel from '../modules/UserModel.js'
-
-const templateFunc = window.fest['components/Lost/Lost.tmpl']
+import LostTmpl from "../components/Lost/Lost.tmpl.xml";
+// const templateFunc = window.fest['components/Lost/Lost.tmpl']
 
 export default class LostView extends BaseView {
   constructor (el) {
@@ -29,7 +29,7 @@ export default class LostView extends BaseView {
   }
 
   _renderLost () {
-    this.el.innerHTML = templateFunc(this.user)
+    this.el.innerHTML = LostTmpl(this.user);
 
     const repeat = this.el.getElementsByClassName('js-button__repeat-button')[0]
     if (repeat !== undefined) {

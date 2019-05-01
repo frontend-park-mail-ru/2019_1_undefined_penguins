@@ -1,7 +1,7 @@
 import BaseView from './BaseView.js'
 import Bus from '../scripts/EventBus.js'
-
-const templateFunc = window.fest['components/About/About.tmpl']
+import AboutTmpl from "../components/About/About.tmpl.xml";
+// const templateFunc = window.fest['components/About/About.tmpl']
 
 export default class AboutView extends BaseView {
   constructor (el) {
@@ -14,7 +14,7 @@ export default class AboutView extends BaseView {
 
   render () {
     this.el.innerHTML = ''
-    this.el.innerHTML = templateFunc()
+    this.el.innerHTML = AboutTmpl();
 
     const home = this.el.getElementsByClassName('js-header__home-button')[0]
 

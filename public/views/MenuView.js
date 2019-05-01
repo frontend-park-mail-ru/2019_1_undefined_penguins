@@ -60,7 +60,7 @@ export default class MenuView extends BaseView {
     const pictureDiv = document.createElement('div')
     pictureDiv.classList.add('menu__picture')
     const pictureImg = document.createElement('img')
-    pictureImg.src = '../../images/menu-picture.png'
+    pictureImg.src = '/images/menu-picture.png'
     pictureImg.classList.add('menu-picture__img')
     pictureDiv.appendChild(pictureImg)
     mainSection.appendChild(pictureDiv)

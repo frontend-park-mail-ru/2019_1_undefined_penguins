@@ -1,8 +1,9 @@
 import BaseView from './BaseView.js'
 import Bus from '../scripts/EventBus.js'
 import Validate from '../modules/Validate.js'
+import SignInTmpl from "../components/SignIn/SignIn.tmpl.xml";
 
-const templateFunc = window.fest['components/SignIn/SignIn.tmpl']
+// const templateFunc = window.fest['components/SignIn/SignIn.tmpl']
 
 export default class SignInView extends BaseView {
   constructor (el) {
@@ -15,7 +16,7 @@ export default class SignInView extends BaseView {
 
   render () {
     this.el.innerHTML = ''
-    this.el.innerHTML = templateFunc()
+    this.el.innerHTML = SignInTmpl();
 
     const form = this.el.getElementsByTagName('form')[0]
 
