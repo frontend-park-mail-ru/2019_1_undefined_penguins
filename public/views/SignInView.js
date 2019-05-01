@@ -23,13 +23,13 @@ export default class SignInView extends BaseView {
             event.preventDefault();
             //TODO rewrite with norm condition  
           if (!Validate.ValidateEmpty(form)) {
-            Bus.emit('error-empty');           
+            Bus.emit('error-empty', this.el);           
           } else {
               if (!Validate.ValidateEmail(form.elements.email.value)) {
-                Bus.emit('error-email');
+                Bus.emit('error-email', this.el);
               } else {
                 if (!Validate.ValidatePassword(form.elements.password.value)) {
-                  Bus.emit('error-password');
+                  Bus.emit('error-password', this.el);
                 } else {
                   Bus.emit('sign-in', form);
                 }
