@@ -65,7 +65,7 @@ export default class ScoreboardView extends BaseView {
   renderScoreboard() {
 
     this.users[0].Page = this.page;
-    if (this.page<=this.usersOnPage/3) {
+    if (this.page <= this.usersOnPage/3) {
       this.users[0].Right = true;
     } else {
       this.users[0].Right = false;
@@ -87,7 +87,7 @@ export default class ScoreboardView extends BaseView {
       });
     }
 
-    if (this.page<=this.usersOnPage/3) {
+    if (this.page <= this.usersOnPage/3) {
       nextButton.addEventListener('click', (event) => {
         event.preventDefault();
         this.PlusPage();
