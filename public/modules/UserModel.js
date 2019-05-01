@@ -91,24 +91,25 @@ export class UserModel {
             })
             .then((data) => {
               console.log(`Response status: ${data.status}`);
-                if (data.status > 300 && data.status < 500) { 
-                    Bus.emit('error-404', el);
-                    // TODO: написать, что такого юзера нетю
-                    throw new Error('Network response was not ok.');
-                }
-                if (data.status >= 500) {
-                  Bus.emit('error-5xx', el);
-                  throw new Error('Network response was not ok.');
-                }
-                
+                if (data.status > 300) { 
+                    throw data;
+                }                
                 data.json().then((data) => {
-                  console.log(data);
                   this.SetUser(data);
                   Bus.emit('open-menu');
                 })
             })
             .catch(() => {
-                console.log('SignIn promise fall down :(');
+              switch (data.status) {
+                case 404:
+                  Bus.emit('error-404', el);
+                  break;
+                case 500:
+                  Bus.emit('error-5xx', el);
+                  break;
+                default:
+                  console.error;
+              }
           });
 }
       
@@ -131,13 +132,8 @@ export class UserModel {
           },
         })
             .then((data) => {
-                if (data.status > 300 && data.status < 500) {
-                  Bus.emit('error-409', el);
-                  throw new Error('Network response was not ok.');
-                }
-                if (data.status >= 500) {
-                  Bus.emit('error-5xx', el);
-                  throw new Error('Network response was not ok.');
+                if (data.status > 300) {
+                  throw data;
                 }
                 return data.json();
               },
@@ -146,9 +142,17 @@ export class UserModel {
                 this.SetUser(data);
                 Bus.emit('open-menu');
             })
-            .catch(() => {
-               // TODO: написать, что есть ошибки в регистрации
-                console.error;
+            .catch((data) => {
+                switch (data.status) {
+                  case 409:
+                    Bus.emit('error-409', el);
+                    break;
+                  case 500:
+                    Bus.emit('error-5xx', el);
+                    break;
+                  default:
+                    console.error;
+                }
           });
   }
 
@@ -220,14 +224,8 @@ export class UserModel {
     })
       .then((res) => {
         console.log(res);
-        if (data.status > 300 && data.status < 500) {
-          Bus.emit('error-409', el);
-          console.log('Server status: ' + data.status);
-          throw new Error('Network response was not ok.');
-        }
-        if (data.status >= 500) {
-          Bus.emit('error-5xx', el);
-          throw new Error('Network response was not ok.');
+        if (data.status > 300) {
+          throw data;
         }
         res.json().then((res) => {
           this.SetUser(res);
@@ -235,7 +233,16 @@ export class UserModel {
         });
       })
       .catch(() => {
-        console.error;
+        switch (data.status) {
+          case 409:
+            Bus.emit('error-409', el);
+            break;
+          case 500:
+            Bus.emit('error-5xx', el);
+            break;
+          default:
+            console.error;
+        }
       });
   }
 
