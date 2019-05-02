@@ -225,7 +225,7 @@ export class ProfileComponent {
       }
 
       AjaxModule.doPromisePut({
-        path: '/change_profile',
+        path: '/me',
         body: {
           email,
           login,
@@ -335,7 +335,7 @@ export class ProfileComponent {
           }
 
           AjaxModule.doPromisePut({
-            path: '/change_profile',
+            path: '/me',
             body: {
               email,
               login,
