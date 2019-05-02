@@ -1,14 +1,18 @@
 import Bus from '../scripts/EventBus.js'
 
 export class Validate {
-  ValidateEmpty (form) {
-    for (let i = 0; i < form.length; i++) {
-      if (form.elements[i].value === '') {
-        return (false)
-      }
+  
+    ValidateEmpty(form) {
+        for (let i = 0; i < form.length; i++) {
+            if (form.elements[i].type === "file") {
+                continue;
+            }
+            if (form.elements[i].value === '') {
+                return (false)
+            }
+        }
+        return (true)
     }
-    return (true)
-  }
 
   ValidateEmail (email) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -17,36 +21,35 @@ export class Validate {
     return (false)
   }
 
-  ValidatePassword (password) {
-    // different types of difficulty
-    // var passwreg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-    // var paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+  ValidatePassword(password) {
+        //different types of difficulty
+        let passwreg=  /^(?=.*[a-zA-Z0-9]).{4,20}$/;
+        // let passwreg = /^(?=.*\d)(?=.*[a-zA-Z]).{4,20}$/;
+        // let paswdreg =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
-    var passwreg = /^[A-Za-z]\w{4,14}$/
-    if (password.match(passwreg)) {
-      return true
-    } else {
-      return false
-    }
+        if (password.match(passwreg)) { 
+            return true;
+        } else { 
+            return false;
+        }
   }
 
-  ValidateEqualPassword (password1, password2) {
+  ValidateEqualPassword(password1, password2) {
     if (password1 != password2) {
-      return false
+      return false;
     }
     if (password1 === '' || password2 === '') {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
-  ValidateLogin (login) {
-    var logreg = /^[A-Za-z]\w{4,14}$/
-    if (login.match(logreg)) {
-      return true
-    } else {
-      return false
-    }
+  ValidateLogin(login) {
+    let logreg =  /^[A-Za-z]\w{3,14}$/;
+    if (login.match(logreg)) { 
+      return true;
+    }         
+    return false;        
   }
 
   ValidateAvatar (avatar) {
@@ -58,9 +61,9 @@ export class Validate {
       // The file uploaded is an image
       if (Extension == 'gif' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
         return true
-      } else {
-        return false
-      }
+      } 
+      return false
+      
     }
   }
 }

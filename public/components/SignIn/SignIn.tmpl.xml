@@ -11,7 +11,7 @@
         <h3 class="signin__header">Вход</h3>
         <span class="error error__hidden"></span>
         <form class="signin-form">
-            <input name="email" type="email" placeholder="Email" class="signin-form__input" /><br/>
+            <input name="email" type="text" placeholder="Email" class="signin-form__input" /><br/>
             <input name="password" type="password" placeholder="Password" class="signin-form__input input-last" /><br/>
             <input name="submit" type="submit" class="signin-form__submit" value="ВОЙТИ"/><br/>
         </form>

@@ -54,7 +54,7 @@ class UserModel {
     return this.isAutorised
   }
 
-    CheckAuthorized() {
+  CheckAuthorized() {
         AjaxModule.doPromiseGet({
             path: "/me"
         })
@@ -75,9 +75,82 @@ class UserModel {
             });
     }
 
-SignIn(form) {
-  const email = form.elements.email.value
-  const password = form.elements.password.value
+
+  SignIn(el) {
+    const form = el.getElementsByTagName('form')[0];
+
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+
+    AjaxModule.doPromisePost({
+            path: '/login',
+            body: {
+                email,
+                password,
+            },
+            })
+            .then((data) => {
+                if (data.status > 300) { 
+                    throw data;
+                }                
+                data.json().then((data) => {
+                  this.SetUser(data);
+                  Bus.emit('open-menu');
+                })
+            })
+            .catch((data) => {
+              switch (data.status) {
+                case 404:
+                  Bus.emit('error-404', el);
+                  break;
+                case 500:
+                  Bus.emit('error-5xx', el);
+                  break;
+                default:
+                  console.error;
+              }
+          });
+}
+      
+  
+  SignUp(el) {
+      const form = el.getElementsByTagName('form')[0];
+
+      const email = form.elements.email.value;
+      const password = form.elements.password.value;
+      const login = form.elements.login.value;
+      
+   AjaxModule.doPromisePost({
+      path: '/signup',
+      body: {
+        email,
+        password,
+        login,
+      },
+    })
+      .then((data) => {
+        if (data.status > 300) {
+          throw data;
+        }
+        return data.json();
+      })
+      .then((data) => {
+        this.SetUser(data);
+        Bus.emit('open-menu');
+      })
+      .catch((data) => {
+        switch (data.status) {
+          case 409:
+            Bus.emit('error-409', el);
+            break;
+          case 500:
+            Bus.emit('error-5xx', el);
+            break;
+          default:
+            console.error;
+        }
+      });
+  }
 
 
   Leaders(view) {
@@ -118,41 +191,6 @@ SignIn(form) {
   }
 
 
-
-
-SignUp(form) {
-  const email = form.elements.email.value
-  const password = form.elements.password.value
-  const login = form.elements.login.value
-
-  AjaxModule.doPromisePost({
-    path: '/signup',
-    body: {
-      email,
-      password,
-      login
-    }
-  })
-    .then((data) => {
-      if (data.status > 300) {
-        Bus.emit('error-409')
-        throw new Error('Network response was not ok.')
-      }
-      return data.json()
-    }
-    )
-    .then((data) => {
-      this.SetUser(data)
-      Bus.emit('open-menu')
-
-    })
-    .catch(() => {
-      // TODO: написать, что есть ошибки в регистрации
-      console.error
-    })
-}
-
-
 SignOut() {
   AjaxModule.doPromiseGet({
     path: '/signout'
@@ -168,28 +206,28 @@ SignOut() {
       console.error("Can't sign put!")
     })
 }
+ChangeProfile(el) {
+    const form = el.getElementsByTagName('form')[0];
 
-ChangeProfile(form) {
-  const email = form.email.value
-  const login = form.login.value
-  const image = form.inputAvatar
+    const email = form.email.value;
+    const login = form.login.value;
+    const image = form.inputAvatar;
 
-  if (image.value !== '') {
-    const avatarData = new FormData()
-    avatarData.append('avatar', image.files[0], image.value)
+    if (image.value !== '') {
+      console.log(image.files[0]);
+      const avatarData = new FormData();
+      avatarData.append('avatar', image.files[0], image.value);
 
-    const responseAvatar = this.UpdateAvatar(avatarData)
+      const responseAvatar = this.UpdateAvatar(avatarData);
 
-    if (responseAvatar.status !== 200) {
-      console.error('Unable to load avatar')
-      // return data;
+      if (responseAvatar.status !== 200) {
+        console.error('Unable to load avatar');
+        // return data;
+      }
     }
-  }
 
-
-    // TODO: провалидировать поля email и логин
     AjaxModule.doPromisePut({
-      path: '/me',
+      path: '/change_profile',
       body: {
         email,
         login,
@@ -197,20 +235,28 @@ ChangeProfile(form) {
     })
       .then((res) => {
         console.log(res);
-        if (res.status > 400) {
-          throw new Error('Network response was not ok.');
+        if (data.status > 300) {
+          throw data;
         }
         res.json().then((res) => {
           this.SetUser(res);
           Bus.emit('redraw-profile');
         });
-
       })
-    })
-    .catch(() => {
-      console.error
-    })
-}
+      .catch((data) => {
+        switch (data.status) {
+          case 409:
+            Bus.emit('error-409', el);
+            break;
+          case 500:
+            Bus.emit('error-5xx', el);
+            break;
+          default:
+            console.error;
+        }
+      });
+  }
+
 
 UpdateAvatar(body) {
   return AjaxModule.doPromisePost({
