@@ -1,20 +1,21 @@
-import Bus from './EventBus.js';
-import UserModel from '../modules/UserModel.js';
-import Router from './Router.js';
+import Bus from './EventBus.js'
+import UserModel from '../modules/UserModel.js'
+import Router from './Router.js'
 
-function insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+function insertAfter (newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
 }
 
 export default class EventController {
-  static Init() {
+  static Init () {
     Bus.on('check-autorized', () => {
-      UserModel.CheckAuthorized();
-    });
+      UserModel.CheckAuthorized()
+    })
 
     Bus.on('select-menu-header', (menu) => {
-      menu.RenderHeader(UserModel.IsAutorised());
-    });
+      menu.RenderHeader(UserModel.IsAutorised())
+    })
+
 
     Bus.on('sign-in', (el) => {
       UserModel.SignIn(el);
@@ -25,37 +26,35 @@ export default class EventController {
     });
 
     Bus.on('sign-out', () => {
-      UserModel.SignOut();
-    });
+      UserModel.SignOut()
+    })
 
     Bus.on('open-menu', () => {
-      console.log('Пришел эмит на open menu');
-      Router.open('/');
-    });
+      Router.open('/')
+    })
 
     Bus.on('get-current-user', (profileView) => {
-      profileView.SetUser(UserModel.GetUser());
-    });
+      profileView.SetUser(UserModel.GetUser())
+    })
 
     Bus.on('open-profile', () => {
-      Router.open('/me');
-    });
+      Router.open('/me')
+    })
 
     Bus.on('get-users', (leadersView) => {
-      UserModel.Leaders(leadersView, 0);
+      UserModel.Leaders(leadersView);
     });
 
-    Bus.on('previous-page', (leadersView) => {
-      UserModel.Leaders(leadersView, -1);
+    Bus.on('new-page', (leadersView) => {
+      UserModel.LeadersPage(leadersView);
     });
 
-    Bus.on('next-page', (leadersView) => {
-      UserModel.Leaders(leadersView, 1);
-    });
+
+
 
     Bus.on('open-sign-in', () => {
-      Router.open('/signIn');
-    });
+      Router.open('/signIn')
+    })
 
     Bus.on('error-404', (el) => {
         let error = el.getElementsByClassName('error')[0];
@@ -113,14 +112,19 @@ export default class EventController {
         })
         //const form = view.el.getElementsByTagName('form')[0];
         UserModel.ChangeProfile(view.el);
+
+    Bus.on('open-win-view', (score) => {
+      UserModel.setUserScore(score)
+      Router.open('/game/win')
     })
 
-    Bus.on('open-win-view', () => {
-      Router.open('/game/win');
+    Bus.on('open-lost-view', (score) => {
+      UserModel.setUserScore(score)
+      Router.open('/game/lost')
     })
 
-    Bus.on('open-lost-view', () => {
-      Router.open('/game/lost');
+    Bus.on('open-single', () => {
+      Router.open('/singlePlayer')
     })
   }
 }
