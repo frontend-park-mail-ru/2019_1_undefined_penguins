@@ -10,8 +10,9 @@
 
 body {
     margin: 0;
-    background: url(../images/background-main.jpg); 
+    background: url(/images/background-main.jpg); 
     background-size: cover;
+    font-family: Roboto-Regular;
 }
 
 #application {

@@ -1,45 +1,68 @@
-// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
-// const path = require('path');
+const ServiceWorkerWebpackPlugin = require("serviceworker-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require ("extract-text-webpack-plugin");
+const path  =  require("path");
 
-// const PATHS = {
-//   public: path.resolve(__dirname, 'public'),
-//   components: path.resolve(__dirname, 'public/components'),
-//   scripts: path.resolve(__dirname, 'public/scripts'),
-//   images: path.resolve(__dirname, 'public/images'),
-//   modules: path.resolve(__dirname, 'public/modules'),
-//   utils: path.resolve(__dirname, 'public/utils'),
-//   views: path.resolve(__dirname, 'public/views'),
-// };
+const  PATHS  =  {
+    public:  path.resolve(__dirname,  "public"),
+};
 
-// module.exports = {
-//   mode: 'development',
-//   entry: [
-//     `${PATHS.components}/About/About.tmpl.js`,
-//     `${PATHS.components}/Board/Board.tmpl.js`,
-//     `${PATHS.components}/Profile/Profile.tmpl.js`,
-//     `${PATHS.components}/SignIn/SignIn.tmpl.js`,
-//     `${PATHS.components}/SignUp/SignUp.tmpl.js`,
-//     `${PATHS.public}/main.js`,
-//   ],
+module.exports = {
+    mode:  "development",
+    entry: `${PATHS.public}/main.js`,
 
-//   module: {
-//     rules: [
-//       {
-//         test: /\.js$/,
-//         exclude: /node_modules/,
-//         loader: 'babel-loader',
-//       },
-//     ],
-//   },
+    module:  {
+        rules:  [
+            {
+                test:  /\.js$/,
+                exclude:  /node_modules/,
+                loader:  "babel-loader",
+            },
+            {
+                test:  /\.tmpl\.xml$/,
+                loader:  "fest-webpack-loader",
+            }, 
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract(
+                    {
+                        fallback: "style-loader",
+                        use: ["css-loader"]
+                    })
+            }, 
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: "url-loader",
+                options: {
+                    name: "images/[name].[ext]",
+                    limit: 4096
+                },
+            },
+            {
+                test: /\.(ico)$/,
+                loader: "url-loader?limit=1&name=[name].[ext]",
+            },
+            {
+                test: /\.(ttf)$/,
+                loader: "url-loader?name=fonts/[name].[ext]",
+            },
+        ],
+    },
 
-//   output: {
-//     path: PATHS.public,
-//     filename: 'bundle.js',
-//   },
+    output:  {
+        path:  PATHS.public,
+        filename:  "bundle.js",
+    },
 
-//   plugins: [
-//     new ServiceWorkerWebpackPlugin({
-//       entry: `${PATHS.public}/service-worker.js`,
-//     }),
-//   ],
-// };
+    plugins:  [
+        new  ServiceWorkerWebpackPlugin({
+            entry:  `${PATHS.public}/service-worker.js`,
+        }),
+        new HtmlWebpackPlugin({
+            filename: "index.html",
+            template: "./public/index.html",
+            inject: false,
+        }),
+        new ExtractTextPlugin({ filename: "bundle.css" }),
+    ],
+};
