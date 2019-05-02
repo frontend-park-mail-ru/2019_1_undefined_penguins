@@ -2,7 +2,7 @@ import Bus from '../scripts/EventBus.js'
 import AjaxModule from './ajax.js'
 import Validate from './Validate.js'
 
-export class UserModel {
+class UserModel {
   constructor() {
     this.isAutorised = null
     this.login = ''
