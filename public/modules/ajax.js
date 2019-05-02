@@ -1,10 +1,10 @@
-const noop = () => null;
+const noop = () => null
 
 // use it if you run backend on localhost
 const home = 'http://localhost:8080';
 
 // use it if you run backend on deploy
-// const home = 'https://penguin-wars-backend.sytes.pro';
+// const home = 'https://penguin-wars-backend.sytes.pro'
 
 /** Класс модуля для работы с Ajax. */
 class AjaxModule {
@@ -13,28 +13,28 @@ class AjaxModule {
          * @param [path = '/'] адрес запроса
          * @param [body = {}] тело запроса
          */
-  doPromisePost({
+doPromisePost({
     path = '/',
     contentType = null,
-    body,
+    body
   } = {}) {
     const options = {
       method: 'POST',
       mode: 'cors',
-      credentials: 'include',
-    };
+      credentials: 'include'
+    }
 
     if (body) {
       if (contentType === null) {
-        options.headers = { 'Content-Type': 'application/json; charset=utf-8' };
-        options.body = JSON.stringify(body);
+        options.headers = { 'Content-Type': 'application/json; charset=utf-8' }
+        options.body = JSON.stringify(body)
       } else {
         // options.headers = { 'Content-Type': 'multipart/form-data' };
-        options.body = body;
+        options.body = body
       }
     }
 
-    return fetch(`${home}${path}`, options);
+    return fetch(`${home}${path}`, options)
   }
 
   /**
@@ -42,14 +42,14 @@ class AjaxModule {
          * @param [path = '/'] адрес запроса
          */
   doPromiseGet({
-    path = '/',
+    path = '/'
   } = {}) {
     return fetch(`${home}${path}`, {
       method: 'GET',
       // mode: 'cors',
       credentials: 'include',
-      body: null,
-    });
+      body: null
+    })
   }
 
   /**
@@ -59,18 +59,18 @@ class AjaxModule {
          */
   doPromisePut({
     path = '/',
-    body = {},
+    body = {}
   } = {}) {
     return fetch(`${home}${path}`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8'
       },
-      body: JSON.stringify(body),
-    });
+      body: JSON.stringify(body)
+    })
   }
 }
 
-export default new AjaxModule();
+export default new AjaxModule()
