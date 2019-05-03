@@ -21,10 +21,10 @@ export default class ControllersManager {
         event.preventDefault();
         // привязываем пробел
         switch (event.keyCode) {
-            case 32:
+        case 32:
                 
-                // this.clockwise = !this.clockwise;
-                break;
+            // this.clockwise = !this.clockwise;
+            break;
         }
     }
 }

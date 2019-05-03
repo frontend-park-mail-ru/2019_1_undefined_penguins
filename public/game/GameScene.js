@@ -91,56 +91,56 @@ export default class GameScene {
     }
 
 
-_init() {
+    _init() {
     // устанавливаем счетчик
-    this.score = 0;
-    // рисуем бэкграунд
-    ctx.fillStyle = 'rgba(130,130,130,0)';
-    // ctx.fillStyle = 'rgba(130,130,130,0)'; //прозрачный
-    ctx.fillRect(0, 0, this.canv.width, this.canv.height);
+        this.score = 0;
+        // рисуем бэкграунд
+        ctx.fillStyle = 'rgba(130,130,130,0)';
+        // ctx.fillStyle = 'rgba(130,130,130,0)'; //прозрачный
+        ctx.fillRect(0, 0, this.canv.width, this.canv.height);
 
 
-    // рисуем пушку
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.canv.width / 2, this.canv.height / 2, this.gunWidth, this.gunHeigth);
+        // рисуем пушку
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.canv.width / 2, this.canv.height / 2, this.gunWidth, this.gunHeigth);
 
-    // рисуем рыбок
-    ctx.fillStyle = 'lime';
-    for (let i = 0; i < this.piscesCount; i++) {
-        const length = (this.circleSize / 2);
-        const alpha = (360 / this.piscesCount) * i;
+        // рисуем рыбок
+        ctx.fillStyle = 'lime';
+        for (let i = 0; i < this.piscesCount; i++) {
+            const length = (this.circleSize / 2);
+            const alpha = (360 / this.piscesCount) * i;
 
 
-        const alphaRad = this.degreesToRadians(alpha);
-        const x = Math.floor(this.canv.width / 2 + Math.sin(alphaRad) * length);
-        const y = Math.floor(this.canv.height / 2 - Math.cos(alphaRad) * length);
+            const alphaRad = this.degreesToRadians(alpha);
+            const x = Math.floor(this.canv.width / 2 + Math.sin(alphaRad) * length);
+            const y = Math.floor(this.canv.height / 2 - Math.cos(alphaRad) * length);
 
-        this.pisces.push({ x, y, degree: alpha });
-        ctx.fillRect(x, y, this.fishWidth, this.fishHeigth);
-    }
-    // назначаем стартовую позицию пингвину
-    this.penguinAlpha = Math.floor(Math.random() * 360);
+            this.pisces.push({ x, y, degree: alpha });
+            ctx.fillRect(x, y, this.fishWidth, this.fishHeigth);
+        }
+        // назначаем стартовую позицию пингвину
+        this.penguinAlpha = Math.floor(Math.random() * 360);
 
-    this.penguinX = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
+        this.penguinX = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
 
-    this.penguinY = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
+        this.penguinY = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
 
-    // рисуем пингвина
-    ctx.fillStyle = '#9932CC';
-    ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
+        // рисуем пингвина
+        ctx.fillStyle = '#9932CC';
+        ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
 
-    // направление движения пингвина
-    this.clockwise = true;
+        // направление движения пингвина
+        this.clockwise = true;
 
     // this.interval1 = setInterval(() => this.game(), 15);
     // this.interval2 = setInterval(() => this.shot(), 20);
-}
+    }
 }
 
-    // setNames(me, opponent) {
-    //     this.players = {me, opponent};
-    // }
+// setNames(me, opponent) {
+//     this.players = {me, opponent};
+// }
 
-    // destroy() {
-    //     window.removeEventListener('resize', this.bindedResizer);
-    // }
+// destroy() {
+//     window.removeEventListener('resize', this.bindedResizer);
+// }

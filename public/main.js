@@ -6,39 +6,32 @@ import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
 import SignOutView from './views/SignOutView.js';
-import GameView from './views/GameView.js';
-// import MultiplayerView from './views/MultiplayerView.js';
+import SingleplayerView from './views/SingleplayerView.js';
+import MultiplayerView from './views/MultiplayerView.js';
+import WinView from './views/WinView.js';
+import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
-import WS from './modules/WebSocket.js';
-import Bus from './scripts/EventBus.js';
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js')
-//     .then((registration) => {
-//       console.log('ServiceWorker registration', registration);
-//     })
-//     .catch((error) => {
-//       throw new Error(`ServiceWorker error: ${error}`);
-//     });
-// }
+import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+import './main.css';
 
 EventController.Init();
 
-const ws = new WS();
-
-Bus.on('ws:connected', () => {
-  ws.send("playerFRONT", "BUGAGA");
-});
-
 Router
-  .register('/', MenuView)
-  .register('/leaders', ScoreboardView)
-  .register('/signIn', SignInView)
-  .register('/signUp', SignUpView)
-  .register('/about', AboutView)
-  .register('/me', ProfileView)
-  .register('/signout', SignOutView)
-  .register('/game', GameView);
-  // .register('/multiPlayer', MultiplayerView);
+    .register('/', MenuView)
+    .register('/leaders', ScoreboardView)
+    .register('/signIn', SignInView)
+    .register('/signUp', SignUpView)
+    .register('/about', AboutView)
+    .register('/me', ProfileView)
+    .register('/signout', SignOutView)
+    .register('/singlePlayer', SingleplayerView)
+    .register('/multiPlayer', MultiplayerView)
+    .register('/game/win', WinView)
+    .register('/game/lost', LostView);
 
 Router.start();
+
+if ('serviceWorker' in navigator) {
+    runtime.register();
+}
