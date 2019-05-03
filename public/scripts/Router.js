@@ -11,11 +11,12 @@ class Router {
 	 * @param {string} path
 	 * @param {BaseView} View
 	 */
-    register (path, View) {
+    register (path, View, mode) {
         this.routes[path] = {
             View,
             view: null,
-            el: null
+            el: null,
+            mode: mode,
         };
 
         return this;
@@ -40,7 +41,7 @@ class Router {
             );
         }
 
-        let { View, view, el } = route;
+        let { View, view, el, mode } = route;
 
         if (!el) {
             el = document.createElement('section');
@@ -48,7 +49,7 @@ class Router {
         }
 
         if (!view) {
-            view = new View(el);
+            view = new View(el, mode);
         }
 
         if (!view.active) {
@@ -61,7 +62,7 @@ class Router {
             view.show();
         }
 
-        this.routes[path] = { View, view, el };
+        this.routes[path] = { View, view, el, mode };
     }
 
     start () {

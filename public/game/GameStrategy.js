@@ -14,23 +14,7 @@ export default class GameStrategy {
             throw new TypeError('Can not create instance of GameStrategy');
         }
 
-        // this._subscribed = [];
-        // this.mediatorCallback = function (event) {
-        // 	const name = event.name;
-        // 	const payload = event.payload;
-
-        // 	this._subscribed.forEach(data => {
-        // 		if (data.name !== name) {
-        // 			return;
-        // 		}
-
-        // 		if (data.callback && typeof this[data.callback] === 'function') {
-        // 			this[data.callback](payload);
-        // 		}
-        // 	})
-        // }.bind(this);
-
-        // this.subscribe(EVENTS.WE_ARE_LOGGED_IN, 'onLoggedIn');
+        this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
 
         this.me = null;
@@ -38,10 +22,15 @@ export default class GameStrategy {
         this.state = null;
     }
 
-    // onLoggedIn(payload) {
-    // 	console.log('GameStrategy.fn.onLoggedIn', arguments);
-    // 	throw new TypeError('Not implemented');
-    // }
+    readyToStart(payload) {
+    	console.log('GameStrategy.fn.onLoggedIn', arguments);
+    	throw new TypeError('Not implemented');
+    }
+
+    fireOpponentFound(me, opponent) {
+        console.log('GameStrategy.fn.fireOpponentFound', arguments);
+        Bus.emit(EVENTS.INIT_OPPONENTS, {me, opponent});
+    }
 
     // onNewCommand(payload) {
     // 	console.log('GameStrategy.fn.onNewCommand', arguments);

@@ -3,7 +3,7 @@ export default class GameScene {
         console.log('GameScene.fn');
 
         this.canvas = canvas;
-        ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d');
         this.fieldSize = 1;
 
         // this.bindedResizer = this.resizer.bind(this);
@@ -92,7 +92,7 @@ export default class GameScene {
 
 
     _init() {
-    // устанавливаем счетчик
+        // устанавливаем счетчик
         this.score = 0;
         // рисуем бэкграунд
         ctx.fillStyle = 'rgba(130,130,130,0)';
@@ -132,14 +132,14 @@ export default class GameScene {
         // направление движения пингвина
         this.clockwise = true;
 
-    // this.interval1 = setInterval(() => this.game(), 15);
-    // this.interval2 = setInterval(() => this.shot(), 20);
+        // this.interval1 = setInterval(() => this.game(), 15);
+        // this.interval2 = setInterval(() => this.shot(), 20);
+    }
+
+    setNames(me, opponent) {
+        this.players = { me, opponent };
     }
 }
-
-// setNames(me, opponent) {
-//     this.players = {me, opponent};
-// }
 
 // destroy() {
 //     window.removeEventListener('resize', this.bindedResizer);

@@ -1,6 +1,8 @@
 import Bus from './EventBus.js';
 import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
+import Game from '../game/Game.js';
+import { STRATEGIES } from '../utils/strategies.js'
 
 function insertAfter (newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -123,6 +125,19 @@ export default class EventController {
 
         Bus.on('open-single', () => {
             Router.open('/singlePlayer');
+        });
+
+        Bus.on('start-game', (view) => {
+            const Strategy = STRATEGIES[view.getMode()];
+            const gameCanvas = view.getCanvases();
+            const game = new Game(Strategy, UserModel.GetUser().login, gameCanvas);
+            view.setGame(game);
+            // Bus.off('start-game');
+        });
+
+        Bus.on('finish-game', (view) => {
+            view.game.destroy();
+            delete view.game;
         });
     }
 }
