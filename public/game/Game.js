@@ -5,18 +5,18 @@ export default class Game {
     /**
 	* @param {GameStrategy} Strategy - реализация игровой стратегии
 	* @param {String} username - имя первого пользователя
-	* @param {CanvasElement} canvas - canvas-игрового поля
+	* @param {String: {CanvasElement}} canvases - canvases-игрового поля
 	*/
-    constructor(Strategy, username, canvas) {
+    constructor(Strategy, username, canvases) {
         console.log('Game.fn');
         if (!(Strategy.prototype instanceof GameStrategy)) {
             throw new TypeError('Strategy is not a GameStrategy');
         }
 
         this.username = username;
-        this.canvas = canvas;
+        this.canvases = canvases;
 
-        this.manager = new GameManager(this.username, this.canvas, Strategy);
+        this.manager = new GameManager(this.username, this.canvases, Strategy);
     }
 
     destroy() {

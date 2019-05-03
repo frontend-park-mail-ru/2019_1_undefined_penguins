@@ -37,7 +37,6 @@ export default class GameView extends BaseView {
     }
 
     render() {
-        this.el.innerHTML = '';
         // TODO: ПОТОМ НОРМАЛЬНО СДЕЛАЕМ
     
     }
