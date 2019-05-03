@@ -3,6 +3,7 @@ import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
 import Game from '../game/Game.js';
 import { STRATEGIES } from '../utils/strategies.js'
+import { EVENTS } from '../utils/events.js';
 
 function insertAfter (newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -129,15 +130,21 @@ export default class EventController {
 
         Bus.on('start-game', (view) => {
             const Strategy = STRATEGIES[view.getMode()];
-            const gameCanvas = view.getCanvases();
-            const game = new Game(Strategy, UserModel.GetUser().login, gameCanvas);
+            const gameCanvases = view.getCanvases();
+            const game = new Game(Strategy, UserModel.GetUser().login, gameCanvases);
             view.setGame(game);
             // Bus.off('start-game');
         });
 
-        Bus.on('finish-game', (view) => {
-            view.game.destroy();
-            delete view.game;
+        Bus.on(EVENTS.OPEN_FINISH_VIEW, (payload) => {
+            console.log('finishGame', payload);
+            // TODO: Открывать вью в зависимости от результата. Сделать if
+            Router.open('/game/win');
+            // TODO: Удалять game во вью
+            
+            // view.game.destroy();
+            // delete view.game;
+
         });
     }
 }

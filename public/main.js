@@ -31,6 +31,6 @@ Router
 
 Router.start();
 
-if ('serviceWorker' in navigator) {
-    runtime.register();
-}
+// if ('serviceWorker' in navigator) {
+//     runtime.register();
+// }
