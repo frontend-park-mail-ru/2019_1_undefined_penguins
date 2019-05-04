@@ -3,13 +3,11 @@ export default class GameScene {
         console.log('GameScene.fn');
 
         this.canvases = canvases;
-        console.log('canv');
 
         this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxPenguin = this.canvases['penguin'].getContext('2d');
         this.ctxSnow = this.canvases['snow'].getContext('2d');
         this.ctxGun = this.canvases['gun'].getContext('2d');
-        console.log('canv4');
 
         this.resizer();
         // this.fieldSize = 1;
@@ -34,8 +32,6 @@ export default class GameScene {
         this.penguinHeigth = this.canvases['penguin'].height/20;
         this.bulletWidth = this.canvases['snow'].width/60;
         this.bulletHeight = this.canvases['snow'].height/60;
-        console.log(this.canvases['fish'].width);
-
     }
 
     degreesToRadians(degrees){

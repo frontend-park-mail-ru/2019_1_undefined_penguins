@@ -36,22 +36,23 @@ export default class GameStrategy {
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
-    fireGameOver(message) {
+    gameOver(message) {
         console.log('GameStrategy.fn.fireGameOver', arguments);
         Bus.emit(EVENTS.FINISH_THE_GAME, {message});
     }
-    // onNewCommand(payload) {
-    // 	console.log('GameStrategy.fn.onNewCommand', arguments);
-    // 	throw new TypeError('Not implemented');
-    // }
+    
+    onNewCommand(payload) {
+        console.log('GameStrategy.fn.onNewCommand', arguments);
+        throw new TypeError('Not implemented');
+    }
 
-    // fireWaitOpponent() {
-    // 	console.log('GameStrategy.fn.fireWaitOpponent', arguments);
-    // 	mediator.emit(EVENTS.WAITING_FOR_OPPONENT);
-    // }
+    waitOpponent() {
+        console.log('GameStrategy.fn.fireWaitOpponent', arguments);
+        mediator.emit(EVENTS.WAITING_FOR_OPPONENT);
+    }
 
     setNewGameState(state) {
-        // console.log('GameStrategy.fn.fireSetNewGameState', arguments);
+        console.log('GameStrategy.fn.setNewGameState', arguments);
         Bus.emit(EVENTS.SET_NEW_GAME_STATE, {state});
     }
 
