@@ -1,4 +1,7 @@
 import GameStrategy from '../GameStrategy.js';
+import { EVENTS } from '../../utils/events.js';
+import Bus from '../../scripts/EventBus.js';
+
 export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
         console.log('SinglePlayerStrategy.fn');
@@ -12,6 +15,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
         this.opponent = 'Jhon Snow';
         this.opponentFound(this.me, this.opponent);
         this.startGame();
+        this.sideLength = 100;
         this.state = {
             penguinAngle: Math.floor(Math.random()*360),
             piscesAngles: [
@@ -21,57 +25,62 @@ export default class SinglePlayerStrategy extends GameStrategy {
             ],
             clockwise: true,
             bullet:{
-                destinationFromCenter: 0,
+                distanceFromCenter: 0,
                 angle: 0,
             },
             gunAngle: 0,
         };
-
+        this.score = 0;
         this.startGameLoop();
     }
 
     gameLoop() {
-        // if (this.state && this.state.bullets) {
-        //     this.state.bullets = this.state.bullets.map(blt => {
-        //         switch (blt.dir) {
-        //             case 'down': {
-        //                 blt.y--;
-        //                 if (Math.abs(this.state.me.xpos - blt.x) <= 1) {
-        //                     if (Math.abs(this.state.me.ypos - blt.y) <= 1) {
-        //                         this.state.me.hp--;
-        //                         return null;
-        //                     }
-        //                 }
-        //                 break;
-        //             }
-        //             case 'up': {
-        //                 blt.y++;
-        //                 if (Math.abs(this.state.opponent.xpos - blt.x) <= 1) {
-        //                     if (Math.abs(this.state.opponent.ypos - blt.y) <= 1) {
-        //                         this.state.opponent.hp--;
-        //                         return null;
-        //                     }
-        //                 }
-        //                 break;
-        //             }
-        //         }
-        //         if (blt.y > 33 || blt.y < 0) {
-        //             return null;
-        //         }
-        //         return blt;
-        //     });
-        //     this.state.bullets = this.state.bullets.filter(blt => blt);
-        // }
+        if (this.state.penguinAngle == 360) {
+            this.state.penguinAngle = 0;
+        }
+        if (this.state.penguinAngle == -1) {
+            this.state.penguinAngle = 359;
+        }
+        let eaten = -1;
+        for (let i = 0; i < this.piscesAngles.length; i++) {
+            if (this.piscesAngles[i] === this.state.penguinAngle) {
+                this.score++;
+                // this.scoreElement.innerText = this.score;
+                eaten = i;
+                break;
+            }
+        }
+        if (eaten != -1) {
+            const angle = this.state.piscesAngles[eaten];
+            Bus.emit(EVENTS.EAT_FISH, {angle});
+            this.piscesAngles.splice(eaten, 1);
+            if (this.state.piscesAngles.length === 0) {
+                // Bus.emit('next-level', this.score);
+            }
+        }
 
-        // if (this.state.me.hp <= 0) {
-        //     return this.fireGameOver(`Игра окончена, вы проиграли (${this.me}:${this.state.me.hp} / ${this.opponent}:${this.state.opponent.hp})`);
-        // }
+        //считаем угол пингвина
+        if (this.state.clockwise) {
+            this.state.penguinAngle++;
+        } else {
+            this.state.penguinAngle--;
+        }
 
-        // if (this.state.opponent.hp <= 0) {
-        return this.gameOver(`Игра окончена, вы победили (${this.me} / ${this.opponent})`);
-        // }
-
-        // this.fireSetNewGameState(this.state);
+        //считаем пулю и возможное соприкосновение с пингвином
+        if (this.state.bullet.distanceFromCenter > this.sideLength*0.8/2) {
+            if (this.state.bullet.angle % 360 >= this.state.penguinAngle - 7 && this.state.bullet.angle % 360 <= this.state.penguinAngle + 7) {
+                // Bus.emit('penguin-injured', this.score);
+                return;
+            } else {
+                if (this.state.clockwise) {
+                    this.bullet.angle = this.state.penguinAngle + Math.floor(Math.random()*100);
+                } else {
+                    this.bullet.angle = this.state.penguinAngle - Math.floor(Math.random()*100);
+                }
+                this.bullet.distanceFromCenter = 0;
+            }
+        }
+        this.bullet.distanceFromCenter += 5;
     }
 
     startGameLoop() {

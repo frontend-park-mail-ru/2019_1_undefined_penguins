@@ -24,6 +24,7 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         // this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
+        this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
 
         Bus.emit(EVENTS.READY_TO_START, {username});
     }
@@ -55,6 +56,10 @@ export default class GameManager {
 
         this.scene.render();
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
+
+    onEatenFish(fishAngle){
+        this.scene.removeFish(fishAngle);
     }
 
     onFinishTheGame(payload) {
