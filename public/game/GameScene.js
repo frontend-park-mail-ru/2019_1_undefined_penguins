@@ -134,7 +134,6 @@ export default class GameScene {
     removeFish(angle){
         const x = this.getX(angle);
         const y = this.getY(angle);
-        console.log('ugol:', angle, 'x', x, 'y', y);
         this.ctxFish.clearRect(x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);
     }
 

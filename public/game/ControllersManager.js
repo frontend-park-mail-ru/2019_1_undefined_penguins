@@ -1,13 +1,21 @@
+import Bus from '../scripts/EventBus.js';
+import { EVENTS } from '../utils/events.js';
+
 export default class ControllersManager {
     constructor() {
         console.log('ControllersManager.fn');
+
     }
 
     /**
      * Начинаем слушать события клавиатуры
      */
     init() {
-        document.addEventListener('keydown', this._keyPush(event));
+
+        document.addEventListener('keydown', (event) => {
+            event.preventDefault();
+            this._keyPush(event);
+        });
     }
 
     /**
@@ -18,12 +26,9 @@ export default class ControllersManager {
     }
 
     _keyPush(event) {
-        event.preventDefault();
-        // привязываем пробел
         switch (event.keyCode) {
         case 32:
-                
-            // this.clockwise = !this.clockwise;
+            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
             break;
         }
     }

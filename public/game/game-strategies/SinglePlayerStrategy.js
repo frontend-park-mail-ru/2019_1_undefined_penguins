@@ -7,8 +7,14 @@ export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
         console.log('SinglePlayerStrategy.fn');
         super();
+        // PENGUIN_TURN_AROUND
+        this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');
 
         this.interval = null;
+    }
+
+    penguinTurnAround(){
+        this.state.clockwise = !this.state.clockwise;
     }
 
     readyToStart(payload) {
@@ -33,7 +39,6 @@ export default class SinglePlayerStrategy extends GameStrategy {
         };
         this.score = 0;
         this.startGameLoop();
-        console.log('started');
     }
 
     gameLoop() {
@@ -92,5 +97,13 @@ export default class SinglePlayerStrategy extends GameStrategy {
 
     startGameLoop() {
         this.interval = setInterval(() => this.gameLoop(), 100);
+    }
+
+    subscribe(event, callbackName) {
+        Bus.on(event, function (payload) {
+            if (callbackName && typeof this[callbackName] === 'function') {
+                this[callbackName](payload);
+            }
+        }.bind(this));
     }
 }
