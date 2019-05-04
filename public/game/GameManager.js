@@ -23,7 +23,7 @@ export default class GameManager {
         this.subscribe(EVENTS.INIT_OPPONENTS, 'onFindOpponent');
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
-        this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
+        // this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         Bus.emit(EVENTS.READY_TO_START, {username});
 
@@ -70,19 +70,19 @@ export default class GameManager {
         this.scene.removeFish(fishAngle);
     }
 
-    onFinishTheGame(payload) {
-        console.log('GameManager.fn.onFinishTheGame', payload);
+    // onFinishTheGame(payload) {
+    //     console.log('GameManager.fn.onFinishTheGame', payload);
 
-        if (this.requestID) {
-            cancelAnimationFrame(this.requestID);
-        }
+    //     if (this.requestID) {
+    //         cancelAnimationFrame(this.requestID);
+    //     }
 
-        this.strategy.destroy();
-        this.scene.destroy(); // TODO: проверить в интеграции
-        this.controllers.destroy();
+    //     this.strategy.destroy();
+    //     this.scene.destroy(); // TODO: проверить в интеграции
+    //     this.controllers.destroy();
 
-        Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
-    }
+    //     Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
+    // }
 
     // onNewState(payload) {
     //     // console.log('GameManager.fn.onNewState', payload);
