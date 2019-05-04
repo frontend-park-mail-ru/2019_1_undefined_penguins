@@ -7,6 +7,8 @@ export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
         console.log('SinglePlayerStrategy.fn');
         super();
+        // PENGUIN_TURN_AROUND
+        this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');
         this.ws = new WS('game');
 
         // this.interval = null;
@@ -16,6 +18,33 @@ export default class SinglePlayerStrategy extends GameStrategy {
         this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
     }
 
+    penguinTurnAround(){
+        this.state.clockwise = !this.state.clockwise;
+    }
+
+//     readyToStart(payload) {
+//         this.me = payload.username;
+//         this.opponent = 'Jhon Snow';
+//         this.opponentFound(this.me, this.opponent);
+//         this.startGame();
+//         this.sideLength = 100;
+//         this.state = {
+//             penguinAngle: Math.floor(Math.random()*360),
+//             piscesAngles: [
+//                 15,
+//                 30,
+//                 45,
+//             ],
+//             clockwise: true,
+//             bullet:{
+//                 distanceFromCenter: 0,
+//                 angle: 0,
+//             },
+//             gunAngle: 0,
+//         };
+//         this.score = 0;
+//         this.startGameLoop();
+      
     onStart(payload) {
         console.dir(payload);
         // TODO: choose who is who
@@ -132,5 +161,13 @@ export default class SinglePlayerStrategy extends GameStrategy {
 
     startGameLoop() {
         // this.interval = setInterval(() => this.gameLoop(), 100);
+    }
+
+    subscribe(event, callbackName) {
+        Bus.on(event, function (payload) {
+            if (callbackName && typeof this[callbackName] === 'function') {
+                this[callbackName](payload);
+            }
+        }.bind(this));
     }
 }
