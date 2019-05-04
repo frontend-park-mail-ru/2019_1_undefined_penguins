@@ -11,7 +11,8 @@
     "linter": "npx eslint -c .eslintrc.json './**/*.js'",
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
     "dev": "npm run tmpl && webpack --mode development",
-    "build": "npm run tmpl && webpack --mode production"
+    "build": "npm run tmpl && webpack --mode production",
+    "watch": "webpack --mode development --watch --progress"
   },
   "keywords": [],
   "author": "",
