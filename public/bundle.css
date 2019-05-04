@@ -820,6 +820,17 @@ a {
     text-align: center;
     margin-top: 90px;
     cursor: pointer;
+}.game-view__canvas-layers {
+    position:relative; 
+    width:800px; 
+    height:800px 
+}
+
+.game-view__canvas-layer {
+    position:absolute; 
+    top:0; 
+    left:0;
+
 }.error {
     color: #f10000;
     font-size: 19px;

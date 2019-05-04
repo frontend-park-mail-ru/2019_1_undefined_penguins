@@ -1,145 +1,162 @@
 export default class GameScene {
-    constructor(canvas) {
+    constructor(canvases) {
         console.log('GameScene.fn');
 
-        this.canvas = canvas;
-        ctx = this.canvas.getContext('2d');
-        this.fieldSize = 1;
+        this.canvases = canvases;
+        console.log('canv');
+
+        this.ctxFish = this.canvases['fish'].getContext('2d');
+        this.ctxPenguin = this.canvases['penguin'].getContext('2d');
+        this.ctxSnow = this.canvases['snow'].getContext('2d');
+        this.ctxGun = this.canvases['gun'].getContext('2d');
+        console.log('canv4');
+
+        this.resizer();
+        // this.fieldSize = 1;
 
         // this.bindedResizer = this.resizer.bind(this);
         // window.addEventListener('resize', this.bindedResizer);
         // this.resizer();
 
-        this.setState({});
-        this._init(); // TODO: объединить с setState
-        this.render();
+        // this.setState({});
+        // this._init(); // TODO: объединить с setState
+        // this.render();
     }
 
-    // resizer() {
-    //     const height = window.innerHeight;
-    //     this.fieldSize = (height / HDim) | 0;
+    resizer() {
+        const sideLength = 100;
+        const height = this.canvases['penguin'].height;
+        this.increasePercentage = height/sideLength | 0;
+        this.circleSize = height * 0.8;
+        this.fishWidth = this.canvases['fish'].width/20;
+        this.fishHeigth = this.canvases['fish'].height/40;
+        this.penguinWidth = this.canvases['penguin'].width/30;
+        this.penguinHeigth = this.canvases['penguin'].height/20;
+        this.bulletWidth = this.canvases['snow'].width/60;
+        this.bulletHeight = this.canvases['snow'].height/60;
+        console.log(this.canvases['fish'].width);
 
-    //     this.canvas.dheight = this.fieldSize * HDim;
-    //     this.canvas.dwidth = this.fieldSize * WDim;
+    }
 
-    //     this.canvas.height = this.canvas.dheight;
-    //     this.canvas.width = this.canvas.dwidth;
-    // }
+    degreesToRadians(degrees){
+        return degrees * (Math.PI/180);
+    }
+
+    getX(degrees, distanceFromCenter = this.circleSize/2){
+        return Math.floor(this.canvases['penguin'].height/2 + Math.sin(this.degreesToRadians(degrees))*distanceFromCenter);
+    }
+
+    getY(degrees, distanceFromCenter = this.circleSize/2){
+        return Math.floor(this.canvases['penguin'].height/2 - Math.cos(this.degreesToRadians(degrees))*distanceFromCenter);
+    }
 
     setState(state) {
-        // console.log(`GameScene.fn.setState`, state);
-
         this.state = state;
     }
 
-    render() {
-        // console.log(`GameScene.fn.render`);
-
-        if (!this.state) {
-            return;
-        }
-
-        const ctx = this.ctx;
-
-        if (this.penguinAlpha == 360) {
-            this.penguinAlpha = 0;
-        }
-        if (this.penguinAlpha == -1) {
-            this.penguinAlpha = 359;
-        }
-        // если съедает рыбку полностью, то увеличивается количество очков
-        let eaten = -1;
-
-        for (let i = 0; i < this.pisces.length; i++) {
-            if (this.penguinAlpha == this.pisces[i].degree) {
-                this.score++;
-                this.scoreElement.innerText = this.score;
-
-                eaten = i;
-                break;
-            }
-            ctx.fillStyle = 'lime';
-            ctx.fillRect(this.pisces[i].x, this.pisces[i].y, this.fishWidth, this.fishHeigth);
-        }
-
-
-        if (eaten != -1) {
-            this.pisces.splice(eaten, 1);
-            if (this.pisces.length == 0) {
-                alert('Вы выиграли');
-                clearInterval(this.interval1);
-                clearInterval(this.interval2);
-                Bus.emit('open-menu');
-            }
-        }
-
-        // удаляем старого пингвина
-        ctx.clearRect(this.penguinX - 5, this.penguinY - 5, this.penguinWidth + 10, this.penguinHeigth + 10);
-
-        // считаем нового пингвина
-        if (this.clockwise) {
-            this.penguinAlpha++;
-        } else {
-            this.penguinAlpha--;
-        }
-        this.penguinX = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
-        this.penguinY = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
-
-        // назначаем нового пингвина
-        ctx.fillStyle = '#9932CC';
-        ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
+    getState(){
+        return this.state;
     }
 
+    renderPisces(){
+        this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
+        this.state.piscesAngles.forEach(element => {
+            const fishImage=new Image();
+            const x = this.getX(element);
+            const y = this.getY(element);
+            fishImage.onload = function (){
+                this.ctxFish.drawImage(fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);
+            }.bind(this);
+            fishImage.src = '../images/fish-3.png';
+        });
+    }
 
-    _init() {
-    // устанавливаем счетчик
-        this.score = 0;
-        // рисуем бэкграунд
-        ctx.fillStyle = 'rgba(130,130,130,0)';
-        // ctx.fillStyle = 'rgba(130,130,130,0)'; //прозрачный
-        ctx.fillRect(0, 0, this.canv.width, this.canv.height);
+    renderPenguin(){
+        this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
+        const penguinImage=new Image();
+        const x = this.getX(this.state.penguinAngle);
+        const y = this.getY(this.state.penguinAngle);
+        penguinImage.onload = function (){
+            this.ctxPenguin.translate(x, y);
+            if (this.state.clockwise) {
+                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguinAngle+90));
+            } else {
+                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguinAngle-90));
+            }
+            
+            this.ctxPenguin.drawImage(penguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
+            if (this.state.clockwise) {
+                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguinAngle+90));
+            } else {
+                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguinAngle-90));
+            }
+            this.ctxPenguin.translate(-x, -y);
+        }.bind(this);
+        penguinImage.src='../images/penguin-2.png';
 
+    }
 
-        // рисуем пушку
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.canv.width / 2, this.canv.height / 2, this.gunWidth, this.gunHeigth);
+    renderInjuredPenguin(){
+        // this.ctxPenguin
 
-        // рисуем рыбок
-        ctx.fillStyle = 'lime';
-        for (let i = 0; i < this.piscesCount; i++) {
-            const length = (this.circleSize / 2);
-            const alpha = (360 / this.piscesCount) * i;
+    }
 
+    renderBullet(){
+        this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
+        const bulletImage=new Image();
+        const x = this.getX(this.state.bullet.angle,this.state.bullet.distanceFromCenter*this.increasePercentage);
+        const y = this.getY(this.state.bullet.angle,this.state.bullet.distanceFromCenter*this.increasePercentage);
+        bulletImage.onload = function (){
+            this.ctxSnow.drawImage(bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
 
-            const alphaRad = this.degreesToRadians(alpha);
-            const x = Math.floor(this.canv.width / 2 + Math.sin(alphaRad) * length);
-            const y = Math.floor(this.canv.height / 2 - Math.cos(alphaRad) * length);
+        }.bind(this);
+        bulletImage.src = '../images/snow-1.png';
 
-            this.pisces.push({ x, y, degree: alpha });
-            ctx.fillRect(x, y, this.fishWidth, this.fishHeigth);
-        }
-        // назначаем стартовую позицию пингвину
-        this.penguinAlpha = Math.floor(Math.random() * 360);
+    }
 
-        this.penguinX = Math.floor(this.canv.width / 2 + Math.sin(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
+    renderGun(){
+        // this.ctxGun
 
-        this.penguinY = Math.floor(this.canv.width / 2 - Math.cos(this.degreesToRadians(this.penguinAlpha)) * this.circleSize / 2);
+    }
 
-        // рисуем пингвина
-        ctx.fillStyle = '#9932CC';
-        ctx.fillRect(this.penguinX, this.penguinY, this.penguinWidth, this.penguinHeigth);
+    renderCloud(){
+        this.ctxGun.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
+        const gunWidth = this.canvases['gun'].width / 10;
+        const gunHeigth = this.canvases['gun'].height / 10;
+        const gunImage=new Image();
+        gunImage.onload = function (){
+            this.ctxGun.drawImage(gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+        }.bind(this);
+        gunImage.src = '../images/cloud.png';
 
-        // направление движения пингвина
-        this.clockwise = true;
+    }
 
-    // this.interval1 = setInterval(() => this.game(), 15);
-    // this.interval2 = setInterval(() => this.shot(), 20);
+    removeFish(angle){
+        const x = this.getX(angle);
+        const y = this.getY(angle);
+        this.ctxFish.clearRect(x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);
+    }
+
+    renderAllAsPenguin(){
+        this.renderPisces();
+        this.renderPenguin();
+        this.renderBullet();
+        this.renderCloud();
+    }
+
+    renderAsPenguin(){
+        this.renderPenguin();
+        this.renderBullet();
+    }
+
+    renderAsGun(){
+
+    }
+
+    setNames(me, opponent) {
+        this.players = { me, opponent };
     }
 }
-
-// setNames(me, opponent) {
-//     this.players = {me, opponent};
-// }
 
 // destroy() {
 //     window.removeEventListener('resize', this.bindedResizer);
