@@ -1,6 +1,7 @@
 import GameStrategy from '../GameStrategy.js';
 import { EVENTS } from '../../utils/events.js';
 import Bus from '../../scripts/EventBus.js';
+import { format } from 'util';
 
 export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
@@ -42,10 +43,12 @@ export default class SinglePlayerStrategy extends GameStrategy {
             this.state.penguinAngle = 359;
         }
         let eaten = -1;
-        for (let i = 0; i < this.piscesAngles.length; i++) {
-            if (this.piscesAngles[i] === this.state.penguinAngle) {
+        for (let i = 0; i < this.state.piscesAngles.length; i++) {
+            if (this.state.piscesAngles[i] === this.state.penguinAngle) {
                 this.score++;
                 // this.scoreElement.innerText = this.score;
+                console.log("eat");
+
                 eaten = i;
                 break;
             }
@@ -53,8 +56,9 @@ export default class SinglePlayerStrategy extends GameStrategy {
         if (eaten != -1) {
             const angle = this.state.piscesAngles[eaten];
             Bus.emit(EVENTS.EAT_FISH, {angle});
-            this.piscesAngles.splice(eaten, 1);
+            this.state.piscesAngles.splice(eaten, 1);
             if (this.state.piscesAngles.length === 0) {
+                console.log("win");
                 // Bus.emit('next-level', this.score);
             }
         }
@@ -70,17 +74,19 @@ export default class SinglePlayerStrategy extends GameStrategy {
         if (this.state.bullet.distanceFromCenter > this.sideLength*0.8/2) {
             if (this.state.bullet.angle % 360 >= this.state.penguinAngle - 7 && this.state.bullet.angle % 360 <= this.state.penguinAngle + 7) {
                 // Bus.emit('penguin-injured', this.score);
-                return;
+                console.log("lose", this.state);
+                // return;
+            } 
+            if (this.state.clockwise) {
+                this.state.bullet.angle = this.state.penguinAngle + Math.floor(Math.random()*100);
             } else {
-                if (this.state.clockwise) {
-                    this.bullet.angle = this.state.penguinAngle + Math.floor(Math.random()*100);
-                } else {
-                    this.bullet.angle = this.state.penguinAngle - Math.floor(Math.random()*100);
-                }
-                this.bullet.distanceFromCenter = 0;
+                this.state.bullet.angle = this.state.penguinAngle - Math.floor(Math.random()*100);
             }
+            this.state.bullet.distanceFromCenter = 0;
+            
         }
-        this.bullet.distanceFromCenter += 5;
+        this.state.bullet.distanceFromCenter += 5;
+        console.log(this.state);
     }
 
     startGameLoop() {

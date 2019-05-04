@@ -16,7 +16,7 @@ export default class GameManager {
 
         this.username = username;
         this.strategy = new Strategy;
-        // this.scene = new GameScene(canvases);
+        this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
 
         // this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
