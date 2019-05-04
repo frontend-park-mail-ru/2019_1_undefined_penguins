@@ -1,10 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <section class="game-content">
         <div class="game-view__canvas-layers">
-            <canvas class="game-view__canvas-layer canvas-fish"></canvas>
+            <!-- <canvas class="game-view__canvas-layer canvas-fish"></canvas>
             <canvas class="game-view__canvas-layer canvas-penguin"></canvas>
             <canvas class="game-view__canvas-layer canvas-snow"></canvas>
-            <canvas class="game-view__canvas-layer canvas-gun"></canvas>
+            <canvas class="game-view__canvas-layer canvas-gun"></canvas> -->
+            <canvas class="game-view__canvas-layer canvas-fish" width="800" height="800 "></canvas>
+            <canvas class="game-view__canvas-layer canvas-penguin" width="800" height="800 "></canvas>
+            <canvas class="game-view__canvas-layer canvas-snow" width="800" height="800 "></canvas>
+            <canvas class="game-view__canvas-layer canvas-gun" width="800" height="800 "></canvas>
         </div>
     </section>    
 </fest:template>

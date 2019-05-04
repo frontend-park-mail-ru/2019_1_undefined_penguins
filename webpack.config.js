@@ -8,7 +8,7 @@ const  PATHS  =  {
 };
 
 module.exports = {
-    mode:  'none',
+    mode:  'development',
     entry: `${PATHS.public}/main.js`,
 
     module:  {

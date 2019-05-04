@@ -830,8 +830,7 @@ a {
     position:absolute; 
     top:0; 
     left:0;
-    width:800px; 
-    height:800px 
+
 }.error {
     color: #f10000;
     font-size: 19px;

@@ -36,10 +36,10 @@ export default class GameStrategy {
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
-    // fireGameOver(message) {
-    //     console.log('GameStrategy.fn.fireGameOver', arguments);
-    //     Bus.emit(EVENTS.FINISH_THE_GAME, {message});
-    // }
+    fireGameOver(message) {
+        console.log('GameStrategy.fn.fireGameOver', arguments);
+        Bus.emit(EVENTS.FINISH_THE_GAME, {message});
+    }
     // onNewCommand(payload) {
     // 	console.log('GameStrategy.fn.onNewCommand', arguments);
     // 	throw new TypeError('Not implemented');
