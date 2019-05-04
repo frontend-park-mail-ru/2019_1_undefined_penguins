@@ -33,6 +33,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
         };
         this.score = 0;
         this.startGameLoop();
+        console.log('started');
     }
 
     gameLoop() {
@@ -86,6 +87,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
             
         }
         this.state.bullet.distanceFromCenter += 5;
+        this.setNewGameState(this.state);
         console.log(this.state);
     }
 

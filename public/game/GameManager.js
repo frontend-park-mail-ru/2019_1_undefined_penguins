@@ -22,11 +22,14 @@ export default class GameManager {
         // this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
         this.subscribe(EVENTS.INIT_OPPONENTS, 'onFindOpponent');
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
-        // this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
+        this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-
+        console.log('on emit');
         Bus.emit(EVENTS.READY_TO_START, {username});
+        console.log('after emit');
+
+        // this.startGameLoop();
     }
 
     // onWaitOpponent() {
@@ -37,6 +40,13 @@ export default class GameManager {
     onFindOpponent(me, opponent) {
         console.log('GameManager.fn.onFindOpponent', arguments);
         this.scene.setNames(me, opponent);
+    }
+
+    onNewState(payload) {
+        this.state = payload.state;
+        this.scene.setState(this.state);
+        this.scene.renderAsPenguin();
+        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
@@ -54,7 +64,7 @@ export default class GameManager {
     gameLoop() {
         this.scene.setState(this.state);
 
-        this.scene.render();
+        this.scene.renderAsPenguin();
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 

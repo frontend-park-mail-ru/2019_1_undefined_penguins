@@ -50,6 +50,7 @@ export default class GameScene {
     }
 
     setState(state) {
+        console.log("added state", state);
         this.state = state;
     }
 

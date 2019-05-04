@@ -16,7 +16,6 @@ export default class GameStrategy {
 
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
-
         this.me = null;
         this.opponent = null;
         this.state = null;
@@ -51,10 +50,10 @@ export default class GameStrategy {
     // 	mediator.emit(EVENTS.WAITING_FOR_OPPONENT);
     // }
 
-    // fireSetNewGameState(state) {
-    // 	// console.log('GameStrategy.fn.fireSetNewGameState', arguments);
-    // 	mediator.emit(EVENTS.SET_NEW_GAME_STATE, {state});
-    // }
+    setNewGameState(state) {
+        console.log('GameStrategy.fn.fireSetNewGameState', arguments);
+        Bus.emit(EVENTS.SET_NEW_GAME_STATE, {state});
+    }
 
 
     subscribe(event, callbackName) {
@@ -62,6 +61,7 @@ export default class GameStrategy {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
+            console.log('subscribed: ', event, callbackName);
         }.bind(this));
     }
 
