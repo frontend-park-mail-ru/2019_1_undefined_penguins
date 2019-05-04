@@ -25,11 +25,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
         this.sideLength = 100;
         this.state = {
             penguinAngle: Math.floor(Math.random()*360),
-            piscesAngles: [
-                15,
-                30,
-                45,
-            ],
+            piscesAngles: [],
             clockwise: true,
             bullet:{
                 distanceFromCenter: 0,
@@ -37,6 +33,9 @@ export default class SinglePlayerStrategy extends GameStrategy {
             },
             gunAngle: 0,
         };
+        for (let i = 0; i < payload.piscesCount; i++) {
+            this.state.piscesAngles.push((360/payload.piscesCount)*i);
+        }
         this.score = 0;
         this.startGameLoop();
     }
@@ -64,7 +63,8 @@ export default class SinglePlayerStrategy extends GameStrategy {
             Bus.emit(EVENTS.EAT_FISH, {angle});
             this.state.piscesAngles.splice(eaten, 1);
             if (this.state.piscesAngles.length === 0) {
-                console.log("win");
+                Bus.emit('open-win-view', this.score);
+                this.stopGameLoop();
                 // Bus.emit('next-level', this.score);
             }
         }
@@ -80,7 +80,9 @@ export default class SinglePlayerStrategy extends GameStrategy {
         if (this.state.bullet.distanceFromCenter > this.sideLength*0.8/2) {
             if (this.state.bullet.angle % 360 >= this.state.penguinAngle - 7 && this.state.bullet.angle % 360 <= this.state.penguinAngle + 7) {
                 // Bus.emit('penguin-injured', this.score);
-                console.log("lose", this.state);
+                Bus.emit('open-lost-view', this.score);
+                this.stopGameLoop();
+
                 // return;
             } 
             if (this.state.clockwise) {
@@ -97,6 +99,10 @@ export default class SinglePlayerStrategy extends GameStrategy {
 
     startGameLoop() {
         this.interval = setInterval(() => this.gameLoop(), 100);
+    }
+
+    stopGameLoop(){
+        clearInterval(this.interval);
     }
 
     subscribe(event, callbackName) {

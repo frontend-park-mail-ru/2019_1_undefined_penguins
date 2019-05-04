@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+import { EVENTS } from '../utils/events.js';
 import GameTmpl from '../components/Game/Game.tmpl.xml';
 
 export default class GameView extends BaseView {
@@ -39,6 +40,15 @@ export default class GameView extends BaseView {
             snow: snowCanvas,
             gun: gunCanvas,
         };
+
         Bus.emit('start-game', this);
+        const home = this.el.getElementsByClassName('js-header__home-button')[0];
+        if (home !== undefined) {
+            home.addEventListener('click', (event) => {
+                event.preventDefault();
+                Bus.emit(EVENTS.STOP_THE_GAME, {});
+                Bus.emit('open-menu');
+            });
+        }
     }
 }

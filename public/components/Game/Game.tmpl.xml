@@ -1,4 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
+    <div class="header__home">
+        <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
+    </div>
     <section class="game-content">
         <div class="game-view__canvas-layers">
             <!-- <canvas class="game-view__canvas-layer canvas-fish"></canvas>

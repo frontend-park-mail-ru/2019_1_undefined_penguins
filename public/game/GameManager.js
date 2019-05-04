@@ -27,10 +27,12 @@ export default class GameManager {
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
-        
+        this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+
+        const piscesCount = 24;
 
 
-        Bus.emit(EVENTS.READY_TO_START, {username});
+        Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
        
         // this.startGameLoop();
     }
@@ -59,6 +61,7 @@ export default class GameManager {
             this.scene.setState(this.state);
             this.renderNew();
         } else {
+            console.log(this.state);
             this.scene.setState(this.state);
             this.scene.renderAsPenguin();
         }
@@ -76,6 +79,12 @@ export default class GameManager {
 
     onLose(){
         
+    }
+
+    stopGameLoop(){
+        this.strategy.stopGameLoop();
+        this.destroy();
+
     }
 
     // startGameLoop() {
@@ -125,8 +134,11 @@ export default class GameManager {
     //     mediator.off(event, this.mediatorCallback);
     // }
 
-    // destroy() {
-    //     this._subscribed.forEach(data => mediator.off(data.name, this.mediatorCallback));
-    //     this._subscribed = null;
-    // }
+    destroy() {
+        const keys = Object.keys(EVENTS);
+        console.log(keys);
+        console.log(Bus.listeners);
+        keys.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        console.log(Bus.listeners);
+    }
 }
