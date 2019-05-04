@@ -29,10 +29,10 @@ export default class GameView extends BaseView {
     render() {
         this.el.innerHTML = '';
         this.el.innerHTML = GameTmpl();
-        const fishCanvas = this.el.querySelector('.game-view__canvas-fish');
-        const penguinCanvas = this.el.querySelector('.game-view__canvas-penguin');
-        const snowCanvas = this.el.querySelector('.game-view__canvas-snow');
-        const gunCanvas = this.el.querySelector('.game-view__canvas-gun');
+        const fishCanvas = this.el.querySelector('.canvas-fish');
+        const penguinCanvas = this.el.querySelector('.canvas-penguin');
+        const snowCanvas = this.el.querySelector('.canvas-snow');
+        const gunCanvas = this.el.querySelector('.canvas-gun');
         this.canvases = {
             fish: fishCanvas,
             penguin: penguinCanvas,

@@ -1,0 +1,11 @@
+.game-view__canvas-layers {
+    position:relative; 
+    width:400px; 
+    height:300px 
+}
+
+.game-view__canvas-layer {
+    position:absolute; 
+    top:0; 
+    left:0
+}

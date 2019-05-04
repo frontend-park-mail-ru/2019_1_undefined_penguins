@@ -1,8 +1,10 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <section class="game-content">
-        <canvas class="game-view__canvas-fish"></canvas>
-        <canvas class="game-view__canvas-penguin"></canvas>
-        <canvas class="game-view__canvas-snow"></canvas>
-        <canvas class="game-view__canvas-gun"></canvas>
+        <div class="game-view__canvas-layers">
+            <canvas class="game-view__canvas-layer canvas-fish"></canvas>
+            <canvas class="game-view__canvas-layer canvas-penguin"></canvas>
+            <canvas class="game-view__canvas-layer canvas-snow"></canvas>
+            <canvas class="game-view__canvas-layer canvas-gun"></canvas>
+        </div>
     </section>    
 </fest:template>
