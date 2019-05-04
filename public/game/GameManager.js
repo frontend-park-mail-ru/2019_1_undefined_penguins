@@ -25,9 +25,7 @@ export default class GameManager {
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-        console.log('on emit');
         Bus.emit(EVENTS.READY_TO_START, {username});
-        console.log('after emit');
 
         // this.startGameLoop();
     }

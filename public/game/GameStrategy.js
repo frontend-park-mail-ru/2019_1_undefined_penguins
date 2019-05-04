@@ -51,7 +51,7 @@ export default class GameStrategy {
     // }
 
     setNewGameState(state) {
-        console.log('GameStrategy.fn.fireSetNewGameState', arguments);
+        // console.log('GameStrategy.fn.fireSetNewGameState', arguments);
         Bus.emit(EVENTS.SET_NEW_GAME_STATE, {state});
     }
 

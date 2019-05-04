@@ -50,7 +50,6 @@ export default class GameScene {
     }
 
     setState(state) {
-        console.log("added state", state);
         this.state = state;
     }
 
@@ -106,7 +105,7 @@ export default class GameScene {
             this.ctxSnow.drawImage(bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
 
         }.bind(this);
-        bulletImage.src = 'snow-1.png';
+        bulletImage.src = '../images/snow-1.png';
 
     }
 
@@ -123,7 +122,7 @@ export default class GameScene {
         gunImage.onload = function (){
             this.ctxGun.drawImage(gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
         }.bind(this);
-        gunImage.src = 'cloud.png';
+        gunImage.src = '../images/cloud.png';
 
     }
 

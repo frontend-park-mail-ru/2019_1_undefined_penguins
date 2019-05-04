@@ -822,14 +822,16 @@ a {
     cursor: pointer;
 }.game-view__canvas-layers {
     position:relative; 
-    width:400px; 
-    height:300px 
+    width:800px; 
+    height:800px 
 }
 
 .game-view__canvas-layer {
     position:absolute; 
     top:0; 
-    left:0
+    left:0;
+    width:800px; 
+    height:800px 
 }.error {
     color: #f10000;
     font-size: 19px;
