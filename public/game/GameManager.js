@@ -26,6 +26,8 @@ export default class GameManager {
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
+        this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
+        
 
         Bus.on('ws:connected', () => {
             Bus.emit(EVENTS.READY_TO_START, {username});
@@ -53,7 +55,8 @@ export default class GameManager {
     onNewState(payload) {
 
         this.state = payload.state;
-        if (this.scene.getState() === undefined) {
+        if (this.scene.getState()===undefined) {
+            console.log(this.state);
             this.scene.setState(this.state);
             this.renderNew();
         } else {
@@ -61,7 +64,7 @@ export default class GameManager {
             this.scene.renderAsPenguin();
         }
         
-        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+        // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
@@ -72,16 +75,20 @@ export default class GameManager {
         this.startGameLoop();
     }
 
-    startGameLoop() {
-        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    onLose(){
+        
     }
 
-    gameLoop() {
-        this.scene.setState(this.state);
+    // startGameLoop() {
+    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    // }
 
-        this.scene.renderAllAsPenguin();
-        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
-    }
+    // gameLoop() {
+    //     this.scene.setState(this.state);
+
+    //     this.scene.renderAllAsPenguin();
+    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    // }
 
     onEatenFish(payload){
         this.scene.removeFish(payload.angle);
@@ -96,9 +103,9 @@ export default class GameManager {
 
         this.strategy.destroy();
         // this.scene.destroy(); // TODO: проверить в интеграции
-        this.controllers.destroy();
+        // this.controllers.destroy();
 
-        Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
+        // Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
     }
 
     // onNewState(payload) {
