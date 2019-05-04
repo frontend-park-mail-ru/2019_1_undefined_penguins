@@ -27,8 +27,9 @@ export default class GameManager {
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
 
-
-        Bus.emit(EVENTS.READY_TO_START, {username});
+        Bus.on('ws:connected', () => {
+            Bus.emit(EVENTS.READY_TO_START, {username});
+        });
        
         // this.startGameLoop();
     }
@@ -38,9 +39,9 @@ export default class GameManager {
     //     mediator.emit(EVENTS.OPEN_WAITING_VIEW);
     // }
 
-    onFindOpponent(me, opponent) {
+    onFindOpponent(penguin, gun) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        this.scene.setNames(me, opponent);
+        this.scene.setNames(penguin, gun);
     }
 
     renderNew(){
@@ -64,7 +65,7 @@ export default class GameManager {
     }
 
     onStart() {
-        console.log('GameManager.fn.onStart', arguments);
+        console.log('GameManager.fn.onStart');
         // mediator.emit(EVENTS.OPEN_GAME_VIEW);
 
         this.controllers.init();

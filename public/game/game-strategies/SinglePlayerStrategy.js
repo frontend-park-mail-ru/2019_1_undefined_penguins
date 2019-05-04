@@ -1,6 +1,5 @@
 import GameStrategy from '../GameStrategy.js';
 import { EVENTS } from '../../utils/events.js';
-import Bus from '../../scripts/EventBus.js';
 import WS from '../../modules/WebSocket.js';
 
 export default class SinglePlayerStrategy extends GameStrategy {
@@ -17,9 +16,28 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     onStart(payload) {
-        console.dir(payload);
+        console.log('SinglePlayerStrategy.fn.onStart', arguments);
+        // console.dir(payload);
         // TODO: choose who is who
-        this.opponentFound(payload.me, payload.opponent);
+        this.opponentFound(payload.penguin.name, payload.gun.name);
+        this.sideLength = 100;
+        this.state = {
+            penguinAngle: Math.floor(Math.random()*360),
+            piscesAngles: [
+                15,
+                30,
+                45,
+            ],
+            clockwise: true,
+            bullet:{
+                distanceFromCenter: 0,
+                angle: 0,
+            },
+            gunAngle: 0,
+        };
+        this.score = 0;
+        // this.startGameLoop();
+        console.log('started');
         this.startGame();
     }
 
@@ -37,44 +55,43 @@ export default class SinglePlayerStrategy extends GameStrategy {
         this.waitOpponent();
     }
 
-    onLoggedIn(payload) {
-        console.log('SinglePlayerStrategy.fn.onLoggedIn', arguments);
+    readyToStart(payload) {
+        console.log('SinglePlayerStrategy.fn.readyToStart', arguments);
         this.me = payload.username;
-
-        this.waitOpponent();
-        this.ws.send('newPlayer', {username: payload.username});
+        // this.waitOpponent();
+        this.ws.send('newPlayer', { name: payload.username, mode: 'SINGLE' });
     }
 
     onNewCommand(payload) {
         console.log('SinglePlayerStrategy.fn.onNewCommand', payload);
         // check on SPACE click
-        this.ws.send('newCommand', {code: 'ROTATE'});
+        this.ws.send('newCommand', { name: this.me, command: 'ROTATE' });
     }
 
-    readyToStart(payload) {
-        // this.me = payload.username;
-        // this.opponent = 'Jhon Snow';
-        // this.opponentFound(this.me, this.opponent);
-        // this.startGame();
-        // this.sideLength = 100;
-        // this.state = {
-        //     penguinAngle: Math.floor(Math.random()*360),
-        //     piscesAngles: [
-        //         15,
-        //         30,
-        //         45,
-        //     ],
-        //     clockwise: true,
-        //     bullet:{
-        //         distanceFromCenter: 0,
-        //         angle: 0,
-        //     },
-        //     gunAngle: 0,
-        // };
-        // this.score = 0;
-        // this.startGameLoop();
-        // console.log('started');
-    }
+    // readyToStart(payload) {
+    // this.me = payload.username;
+    // this.opponent = 'Jhon Snow';
+    // this.opponentFound(this.me, this.opponent);
+    // this.startGame();
+    // this.sideLength = 100;
+    // this.state = {
+    //     penguinAngle: Math.floor(Math.random()*360),
+    //     piscesAngles: [
+    //         15,
+    //         30,
+    //         45,
+    //     ],
+    //     clockwise: true,
+    //     bullet:{
+    //         distanceFromCenter: 0,
+    //         angle: 0,
+    //     },
+    //     gunAngle: 0,
+    // };
+    // this.score = 0;
+    // this.startGameLoop();
+    // console.log('started');
+    // }
 
     gameLoop() {
         // if (this.state.penguinAngle == 360) {
@@ -124,7 +141,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
         //         this.state.bullet.angle = this.state.penguinAngle - Math.floor(Math.random()*100);
         //     }
         //     this.state.bullet.distanceFromCenter = 0;
-            
+
         // }
         // this.state.bullet.distanceFromCenter += 5;
         // this.setNewGameState(this.state);

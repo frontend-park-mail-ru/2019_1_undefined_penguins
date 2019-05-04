@@ -16,23 +16,23 @@ export default class GameStrategy {
 
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
-        this.me = null;
-        this.opponent = null;
+        this.penguin = null;
+        this.gun = null;
         this.state = null;
     }
 
     readyToStart(payload) {
-        console.log('GameStrategy.fn.onLoggedIn', arguments);
+        console.log('GameStrategy.fn.readyToStart', arguments);
         throw new TypeError('Not implemented');
     }
 
-    opponentFound(me, opponent) {
-        console.log('GameStrategy.fn.fireOpponentFound', arguments);
-        Bus.emit(EVENTS.INIT_OPPONENTS, {me, opponent});
+    opponentFound(penguin, gun) {
+        console.log('GameStrategy.fn.opponentFound', arguments);
+        Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
     startGame() {
-        console.log('GameStrategy.fn.fireStartGame', arguments);
+        console.log('GameStrategy.fn.startGame', arguments);
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
@@ -46,10 +46,10 @@ export default class GameStrategy {
         throw new TypeError('Not implemented');
     }
 
-    waitOpponent() {
-        console.log('GameStrategy.fn.fireWaitOpponent', arguments);
-        mediator.emit(EVENTS.WAITING_FOR_OPPONENT);
-    }
+    // waitOpponent() {
+    //     console.log('GameStrategy.fn.fireWaitOpponent', arguments);
+    //     Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
+    // }
 
     setNewGameState(state) {
         console.log('GameStrategy.fn.setNewGameState', arguments);

@@ -131,7 +131,8 @@ export default class EventController {
         Bus.on('start-game', (view) => {
             const Strategy = STRATEGIES[view.getMode()];
             const gameCanvases = view.getCanvases();
-            const game = new Game(Strategy, UserModel.GetUser().login, gameCanvases);
+            const login = UserModel.GetUser().login === '' ? 'Anonymous' : UserModel.GetUser().login;
+            const game = new Game(Strategy, login, gameCanvases);
             view.setGame(game);
             // Bus.off('start-game');
         });
