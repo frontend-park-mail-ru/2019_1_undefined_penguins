@@ -52,7 +52,7 @@ export default class GameManager {
     onNewState(payload) {
 
         this.state = payload.state;
-        if (this.scene.getState()===undefined) {
+        if (this.scene.getState() === undefined) {
             this.scene.setState(this.state);
             this.renderNew();
         } else {

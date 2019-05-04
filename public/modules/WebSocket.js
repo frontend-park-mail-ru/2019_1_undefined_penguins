@@ -22,7 +22,7 @@ export default class WS {
         });
 
         Bus.on(EVENTS.WEBSOCKET_CLOSE, () => {
-            this.webSocket.close();
+            this.ws.close();
         });
     }
 
@@ -31,7 +31,7 @@ export default class WS {
         try {
             const message = JSON.parse(messageText);
             console.log(message);
-            // Bus.emit(message.type, message.payload);
+            Bus.emit(message.type, message.payload);
         }
         catch {
             console.error('Error in WS - handleMessage: ', err);
@@ -76,4 +76,4 @@ export default class WS {
     }
 }
 
-// export default new WS;
+// export default new WS('game');
