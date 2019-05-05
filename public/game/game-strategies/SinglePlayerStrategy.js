@@ -1,7 +1,6 @@
 import GameStrategy from '../GameStrategy.js';
 import { EVENTS } from '../../utils/events.js';
 import Bus from '../../scripts/EventBus.js';
-import { format } from 'util';
 
 export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
@@ -58,12 +57,13 @@ export default class SinglePlayerStrategy extends GameStrategy {
                 break;
             }
         }
-        if (eaten != -1) {
+        if (eaten !== -1) {
             const angle = this.state.piscesAngles[eaten];
             Bus.emit(EVENTS.EAT_FISH, {angle});
             this.state.piscesAngles.splice(eaten, 1);
             if (this.state.piscesAngles.length === 0) {
                 Bus.emit('open-win-view', this.score);
+                super.destroy();
                 this.stopGameLoop();
                 // Bus.emit('next-level', this.score);
             }
@@ -81,6 +81,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
             if (this.state.bullet.angle % 360 >= this.state.penguinAngle - 7 && this.state.bullet.angle % 360 <= this.state.penguinAngle + 7) {
                 // Bus.emit('penguin-injured', this.score);
                 Bus.emit('open-lost-view', this.score);
+                super.destroy();
                 this.stopGameLoop();
 
                 // return;
@@ -102,14 +103,15 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     stopGameLoop(){
-        clearInterval(this.interval);
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
     }
 
-    subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
-            if (callbackName && typeof this[callbackName] === 'function') {
-                this[callbackName](payload);
-            }
-        }.bind(this));
+    destroy() {
+        // super.destroy();
+
+        // this.stopGameLoop();
     }
+
 }
