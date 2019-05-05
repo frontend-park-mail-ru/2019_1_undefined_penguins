@@ -1,9 +1,9 @@
-@import url('components/Menu/Menu.css');
+/* @import url('components/Menu/Menu.css');
 @import url('components/Board/Board.css');
 @import url('components/About/About.css');
 @import url('components/Profile/Profile.css');
 @import url('components/SignIn/SignIn.css');
-@import url('components/SignUp/SignUp.css');
+@import url('components/SignUp/SignUp.scss');
 @import url('components/Win/Win.css');
 @import url('components/Lost/Lost.css');
 @import url('components/Game/Game.css');
@@ -56,4 +56,4 @@ body {
 
 #gc {
     margin-top: -35px;
-}
+} */

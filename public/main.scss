@@ -1,0 +1,50 @@
+@import '/components/SignUp/SignUp.scss';
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: url(/images/background-main.jpg); 
+    background-size: cover;
+    font-family: Roboto-Regular;
+}
+
+#application {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@font-face {
+    font-family: "IndieFlower";
+    src: url("./fonts/IndieFlower.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("./fonts/Roboto-Bold.ttf");
+}
+
+.game-view__game-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-view__score-element {
+    color: #DA8F56;
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+#gc {
+    margin-top: -35px;
+}
