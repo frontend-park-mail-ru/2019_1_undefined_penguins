@@ -40,34 +40,53 @@ $font-roboto-reg: Roboto-Regular;
 $font-roboto-bold: Roboto-Bold;
 
    
-.sign-up__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 200px;
-    padding-right: 250px;
+.sign-up {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 200px;
+        padding-right: 250px;
+    }
+    &__header__home {
+        margin: 60px 0;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+    &__header__logo {
+        font-family: $font-indie;
+        font-size: 50px;
+        color: $white-color;
+        text-align: center;
+        margin: -25px 20px
+    }
+    &__header__title{
+        font-size: 70px;
+    }
 }
 
-.sign-up__header__home {
-    margin: 60px 0;
-    cursor: pointer;
-}
+// .sign-up__header__home {
+//     margin: 60px 0;
+//     cursor: pointer;
+// }
 
-.sign-up__header__home:hover {
-    transform: scale(1.1);
-}
+// .sign-up__header__home:hover {
+//     transform: scale(1.1);
+// }
 
-.sign-up__header__logo {
-    font-family: $font-indie;
-    font-size: 50px;
-    color: $white-color;
-    text-align: center;
-    margin: -25px 20px
-}
+// .sign-up__header__logo {
+//     font-family: $font-indie;
+//     font-size: 50px;
+//     color: $white-color;
+//     text-align: center;
+//     margin: -25px 20px
+// }
 
-.sign-up__header__title{
-    font-size: 70px;
-}
+// .sign-up__header__title{
+//     font-size: 70px;
+// }
 
 .sign-up-content {
     font-family: $font-roboto-reg;
