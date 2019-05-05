@@ -156,8 +156,8 @@ export default class GameScene {
     setNames(me, opponent) {
         this.players = { me, opponent };
     }
-}
 
-// destroy() {
-//     window.removeEventListener('resize', this.bindedResizer);
-// }
+    destroy() {
+        window.removeEventListener('resize', this.bindedResizer);
+    }
+}

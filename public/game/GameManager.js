@@ -19,6 +19,7 @@ export default class GameManager {
         this.strategy = new Strategy;
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
+        this._subscribed = [];
 
         // this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
         this.subscribe(EVENTS.INIT_OPPONENTS, 'onFindOpponent');
@@ -56,12 +57,12 @@ export default class GameManager {
     onNewState(payload) {
 
         this.state = payload.state;
-        if (this.scene.getState()===undefined) {
-            console.log(this.state);
+        if (this.scene.getState() === undefined) {
+            // console.log(this.state);
             this.scene.setState(this.state);
             this.renderNew();
         } else {
-            console.log(this.state);
+            // console.log(this.state);
             this.scene.setState(this.state);
             this.scene.renderAsPenguin();
         }
@@ -109,7 +110,7 @@ export default class GameManager {
             cancelAnimationFrame(this.requestID);
         }
 
-        this.strategy.destroy();
+        // this.strategy.destroy();
         // this.scene.destroy(); // TODO: проверить в интеграции
         // this.controllers.destroy();
 
@@ -127,6 +128,7 @@ export default class GameManager {
                 this[callbackName](payload);
             }
         }.bind(this));
+        this._subscribed.push({name: event, callback: callbackName});
     }
 
     // unsubscribe(event) {
@@ -135,10 +137,7 @@ export default class GameManager {
     // }
 
     destroy() {
-        const keys = Object.keys(EVENTS);
-        console.log(keys);
-        console.log(Bus.listeners);
-        keys.forEach(data => Bus.off(data.name, this.mediatorCallback));
-        console.log(Bus.listeners);
+        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed = null;
     }
 }
