@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="sign-up__header">
         <div class="sign-up__header__home">
-            <img src="/images/home.svg" class="js-header__home-button"/>
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
         <div class="sign-up__header__logo">
             <h1 class="sign-up__header__title">Penguins Wars</h1>
