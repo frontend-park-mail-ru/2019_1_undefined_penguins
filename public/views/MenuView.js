@@ -56,16 +56,15 @@ export default class MenuView extends BaseView {
             buttonsDiv.appendChild(a);
         });
         mainSection.appendChild(buttonsDiv);
+        this.el.appendChild(mainSection);
 
-        const pictureDiv = document.createElement('div');
-        pictureDiv.classList.add('menu__picture');
+        const pictureSection = document.createElement('section');
+        pictureSection.classList.add('menu-picture');
         const pictureImg = document.createElement('img');
         pictureImg.src = '/images/menu-picture.png';
         pictureImg.classList.add('menu-picture__img');
-        pictureDiv.appendChild(pictureImg);
-        mainSection.appendChild(pictureDiv);
-
-        this.el.appendChild(mainSection);
+        pictureSection.appendChild(pictureImg);
+        this.el.appendChild(pictureSection);
     }
 
     RenderHeader (isAutorized) {
