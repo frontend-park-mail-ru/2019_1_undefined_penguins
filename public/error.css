@@ -9,3 +9,9 @@
 .error__hidden {
     visibility: hidden;
 }
+
+@media (max-width: 330px) {
+    .error {
+        font-size: 15px;
+    }
+}
