@@ -10,6 +10,18 @@
     visibility: hidden;
 }
 
+@media (max-width: 800px) {
+    .error {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .error {
+        font-size: 18px;
+    }
+}
+
 @media (max-width: 330px) {
     .error {
         font-size: 15px;
