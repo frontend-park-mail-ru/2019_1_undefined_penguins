@@ -1,0 +1,50 @@
+@import "/components/Menu/Menu.scss";
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#application {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url(/images/background-main.jpg) 100% 100% no-repeat;
+    background-size: cover;
+    background-position-y: bottom;
+    min-height: 860px;
+    min-width: 400px;
+}
+
+@font-face {
+    font-family: "IndieFlower";
+    src: url("./fonts/IndieFlower.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("./fonts/Roboto-Bold.ttf");
+}
+
+.game-view__game-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-view__score-element {
+    color: #DA8F56;
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+#gc {
+    margin-top: -35px;
+}
