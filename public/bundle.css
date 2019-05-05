@@ -732,7 +732,7 @@ a {
    }  */
    
 
-
+ /* TODO fix header */
 .sign-up-content {
     font-family: Roboto-Regular;
     display: flex;
@@ -795,30 +795,53 @@ a {
     .header {
         justify-content: space-around;
         margin: 0px;
-    }
-    .header__logo {
-        font-size: 47px;
-    }
-    .sign-up-content {
-        height: 370px;
-        min-width: 280px;
-        margin: auto;
-        width: 325px;
+        margin-bottom: 15px;
     }
     .sign-up__header {
-        font-size: 35px;
+        font-size: 52px;
+        margin: 10px 0 45px 0;
+    }
+    .sign-up-content {
+        height: 580px;
+        min-width: 280px;
+        margin: auto;
+        width: 510px;
     }
     .sign-up-form__input {
-        width: 270px;
-        height: 11px;
-        margin-bottom: 15px;
+        width: 410px;
+        height: 40px;
+        margin-bottom: 20px;
+    }
+    .sign-up-form__submit {
+        height: 70px;
+        font-size: 20px;
+        padding: 15px;
+        width: 443px;
+    }
+}
+
+@media (max-width: 800px) {
+    .sign-up__header {
+        font-size: 45px;
+        margin: 10px 0 45px 0;
+    }
+    .sign-up-content {
+        height: 500px;
+        min-width: 280px;
+        margin: auto;
+        width: 435px;
+    }
+    .sign-up-form__input {
+        width: 325px;
+        height: 20px;
+        margin-bottom: 17px;
     }
     .sign-up-form__submit {
         width: 260px;
-        height: 46px;
+        height: 60px;
         font-size: 20px;
         padding: 15px;
-        width: 300px;
+        width: 358px;
     }
 }
 
@@ -826,6 +849,7 @@ a {
     .header {
         justify-content: space-around;
         margin: 0px;
+        margin-bottom: 25px;
     }
     .header__logo {
         font-size: 40px;
@@ -833,7 +857,9 @@ a {
     .sign-up-content {
         height: 370px;
         min-width: 280px;
-        margin: 0;
+        margin: auto;
+        width: 300px;
+
     }
     .sign-up__header {
         font-size: 35px;
@@ -867,7 +893,7 @@ a {
     .sign-up-content {
         height: 350px;
         min-width: 280px;
-        margin: 0;
+        margin: auto;
     }
     .sign-up__header {
         font-size: 33px;
@@ -1049,7 +1075,11 @@ a {
     .error {
         font-size: 15px;
     }
-}body {
+}html {
+    height: 100%;
+}
+
+body {
     margin: 0;
     background: url(/images/background-main.jpg); 
     background-size: cover;
