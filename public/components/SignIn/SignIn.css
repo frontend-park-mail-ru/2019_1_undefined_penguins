@@ -30,13 +30,41 @@
     margin: -25px 20px
 }
 
+/*  */
+.signin__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 200px;
+    padding-right: 250px;
+}
+
+.signin__header__home {
+    margin: 60px 0;
+    cursor: pointer;
+}
+
+.signin__header__logo {
+    font-family: IndieFlower;
+    font-size: 50px;
+    color: #EDEFF0;
+    text-align: center;
+    margin: -25px 20px
+}
+
+.signin__header__title{
+    font-size: 70px;
+}
+
+/*  */
+
 .signin-content {
     font-family: Roboto-Regular;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 340px;
+    height: 350px;
     width: 460px;
     opacity: 1;
     border: 2px solid #979797;
@@ -61,7 +89,7 @@
     font-family: Roboto-Bold;
     background: #DA8F56;
     border-radius: 8px;
-    width: 260px;
+    width: 375px;
     height: 55px;
     font-size: 20px;
     color: #ffffff;
@@ -109,11 +137,34 @@
 }
 
 @media (max-width: 1100px) {
-    .header {
+    .signin__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
+    }
+    .signin__header__home {
+        margin: 13px 150px;
+        cursor: pointer;
+    }
+    .signin__header__logo {
+        font-family: IndieFlower;
+        font-size: 50px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
+    }
+
+    .signin__header__title{
+        font-size: 1em;
+    }
+    /*  */
+    /* .header {
         justify-content: space-around;
         margin: 0px;
         margin-bottom: 30px;
-    }
+    } */
     .signin__content__header {
         font-size: 52px;
         margin: 10px 0 45px 0;
@@ -177,7 +228,31 @@
 }
 
 @media (max-width: 480px) {
-    .header {
+    .signin__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
+        height: 160px;
+    }
+    .signin__header__home {
+        margin: 13px 150px -20px;
+        cursor: pointer;
+    }
+    .signin__header__logo {
+        font-family: IndieFlower;
+        font-size: 48px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
+    }
+
+    .signin__header__title{
+        font-size: 1em;
+    }
+    /*  */
+    /* .header {
         justify-content: space-around;
         margin: 0px;
         height: 185px;
@@ -186,7 +261,7 @@
     .header__logo {
         font-size: 40px;
         margin: -25px 20px 0 40px;
-    }
+    } */
     .signin-content {
         height: 300px;
         min-width: 280px;
@@ -201,7 +276,7 @@
     .signin-form__input {
         width: 270px;
         height: 23px;
-        margin-bottom: 0px;
+        margin-bottom: 10px;
     }
     .signin-form__submit {
         width: 260px;
@@ -217,7 +292,29 @@
 }
 
 @media (max-width: 330px) {
-    .header {
+    .signin__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
+    }
+    .signin__header__home {
+        margin: 13px 150px;
+        cursor: pointer;
+    }
+    .signin__header__logo {
+        font-family: IndieFlower;
+        font-size: 45px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
+    }
+
+    .signin__header__title{
+        font-size: 1em;
+    }
+    /* .header {
         justify-content: space-around;
         margin: 0px;
         height: 170px;
@@ -227,7 +324,7 @@
     }
     .header__home {
         margin: 30px 0;
-    }
+    } */
     .signin-content {
         height: 280px;
         min-width: 280px;
@@ -241,7 +338,7 @@
     .signin-form__input {
         width: 270px;
         height: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 2px;
     }
     .signin-form__submit {
         width: 260px;

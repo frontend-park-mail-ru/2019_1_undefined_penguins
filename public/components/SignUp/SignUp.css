@@ -41,6 +41,10 @@
     cursor: pointer;
 }
 
+.sign-up__header__home:hover {
+    transform: scale(1.1);
+}
+
 .sign-up__header__logo {
     font-family: IndieFlower;
     font-size: 50px;
@@ -190,15 +194,15 @@
         margin-bottom: 20px;
         align-items: center;
         padding: 0px;
-        height: 260px;
+        height: 140px;
     }
     .sign-up__header__home {
-        margin: 13px 150px -90px;
+        margin: 13px 150px -20px;
         cursor: pointer;
     }
     .sign-up__header__logo {
         font-family: IndieFlower;
-        font-size: 50px;
+        font-size: 49px;
         color: #EDEFF0;
         text-align: center;
         /* margin: -25px 20px */
@@ -247,7 +251,7 @@
     }
     .sign-up__header__logo {
         font-family: IndieFlower;
-        font-size: 50px;
+        font-size: 37px;
         color: #EDEFF0;
         text-align: center;
         /* margin: -25px 20px */
@@ -262,6 +266,7 @@
         height: 350px;
         min-width: 280px;
         margin: auto;
+        width: 280px;
     }
     .sign-up__content__header {
         font-size: 33px;
