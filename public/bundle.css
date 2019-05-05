@@ -537,7 +537,7 @@ a {
     margin: 0 350px 15px 350px;
 }
 
-.signin__header {
+.signin__content__header {
     margin: 10px 0 30px 0;
     font-size: 40px;
     color: #DA8F56;
@@ -607,7 +607,7 @@ a {
         margin: 0px;
         margin-bottom: 30px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 52px;
         margin: 10px 0 45px 0;
     }
@@ -641,7 +641,7 @@ a {
         margin: 0px;
         margin-bottom: 30px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 45px;
         margin: 10px 0 35px 0;
     }
@@ -687,7 +687,7 @@ a {
         margin-bottom: 12px;
         width: 290px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 35px;
         margin: 10px 0 25px 0;
     }
@@ -727,7 +727,7 @@ a {
         margin: 0;
         margin-bottom: 12px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 33px;
         margin: 10px 0 20px 0;
     }
@@ -773,8 +773,31 @@ a {
     margin: -25px 20px
    }  */
    
+.sign-up__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 200px;
+    padding-right: 250px;
+}
 
- /* TODO fix header */
+.sign-up__header__home {
+    margin: 60px 0;
+    cursor: pointer;
+}
+
+.sign-up__header__logo {
+    font-family: IndieFlower;
+    font-size: 50px;
+    color: #EDEFF0;
+    text-align: center;
+    margin: -25px 20px
+}
+
+.sign-up__header__title{
+    font-size: 70px;
+}
+
 .sign-up-content {
     font-family: Roboto-Regular;
     display: flex;
@@ -795,7 +818,7 @@ a {
 	align-items: center;
 }
    
-.sign-up__header {
+.sign-up__content__header {
     font-family: Roboto-Bold;
     margin: 10px 0 30px 0;
     font-size: 40px;
@@ -834,12 +857,30 @@ a {
 }
 
 @media (max-width: 1100px) {
-    .header {
-        justify-content: space-around;
-        margin: 0px;
-        margin-bottom: 15px;
-    }
     .sign-up__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
+    }
+    .sign-up__header__home {
+        margin: 13px 150px;
+        cursor: pointer;
+    }
+    .sign-up__header__logo {
+        font-family: IndieFlower;
+        font-size: 50px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
+    }
+
+    .sign-up__header__title{
+        font-size: 1em;
+    }
+    /* content */
+    .sign-up__content__header {
         font-size: 52px;
         margin: 10px 0 45px 0;
     }
@@ -863,7 +904,7 @@ a {
 }
 
 @media (max-width: 800px) {
-    .sign-up__header {
+    .sign-up__content__header {
         font-size: 45px;
         margin: 10px 0 45px 0;
     }
@@ -888,14 +929,31 @@ a {
 }
 
 @media (max-width: 480px) {
-    .header {
-        justify-content: space-around;
-        margin: 0px;
-        margin-bottom: 25px;
+    .sign-up__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
+        height: 260px;
     }
-    .header__logo {
-        font-size: 40px;
+    .sign-up__header__home {
+        margin: 13px 150px -90px;
+        cursor: pointer;
     }
+    .sign-up__header__logo {
+        font-family: IndieFlower;
+        font-size: 50px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
+    }
+
+    .sign-up__header__title{
+        font-size: 1em;
+    }
+
+
     .sign-up-content {
         height: 370px;
         min-width: 280px;
@@ -903,7 +961,7 @@ a {
         width: 300px;
 
     }
-    .sign-up__header {
+    .sign-up__content__header {
         font-size: 35px;
     }
     .sign-up-form__input {
@@ -921,23 +979,36 @@ a {
 }
 
 @media (max-width: 330px) {
-    .header {
-        justify-content: space-around;
-        margin: 0px;
-        height: 170px;
+    .sign-up__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        align-items: center;
+        padding: 0px;
     }
-    .header__logo {
-        font-size: 35px;
+    .sign-up__header__home {
+        margin: 13px 150px;
+        cursor: pointer;
     }
-    .header__home {
-        margin: 30px 0;
+    .sign-up__header__logo {
+        font-family: IndieFlower;
+        font-size: 50px;
+        color: #EDEFF0;
+        text-align: center;
+        /* margin: -25px 20px */
     }
+
+    .sign-up__header__title{
+        font-size: 1em;
+    }
+
+
     .sign-up-content {
         height: 350px;
         min-width: 280px;
         margin: auto;
     }
-    .sign-up__header {
+    .sign-up__content__header {
         font-size: 33px;
         margin: 10px 0 20px 0;
     }
@@ -956,7 +1027,9 @@ a {
     .error {
         font-size: 15px;
     }
-}.win-content {
+}
+
+.win-content {
 	display: flex;
     flex-direction: column;
 	align-items: center;

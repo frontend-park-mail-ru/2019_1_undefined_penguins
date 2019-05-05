@@ -44,7 +44,7 @@
     margin: 0 350px 15px 350px;
 }
 
-.signin__header {
+.signin__content__header {
     margin: 10px 0 30px 0;
     font-size: 40px;
     color: #DA8F56;
@@ -114,7 +114,7 @@
         margin: 0px;
         margin-bottom: 30px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 52px;
         margin: 10px 0 45px 0;
     }
@@ -148,7 +148,7 @@
         margin: 0px;
         margin-bottom: 30px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 45px;
         margin: 10px 0 35px 0;
     }
@@ -194,7 +194,7 @@
         margin-bottom: 12px;
         width: 290px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 35px;
         margin: 10px 0 25px 0;
     }
@@ -234,7 +234,7 @@
         margin: 0;
         margin-bottom: 12px;
     }
-    .signin__header {
+    .signin__content__header {
         font-size: 33px;
         margin: 10px 0 20px 0;
     }
