@@ -107,3 +107,105 @@
     color: white;
     text-decoration: underline;
 }
+
+@media (max-width: 1100px) {
+    .header {
+        justify-content: space-around;
+        margin: 0px;
+    }
+    .header__logo {
+        font-size: 47px;
+    }
+    .signin-content {
+        height: 370px;
+        min-width: 280px;
+        margin: auto;
+        width: 325px;
+    }
+    .signin__header {
+        font-size: 35px;
+    }
+    .signin-form__input {
+        width: 270px;
+        height: 11px;
+        margin-bottom: 15px;
+    }
+    .signin-form__submit {
+        width: 260px;
+        height: 46px;
+        font-size: 20px;
+        padding: 15px;
+        width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        justify-content: space-around;
+        margin: 0px;
+        height: 185px;
+    }
+    .header__logo {
+        font-size: 40px;
+    }
+    .signin-content {
+        height: 280px;
+        min-width: 280px;
+        margin: auto;
+        margin-bottom: 12px;
+    }
+    .signin__header {
+        font-size: 35px;
+    }
+    .signin-form__input {
+        width: 270px;
+        height: 11px;
+        margin-bottom: 15px;
+    }
+    .signin-form__submit {
+        width: 260px;
+        height: 46px;
+        font-size: 20px;
+        padding: 15px;
+        width: 300px;
+    }
+    .signin__no-account {
+        margin: auto;
+    }
+}
+
+@media (max-width: 330px) {
+    .header {
+        justify-content: space-around;
+        margin: 0px;
+        height: 170px;
+    }
+    .header__logo {
+        font-size: 35px;
+    }
+    .header__home {
+        margin: 30px 0;
+    }
+    .signin-content {
+        height: 280px;
+        min-width: 280px;
+        margin: 0;
+        margin-bottom: 12px;
+    }
+    .signin__header {
+        font-size: 33px;
+        margin: 10px 0 20px 0;
+    }
+    .signin-form__input {
+        width: 270px;
+        height: 20px;
+        margin-bottom: 0px;
+    }
+    .signin-form__submit {
+        width: 260px;
+        height: 46px;
+        font-size: 20px;
+        padding: 15px;
+        width: 300px;
+    }
+}
