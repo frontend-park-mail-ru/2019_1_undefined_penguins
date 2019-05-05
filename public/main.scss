@@ -1,9 +1,13 @@
+@import '/components/SignUp/SignUp.scss';
+@import '/components/SignIn/SignIn.scss';
 @import "/components/Menu/Menu.scss";
 @import "/components/About/About.scss";
+@import 'error.scss';
 
 body {
     margin: 0;
     height: 100%;
+    font-family: Roboto-Regular;
 }
 
 #application {
