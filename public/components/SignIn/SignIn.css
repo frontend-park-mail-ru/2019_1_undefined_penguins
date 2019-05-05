@@ -119,14 +119,15 @@
         margin: 10px 0 45px 0;
     }
     .signin-content {
-        height: 580px;
+        height: 500px;
         min-width: 280px;
         margin: auto;
         width: 510px;
+        margin-bottom: 15px;
     }
     .signin-form__input {
         width: 410px;
-        height: 40px;
+        height: 45px;
         margin-bottom: 20px;
     }
     .signin-form__submit {
@@ -137,6 +138,7 @@
     }
     .signin__no-account {
         margin: auto;
+        font-size: 20px;
     }
 }
 
