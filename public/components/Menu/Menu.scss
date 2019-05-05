@@ -1,4 +1,9 @@
 $font-title: IndieFlower;
+$font-main: Roboto-Regular;
+$size-title: 70px;
+$color-white: #EDEFF0;
+$color-blue: #00B7DE;
+$border: 2px solid #979797;
 
 .menu-section {
     position: relative;
@@ -12,80 +17,78 @@ $font-title: IndieFlower;
     flex-direction: row;
     justify-content: space-between;
     height: 200px;
+
+    &__logo {
+        font-family: $font-title;
+        font-size: $size-title;
+        color: $color-white;
+        text-align: center;
+        margin: -30px 20px;
+        min-width: 500px;
+    }
+
+    &__buttons {
+        margin: 110px 0 100px 100px;
+        display: flex;
+        align-items: center;
+        width: 600px;
+        justify-content: space-between;
+    }
+
+    &__button  {
+        border: $border;
+        border-radius: 12px;
+        font-family: $font-main;
+        font-size: 30px;
+        color: $color-blue;
+        text-align: center;
+        text-decoration: none;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms ease-out;
+    }
+
+    &__profile {
+        margin-left: 100px;
+    }
+
+    &__sign-out {
+        margin-right: 100px;
+    }
+    
+    &__button:hover {
+        transform: scale(1.1);
+    } 
 }
 
-.menu-header__logo {
-    font-family: $font-title;
-    font-size: 70px;
-    color: #EDEFF0;
-    text-align: center;
-    margin: -30px 20px;
-    min-width: 500px;
-}
+.menu {
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        margin: 40px 100px;
+        width: 400px;
+        align-items: center;
+    }
 
-.menu-header__buttons {
-    margin: 110px 0 100px 100px;
-    display: flex;
-    align-items: center;
-    width: 600px;
-    justify-content: space-between;
-}
+    &__button {
+        border: $border;
+        border-radius: 12px;
+        font-family: $font-main;
+        font-size: 30px;
+        color: $color-blue;
+        text-align: center;
+        text-decoration: none;
+        padding: 15px;
+        margin: 20px 0;
+        width: 320px;
+        height: 35px;
+        transition: all 250ms ease-out;
 
-.menu-header__button  {
-    border: 2px solid #979797;
-    border-radius: 12px;
-    font-family: Roboto-Regular;
-    font-size: 30px;
-    color: #00B7DE;
-    text-align: center;
-    text-decoration: none;
-    padding: 15px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 250ms ease-out;
-}
-
-.menu-header__profile {
-    margin-left: 100px;
-}
-
-.menu-header__sign-out {
-    margin-right: 100px;
-}
-
-.menu-header__button:hover {
-    transform: scale(1.1);
-} 
-
-.menu__buttons {
-    display: flex;
-    flex-direction: column;
-    margin: 40px 100px;
-    width: 400px;
-    align-items: center;
-}
-
-.menu__button {
-    border: 2px solid #979797;
-    border-radius: 12px;
-    font-family: Roboto-Regular;
-    font-size: 30px;
-    color: #00B7DE;
-    text-align: center;
-    text-decoration: none;
-    padding: 15px;
-    margin: 20px 0;
-    width: 320px;
-    height: 35px;
-    transition: all 250ms ease-out;
-}
-
-.menu__button:hover {
-    transform: scale(1.1);
-}
-
-.menu__button__disabled {
-    color: rgba(0,197,238,0.34);
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
 }
 
 .menu-picture {
@@ -93,12 +96,12 @@ $font-title: IndieFlower;
     position: absolute;
     top: 30%;
     left: 40%;
-}
 
-.menu-picture__img {
-    width: 400px;
-    height: 400px;
-    padding: 90px 0 0 160px;
+    &__img {
+        width: 400px;
+        height: 400px;
+        padding: 90px 0 0 160px;
+    }
 }
 
 @media (min-width: 50px) and (max-width: 600px) {
@@ -110,49 +113,50 @@ $font-title: IndieFlower;
         flex-direction: column;
         height: 400px;
         margin: -10px auto 20px auto;
+        
+        &__logo {
+            font-size: 44px;
+            text-align: center;
+            margin: 10px 250px 0 35px;
+            min-width: 200px;
+        }
+
+        &__buttons {
+            margin: -40px auto auto auto;
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+
+        &__button {
+            padding: 15px;
+            margin: 15px 0;
+            width: 340px;
+            height: 35px;
+        }
     }
 
-    .menu-header__logo {
-        font-size: 44px;
-        text-align: center;
-        margin: 10px 250px 0 35px;
-        min-width: 200px;
-    }
-
-    .menu-header__buttons {
-        margin: -40px auto auto auto;
-        display: flex;
-        flex-direction: column;
-        width: 400px;
-    }
-    
-    .menu-header__button {
-        padding: 15px;
-        margin: 15px 0;
+    .menu {
+        &__button {
         width: 340px;
-        height: 35px;
-    }
-
-    .menu__button {
-        width: 340px;
         margin: 15px 0;
+        }
+
+        &__buttons {
+            margin: auto;
+            align-items: center;
+        }
     }
 
     .menu-picture {
         width: 150px;
         top: 5%;
         left: 60%;
-    }
-
-    .menu-picture__img {
-        width: 150px;
-        height: 150px;
-        padding: 0;
-    }
-
-    .menu__buttons {
-        margin: auto;
-        align-items: center;
+        &__img {
+            width: 150px;
+            height: 150px;
+            padding: 0;
+        }
     }
 }
 
@@ -165,50 +169,51 @@ $font-title: IndieFlower;
         flex-direction: column;
         height: 430px;
         margin: -10px auto 20px auto;
+        
+        &__logo {
+            font-size: 50px;
+            text-align: center;
+            margin: 0 250px 0 70px;
+            min-width: 200px;
+            max-width: 340px;
+        }
+
+        &__buttons {
+            margin: -40px auto auto auto;
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+        &__button {
+            padding: 15px;
+            margin: 15px 0;
+            width: 340px;
+            height: 35px;
+        }
     }
 
-    .menu-header__logo {
-        font-size: 50px;
-        text-align: center;
-        margin: 0 250px 0 70px;
-        min-width: 200px;
-        max-width: 340px;
-    }
+    .menu {
+        &__button {
+            width: 340px;
+            margin: 15px 0;
+        }
 
-    .menu-header__buttons {
-        margin: -40px auto auto auto;
-        display: flex;
-        flex-direction: column;
-        width: 400px;
-    }
-    
-    .menu-header__button {
-        padding: 15px;
-        margin: 15px 0;
-        width: 340px;
-        height: 35px;
-    }
-
-    .menu__button {
-        width: 340px;
-        margin: 15px 0;
+        &__buttons {
+            margin: auto;
+            align-items: center;
+        }        
     }
 
     .menu-picture {
         width: 180px;
         top: 5%;
         left: 55%;
-    }
 
-    .menu-picture__img {
-        width: 180px;
-        height: 180px;
-        padding: 0;
-    }
-
-    .menu__buttons {
-        margin: auto;
-        align-items: center;
+        &__img {
+            width: 180px;
+            height: 180px;
+            padding: 0;
+        }
     }
 }
 
@@ -221,20 +226,20 @@ $font-title: IndieFlower;
         justify-content: flex-start;
         height: 300px;
         margin: -35px 10px 20px 80px;
-    }
-
-    .menu-header__logo {
-        font-size: 65px;
-        text-align: center;
-        margin: 0 0 0 40px;
-        max-width: 320px;
-        min-width: 200px;
-    }
-
-    .menu-header__buttons {
-        margin: 110px 0 60px 0;
-        width: 600px;
-        justify-content: space-around;
+        
+        &__logo {
+            font-size: 65px;
+            text-align: center;
+            margin: 0 0 0 40px;
+            max-width: 320px;
+            min-width: 200px;
+        }
+        
+        &__buttons {
+            margin: 110px 0 60px 0;
+            width: 600px;
+            justify-content: space-around;
+        }
     }
 
     .menu__buttons {
