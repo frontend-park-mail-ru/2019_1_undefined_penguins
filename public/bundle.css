@@ -941,17 +941,75 @@ a {
     margin-top: 90px;
     cursor: pointer;
 }.game-view__canvas-layers {
-    position:relative; 
-    width:800px; 
-    height:800px 
-}
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
 
 .game-view__canvas-layer {
-    position:absolute; 
-    top:0; 
-    left:0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-}.error {
+}
+
+.game__header__home-button {
+    width: 70px;
+    height: 70px;
+}
+.game__header__home {
+    position: absolute;
+    top: 10%;
+
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.game__header__score {
+    position: absolute;
+    top: 10%;
+
+    right: 20%;
+    transform: translate(50%, -50%);
+}
+
+.game__header__score-p {
+    font-size: 60px;
+    font-family: Roboto-Bold;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.game-view__turn-button {
+    font-family: Roboto-Bold;
+    font-size: 150%;
+    background: #DA8F56;
+    border-radius: 8px;
+    width: 350px;
+    height: 10%;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    left: 50%;
+    bottom: 5%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+}
+
+@media (max-width: 400px){
+    .game-view__turn-button {
+        width: 80%;
+    }
+}
+
+
+.error {
     color: #f10000;
     font-size: 19px;
     margin-bottom: 10px;
