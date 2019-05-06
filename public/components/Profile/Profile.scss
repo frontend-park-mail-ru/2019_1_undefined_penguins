@@ -1,0 +1,298 @@
+/* //    colors
+
+$dark-color: #101C45;
+
+// fonts
+ */
+$pochti-white: #EDEFF0;
+$white-color:#ffffff;
+$orange-color: #DA8F56;
+$grey-color:#979797;
+$bedfee-color:#BEDFEE;
+$dark-blue:#101C45;
+$roboto:Roboto-Regular;
+$roboto-bold:Roboto-Bold;
+$font-indie: IndieFlower;
+
+
+
+
+.profile__header {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.profile__header__logo {
+    font-family: $font-indie;
+    font-size: 62px;
+    color: $pochti-white;
+    text-align: center;
+    margin: -25px 130px;
+}
+
+.profile__header__home {
+    margin: 80px 0 60px 160px;
+}
+
+.profile-content {
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+    height: 540px;
+    width: 860px;
+	opacity: 1;
+	border: 2px solid $grey-color;
+    border-radius: 16px;
+    padding: 20px;
+	margin: 0 120px 100px 120px
+}
+
+.profile__content__header {
+    justify-content: space-around;
+    margin: 0 0 -20px 80px;
+	font-size: 46px;
+	font-family: $roboto;
+    color: $orange-color;
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    width: 800px;
+}
+
+.profile-form__inline, .profile-form__info-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.profile-form__avatar {
+    width: 270px;
+    height: 270px;
+}
+
+.profile-form__item {
+    font-family: $roboto-bold;
+    font-size: 30px;
+    color: $orange-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    margin-bottom: 30px;
+}
+
+.profile-form__input, .profile-form__label {
+    font-family: $roboto-bold;
+    font-size: 22px;
+    opacity: 0.98;
+    background: $bedfee-color;
+    border: 1px solid $grey-color;
+    border-radius: 8px;
+    color: $dark-blue;
+    width: 350px;
+    height: 25px;
+    padding: 10px;
+}
+
+.profile-form__label {
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.profile-form__submit {
+    background: $orange-color;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    width: 260px;
+    height: 55px;
+
+    font-family: $roboto;
+    font-size: 20px;
+    color: $white-color;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+}
+
+.info-block__item {
+    font-family: $roboto-bold;
+    font-size: 30px;
+    color: $orange-color;
+    text-align: center;
+    width: 170px;
+}
+
+.profile-form__label {
+    text-align: center;
+}
+
+
+@media (max-width: 1200px) {
+    .profile__header__home {
+        margin: 80px 0 60px 115px;
+    }
+    .profile__header__logo {
+        font-size: 51px;
+        margin: auto;
+    }
+    .profile__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }   
+    .profile-content {
+        width: 550px;
+        height: 780px;
+        padding: 35px;
+    }
+    .profile-form__inline { 
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .profile-form__info-block {
+        flex-direction: row;
+    }
+    .profile__content__header {
+        margin: 0 0 -20px 0px;
+        margin-bottom: 30px;
+    }
+    .profile-form__avatar {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 870px) {
+    .profile__header__home {
+        margin: 68px 0 60px 5px;
+    }
+    .profile__header__logo {
+        font-size: 45px;
+        margin: auto;
+    }
+    .profile__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 130px;
+    }   
+    .profile-content {    
+        width: 440px;
+        height: 780px;
+        padding: 35px;
+        margin: auto;
+    }
+    .profile-form__inline { 
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .profile-form__info-block {
+        flex-direction: row;
+    }
+    .profile__content__header {
+        margin: 0 0 -20px 0px;
+        margin-bottom: 30px;
+    }
+    .profile-form__avatar {
+        margin-bottom: 20px;
+    }  
+    .profile-form {
+        width: 420px;
+        text-align: center;
+    }
+    .profile-form__input-file {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #application {
+        min-height: 980px;
+    }
+    .profile__header__home {
+        margin: 68px 0 60px 5px;
+    }
+    .header__home-button {
+        width: 47px;
+        height: 70px;
+        cursor: pointer;
+        transition: all 250ms ease-out;
+    }
+    .profile__header__logo {
+        font-size: 26px;
+        margin: auto;
+    }
+    .profile__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 130px;
+        margin: auto;
+        width: 100px;
+    }   
+    .profile-content {    
+        width: 224px;
+        height: 448px;
+        padding: 35px;
+        margin: auto;
+        border: none;
+    }
+    .profile-form__inline { 
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .profile-form__info-block {
+        flex-direction: row;
+    }
+    .profile__content__header {
+        margin: 0 0 -20px 0px;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+    .profile-form__avatar {
+        margin-bottom: 20px;
+    }  
+    .profile-form {
+        width: 283px;
+        text-align: center;
+    }
+    .profile-form__input-file {
+        margin-bottom: 10px;
+    }
+    .profile-form__item {
+        font-family: $roboto-bold;
+        font-size: 30px;
+        color: $orange-color;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 350px;
+        margin-bottom: 30px;
+        flex-direction: column;
+    }
+    .profile-form__input, .profile-form__label {
+        font-family: $roboto-bold;
+        font-size: 22px;
+        opacity: 0.98;
+        background: $bedfee-color;
+        border: 1px solid $grey-color;
+        border-radius: 8px;
+        color: $dark-blue;
+        width: 350px;
+        height: 25px;
+        padding: 10px;
+    }
+    .profile-form__info-block {
+        flex-direction: row;
+    }
+    .scores {
+        width: 100px;
+    }
+}
+
