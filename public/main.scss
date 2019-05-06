@@ -1,8 +1,12 @@
+@import 'components/Board/Board.scss';
+@import '/components/Game/Game.scss';
 @import '/components/SignUp/SignUp.scss';
 @import '/components/SignIn/SignIn.scss';
 @import "/components/Menu/Menu.scss";
 @import "/components/About/About.scss";
-@import "/components/Profile/Profile.css";
+@import "/components/Profile/Profile.scss";
+@import "/components/Lost/Lost.scss";
+@import "/components/Win/Win.scss";
 @import 'error.scss';
 
 body {
@@ -65,4 +69,5 @@ body {
     #application {
         min-height: 860px;
     }
+
 }
