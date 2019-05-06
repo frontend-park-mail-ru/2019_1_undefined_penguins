@@ -14,23 +14,25 @@ $roboto:Roboto-Regular;
 $roboto-bold:Roboto-Bold;
 $font-indie: IndieFlower;
 
-.profile__header {
-    display: flex;
-    flex-direction: row;
-    height: 200px;
-    margin-bottom: 30px;
-}
+.profile {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        height: 200px;
+        margin-bottom: 30px;
 
-.profile__header__logo {
-    font-family: $font-indie;
-    font-size: 62px;
-    color: $pochti-white;
-    text-align: center;
-    margin: -25px 130px;
-}
-
-.profile__header__home {
-    margin: 80px 0 60px 160px;
+        &__logo {
+            font-family: $font-indie;
+            font-size: 62px;
+            color: $pochti-white;
+            text-align: center;
+            margin: -25px 130px;
+        }
+        
+        &__home {
+            margin: 80px 0 60px 160px;
+        }
+    }
 }
 
 .profile-content {
@@ -46,246 +48,49 @@ $font-indie: IndieFlower;
 	margin: 0 120px 100px 120px
 }
 
-.profile__content__header {
-    justify-content: space-around;
-    margin: 0 0 -20px 80px;
-	font-size: 46px;
-	font-family: $roboto;
-    color: $orange-color;
-    margin-bottom: 20px;
+.profile {
+    &__content {
+        &__header {
+        justify-content: space-around;
+        margin: 0 0 -20px 80px;
+        font-size: 46px;
+        font-family: $roboto;
+        color: $orange-color;
+        margin-bottom: 20px;
+        }
+    }
 }
 
 .profile-form {
     width: 800px;
 }
 
-.profile-form__inline, .profile-form__info-block {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.profile-form__avatar {
-    width: 270px;
-    height: 270px;
-}
-
-.profile-form__item {
-    font-family: $roboto-bold;
-    font-size: 30px;
-    color: $orange-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 500px;
-    margin-bottom: 30px;
-}
-
-.profile-form__input, .profile-form__label {
-    font-family: $roboto-bold;
-    font-size: 22px;
-    opacity: 0.98;
-    background: $bedfee-color;
-    border: 1px solid $grey-color;
-    border-radius: 8px;
-    color: $dark-blue;
-    width: 350px;
-    height: 25px;
-    padding: 10px;
-}
-
-.profile-form__label {
-    width: 150px;
-    height: 40px;
-    margin-top: 20px;
-}
-
-.profile-form__submit {
-    background: $orange-color;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    width: 260px;
-    height: 55px;
-
-    font-family: $roboto;
-    font-size: 20px;
-    color: $white-color;
-    text-align: center;
-    text-decoration: none;
-    padding: 15px;
-}
-
-.info-block__item {
-    font-family: $roboto-bold;
-    font-size: 30px;
-    color: $orange-color;
-    text-align: center;
-    width: 170px;
-}
-
-.profile-form__label {
-    text-align: center;
-}
-
-
-@media (max-width: 1200px) {
-    .profile__header__home {
-        margin: 80px 0 60px 115px;
-    }
-    .profile__header__logo {
-        font-size: 51px;
-        margin: auto;
-    }
-    .profile__header {
+.profile-form {
+    &__inline, &__info-block {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-    }   
-    .profile-content {
-        width: 550px;
-        height: 780px;
-        padding: 35px;
-    }
-    .profile-form__inline { 
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-    .profile-form__info-block {
-        flex-direction: row;
-    }
-    .profile__content__header {
-        margin: 0 0 -20px 0px;
-        margin-bottom: 30px;
-    }
-    .profile-form__avatar {
-        margin-bottom: 20px;
-    }
-}
-
-@media (max-width: 870px) {
-    .profile__header__home {
-        margin: 68px 0 60px 5px;
-    }
-    .profile__header__logo {
-        font-size: 45px;
-        margin: auto;
-    }
-    .profile__header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        height: 130px;
-    }   
-    .profile-content {    
-        width: 380px;
-        height: 700px;
-        padding: 35px;
-        margin: auto;
-    }
-    .profile-form__inline { 
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-    .profile-form__info-block {
-        flex-direction: row;
-    }
-    .profile__content__header {
-        margin: 0 0 -20px 0px;
-        margin-bottom: 30px;
-    }
-    .profile-form__avatar {
-        margin-bottom: 20px;
-        width: 180px;
-        height: 180px;
-    }  
-    .profile-form {
-        width: 420px;
-        text-align: center;
-    }
-    .profile-form__input-file {
-        margin-bottom: 10px;
-    }
-    .profile-form__item {
-        font-size: 28px;
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        width: 350px;
-        margin-bottom: 30px;
+        justify-content: space-around;
+        margin-bottom: 20px;
     }
-}
 
-@media (max-width: 480px) {
-    #application {
-        min-height: 980px;
+    &__avatar {
+        width: 270px;
+        height: 270px;
     }
-    .profile__header__home {
-        margin: 68px 0 60px 5px;
-    }
-    .header__home-button {
-        width: 47px;
-        height: 70px;
-        cursor: pointer;
-        transition: all 250ms ease-out;
-    }
-    .profile__header__logo {
-        font-size: 26px;
-        margin: auto;
-    }
-    .profile__header {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        height: 130px;
-        margin: auto;
-        width: 100px;
-    }   
-    .profile-content {    
-        width: 224px;
-        height: 448px;
-        padding: 35px;
-        margin: auto;
-        border: none;
-    }
-    .profile-form__inline { 
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-    .profile-form__info-block {
-        flex-direction: row;
-    }
-    .profile__content__header {
-        margin: 0 0 -20px 0px;
-        margin-bottom: 20px;
-        font-size: 28px;
-    }
-    .profile-form__avatar {
-        margin-bottom: 10px;
-        width: 180px;
-        height: 180px;
-    }  
-    .profile-form {
-        width: 283px;
-        text-align: center;
-    }
-    .profile-form__input-file {
-        margin-bottom: 10px;
-    }
-    .profile-form__item {
+
+    &__item {
         font-family: $roboto-bold;
         font-size: 30px;
         color: $orange-color;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 350px;
+        width: 500px;
         margin-bottom: 30px;
-        flex-direction: column;
     }
-    .profile-form__input, .profile-form__label {
+
+    &__input, &__label {
         font-family: $roboto-bold;
         font-size: 22px;
         opacity: 0.98;
@@ -293,18 +98,236 @@ $font-indie: IndieFlower;
         border: 1px solid $grey-color;
         border-radius: 8px;
         color: $dark-blue;
-        width: 260px;
+        width: 350px;
         height: 25px;
         padding: 10px;
     }
-    .profile-form__info-block {
-        flex-direction: row;
+
+    &__label {
+        width: 150px;
+        height: 40px;
+        margin-top: 20px;
+        text-align: center;
     }
+    
+    &__submit {
+        background: $orange-color;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        width: 260px;
+        height: 55px;
+    
+        font-family: $roboto;
+        font-size: 20px;
+        color: $white-color;
+        text-align: center;
+        text-decoration: none;
+        padding: 15px;
+    }
+}
+
+.info-block {
+    &__item {
+        font-family: $roboto-bold;
+        font-size: 30px;
+        color: $orange-color;
+        text-align: center;
+        width: 170px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .profile {
+        &__header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            &__home {
+                margin: 80px 0 60px 115px;
+            }
+            &__logo {
+                font-size: 51px;
+                margin: auto;
+            }
+        }
+    }
+
+    .profile-content {
+        width: 550px;
+        height: 780px;
+        padding: 35px;
+    }
+    .profile-form {
+        &__inline { 
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        &__info-block {
+            flex-direction: row;
+        }
+        &__avatar {
+            margin-bottom: 20px;
+        }
+    }
+
+    .profile {
+        &__content {
+            &__header {
+                margin: 0 0 -20px 0px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
+
+@media (max-width: 870px) {
+    .profile {
+        &__header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            height: 130px;
+            &__home {
+                margin: 68px 0 60px 5px;
+            }
+            &__logo {
+                font-size: 45px;
+                margin: auto;
+            }
+        }
+        &__content {
+            &__header {
+                margin: 0 0 -20px 0px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+ 
+    .profile-content {    
+        width: 380px;
+        height: 700px;
+        padding: 35px;
+        margin: auto;
+    }
+    .profile-form {
+        width: 420px;
+        text-align: center;
+        &__inline { 
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        &__info-block {
+            flex-direction: row;
+        }
+        &__avatar {
+            margin-bottom: 20px;
+            width: 180px;
+            height: 180px;
+        }
+        &__input-file {
+            margin-bottom: 10px;
+        }  
+        &__item {
+            font-size: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 350px;
+            margin-bottom: 30px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    #application {
+        min-height: 980px;
+    }
+    .profile {
+        &__header {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            height: 130px;
+            margin: auto;
+            width: 100px;
+            &__home {
+                margin: 68px 0 60px 5px;
+            }
+            &__logo {
+                font-size: 26px;
+                margin: auto;
+            }
+        }
+        &__content {
+            &__header {
+                margin: 0 0 -20px 0px;
+                margin-bottom: 20px;
+                font-size: 28px;
+            }
+        }
+    }
+
+    .profile-content {    
+        width: 224px;
+        height: 448px;
+        padding: 35px;
+        margin: auto;
+        border: none;
+    }
+    .profile-form {
+        width: 283px;
+        text-align: center;
+        &__inline { 
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        &__info-block {
+            flex-direction: row;
+        }
+        &__avatar {
+            margin-bottom: 10px;
+            width: 180px;
+            height: 180px;
+        } 
+        &__input-file {
+            margin-bottom: 10px;
+        }
+        &__item {
+            font-family: $roboto-bold;
+            font-size: 30px;
+            color: $orange-color;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 350px;
+            margin-bottom: 30px;
+            flex-direction: column;
+        }
+        &__input, &__label {
+            font-family: $roboto-bold;
+            font-size: 22px;
+            opacity: 0.98;
+            background: $bedfee-color;
+            border: 1px solid $grey-color;
+            border-radius: 8px;
+            color: $dark-blue;
+            width: 260px;
+            height: 25px;
+            padding: 10px;
+        }
+        &__info-block {
+            flex-direction: row;
+        }
+    }
+
     .scores {
         width: 100px;
     }
-    .info-block__item {
-        font-size: 24px;
+    .info-block {
+        &__item {
+            font-size: 24px;
+        }
     }
 }
 
