@@ -5,4 +5,5 @@ package-lock.json
 documents/
 dist/
 sw.js
-bundle.js
+public/bundle.js
+public/bundle.css

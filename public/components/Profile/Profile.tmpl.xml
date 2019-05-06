@@ -1,17 +1,18 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="header">
-        <div class="header__home">
-            <img src="/images/home.svg" class="js-header__home-button"/>
+    <div class="profile__header">
+        <div class="profile__header__home">
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
-        <div class="header__logo">
-            <h1 class="header__title">Penguins Wars</h1>
+        <div class="profile__header__logo">
+            <h1 class="profile__header__title">Penguins Wars</h1>
         </div>
 		<!-- <div class="header__buttons">
 			<a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
 		</div> -->
     </div>
     <section class="profile-content">
-        <p class="profile__header">Профиль игрока</p>
+        <p class="profile__content__header">Профиль игрока</p> 
+        <span class="error error__hidden"></span>
         <form class="profile-form" enctype="multipart/form-data">
             <div class="profile-form__inline">
                 <img class="profile-form__avatar" src="{data.avatarUrl}"/>
@@ -22,7 +23,7 @@
                     </div>
                     <div class="profile-form__item">
                         <label>Email: </label>
-                        <input name="email" type="email" value="{data.email}" class="profile-form__input"/>
+                        <input name="email" type="text" value="{data.email}" class="profile-form__input"/>
                     </div>
                     <input name="inputAvatar" type="file" accept="image/*" class="profile-form__input-file"/>
                     <input name="save" type="submit" value="Сохранить" class="profile-form__submit js-button-save"/>
@@ -31,11 +32,11 @@
             <div class="profile-form__info-block">
                 <div class="info-block__item">
                     <label>Лучший результат:</label>
-                    <input name="score" type="text" value="{data.score}" class="profile-form__label" disabled="true"/>
+                    <input name="score" type="text" value="{data.score}" class="profile-form__label scores" disabled="true"/>
                 </div>
                 <div class="info-block__item">
                     <label>Количество игр:</label>
-                    <input name="score" type="text" value="{data.count}" class="profile-form__label" disabled="true"/>
+                    <input name="score" type="text" value="{data.count}" class="profile-form__label scores" disabled="true"/>
                 </div>
             </div>
         </form>

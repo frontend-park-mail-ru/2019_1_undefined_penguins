@@ -1,0 +1,31 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section class="lost-header">
+        <div class="lost-header__home">
+            <img src="/images/home.svg" class="lost-header__home-button js-header__home-button"/>
+        </div>
+        <div class="lost-header__logo">
+            <h1 class="lost-header__title">Penguins Wars</h1>
+        </div>
+    </section>
+    <section class="lost-main">
+        <p class="lost-main__header">Увы!</p>
+        <form class="lost-main__form" enctype="multipart/form-data">
+            <div class="lost-form__inline">
+                <img class="lost-form__image" src="../../images/lost.png"/>
+                <div class="lost-form__data">
+                    <div class="lost-form__item">
+                        <p>Игра закончена!</p>
+                    </div>
+                    <div class="lost-form__item">
+                        <span>Ваш результат: </span>
+                        <span class="lost-form__item-score"> <fest:value> data.score</fest:value></span>
+                        <span> очков(-а)</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="lost-main__repeat-button">
+            <img src="../../images/refresh.svg" class="js-button__repeat-button"/>
+        </div>
+    </section>    
+</fest:template>

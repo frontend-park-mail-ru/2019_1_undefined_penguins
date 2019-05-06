@@ -1,64 +1,150 @@
 import Bus from './EventBus.js';
 import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
+import Game from '../game/Game.js';
+import { STRATEGIES } from '../utils/strategies.js'
+import { EVENTS } from '../utils/events.js';
+
+function insertAfter (newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 
 export default class EventController {
-  static Init() {
-    Bus.on('check-autorized', () => {
-      UserModel.CheckAuthorized();
-    });
+    static Init () {
+        Bus.on('check-autorized', () => {
+            UserModel.CheckAuthorized();
+        });
 
-    Bus.on('select-menu-header', (menu) => {
-      menu.RenderHeader(UserModel.IsAutorised());
-    });
+        Bus.on('select-menu-header', (menu) => {
+            menu.RenderHeader(UserModel.IsAutorised());
+        });
 
-    Bus.on('sign-in', (form) => {
-      UserModel.SignIn(form);
-    });
 
-    Bus.on('sign-up', (form) => {
-      UserModel.SignUp(form);
-    });
+        Bus.on('sign-in', (el) => {
+            UserModel.SignIn(el);
+        });
 
-    Bus.on('sign-out', () => {
-      UserModel.SignOut();
-    });
+        Bus.on('sign-up', (el) => {
+            UserModel.SignUp(el);
+        });
 
-    Bus.on('open-menu', () => {
-      console.log('Пришел эмит на open menu');
-      Router.open('/');
-    });
+        Bus.on('sign-out', () => {
+            UserModel.SignOut();
+        });
 
-    Bus.on('get-current-user', (profileView) => {
-      profileView.SetUser(UserModel.GetUser());
-    });
+        Bus.on('open-menu', () => {
+            Router.open('/');
+        });
 
-    Bus.on('open-profile', () => {
-      Router.open('/me');
-    });
+        Bus.on('get-current-user', (profileView) => {
+            profileView.SetUser(UserModel.GetUser());
+        });
 
-    Bus.on('get-users', (leadersView) => {
-      UserModel.Leaders(leadersView, 0);
-    });
+        Bus.on('open-profile', () => {
+            Router.open('/me');
+        });
 
-    Bus.on('previous-page', (leadersView) => {
-      UserModel.Leaders(leadersView, -1);
-    });
+        Bus.on('get-users', (leadersView) => {
+            UserModel.Leaders(leadersView);
+        });
 
-    Bus.on('next-page', (leadersView) => {
-      UserModel.Leaders(leadersView, 1);
-    });
+        Bus.on('new-page', (leadersView) => {
+            UserModel.LeadersPage(leadersView);
+        });
 
-    Bus.on('open-sign-in', () => {
-      Router.open('/signIn');
-    });
+        Bus.on('open-sign-in', () => {
+            Router.open('/signIn');
+        });
 
-    Bus.on('change-profile', (view) => {
-      Bus.on('redraw-profile', () => {
-        view.SetUser(UserModel.GetUser());
-      });
-      const form = view.el.getElementsByTagName('form')[0];
-      UserModel.ChangeProfile(form);
-    });
-  }
+        Bus.on('error-404', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Неверный email или пароль!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-409', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Такой пользователь уже существует!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-5xx', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Ошибка сервера!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-email', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Некорректный email!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-password', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            // error.innerText = "Некорректный пароль!"; 
+            error.innerText = 'Длина пароля должна быть от 4 до 20 символов!';  
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-empty', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Все поля должны быть заполнены!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-login', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            //error.innerText = "Некорректный логин!"; 
+            error.innerText = 'Длина логина должна быть от 4 до 14 символов!';
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-equal-password', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Пароли должны совпадать!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('change-profile', (view) => {
+            Bus.on('redraw-profile', () => {
+                view.SetUser(UserModel.GetUser());
+            });
+            //const form = view.el.getElementsByTagName('form')[0];
+            UserModel.ChangeProfile(view.el);
+        });
+
+        Bus.on('open-win-view', (score) => {
+            UserModel.setUserScore(score);
+            Router.open('/game/win');
+        });
+
+        Bus.on('open-lost-view', (score) => {
+            UserModel.setUserScore(score);
+            Router.open('/game/lost');
+        });
+
+        Bus.on('open-single', () => {
+            Router.open('/singlePlayer');
+        });
+
+        Bus.on('start-game', (view) => {
+            const Strategy = STRATEGIES[view.getMode()];
+            const gameCanvases = view.getCanvases();
+            const game = new Game(Strategy, UserModel.GetUser().login, gameCanvases);
+            view.setGame(game);
+            // Bus.off('start-game');
+        });
+
+        Bus.on(EVENTS.OPEN_FINISH_VIEW, (payload) => {
+            console.log('finishGame', payload);
+            // TODO: Открывать вью в зависимости от результата. Сделать if
+            Router.open('/game/win');
+            // TODO: Удалять game во вью
+            
+            // view.game.destroy();
+            // delete view.game;
+
+        });
+    }
 }

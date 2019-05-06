@@ -1,0 +1,312 @@
+@import "../../consts.scss";
+
+ .sign-up {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 200px;
+        padding-right: 250px;
+
+        &__home {
+            margin: 60px 0;
+            cursor: pointer;
+            transition: all 250ms ease-out;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+        &__logo {
+            font-family: $font-indie;
+            font-size: 50px;
+            color: $white-color;
+            text-align: center;
+            margin: -16px 20px
+        }
+
+        &__title{
+            font-size: 70px;
+        }
+    }
+
+    &__content {
+        &__header {
+            font-family: $font-roboto-bold;
+            margin: 10px 0 30px 0;
+            font-size: 40px;
+            color: $orange-color;
+            text-align: center;
+        }
+    }
+}
+
+.sign-up-content {
+    font-family: $font-roboto-reg;
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+	height: 500px;
+	opacity: 1;
+	border: 2px solid $border-color;
+	border-radius: 16px;
+    margin: 0 330px 100px 350px;
+    padding: 20px;
+    min-width: 380px;
+    width: 420px;
+}
+
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    &__input {
+        font-size: 18px;
+        opacity: 0.98;
+        background: $white-color;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        color: $dark-color;
+        width: 350px;
+        height: 25px;
+        padding: 15px;
+        margin-bottom: 25px;
+    }
+
+    &__submit {
+        font-family: $font-roboto-bold;
+        background: $orange-color;
+        border-radius: 8px;
+        width: 260px;
+        height: 55px;
+        font-size: 20px;
+        color: $white-color;
+        text-align: center;
+        text-decoration: none;
+        padding: 15px;
+        border: none;
+        outline: none;
+        width: 370px; 
+        cursor: pointer;
+        transition: all 250ms ease-out;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    .sign-up {
+        &__header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+
+            &__home {
+                margin: 13px 150px;
+                cursor: pointer;
+            }
+
+            &__logo {
+                font-family: $font-indie;
+                font-size: 50px;
+                color: $white-color;
+                text-align: center;
+            }
+        
+            &__title{
+                font-size: 70px;
+                margin: auto;
+            }
+        }
+    }
+
+    .sign-up {
+        &__content {
+            &__header {
+                font-size: 38px;
+                margin: 10px 0 30px 0;
+            }
+        }
+    }
+    .sign-up-content {
+        height: 540px;
+        min-width: 280px;
+        margin: auto;
+        width: 510px;
+    }
+    .sign-up-form {
+        &__input {
+            width: 410px;
+            height: 30px;
+            margin-bottom: 24px;
+        }
+
+        &__submit {
+            height: 70px;
+            font-size: 20px;
+            padding: 15px;
+            width: 443px;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .sign-up {
+        &__content {
+            &__header {
+                font-size: 40px;
+                margin: 10px 0 30px 0;
+            }
+        }
+    }
+    .sign-up-content {
+        height: 440px;
+        min-width: 280px;
+        margin: auto;
+        width: 435px;
+    }
+    .sign-up-form {
+        &__input {
+            width: 325px;
+            height: 20px;
+            margin-bottom: 17px;
+        }
+
+        &__submit {
+            width: 260px;
+            height: 60px;
+            font-size: 20px;
+            padding: 15px;
+            width: 358px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .sign-up {
+        &__header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+            height: 140px;
+
+            &__home {
+                margin: 13px 150px 0px;
+                cursor: pointer;
+            }
+            
+            &__logo {
+                font-family: $font-indie;
+                font-size: 49px;
+                color: $white-color;
+                text-align: center;
+            }
+        
+           &__title{
+                font-size: 1em;
+                margin: auto;
+            }
+        }
+    }
+
+    .sign-up-content {
+        height: 380px;
+        min-width: 280px;
+        margin: auto;
+        width: 300px;
+
+    }
+    .sign-up {
+        &__content {
+            &__header {
+                font-size: 28px;
+            }
+        }
+    }
+    .sign-up-form {
+        &__input {
+            width: 270px;
+            height: 11px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        &__submit {
+            width: 260px;
+            height: 50px;
+            font-size: 20px;
+            padding: 15px;
+            width: 300px;
+        }
+    }
+}
+
+@media (max-width: 330px) {
+    .sign-up {
+        &__header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+            width: 280px;
+
+            &__home {
+                margin: 13px 150px;
+                cursor: pointer;
+            }
+            
+            &__logo {
+                font-family: $font-indie;
+                font-size: 37px;
+                color: $white-color;
+                text-align: center;
+            }
+        
+            &__title{
+                font-size: 1em;
+                margin: auto;
+            }
+        }
+
+        &__content {
+            &__header {
+                font-size: 24px;
+                margin: 10px 0 20px 0;
+            }
+        }
+    }
+
+    .sign-up-content {
+        height: 350px;
+        min-width: 200px;
+        margin: auto;
+        width: 250px;
+    }
+
+    .sign-up-form {
+        &__input {
+            width: 250px;
+            height: 11px;
+            margin-bottom: 15px;
+        }
+
+        &__submit {
+            width: 250px;
+            height: 50px;
+            font-size: 20px;
+            padding: 15px;
+        }
+    }
+
+    .error {
+        font-size: 15px;
+    }
+}
+

@@ -1,20 +1,20 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-	<div class="header">
-		<div class="header__home">
-			<img src="/images/home.svg" class="header__home-button js-header__home-button"/>
+	<div class="board__header">
+		<div class="board__header__home">
+			<img src="/images/home.svg" class="board__header__home-button js-board__header__home-button"/>
 		</div>
-		<div class="header__logo">
-			<h1 class="header__title">Penguins Wars</h1>
+		<div class="board__header__logo">
+			<h1 class="board__header__title">Penguins Wars</h1>
 		</div>
-		<!-- <div class="header__buttons">
-			<a href="me" data-href="me" class="header__profile header__button js-profile-button">ПРОФИЛЬ</a>
-			<a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
+		<!-- <div class="board__header__buttons">
+			<a href="me" data-href="me" class="board__header__profile board__header__button js-profile-button">ПРОФИЛЬ</a>
+			<a href="signout" data-href="signout" class="board__header__sign-out board__header__button js-sign-out-button">ВЫЙТИ</a>
 		</div> -->
 	</div>
 	<div class="leaders-content">
-		<p class="leaders__header">Таблица лидеров</p>
+		<p class="leaders__board__header">Таблица лидеров</p>
 		<table cellpadding="0" cellspacing="0" class="leaders__table">
-			<!-- <thead class="table__header">
+			<!-- <thead class="table__board__header">
 				<tr class="table__row">
 					<th>Email</th>
 					<th>Score</th>
@@ -23,7 +23,7 @@
 			<tbody class="table__body">
 				<fest:for iterate="data" index="i" value="v">
 					<tr class="table__row">
-						<td><fest:value>v.Page*3+i-2</fest:value>.</td>
+						<td><fest:value>data[0].Page*3+i-2</fest:value>.</td>
 						<td><fest:value>v.login</fest:value></td>
 						<td><fest:value>v.score</fest:value></td>
 					</tr>
@@ -31,9 +31,23 @@
 			</tbody>
 		</table>
 		<div class="leaders__buttons">
-			<img src="/images/prev.svg" class="leaders__button js-button-prev leaders__button__disabled"/>
+			<fest:choose>
+				<fest:when test="data[0].Page===1">
+					<img src="/images/prev_disabled.svg" class="leaders__button js-button-prev"/>
+				</fest:when>
+				<fest:otherwise>
+					<img src="/images/prev.svg" class="leaders__button js-button-prev"/>
+				</fest:otherwise>
+			</fest:choose>
 			<div class="leaders__page-number"><fest:value>data[0].Page</fest:value></div>
-			<img src="/images/next.svg" class="leaders__button js-button-next"/>
+			<fest:choose>
+				<fest:when test="data[0].Right===true">
+					<img src="/images/next.svg" class="leaders__button js-button-next"/>
+				</fest:when>
+				<fest:otherwise>
+					<img src="/images/next_disabled.svg" class="leaders__button js-button-next"/>
+				</fest:otherwise>
+			</fest:choose>
 		</div>
 	</div>
 </fest:template>

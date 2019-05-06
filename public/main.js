@@ -6,32 +6,31 @@ import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
 import ProfileView from './views/ProfileView.js';
 import SignOutView from './views/SignOutView.js';
-import SingleplayerView from './views/SingleplayerView.js';
-import MultiplayerView from './views/MultiplayerView.js';
-
+import GameView from './views/GameView.js';
+import WinView from './views/WinView.js';
+import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then((registration) => {
-      console.log('ServiceWorker registration', registration);
-    })
-    .catch((error) => {
-      throw new Error(`ServiceWorker error: ${error}`);
-    });
-}
+import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+import './main.scss';
 
 EventController.Init();
 
 Router
-  .register('/', MenuView)
-  .register('/leaders', ScoreboardView)
-  .register('/signIn', SignInView)
-  .register('/signUp', SignUpView)
-  .register('/about', AboutView)
-  .register('/me', ProfileView)
-  .register('/signout', SignOutView)
-  .register('/singlePlayer', SingleplayerView)
-  .register('/multiPlayer', MultiplayerView);
+    .register('/', MenuView)
+    .register('/leaders', ScoreboardView)
+    .register('/signIn', SignInView)
+    .register('/signUp', SignUpView)
+    .register('/about', AboutView)
+    .register('/me', ProfileView)
+    .register('/signout', SignOutView)
+    .register('/singlePlayer', GameView, 'SINGLE')
+    .register('/multiPlayer', GameView, 'MULTI')
+    .register('/game/win', WinView)
+    .register('/game/lost', LostView);
 
 Router.start();
+
+if ('serviceWorker' in navigator) {
+    runtime.register();
+}

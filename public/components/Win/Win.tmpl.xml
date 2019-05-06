@@ -1,0 +1,31 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section class="win-header">
+        <div class="win-header__home">
+            <img src="/images/home.svg" class="win-header__home-button js-header__home-button"/>
+        </div>
+        <div class="win-header__logo">
+            <h1 class="win-header__title">Penguins Wars</h1>
+        </div>
+    </section>
+    <section class="win-main">
+        <p class="win-main__header">Поздравляем!</p>    
+        <form class="win-main__form" enctype="multipart/form-data">
+            <div class="win-form__inline">
+                <img class="win-form__image" src="../../images/win.png"/>
+                <div class="win-form__data">
+                    <div class="win-form__item">
+                        <p>Вы побили свой рекорд!</p>
+                    </div>
+                    <div class="win-form__item">
+                        <span>Ваш результат: </span>
+                        <span class="win-form__item-score"> <fest:value> data.score</fest:value></span>
+                        <span> очка</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="win-main__repeat-button">
+            <img src="../../images/refresh.svg" class="js-button__repeat-button"/>
+        </div>
+    </section>    
+</fest:template>
