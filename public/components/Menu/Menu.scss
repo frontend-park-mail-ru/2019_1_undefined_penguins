@@ -127,36 +127,40 @@ $border: 2px solid #979797;
             margin: -40px auto auto auto;
             display: flex;
             flex-direction: column;
-            width: 400px;
+            width: 300px;
         }
 
         &__button {
-            padding: 15px;
+            padding: 18px 15px 5px 15px;
             margin: 15px 0;
-            width: 340px;
-            height: 35px;
+            width: 200px;
+            height: 34px;
+            font-size: 18px;
         }
     }
 
     .menu {
         &__button {
-        width: 340px;
+        padding: 18px 15px 5px 15px;
+        width: 200px;
         margin: 15px 0;
+        font-size: 18px;
         }
 
         &__buttons {
             margin: auto;
             align-items: center;
+            width: 300px;
         }
     }
 
     .menu-picture {
-        width: 150px;
-        top: 5%;
+        width: 120px;
+        top: 11%;
         left: 60%;
         &__img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             padding: 0;
         }
     }

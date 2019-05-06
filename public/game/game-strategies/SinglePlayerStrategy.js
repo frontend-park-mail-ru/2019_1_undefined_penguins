@@ -99,7 +99,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     startGameLoop() {
-        this.interval = setInterval(() => this.gameLoop(), 100);
+        this.interval = setInterval(() => this.gameLoop(), 70);
     }
 
     stopGameLoop(){

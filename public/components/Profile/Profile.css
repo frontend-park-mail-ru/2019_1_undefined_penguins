@@ -9,12 +9,12 @@ $font-indie: IndieFlower;
 $font-roboto-reg: Roboto-Regular;
 $font-roboto-bold: Roboto-Bold; */
 
-.profile__header {
+/* .profile__header {
     display: flex;
     flex-direction: row;
     height: 200px;
     margin-bottom: 30px;
-}
+} */
 
 /* .profile__header {
     display: flex;
@@ -22,7 +22,7 @@ $font-roboto-bold: Roboto-Bold; */
     justify-content: center;
 } */
 
-.profile__header__logo {
+/* .profile__header__logo {
     font-family: IndieFlower;
     font-size: 62px;
     color: #EDEFF0;
@@ -32,13 +32,13 @@ $font-roboto-bold: Roboto-Bold; */
 
 .profile__header__home {
     margin: 80px 0 60px 160px;
-}
+} */
 
 /* .profile__header__title {
     margin: auto;
 } */
 
-.profile-content {
+/* .profile-content {
 	display: flex;
     flex-direction: column;
 	align-items: center;
@@ -297,4 +297,4 @@ $font-roboto-bold: Roboto-Bold; */
         width: 100px;
     }
 }
-
+ */

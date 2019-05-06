@@ -31,8 +31,7 @@ export default class GameManager {
         this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
 
         const piscesCount = 24;
-
-
+        
         Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
        
         // this.startGameLoop();

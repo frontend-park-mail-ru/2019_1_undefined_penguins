@@ -31,30 +31,38 @@ export default class GameView extends BaseView {
         this.el.innerHTML = '';
         this.el.innerHTML = GameTmpl();
 
+        let innerWidth = window.innerWidth;
+        console.log('width', innerWidth);
+        let innerHeight = window.innerHeight;
+        if (innerWidth === 400 || innerHeight === 400) {
+            innerWidth = 300;
+            innerHeight = 300;
+        }
+        console.log('width', innerWidth);
 
         const fishCanvas = this.el.querySelector('.canvas-fish');
-        if (window.innerWidth > window.innerHeight) {
-            fishCanvas.width = fishCanvas.height = window.innerHeight*0.7;
+        if (innerWidth > innerHeight) {
+            fishCanvas.width = fishCanvas.height = innerHeight*0.7;
         } else {
-            fishCanvas.width = fishCanvas.height = window.innerWidth*0.7;
+            fishCanvas.width = fishCanvas.height = innerWidth*0.7;
         }
         const penguinCanvas = this.el.querySelector('.canvas-penguin');
-        if (window.innerWidth > window.innerHeight) {
-            penguinCanvas.width = penguinCanvas.height = window.innerHeight*0.7;
+        if (innerWidth > innerHeight) {
+            penguinCanvas.width = penguinCanvas.height = innerHeight*0.7;
         } else {
-            penguinCanvas.width = penguinCanvas.height = window.innerWidth*0.7;
+            penguinCanvas.width = penguinCanvas.height = innerWidth*0.7;
         }
         const snowCanvas = this.el.querySelector('.canvas-snow');
-        if (window.innerWidth > window.innerHeight) {
-            snowCanvas.width = snowCanvas.height = window.innerHeight*0.7;
+        if (innerWidth > innerHeight) {
+            snowCanvas.width = snowCanvas.height = innerHeight*0.7;
         } else {
-            snowCanvas.width = snowCanvas.height = window.innerWidth*0.7;
+            snowCanvas.width = snowCanvas.height = innerWidth*0.7;
         }
         const gunCanvas = this.el.querySelector('.canvas-gun');
-        if (window.innerWidth > window.innerHeight) {
-            gunCanvas.width = gunCanvas.height = window.innerHeight*0.7;
+        if (innerWidth > innerHeight) {
+            gunCanvas.width = gunCanvas.height = innerHeight*0.7;
         } else {
-            gunCanvas.width = gunCanvas.height = window.innerWidth*0.7;
+            gunCanvas.width = gunCanvas.height = innerWidth*0.7;
         }
 
         this.canvases = {
