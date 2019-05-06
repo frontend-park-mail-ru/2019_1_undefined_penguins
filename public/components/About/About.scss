@@ -1,0 +1,297 @@
+.about {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        height: 200px;
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.about-header {
+    &__home {
+        margin: 80px 0 60px 230px;
+    }
+
+    &__home-button {
+        width: 70px;
+        height: 70px;
+    }
+
+    &__logo {
+        font-family: $font-title;
+        font-size: 70px;
+        color: $color-white;
+        text-align: center;
+        margin: -25px 130px;
+    }
+}
+
+.about-main {
+    &__content {
+        margin-left: 30px;
+        height: 400px; 
+        border: $border;
+        border-radius: 12px;
+        font-family: $font-main;
+        font-size: 20px;
+        color: $color-white;
+        text-align: left;
+        text-decoration: none;
+        padding: 30px;
+    }
+
+    &__title {
+        margin: 10px 0 30px 0;
+        font-size: 40px;
+        color: $color-orange;
+        text-align: center;
+    }
+
+    &__idea {
+        width: 400px;
+    }
+
+    &__how-play {
+        width: 700px;
+    }
+
+    &__tutorial {
+        margin: 15px 0 0 50px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.about-main-tutorial {
+    &__title {
+        margin: 10px 0 30px 0;
+        font-size: 30px;
+        color: $color-blue;
+        text-align: center;
+    }
+
+    &__item {
+        display: flex;
+        justify-self: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__space {
+        align-self: center;
+        width: 300px;
+    }
+
+    &__tap {
+        align-self: center;
+        width: 150px;
+    }
+}
+
+@media (min-width: 50px) and (max-width: 600px) {
+    .about {
+        &__header {
+            flex-direction: row;
+            justify-content: space-around;
+            height: 160px;
+            margin: auto;
+            width: 200px;
+        }
+
+        &__main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            margin-top: 10px;
+        }
+    }
+
+    .about-header {
+        &__logo {
+            font-size: 40px;
+            text-align: center;
+            margin: -20px 250px 0 35px;
+            min-width: 200px;
+        }
+
+        &__home {
+            margin: 60px 0 60px 230px;
+        }
+    }
+
+    .about-main {
+        &__content {
+            height: 200px; 
+            font-size: 16px;
+            padding: 10px;
+            margin: auto;
+            width: 300px;
+        }
+
+        &__title {
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        &__how-play {
+            margin-top: 20px;
+            height: 400px;
+        }
+
+        &__tutorial {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: auto;
+        }
+    }
+
+    .about-main-tutorial {
+        &__item {
+            margin-top: 12px;
+        }
+
+        &__title {
+            margin: auto;
+            font-size: 22px;
+        }
+
+        &__space {
+            margin-top: 8px;
+            width: 240px;
+        }
+
+        &__tap {
+            margin-top: 8px;
+            width: 120px;
+        }
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1000px) {
+    .about {
+        &__header {
+            flex-direction: row;
+            justify-content: space-around;
+            height: 160px;
+            margin: auto;
+        }
+
+        &__main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            margin-top: 10px;
+        }
+    }
+
+    .about-header {
+        &__logo {
+            font-size: 50px;
+            text-align: center;
+            margin: -8px 100px 0 35px;
+            width: 360px;
+        }
+
+        &__home {
+            margin: 60px 0 60px 60px;
+        }
+    }
+
+    .about-main {
+        &__content {
+            height: 200px; 
+            font-size: 16px;
+            padding: 20px;
+            margin: auto;
+            width: 500px;
+        }
+
+        &__title {
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        &__how-play {
+            margin-top: 20px;
+            height: 360px;
+        }
+
+        &__tutorial {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: auto;
+        }
+    }
+
+    .about-main-tutorial {
+        &__item {
+            margin-top: 18px;
+        }
+
+        &__title {
+            margin: auto;
+            font-size: 22px;
+        }
+
+        &__space {
+            margin-top: 8px;
+            width: 240px;
+        }
+
+        &__tap {
+            margin-top: 8px;
+            width: 120px;
+        }
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1400px) {
+    .about {
+        &__main {
+            flex-direction: column;
+        }
+    }
+
+    .about-header {
+        &__logo {
+            margin: -25px 130px -25px 90px;
+        }
+
+        &__home {
+            margin: 80px 0 60px 0px;
+        }
+    }
+
+    .about-main {
+        &__content {
+            height: 240px; 
+            margin: auto;
+            width: 500px;
+        }
+
+        &__how-play {
+            margin-top: 30px;
+            height: 600px;
+        }
+
+        &__tutorial {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: auto;
+        }
+    }
+    
+    .about-main-tutorial__item {
+        margin-top: 18px;
+    }
+}
