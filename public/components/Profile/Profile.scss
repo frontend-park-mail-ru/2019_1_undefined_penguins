@@ -14,9 +14,6 @@ $roboto:Roboto-Regular;
 $roboto-bold:Roboto-Bold;
 $font-indie: IndieFlower;
 
-
-
-
 .profile__header {
     display: flex;
     flex-direction: row;
@@ -183,8 +180,8 @@ $font-indie: IndieFlower;
         height: 130px;
     }   
     .profile-content {    
-        width: 440px;
-        height: 780px;
+        width: 380px;
+        height: 700px;
         padding: 35px;
         margin: auto;
     }
@@ -201,6 +198,8 @@ $font-indie: IndieFlower;
     }
     .profile-form__avatar {
         margin-bottom: 20px;
+        width: 180px;
+        height: 180px;
     }  
     .profile-form {
         width: 420px;
@@ -208,6 +207,14 @@ $font-indie: IndieFlower;
     }
     .profile-form__input-file {
         margin-bottom: 10px;
+    }
+    .profile-form__item {
+        font-size: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 350px;
+        margin-bottom: 30px;
     }
 }
 
@@ -256,7 +263,9 @@ $font-indie: IndieFlower;
         font-size: 28px;
     }
     .profile-form__avatar {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        width: 180px;
+        height: 180px;
     }  
     .profile-form {
         width: 283px;
@@ -284,7 +293,7 @@ $font-indie: IndieFlower;
         border: 1px solid $grey-color;
         border-radius: 8px;
         color: $dark-blue;
-        width: 350px;
+        width: 260px;
         height: 25px;
         padding: 10px;
     }
@@ -293,6 +302,9 @@ $font-indie: IndieFlower;
     }
     .scores {
         width: 100px;
+    }
+    .info-block__item {
+        font-size: 24px;
     }
 }
 
