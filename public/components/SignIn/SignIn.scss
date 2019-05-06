@@ -1,13 +1,4 @@
-//    colors
-$orange-color: #DA8F56;
-$white-color: #EDEFF0;
-$border-color: #979797;
-$dark-color: #101C45;
-
-// fonts
-$font-indie: IndieFlower;
-$font-roboto-reg: Roboto-Regular;
-$font-roboto-bold: Roboto-Bold;
+@import "../../consts.scss";
 
 .signin {
     &__header {

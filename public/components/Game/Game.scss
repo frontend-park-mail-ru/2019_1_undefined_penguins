@@ -1,20 +1,15 @@
-$color-white: #FFFFFF;
-$color-orange: #DA8F56;
-$fifty: 50%;
-$none: none;
-$pos-abs: absolute;
-$roboto: Roboto-Bold;
+@import "../../consts.scss";
 
 .game {
     &-view__canvas-layers {
-        position: $pos-abs;
+        position: absolute;
         top: $fifty;
         left: $fifty;
         transform: translate(-$fifty, -$fifty);
     } 
 
     &-view__canvas-layer {
-        position: $pos-abs;
+        position: absolute;
         top: $fifty;
         left: $fifty;
         transform: translate(-$fifty, -$fifty);
@@ -25,7 +20,7 @@ $roboto: Roboto-Bold;
         height: 70px;
     }
     &__header__home {
-        position: $pos-abs;
+        position: absolute;
         top: 10%;
 
         left: 20%;
@@ -33,7 +28,7 @@ $roboto: Roboto-Bold;
     }
 
     &__header__score {
-        position: $pos-abs;
+        position: absolute;
         top: 10%;
 
         right: 20%;
@@ -63,7 +58,7 @@ $roboto: Roboto-Bold;
         cursor: pointer;
         left: $fifty;
         bottom: 5%;
-        position: $pos-abs;
+        position: absolute;
         transform: translate(-$fifty, 0%);
     }
 }

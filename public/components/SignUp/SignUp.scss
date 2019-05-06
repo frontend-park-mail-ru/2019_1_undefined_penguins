@@ -1,15 +1,6 @@
-//    colors
-$orange-color: #DA8F56;
-$white-color: #EDEFF0;
-$border-color: #979797;
-$dark-color: #101C45;
+@import "../../consts.scss";
 
-// fonts
-$font-indie: IndieFlower;
-$font-roboto-reg: Roboto-Regular;
-$font-roboto-bold: Roboto-Bold;
-   
-.sign-up {
+ .sign-up {
     &__header {
         display: flex;
         flex-direction: row;

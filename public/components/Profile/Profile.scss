@@ -1,18 +1,4 @@
-/* //    colors
-
-$dark-color: #101C45;
-
-// fonts
- */
-$pochti-white: #EDEFF0;
-$white-color:#ffffff;
-$orange-color: #DA8F56;
-$grey-color:#979797;
-$bedfee-color:#BEDFEE;
-$dark-blue:#101C45;
-$roboto:Roboto-Regular;
-$roboto-bold:Roboto-Bold;
-$font-indie: IndieFlower;
+@import "../../consts.scss";
 
 .profile {
     &__header {

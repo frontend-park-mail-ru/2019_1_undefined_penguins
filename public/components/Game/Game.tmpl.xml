@@ -12,10 +12,6 @@
             <canvas class="game-view__canvas-layer canvas-penguin"></canvas>
             <canvas class="game-view__canvas-layer canvas-snow"></canvas>
             <canvas class="game-view__canvas-layer canvas-gun"></canvas>
-            <!-- <canvas class="game-view__canvas-layer canvas-fish" width="100%" height="100% "></canvas>
-            <canvas class="game-view__canvas-layer canvas-penguin" width="100%" height="100% "></canvas>
-            <canvas class="game-view__canvas-layer canvas-snow" width="100%" height="100% "></canvas>
-            <canvas class="game-view__canvas-layer canvas-gun" width="100%" height="100% "></canvas> -->
         </div>
         <input type="button" class="game-view__turn-button" value="РАЗВЕРНУТЬСЯ"/>
     </section>    

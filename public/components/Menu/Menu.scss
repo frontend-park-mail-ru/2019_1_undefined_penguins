@@ -1,11 +1,4 @@
-$font-title: IndieFlower;
-$font-main: Roboto-Regular;
-$font-header: Roboto-Bold;
-$size-title: 70px;
-$color-white: #EDEFF0;
-$color-blue: #00B7DE;
-$color-orange: #DA8F56;
-$border: 2px solid #979797;
+@import "../../consts.scss";
 
 .menu-section {
     position: relative;

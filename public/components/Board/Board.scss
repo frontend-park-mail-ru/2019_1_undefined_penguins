@@ -1,16 +1,4 @@
-$roboto: Roboto-Regular;
-$roboto-bold: Roboto-Bold;
-$indie-folwer: IndieFlower;
-$pochti-white: #EDEFF0;
-$white: #FFFFFF;
-$gray: #979797;
-$color-orange: #DA8F56;
-$color-blue:#00B7DE;
-$pos-abs: absolute;
-$center: center;
-$space-between: space-between;
-$space-around: space-around;
-$flex: flex;
+@import "../../consts.scss";
 
 .board__header__home-button {
     width: 70px;
@@ -20,19 +8,19 @@ $flex: flex;
 @media (min-width: 1150px){
     .board{
         &__header {
-            display: $flex;
+            display: flex;
             flex-direction: row;
-            justify-content: $space-between;
+            justify-content: space-between;
             height: 200px;
-            position: $pos-abs;
+            position: absolute;
             &__home {
                 margin: 60px 150px;
             }
             &__logo {
                 font-family: $indie-folwer;
                 font-size: 50px;
-                color: $pochti-white;
-                text-align: $center;
+                color: $white;
+                text-align: center;
                 margin: -15px 0 0 -65px;
             }
         }
@@ -40,9 +28,9 @@ $flex: flex;
     }
 
     .leaders-content {
-        display: $flex;
+        display: flex;
         flex-direction: column;
-        align-items: $center;
+        align-items: center;
         height: 460px;
         opacity: 1;
         border: 2px solid $gray;
@@ -57,7 +45,7 @@ $flex: flex;
         &__header {
             display: flex;
             flex-direction: row;
-            justify-content: $space-between;
+            justify-content: space-between;
             height: 180px;
             width: 700px;
             &__title{
@@ -69,17 +57,17 @@ $flex: flex;
             &__logo {
                 font-family: $indie-folwer;
                 font-size: 50px;
-                color: $pochti-white;
-                text-align: $center;
+                color: $white;
+                text-align: center;
                 margin: 0 170px 0 0;
             }
         }
     }
 
     .leaders-content {
-        display: $flex;
+        display: flex;
         flex-direction: column;
-        align-items: $center;
+        align-items: center;
         height: 460px;
         opacity: 1;
         border: 2px solid $gray;
@@ -91,9 +79,9 @@ $flex: flex;
 @media (max-width: 750px){
 
     .leaders-content {
-        display: $flex;
+        display: flex;
         flex-direction: column;
-        align-items: $center;
+        align-items: center;
         height: 460px;
         opacity: 1;
         border: 2px solid $gray;
@@ -130,9 +118,9 @@ $flex: flex;
             margin-bottom: 20px; /* изменить это под 6 юзеров на странице */
         }
         &__buttons {
-            display: $flex;
+            display: flex;
             flex-direction: row;
-            justify-content: $space-around;
+            justify-content: space-around;
             margin-bottom: 0; 
             width: 400px;
         }
@@ -140,7 +128,7 @@ $flex: flex;
             font-size: 36px;
             font-family: $roboto-bold;
             color: $color-orange;
-            text-align: $center;
+            text-align: center;
         }
     }
 }
@@ -168,9 +156,9 @@ $flex: flex;
 
     .leaders{
         &-content {
-            display: $flex;
+            display: flex;
             flex-direction: column;
-            align-items: $center;
+            align-items: center;
             opacity: 1;
             height: 350px;
             border: 2px solid $gray;
@@ -183,9 +171,9 @@ $flex: flex;
             margin-bottom: 20px; /* изменить это под 6 юзеров на странице */
         }
         &__buttons {
-            display: $flex;
+            display: flex;
             flex-direction: row;
-            justify-content: $space-around;
+            justify-content: space-around;
             margin-bottom: 0; 
             width: 300px;
         }
@@ -194,7 +182,7 @@ $flex: flex;
             font-size: 26px;
             font-family: $roboto-bold;
             color: $color-orange;
-            text-align: $center;
+            text-align: center;
         }
     }
 }
@@ -203,11 +191,11 @@ $flex: flex;
     &__header{
         &__buttons {
             margin: 50px 0;
-            display: $flex;
-            align-items: $center;
+            display: flex;
+            align-items: center;
             height: 80px;
             width: 500px;
-            justify-content: $space-between;
+            justify-content: space-between;
         }
         
         &__button  {
@@ -216,11 +204,9 @@ $flex: flex;
             font-family: $roboto;
             font-size: 30px;
             color: $color-blue;
-            text-align: $center;
+            text-align: center;
             text-decoration: none;
             padding: 15px;
-            text-align: $center;
-            text-decoration: none;
         }
         
         &__profile {
