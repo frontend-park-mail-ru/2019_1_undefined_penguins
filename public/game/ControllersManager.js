@@ -16,6 +16,13 @@ export default class ControllersManager {
             event.preventDefault();
             this._keyPush(event);
         });
+
+        const button = document.getElementsByClassName('game-view__turn-button')[0];
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
+        });
+
     }
 
     /**

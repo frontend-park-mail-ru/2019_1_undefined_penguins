@@ -1,23 +1,13 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-    <!-- <section data-section-name="header" class="header">
-        <div class="header__home">
-            <img src="../../images/home.svg" class="header__home-button" />
-        </div>
-        <div class="header__logo"><h2>Об игре</h2></div>
-    </section> -->
-    <div class="header">
-        <div class="header__home">
+    <section data-section-name="about-header" class="about__header">
+        <div class="about-header__home">
 			<img src="/images/home.svg" class="js-header__home-button"/>
 		</div>
-        <div class="header__logo">
-            <h1 class="header__title">Penguins Wars</h1>
+        <div class="about-header__logo">
+            <h1 class="about-header__title">Penguins Wars</h1>
         </div>
-        <!-- <div class="header__buttons">
-            <a href="me" data-href="me" class="header__profile header__button js-profile-button">ПРОФИЛЬ</a>
-            <a href="signout" data-href="signout" class="header__sign-out header__button js-sign-out-button">ВЫЙТИ</a>
-        </div> -->
-    </div>
-    <section data-section-name="about-main" class="about-main">
+    </section>
+    <section data-section-name="about-main" class="about__main">
         <div class="about-main__content about-main__idea">
             <h3 class="about-main__title">Идея</h3>
             <div>Ты самый голодный пингвин и сделаешь всё, чтобы съесть как можно больше рыбок. 

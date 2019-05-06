@@ -1,15 +1,15 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="header">
-        <div class="header__home">
-            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
+    <section class="win-header">
+        <div class="win-header__home">
+            <img src="/images/home.svg" class="win-header__home-button js-header__home-button"/>
         </div>
-        <div class="header__logo">
-            <h1 class="header__title">Penguins Wars</h1>
+        <div class="win-header__logo">
+            <h1 class="win-header__title">Penguins Wars</h1>
         </div>
-    </div>
-    <section class="win-content">
-        <p class="win__header">Поздравляем!</p>    
-        <form class="win-form" enctype="multipart/form-data">
+    </section>
+    <section class="win-main">
+        <p class="win-main__header">Поздравляем!</p>    
+        <form class="win-main__form" enctype="multipart/form-data">
             <div class="win-form__inline">
                 <img class="win-form__image" src="../../images/win.png"/>
                 <div class="win-form__data">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </form>
-        <div class="repeat-button">
+        <div class="win-main__repeat-button">
             <img src="../../images/refresh.svg" class="js-button__repeat-button"/>
         </div>
     </section>    

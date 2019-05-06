@@ -1,0 +1,79 @@
+$color-white: #FFFFFF;
+$color-orange: #DA8F56;
+$fifty: 50%;
+$none: none;
+$pos-abs: absolute;
+$roboto: Roboto-Bold;
+
+.game {
+    &-view__canvas-layers {
+        position: $pos-abs;
+        top: $fifty;
+        left: $fifty;
+        transform: translate(-$fifty, -$fifty);
+    } 
+
+    &-view__canvas-layer {
+        position: $pos-abs;
+        top: $fifty;
+        left: $fifty;
+        transform: translate(-$fifty, -$fifty);
+    }
+
+    &__header__home-button {
+        width: 70px;
+        height: 70px;
+    }
+    &__header__home {
+        position: $pos-abs;
+        top: 10%;
+
+        left: 20%;
+        transform: translate(-$fifty, -$fifty);
+    }
+
+    &__header__score {
+        position: $pos-abs;
+        top: 10%;
+
+        right: 20%;
+        transform: translate($fifty, -$fifty);
+    }
+
+    &__header__score-p {
+        font-size: 60px;
+        font-family: $roboto;
+        color: $color-white;
+        text-align: center;
+    }
+
+    &-view__turn-button {
+        font-family: $roboto;
+        font-size: 150%;
+        background: $color-orange;
+        border-radius: 8px;
+        width: 350px;
+        height: 10%;
+        color: $color-white;
+        text-align: center;
+        text-decoration: $none;
+        padding: 15px;
+        border: $none;
+        outline: $none;
+        cursor: pointer;
+        left: $fifty;
+        bottom: 5%;
+        position: $pos-abs;
+        transform: translate(-$fifty, 0%);
+    }
+}
+
+
+
+@media (max-width: 400px){
+    .game-view__turn-button {
+        width: 80%;
+    }
+}
+
+

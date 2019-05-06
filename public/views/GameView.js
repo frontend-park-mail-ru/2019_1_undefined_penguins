@@ -30,10 +30,33 @@ export default class GameView extends BaseView {
     render() {
         this.el.innerHTML = '';
         this.el.innerHTML = GameTmpl();
+
+
         const fishCanvas = this.el.querySelector('.canvas-fish');
+        if (window.innerWidth > window.innerHeight) {
+            fishCanvas.width = fishCanvas.height = window.innerHeight*0.7;
+        } else {
+            fishCanvas.width = fishCanvas.height = window.innerWidth*0.7;
+        }
         const penguinCanvas = this.el.querySelector('.canvas-penguin');
+        if (window.innerWidth > window.innerHeight) {
+            penguinCanvas.width = penguinCanvas.height = window.innerHeight*0.7;
+        } else {
+            penguinCanvas.width = penguinCanvas.height = window.innerWidth*0.7;
+        }
         const snowCanvas = this.el.querySelector('.canvas-snow');
+        if (window.innerWidth > window.innerHeight) {
+            snowCanvas.width = snowCanvas.height = window.innerHeight*0.7;
+        } else {
+            snowCanvas.width = snowCanvas.height = window.innerWidth*0.7;
+        }
         const gunCanvas = this.el.querySelector('.canvas-gun');
+        if (window.innerWidth > window.innerHeight) {
+            gunCanvas.width = gunCanvas.height = window.innerHeight*0.7;
+        } else {
+            gunCanvas.width = gunCanvas.height = window.innerWidth*0.7;
+        }
+
         this.canvases = {
             fish: fishCanvas,
             penguin: penguinCanvas,

@@ -1,13 +1,21 @@
 /* //    colors
-$orange-color: #DA8F56;
-$white-color: #EDEFF0;
-$border-color: #979797;
+
 $dark-color: #101C45;
 
 // fonts
+ */
+$pochti-white: #EDEFF0;
+$white-color:#ffffff;
+$orange-color: #DA8F56;
+$grey-color:#979797;
+$bedfee-color:#BEDFEE;
+$dark-blue:#101C45;
+$roboto:Roboto-Regular;
+$roboto-bold:Roboto-Bold;
 $font-indie: IndieFlower;
-$font-roboto-reg: Roboto-Regular;
-$font-roboto-bold: Roboto-Bold; */
+
+
+
 
 .profile__header {
     display: flex;
@@ -16,16 +24,10 @@ $font-roboto-bold: Roboto-Bold; */
     margin-bottom: 30px;
 }
 
-/* .profile__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-} */
-
 .profile__header__logo {
-    font-family: IndieFlower;
+    font-family: $font-indie;
     font-size: 62px;
-    color: #EDEFF0;
+    color: $pochti-white;
     text-align: center;
     margin: -25px 130px;
 }
@@ -34,10 +36,6 @@ $font-roboto-bold: Roboto-Bold; */
     margin: 80px 0 60px 160px;
 }
 
-/* .profile__header__title {
-    margin: auto;
-} */
-
 .profile-content {
 	display: flex;
     flex-direction: column;
@@ -45,7 +43,7 @@ $font-roboto-bold: Roboto-Bold; */
     height: 540px;
     width: 860px;
 	opacity: 1;
-	border: 2px solid #979797;
+	border: 2px solid $grey-color;
     border-radius: 16px;
     padding: 20px;
 	margin: 0 120px 100px 120px
@@ -55,8 +53,8 @@ $font-roboto-bold: Roboto-Bold; */
     justify-content: space-around;
     margin: 0 0 -20px 80px;
 	font-size: 46px;
-	font-family: Roboto-Regular;
-    color: #DA8F56;
+	font-family: $roboto;
+    color: $orange-color;
     margin-bottom: 20px;
 }
 
@@ -78,9 +76,9 @@ $font-roboto-bold: Roboto-Bold; */
 }
 
 .profile-form__item {
-    font-family: Roboto-Bold;
+    font-family: $roboto-bold;
     font-size: 30px;
-    color: #DA8F56;
+    color: $orange-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,13 +87,13 @@ $font-roboto-bold: Roboto-Bold; */
 }
 
 .profile-form__input, .profile-form__label {
-    font-family: Roboto-Bold;
+    font-family: $roboto-bold;
     font-size: 22px;
     opacity: 0.98;
-    background: #BEDFEE;
-    border: 1px solid #979797;
+    background: $bedfee-color;
+    border: 1px solid $grey-color;
     border-radius: 8px;
-    color: #101C45;
+    color: $dark-blue;
     width: 350px;
     height: 25px;
     padding: 10px;
@@ -108,25 +106,25 @@ $font-roboto-bold: Roboto-Bold; */
 }
 
 .profile-form__submit {
-    background: #DA8F56;
+    background: $orange-color;
     border-radius: 8px;
     border: none;
     outline: none;
     width: 260px;
     height: 55px;
 
-    font-family: Roboto-Regular;
+    font-family: $roboto;
     font-size: 20px;
-    color: #ffffff;
+    color: $white-color;
     text-align: center;
     text-decoration: none;
     padding: 15px;
 }
 
 .info-block__item {
-    font-family: Roboto-Bold;
+    font-family: $roboto-bold;
     font-size: 30px;
-    color: #DA8F56;
+    color: $orange-color;
     text-align: center;
     width: 170px;
 }
@@ -268,9 +266,9 @@ $font-roboto-bold: Roboto-Bold; */
         margin-bottom: 10px;
     }
     .profile-form__item {
-        font-family: Roboto-Bold;
+        font-family: $roboto-bold;
         font-size: 30px;
-        color: #DA8F56;
+        color: $orange-color;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -279,13 +277,13 @@ $font-roboto-bold: Roboto-Bold; */
         flex-direction: column;
     }
     .profile-form__input, .profile-form__label {
-        font-family: Roboto-Bold;
+        font-family: $roboto-bold;
         font-size: 22px;
         opacity: 0.98;
-        background: #BEDFEE;
-        border: 1px solid #979797;
+        background: $bedfee-color;
+        border: 1px solid $grey-color;
         border-radius: 8px;
-        color: #101C45;
+        color: $dark-blue;
         width: 350px;
         height: 25px;
         padding: 10px;
