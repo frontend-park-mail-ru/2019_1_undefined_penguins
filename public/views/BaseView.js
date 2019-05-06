@@ -7,19 +7,23 @@ export default class BaseView {
         this.el = el;
 
         this.el.dataset.view = this.constructor.name;
-        this.el.hidden = true;
+        this.el.style.display = 'none';
     }
 
     get active () {
-        return !this.el.hidden;
+        if (this.el.style.display === 'none') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     hide () {
-        this.el.hidden = true;
+        this.el.style.display = 'none';
     }
 
     show () {
-        this.el.hidden = false;
+        this.el.style.display = 'block';
         this.render();
     }
 
