@@ -1,24 +1,59 @@
-.profile-header {
-    justify-content: space-around;
-    margin: 0 0 -20px 80px;
+/* //    colors
+$orange-color: #DA8F56;
+$white-color: #EDEFF0;
+$border-color: #979797;
+$dark-color: #101C45;
+
+// fonts
+$font-indie: IndieFlower;
+$font-roboto-reg: Roboto-Regular;
+$font-roboto-bold: Roboto-Bold; */
+
+.profile__header {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    margin-bottom: 30px;
 }
 
-/* .header__buttons {
-    width: auto;
+/* .profile__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+} */
+
+.profile__header__logo {
+    font-family: IndieFlower;
+    font-size: 62px;
+    color: #EDEFF0;
+    text-align: center;
+    margin: -25px 130px;
+}
+
+.profile__header__home {
+    margin: 80px 0 60px 160px;
+}
+
+/* .profile__header__title {
+    margin: auto;
 } */
 
 .profile-content {
 	display: flex;
     flex-direction: column;
 	align-items: center;
-	height: 580px;
+    height: 540px;
+    width: 860px;
 	opacity: 1;
 	border: 2px solid #979797;
-	border-radius: 16px;
+    border-radius: 16px;
+    padding: 20px;
 	margin: 0 120px 100px 120px
 }
 
-.profile__header {
+.profile__content__header {
+    justify-content: space-around;
+    margin: 0 0 -20px 80px;
 	font-size: 46px;
 	font-family: Roboto-Regular;
     color: #DA8F56;
@@ -34,6 +69,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .profile-form__avatar {
@@ -97,4 +133,54 @@
 
 .profile-form__label {
     text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .profile__header__home {
+        margin: 80px 0 60px 115px;
+    }
+    .profile__header__logo {
+        font-size: 51px;
+        margin: auto;
+    }
+    .profile__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }   
+    .profile-content {
+        width: 550px;
+        height: 780px;
+        padding: 35px;
+    }
+    .profile-form__inline { 
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .profile-form__info-block {
+        flex-direction: row;
+    }
+    .profile__content__header {
+        margin: 0 0 -20px 0px;
+        margin-bottom: 30px;
+    }
+    .profile-form__avatar {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 870px) {
+    .profile__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }   
+}
+
+@media (max-width: 480px) {
+    
+}
+
+@media (max-width: 330px) {
+    
 }
