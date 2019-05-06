@@ -73,7 +73,7 @@ export default class GameView extends BaseView {
         };
 
         Bus.emit('start-game', this);
-        const home = this.el.getElementsByClassName('js-header__home-button')[0];
+        const home = this.el.getElementsByClassName('game__header__home')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
                 event.preventDefault();
