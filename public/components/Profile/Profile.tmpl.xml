@@ -32,11 +32,11 @@
             <div class="profile-form__info-block">
                 <div class="info-block__item">
                     <label>Лучший результат:</label>
-                    <input name="score" type="text" value="{data.score}" class="profile-form__label" disabled="true"/>
+                    <input name="score" type="text" value="{data.score}" class="profile-form__label scores" disabled="true"/>
                 </div>
                 <div class="info-block__item">
                     <label>Количество игр:</label>
-                    <input name="score" type="text" value="{data.count}" class="profile-form__label" disabled="true"/>
+                    <input name="score" type="text" value="{data.count}" class="profile-form__label scores" disabled="true"/>
                 </div>
             </div>
         </form>
