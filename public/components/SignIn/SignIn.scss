@@ -63,6 +63,7 @@ $font-roboto-bold: Roboto-Bold;
     }
     &__header__title{
         font-size: 70px;
+        margin: auto;
     }
 }
 
@@ -185,6 +186,7 @@ $font-roboto-bold: Roboto-Bold;
 
     .signin__header__title{
         font-size: 1em;
+        margin: auto;
     }
     /*  */
     /* .header {
@@ -264,7 +266,7 @@ $font-roboto-bold: Roboto-Bold;
         height: 160px;
     }
     .signin__header__home {
-        margin: 13px 150px -20px;
+        margin: 13px 150px 0px;
         cursor: pointer;
     }
     .signin__header__logo {
@@ -277,6 +279,7 @@ $font-roboto-bold: Roboto-Bold;
 
     .signin__header__title{
         font-size: 1em;
+        margin: auto;
     }
     /*  */
     /* .header {
@@ -340,6 +343,7 @@ $font-roboto-bold: Roboto-Bold;
 
     .signin__header__title{
         font-size: 1em;
+        margin: auto;
     }
     /* .header {
         justify-content: space-around;
