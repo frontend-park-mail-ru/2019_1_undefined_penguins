@@ -1,5 +1,6 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
+import { EVENTS } from '../utils/events.js';
 import GameTmpl from '../components/Game/Game.tmpl.xml';
 
 export default class GameView extends BaseView {
@@ -29,16 +30,56 @@ export default class GameView extends BaseView {
     render() {
         this.el.innerHTML = '';
         this.el.innerHTML = GameTmpl();
+
+        let innerWidth = window.innerWidth;
+        console.log('width', innerWidth);
+        let innerHeight = window.innerHeight;
+        if (innerWidth === 400 || innerHeight === 400) {
+            innerWidth = 300;
+            innerHeight = 300;
+        }
+        console.log('width', innerWidth);
+
         const fishCanvas = this.el.querySelector('.canvas-fish');
+        if (innerWidth > innerHeight) {
+            fishCanvas.width = fishCanvas.height = innerHeight*0.7;
+        } else {
+            fishCanvas.width = fishCanvas.height = innerWidth*0.7;
+        }
         const penguinCanvas = this.el.querySelector('.canvas-penguin');
+        if (innerWidth > innerHeight) {
+            penguinCanvas.width = penguinCanvas.height = innerHeight*0.7;
+        } else {
+            penguinCanvas.width = penguinCanvas.height = innerWidth*0.7;
+        }
         const snowCanvas = this.el.querySelector('.canvas-snow');
+        if (innerWidth > innerHeight) {
+            snowCanvas.width = snowCanvas.height = innerHeight*0.7;
+        } else {
+            snowCanvas.width = snowCanvas.height = innerWidth*0.7;
+        }
         const gunCanvas = this.el.querySelector('.canvas-gun');
+        if (innerWidth > innerHeight) {
+            gunCanvas.width = gunCanvas.height = innerHeight*0.7;
+        } else {
+            gunCanvas.width = gunCanvas.height = innerWidth*0.7;
+        }
+
         this.canvases = {
             fish: fishCanvas,
             penguin: penguinCanvas,
             snow: snowCanvas,
             gun: gunCanvas,
         };
+
         Bus.emit('start-game', this);
+        const home = this.el.getElementsByClassName('game__header__home')[0];
+        if (home !== undefined) {
+            home.addEventListener('click', (event) => {
+                event.preventDefault();
+                Bus.emit(EVENTS.STOP_THE_GAME, {});
+                Bus.emit('open-menu');
+            });
+        }
     }
 }

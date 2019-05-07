@@ -12,7 +12,7 @@ import LostView from './views/LostView.js';
 import EventController from './scripts/EventController.js';
 
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
-import './main.css';
+import './main.scss';
 
 EventController.Init();
 
@@ -31,6 +31,6 @@ Router
 
 Router.start();
 
-// if ('serviceWorker' in navigator) {
-//     runtime.register();
-// }
+if ('serviceWorker' in navigator) {
+    runtime.register();
+}

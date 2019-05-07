@@ -14,6 +14,7 @@ export default class GameStrategy {
             throw new TypeError('Can not create instance of GameStrategy');
         }
 
+        this._subscribed = [];
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
         this.penguin = null;
@@ -64,6 +65,7 @@ export default class GameStrategy {
             }
             console.log('subscribed: ', event, callbackName);
         }.bind(this));
+        this._subscribed.push({name: event, callback: callbackName});
     }
 
     // unsubscribe(event) {
@@ -73,5 +75,7 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
+        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed = null;
     }
 }

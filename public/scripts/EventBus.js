@@ -11,6 +11,7 @@ class Bus {
     off (event, callback) { // отписываемся от события
         this.listeners[event] = this.listeners[event]
             .filter(listener => listener !== callback);
+        this.listeners[event] = null;
     }
 
     emit (event, data) { // публикуем (диспатчим, эмитим) событие

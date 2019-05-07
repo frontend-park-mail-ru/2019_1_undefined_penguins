@@ -1,14 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="header">
-        <div class="header__home">
-            <img src="/images/home.svg" class="js-header__home-button"/>
+    <div class="sign-up__header">
+        <div class="sign-up__header__home">
+            <img src="/images/home.svg" class="header__home-button js-header__home-button"/>
         </div>
-        <div class="header__logo">
-            <h1 class="header__title">Penguins Wars</h1>
+        <div class="sign-up__header__logo">
+            <h1 class="sign-up__header__title">Penguins Wars</h1>
         </div>
     </div>
-    <section class="sign-up-content" class="sign-up-content">
-        <p class="sign-up__header">Регистрация</p>
+    <section class="sign-up-content">
+        <p class="sign-up__content__header">Регистрация</p>
         <span class="error error__hidden"></span>
         <form class="sign-up-form">
             <input name="email" type="text" placeholder="Email" class="sign-up-form__input"/>

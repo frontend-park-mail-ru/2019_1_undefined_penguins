@@ -1,0 +1,224 @@
+@import "../../consts.scss";
+
+.win-header {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+
+    &__home {
+        margin: 80px 0 60px 20px;
+    }
+
+    &__home-button {
+        width: 70px;
+        height: 70px;
+    }
+
+    &__logo {
+        font-family: $font-title;
+        font-size: 70px;
+        color: $color-white;
+        text-align: center;
+        margin: -25px 130px;
+    }
+}
+
+.win-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
+    opacity: 1;
+    border: $border;
+    border-radius: 16px;
+    width: 800px;
+    margin: auto;
+
+    &__header {
+        font-size: 46px;
+        font-family: $font-header;
+        color: $color-orange;
+        margin-bottom: 20px;
+    }
+
+    &__form {
+        width: 800px;
+    }
+
+    &__repeat-button {
+        text-align: center;
+        margin-top: 30px;
+        cursor: pointer;
+    }
+}
+
+.win-form {
+    &__inline {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    &__image {
+        width: 230px;
+        height: 230px;
+        margin: -10px 0 0 60px;
+    }
+
+    &__item {
+        font-family: $font-main;
+        font-size: 30px;
+        color: $color-white;
+        width: 500px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    &__data {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: -40px;
+    }
+
+    &__item-score {
+        font-size: 70px;
+        font-family: $font-header;
+        color: $color-orange;
+    }
+}
+
+.js-button__repeat-button {
+    width: 100px;
+    height: 100px;
+}
+
+@media (min-width: 50px) and (max-width: 600px) {
+    .win-header {
+        width: 360px;
+        height: 170px;
+
+        &__logo {
+            font-size: 40px;
+            text-align: center;
+            margin: -20px 250px 0 35px;
+            min-width: 200px;
+        }
+
+        &__home {
+            margin: auto 20px;
+        }
+    }
+
+    .win-main {
+        width: 360px;
+        height: 480px;
+
+        &__header {
+            font-size: 40px;
+            margin-top: 20px;
+        }
+
+        &__form {
+            width: 360px;
+        }
+    }
+
+    .win-form {
+        &__inline {
+            flex-direction: column;
+        }
+
+        &__image {
+            width: 140px;
+            height: 140px;
+            margin: auto;
+        }
+
+        &__data {
+            margin: auto;
+        }
+
+        &__item {
+            font-size: 24px;
+            width: 360px;
+            margin-bottom: 10px;
+            height: 50px;
+        }
+
+        &__item-score {
+            font-size: 60px;
+        }
+    }
+
+    .js-button__repeat-button {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1000px) {
+    .win-header {
+        width: 500px;
+        height: 140px;
+
+        &__logo {
+            font-size: 40px;
+            text-align: center;
+            margin: 0 250px 0 35px;
+            min-width: 300px;
+        }
+
+        &__home {
+            margin: auto 20px;
+        }
+    }
+
+    .win-main {
+        width: 500px;
+        height: 480px;
+
+        &__header {
+            font-size: 40px;
+            margin-top: 20px;
+        }
+
+        &__form {
+            width: 500px;
+        }
+    }
+
+    .win-form {
+        &__inline {
+            flex-direction: column;
+        }
+
+        &__image {
+            width: 140px;
+            height: 140px;
+            margin: auto;
+        }
+
+        &__data {
+            margin: auto;
+        }
+
+        &__item {
+            font-size: 24px;
+            width: 500px;
+            margin-bottom: 10px;
+            height: 50px;
+        }
+
+        &__item-score {
+            font-size: 60px;
+        }
+    }
+
+    .js-button__repeat-button {
+        width: 80px;
+        height: 80px;
+    }
+}
