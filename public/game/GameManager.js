@@ -21,30 +21,33 @@ export default class GameManager {
         this.controllers = new ControllersManager();
         this._subscribed = [];
 
-        // this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
+        this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
         this.subscribe(EVENTS.INIT_OPPONENTS, 'onFindOpponent');
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
-
-        // Bus.on('ws:connected', () => {
-        //     Bus.emit(EVENTS.READY_TO_START, {username});
-        // });
-        this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
-
+        
         const piscesCount = 24;
         
-        Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+        if (navigator.onLine) {
+            Bus.on('ws:connected', () => {
+                Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+            });
+        } else {
+            Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+        }
+        this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+
        
         // this.startGameLoop();
     }
 
-    // onWaitOpponent() {
-    //     console.log('GameManager.fn.onWaitOpponent', arguments);
-    //     mediator.emit(EVENTS.OPEN_WAITING_VIEW);
-    // }
+    onWaitOpponent() {
+        console.log('GameManager.fn.onWaitOpponent', arguments);
+        // mediator.emit(EVENTS.OPEN_WAITING_VIEW);
+    }
 
     onFindOpponent(penguin, gun) {
         console.log('GameManager.fn.onFindOpponent', arguments);
@@ -91,33 +94,43 @@ export default class GameManager {
 
     }
 
-    // startGameLoop() {
-    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
-    // }
+    startGameLoop() {
+        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
 
-    // gameLoop() {
-    //     this.scene.setState(this.state);
+    gameLoop() {
+        //TODO: copy the method for gun
+        Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'ROTATE');
+        });
 
-    //     this.scene.renderAllAsPenguin();
-    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
-    // }
+        this.scene.setState(this.state);
+
+        this.scene.renderAllAsPenguin();
+        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
 
     onEatenFish(payload){
         this.scene.removeFish(payload.angle);
     }
 
     onFinishTheGame(payload) {
-        // console.log('GameManager.fn.onFinishTheGame', payload);
+        console.log('GameManager.fn.onFinishTheGame', payload);
 
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
 
-        // this.strategy.destroy();
-        // this.scene.destroy(); // TODO: проверить в интеграции
-        // this.controllers.destroy();
+        this.strategy.destroy();
+        this.scene.destroy(); // TODO: проверить в интеграции
+        this.controllers.destroy();
 
-        // Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
+        if (payload.message === 'LOST') {
+            Bus.emit('open-lost-view', {score: payload.score});
+        }
+        if (payload.message === 'WIN') {
+            Bus.emit('open-win-view', {score: payload.score});
+        }
     }
 
     // onNewState(payload) {

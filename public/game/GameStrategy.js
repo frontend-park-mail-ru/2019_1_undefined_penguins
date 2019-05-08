@@ -16,7 +16,8 @@ export default class GameStrategy {
 
         this._subscribed = [];
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
-        // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
+        this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
+
         this.penguin = null;
         this.gun = null;
         this.state = null;
@@ -47,10 +48,10 @@ export default class GameStrategy {
         throw new TypeError('Not implemented');
     }
 
-    // waitOpponent() {
-    //     console.log('GameStrategy.fn.fireWaitOpponent', arguments);
-    //     Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
-    // }
+    waitOpponent() {
+        console.log('GameStrategy.fn.fireWaitOpponent', arguments);
+        Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
+    }
 
     setNewGameState(state) {
         console.log('GameStrategy.fn.setNewGameState', arguments);

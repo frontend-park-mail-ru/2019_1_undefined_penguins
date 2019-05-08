@@ -20,7 +20,7 @@ export default class ControllersManager {
         const button = document.getElementsByClassName('game-view__turn-button')[0];
         button.addEventListener('click', (event) => {
             event.preventDefault();
-            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
+            Bus.emit(EVENTS.PENGUIN_TURN_AROUND);
         });
 
     }
@@ -35,7 +35,7 @@ export default class ControllersManager {
     _keyPush(event) {
         switch (event.keyCode) {
         case 32:
-            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
+            Bus.emit(EVENTS.PENGUIN_TURN_AROUND);
             break;
         }
     }

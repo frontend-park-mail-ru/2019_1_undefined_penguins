@@ -1,8 +1,13 @@
 import GameStrategy from '../GameStrategy.js';
+// import { EVENTS } from '../../utils/events.js';
+import WS from '../../modules/WebSocket.js';
+// import Bus from '../../scripts/EventBus.js';
+
 export default class MultiPlayerStrategy extends GameStrategy {
     constructor() {
         console.log('MultiPlayerStrategy.fn');
         super();
+        this.ws = new WS('multi');
 
         this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
         this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
@@ -11,59 +16,36 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onStart(payload) {
+        console.log('MultiPlayerStrategy.fn.onStart');
         console.dir(payload);
-        // TODO: choose who is who
-        this.opponentFound(payload.me, payload.opponent);
+        this.opponentFound(payload.penguin.name, payload.gun.name);
         this.startGame();
     }
 
-    // onNewState(state) {
-    //     this.state = state;
+    onNewState(state) {
+        this.state = state;
 
-    //     this.fireSetNewGameState(this.state);
-    // }
+        this.setNewGameState(this.state);
+    }
 
-    // onFinishGame(payload) {
-    //     this.fireGameOver(payload.message || 'Игра окончена');
-    // }
+    onFinishGame(payload) {
+        this.gameOver(payload.message);
+    }
 
-    // onWaitOpponent() {
-    //     this.fireWaitOpponent();
-    // }
+    onWaitOpponent() {
+        this.waitOpponent();
+    }
 
-    // onLoggedIn(payload) {
-    //     console.log('MultiPlayerStrategy.fn.onLoggedIn', arguments);
-    //     this.me = payload.username;
+    readyToStart(payload) {
+        console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
 
-    //     this.fireWaitOpponent();
-    //     transport.send('newPlayer', {username: payload.username});
-    // }
+        this.waitOpponent();
+        this.ws.send('newPlayer', {name: payload.username, mode: 'MULTI' });
+    }
 
-    // onNewCommand(payload) {
-    //     console.log('MultiPlayerStrategy.fn.onNewCommand', payload);
-    //     if (this._pressed('FIRE', payload)) {
-    //         transport.send('newCommand', {code: 'FIRE'});
-    //         return;
-    //     }
-    //     if (this._pressed('LEFT', payload)) {
-    //         transport.send('newCommand', {code: 'LEFT'});
-    //         return;
-    //     }
-    //     if (this._pressed('RIGHT', payload)) {
-    //         transport.send('newCommand', {code: 'RIGHT'});
-    //         return;
-    //     }
-    //     if (this._pressed('UP', payload)) {
-    //         transport.send('newCommand', {code: 'UP'});
-    //         return;
-    //     }
-    //     if (this._pressed('DOWN', payload)) {
-    //         transport.send('newCommand', {code: 'DOWN'});
-    //         return;
-    //     }
-    // }
-
-    // _pressed(name, data) {
-    //     return KEYS[name].some(k => data[k.toLowerCase()]);
-    // }
+    onNewCommand(payload) {
+        console.log('MultiPlayerStrategy.fn.onNewCommand', payload);
+        // TODO: init penguin and gun
+        this.ws.send('newCommand', {code: payload});
+    }
 }

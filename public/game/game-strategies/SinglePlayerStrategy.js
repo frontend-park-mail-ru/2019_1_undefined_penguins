@@ -8,8 +8,8 @@ export default class SinglePlayerStrategy extends GameStrategy {
         console.log('SinglePlayerStrategy.fn');
         super();
         // PENGUIN_TURN_AROUND
-        this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');
-        this.ws = new WS('game');
+        // this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');
+        this.ws = new WS('single');
 
         // this.interval = null;
         this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
@@ -18,9 +18,9 @@ export default class SinglePlayerStrategy extends GameStrategy {
         this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
     }
 
-    penguinTurnAround(){
-        this.state.clockwise = !this.state.clockwise;
-    }
+    // penguinTurnAround(){
+    //     this.state.clockwise = !this.state.clockwise;
+    // }
 
 //     readyToStart(payload) {
 //         this.me = payload.username;

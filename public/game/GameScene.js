@@ -149,8 +149,8 @@ export default class GameScene {
 
     }
 
-    setNames(me, opponent) {
-        this.players = { me, opponent };
+    setNames(penguin, gun) {
+        this.players = { penguin, gun };
     }
 
     destroy() {
