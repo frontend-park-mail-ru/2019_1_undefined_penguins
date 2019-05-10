@@ -72,6 +72,7 @@ export default class ScoreboardView extends BaseView {
         }
     
         this.el.innerHTML = BoardTmpl(this.users);
+        
 
         const prevButton = this.el.getElementsByClassName('js-button-prev')[0];
         const nextButton = this.el.getElementsByClassName('js-button-next')[0];
@@ -92,7 +93,7 @@ export default class ScoreboardView extends BaseView {
             });
         }
     
-        const home = this.el.getElementsByClassName('js-header__home-button')[0];
+        const home = this.el.getElementsByClassName('board__header__home-button')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
                 event.preventDefault();

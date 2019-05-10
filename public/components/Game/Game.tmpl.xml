@@ -1,14 +1,18 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
+    <div class="game__header__home">
+        <img src="/images/home.svg" class="game__header__home-button js-game__header__home-button"/>
+    </div>
+    <div class="game__header__score">
+        <p class="game__header__score-p">22</p>
+
+    </div>
     <section class="game-content">
         <div class="game-view__canvas-layers">
-            <!-- <canvas class="game-view__canvas-layer canvas-fish"></canvas>
+            <canvas class="game-view__canvas-layer canvas-fish"></canvas>
             <canvas class="game-view__canvas-layer canvas-penguin"></canvas>
             <canvas class="game-view__canvas-layer canvas-snow"></canvas>
-            <canvas class="game-view__canvas-layer canvas-gun"></canvas> -->
-            <canvas class="game-view__canvas-layer canvas-fish" width="800" height="800 "></canvas>
-            <canvas class="game-view__canvas-layer canvas-penguin" width="800" height="800 "></canvas>
-            <canvas class="game-view__canvas-layer canvas-snow" width="800" height="800 "></canvas>
-            <canvas class="game-view__canvas-layer canvas-gun" width="800" height="800 "></canvas>
+            <canvas class="game-view__canvas-layer canvas-gun"></canvas>
         </div>
+        <input type="button" class="game-view__turn-button" value="РАЗВЕРНУТЬСЯ"/>
     </section>    
 </fest:template>

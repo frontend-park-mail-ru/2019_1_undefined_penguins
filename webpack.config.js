@@ -23,11 +23,11 @@ module.exports = {
                 loader:  'fest-webpack-loader',
             }, 
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: ExtractTextPlugin.extract(
                     {
                         fallback: 'style-loader',
-                        use: ['css-loader']
+                        use: ['css-loader', 'sass-loader']
                     })
             }, 
             {
@@ -55,9 +55,9 @@ module.exports = {
     },
 
     plugins:  [
-        new  ServiceWorkerWebpackPlugin({
-            entry:  `${PATHS.public}/service-worker.js`,
-        }),
+        // new  ServiceWorkerWebpackPlugin({
+        //     entry:  `${PATHS.public}/service-worker.js`,
+        // }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/index.html',

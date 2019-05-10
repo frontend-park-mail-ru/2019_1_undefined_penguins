@@ -3,9 +3,9 @@ import { EVENTS } from '../../utils/events.js';
 import WS from '../../modules/WebSocket.js';
 import Bus from '../../scripts/EventBus.js';
 
-export default class SinglePlayerStrategy extends GameStrategy {
+export default class OfflineStrategy extends GameStrategy {
     constructor() {
-        console.log('SinglePlayerStrategy.fn');
+        console.log('OfflineStrategy.fn');
         super();
         // PENGUIN_TURN_AROUND
         // this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');

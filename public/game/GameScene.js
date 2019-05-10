@@ -16,7 +16,8 @@ export default class GameScene {
         // window.addEventListener('resize', this.bindedResizer);
         // this.resizer();
 
-        // this.setState({});
+        this.setState({});
+        // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
     }
@@ -28,8 +29,8 @@ export default class GameScene {
         this.circleSize = height * 0.8;
         this.fishWidth = this.canvases['fish'].width/20;
         this.fishHeigth = this.canvases['fish'].height/40;
-        this.penguinWidth = this.canvases['penguin'].width/30;
-        this.penguinHeigth = this.canvases['penguin'].height/20;
+        this.penguinWidth = this.canvases['penguin'].width/15;
+        this.penguinHeigth = this.canvases['penguin'].height/10;
         this.bulletWidth = this.canvases['snow'].width/60;
         this.bulletHeight = this.canvases['snow'].height/60;
     }
@@ -149,11 +150,28 @@ export default class GameScene {
 
     }
 
-    setNames(me, opponent) {
-        this.players = { me, opponent };
+    initState() {
+        this.state = {
+            penguinAngle: Math.floor(Math.random() * 360),
+            piscesAngles: [
+                15,
+                30,
+                45,
+            ],
+            clockwise: true,
+            bullet: {
+                distanceFromCenter: 0,
+                angle: 0,
+            },
+            gunAngle: 0,
+        };
+    }
+
+    setNames(penguin, gun) {
+        this.players = { penguin, gun };
+    }
+
+    destroy() {
+        window.removeEventListener('resize', this.bindedResizer);
     }
 }
-
-// destroy() {
-//     window.removeEventListener('resize', this.bindedResizer);
-// }

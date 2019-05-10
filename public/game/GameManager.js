@@ -19,57 +19,75 @@ export default class GameManager {
         this.strategy = new Strategy;
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
+        this._subscribed = [];
 
-        // this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
+        this.subscribe(EVENTS.WAITING_FOR_OPPONENT, 'onWaitOpponent');
         this.subscribe(EVENTS.INIT_OPPONENTS, 'onFindOpponent');
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
-        this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-        this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
+        // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
+        // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
         
+        // const piscesCount = 24;
+        
+        if (navigator.onLine) {
+            Bus.on('ws:connected', () => {
+                Bus.emit(EVENTS.READY_TO_START, {username});
+            });
+        } else {
+            Bus.emit(EVENTS.READY_TO_START, {username});
+        }
+        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
 
-
-        Bus.emit(EVENTS.READY_TO_START, {username});
        
         // this.startGameLoop();
     }
 
-    // onWaitOpponent() {
-    //     console.log('GameManager.fn.onWaitOpponent', arguments);
-    //     mediator.emit(EVENTS.OPEN_WAITING_VIEW);
-    // }
+    onWaitOpponent() {
+        console.log('GameManager.fn.onWaitOpponent', arguments);
+        Bus.emit('open-wait');
+    }
 
-    onFindOpponent(me, opponent) {
+    onFindOpponent(penguin, gun) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        this.scene.setNames(me, opponent);
+        this.scene.setNames(penguin, gun);
     }
 
     renderNew(){
-        if (this.strategy instanceof SinglePlayerStrategy) {
+        // TODO: Check for strategy
+        // if (this.strategy instanceof SinglePlayerStrategy) {
             this.scene.renderAllAsPenguin();
-        }
+        // }
     }
 
     onNewState(payload) {
-
+        // if (!payload) {
+        //     this.state = payload.state;
+        // } else {
+        //     this.state = {};
+        // }
+        // if (this.scene.getState() === undefined) {
+        //     // console.log(this.state);
+        //     // this.scene.setState(this.state);
+        //     this.scene.initState();
+        //     this.renderNew();
+        // } else {
+            // console.log(this.state);
+            // this.scene.setState(payload.state);
+            
         this.state = payload.state;
-        if (this.scene.getState()===undefined) {
-            console.log(this.state);
-            this.scene.setState(this.state);
-            this.renderNew();
-        } else {
-            this.scene.setState(this.state);
-            this.scene.renderAsPenguin();
-        }
+        // this.scene.renderAsPenguin();
+        // }
         
         // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
-        console.log('GameManager.fn.onStart', arguments);
-        // mediator.emit(EVENTS.OPEN_GAME_VIEW);
-
+        console.log('GameManager.fn.onStart');
+        // TODO: CHECK FOR multi OR single
+        Bus.emit(EVENTS.OPEN_GAME_VIEW, "MULTI");
+        
         this.controllers.init();
         this.startGameLoop();
     }
@@ -78,33 +96,49 @@ export default class GameManager {
         
     }
 
-    // startGameLoop() {
-    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
-    // }
+    stopGameLoop(){
+        this.strategy.stopGameLoop();
+        this.destroy();
 
-    // gameLoop() {
-    //     this.scene.setState(this.state);
+    }
 
-    //     this.scene.renderAllAsPenguin();
-    //     this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
-    // }
+    startGameLoop() {
+        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
+
+    gameLoop() {
+        //TODO: copy the method for gun
+        Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
+        });
+
+        this.scene.setState(this.state);
+
+        this.scene.renderAllAsPenguin();
+        this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
 
     onEatenFish(payload){
         this.scene.removeFish(payload.angle);
     }
 
     onFinishTheGame(payload) {
-        // console.log('GameManager.fn.onFinishTheGame', payload);
+        console.log('GameManager.fn.onFinishTheGame', payload);
 
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
 
         this.strategy.destroy();
-        // this.scene.destroy(); // TODO: проверить в интеграции
-        // this.controllers.destroy();
+        this.scene.destroy(); // TODO: проверить в интеграции
+        this.controllers.destroy();
 
-        // Bus.emit(EVENTS.OPEN_FINISH_VIEW, {results: payload.message});
+        if (payload.message === 'LOST') {
+            Bus.emit('open-lost-view', {score: payload.score});
+        }
+        if (payload.message === 'WIN') {
+            Bus.emit('open-win-view', {score: payload.score});
+        }
     }
 
     // onNewState(payload) {
@@ -113,11 +147,12 @@ export default class GameManager {
     // }
 
     subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
+        Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
-        }.bind(this));
+        });
+        this._subscribed.push({name: event, callback: callbackName});
     }
 
     // unsubscribe(event) {
@@ -125,8 +160,8 @@ export default class GameManager {
     //     mediator.off(event, this.mediatorCallback);
     // }
 
-    // destroy() {
-    //     this._subscribed.forEach(data => mediator.off(data.name, this.mediatorCallback));
-    //     this._subscribed = null;
-    // }
+    destroy() {
+        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed = null;
+    }
 }

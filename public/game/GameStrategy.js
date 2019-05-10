@@ -14,25 +14,34 @@ export default class GameStrategy {
             throw new TypeError('Can not create instance of GameStrategy');
         }
 
+        this._subscribed = [];
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
-        // this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
-        this.me = null;
-        this.opponent = null;
+        this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
+
+        if (navigator.onLine) {
+            this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
+            this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
+            this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
+            this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
+        }
+
+        this.penguin = null;
+        this.gun = null;
         this.state = null;
     }
 
     readyToStart(payload) {
-        console.log('GameStrategy.fn.onLoggedIn', arguments);
+        console.log('GameStrategy.fn.readyToStart', arguments);
         throw new TypeError('Not implemented');
     }
 
-    opponentFound(me, opponent) {
-        console.log('GameStrategy.fn.fireOpponentFound', arguments);
-        Bus.emit(EVENTS.INIT_OPPONENTS, {me, opponent});
+    opponentFound(penguin, gun) {
+        console.log('GameStrategy.fn.opponentFound', arguments);
+        Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
     startGame() {
-        console.log('GameStrategy.fn.fireStartGame', arguments);
+        console.log('GameStrategy.fn.startGame', arguments);
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
@@ -47,8 +56,8 @@ export default class GameStrategy {
     }
 
     waitOpponent() {
-        console.log('GameStrategy.fn.fireWaitOpponent', arguments);
-        mediator.emit(EVENTS.WAITING_FOR_OPPONENT);
+        console.log('GameStrategy.fn.waitOpponent', arguments);
+        Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
     }
 
     setNewGameState(state) {
@@ -58,12 +67,13 @@ export default class GameStrategy {
 
 
     subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
+        Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
             console.log('subscribed: ', event, callbackName);
-        }.bind(this));
+        });
+        this._subscribed.push({name: event, callback: callbackName});
     }
 
     // unsubscribe(event) {
@@ -73,5 +83,7 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
+        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed = null;
     }
 }

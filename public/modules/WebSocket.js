@@ -2,13 +2,13 @@ import Bus from '../scripts/EventBus.js';
 import { EVENTS } from '../utils/events.js';
 
 export default class WS {
-    constructor(key) {
+    constructor(mode) {
         if (WS.__instance) {
             return WS.__instance;
         }
         WS.__instance = this;
 
-        this._init(key);
+        this._init(mode);
 
         Bus.on(EVENTS.WEBSOCKET_OPEN, () => {
             if (this.ws.readyState === WebSocket.CLOSED) {
@@ -42,11 +42,11 @@ export default class WS {
         this.ws.send(JSON.stringify({type, payload}));
     }
 
-    _init(key) {
-        const url = 'localhost:8080';
+    _init(mode) {
+        const url = 'localhost';
         // const home = 'penguin-wars-backend.sytes.pro';
 
-        const wsUrl = key === 'game' ? `/game/ws` : `/chat/ws`;
+        const wsUrl = mode === 'single' ? `/game/single` : `/game/multi`;
 
         const address = ['https', 'https:'].includes(location.protocol)
             // ? `wss://${location.host}/ws`
