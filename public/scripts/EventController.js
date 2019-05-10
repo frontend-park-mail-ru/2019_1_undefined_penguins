@@ -128,7 +128,7 @@ export default class EventController {
             Router.open('/game/lost');
         });
 
-        Bus.on(EVENTS.OPEN_GAME_VIEW, () => {
+        Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
             if (mode === "MULTI") {
                 Router.open('/multiPlayer');
             } else {
