@@ -85,7 +85,7 @@ export default class GameManager {
         console.log('GameManager.fn.onStart');
         // TODO: CHECK FOR multi OR single
         Bus.emit(EVENTS.OPEN_GAME_VIEW, "MULTI");
-
+        
         this.controllers.init();
         this.startGameLoop();
     }

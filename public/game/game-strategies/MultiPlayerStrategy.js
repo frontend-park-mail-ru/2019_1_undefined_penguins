@@ -18,8 +18,23 @@ export default class MultiPlayerStrategy extends GameStrategy {
     onStart(payload) {
         console.log('MultiPlayerStrategy.fn.onStart');
         console.dir(payload);
+        let state = {
+            penguinAngle: payload.penguin.alpha,
+            clockwise: payload.penguin.clockwise,
+            piscesAngles:[],
+            bullet: {
+                distanceFromCenter: payload.gun.bullet.distance_from_center,
+                angle: payload.gun.bullet.alpha,
+            },
+            gunAngle: payload.gun.alpha,
+        };
+        for (let i = 0; i < payload.PiscesCount; i++) {
+            state.piscesAngles.push((360/payload.PiscesCount)*i);
+        }
         this.opponentFound(payload.penguin.name, payload.gun.name);
+        this.onNewState(state);
         this.startGame();
+        
     }
 
     onNewState(state) {
