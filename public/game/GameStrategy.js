@@ -49,7 +49,7 @@ export default class GameStrategy {
     }
 
     waitOpponent() {
-        console.log('GameStrategy.fn.fireWaitOpponent', arguments);
+        console.log('GameStrategy.fn.waitOpponent', arguments);
         Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
     }
 

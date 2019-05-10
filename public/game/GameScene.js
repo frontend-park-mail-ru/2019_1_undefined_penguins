@@ -149,6 +149,23 @@ export default class GameScene {
 
     }
 
+    initState() {
+        this.state = {
+            penguinAngle: Math.floor(Math.random() * 360),
+            piscesAngles: [
+                15,
+                30,
+                45,
+            ],
+            clockwise: true,
+            bullet: {
+                distanceFromCenter: 0,
+                angle: 0,
+            },
+            gunAngle: 0,
+        };
+    }
+
     setNames(penguin, gun) {
         this.players = { penguin, gun };
     }

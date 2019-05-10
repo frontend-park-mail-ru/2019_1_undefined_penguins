@@ -55,9 +55,9 @@ module.exports = {
     },
 
     plugins:  [
-        new  ServiceWorkerWebpackPlugin({
-            entry:  `${PATHS.public}/service-worker.js`,
-        }),
+        // new  ServiceWorkerWebpackPlugin({
+        //     entry:  `${PATHS.public}/service-worker.js`,
+        // }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/index.html',

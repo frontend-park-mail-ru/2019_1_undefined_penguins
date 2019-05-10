@@ -38,7 +38,7 @@ export default class GameManager {
         } else {
             Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
         }
-        this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
 
        
         // this.startGameLoop();
@@ -46,7 +46,7 @@ export default class GameManager {
 
     onWaitOpponent() {
         console.log('GameManager.fn.onWaitOpponent', arguments);
-        // mediator.emit(EVENTS.OPEN_WAITING_VIEW);
+        Bus.emit('open-wait');
     }
 
     onFindOpponent(penguin, gun) {
@@ -55,30 +55,36 @@ export default class GameManager {
     }
 
     renderNew(){
-        if (this.strategy instanceof SinglePlayerStrategy) {
+        // TODO: Check for strategy
+        // if (this.strategy instanceof SinglePlayerStrategy) {
             this.scene.renderAllAsPenguin();
-        }
+        // }
     }
 
     onNewState(payload) {
-
-        this.state = payload.state;
-        if (this.scene.getState() === undefined) {
+        // if (!payload) {
+        //     this.state = payload.state;
+        // } else {
+        //     this.state = {};
+        // }
+        // if (this.scene.getState() === undefined) {
+        //     // console.log(this.state);
+        //     // this.scene.setState(this.state);
+        //     this.scene.initState();
+        //     this.renderNew();
+        // } else {
             // console.log(this.state);
-            this.scene.setState(this.state);
-            this.renderNew();
-        } else {
-            // console.log(this.state);
-            this.scene.setState(this.state);
-            this.scene.renderAsPenguin();
-        }
+            this.scene.setState(payload.state);
+        //     this.scene.renderAsPenguin();
+        // }
         
         // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
         console.log('GameManager.fn.onStart');
-        // mediator.emit(EVENTS.OPEN_GAME_VIEW);
+        // TODO: CHECK FOR multi OR single
+        Bus.emit(EVENTS.OPEN_GAME_VIEW, "MULTI");
 
         this.controllers.init();
         this.startGameLoop();

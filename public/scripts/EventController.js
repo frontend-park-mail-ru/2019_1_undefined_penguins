@@ -36,6 +36,10 @@ export default class EventController {
             Router.open('/');
         });
 
+        Bus.on('open-wait', () => {
+            Router.open('/game/wait');
+        });
+
         Bus.on('get-current-user', (profileView) => {
             profileView.SetUser(UserModel.GetUser());
         });
@@ -124,8 +128,12 @@ export default class EventController {
             Router.open('/game/lost');
         });
 
-        Bus.on('open-single', () => {
-            Router.open('/singlePlayer');
+        Bus.on(EVENTS.OPEN_GAME_VIEW, () => {
+            if (mode === "MULTI") {
+                Router.open('/multiPlayer');
+            } else {
+                Router.open('/singlePlayer');
+            }
         });
 
         Bus.on('start-game', (view) => {

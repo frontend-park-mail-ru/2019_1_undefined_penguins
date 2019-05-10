@@ -32,13 +32,11 @@ export default class GameView extends BaseView {
         this.el.innerHTML = GameTmpl();
 
         let innerWidth = window.innerWidth;
-        console.log('width', innerWidth);
         let innerHeight = window.innerHeight;
         if (innerWidth === 400 || innerHeight === 400) {
             innerWidth = 300;
             innerHeight = 300;
         }
-        console.log('width', innerWidth);
 
         const fishCanvas = this.el.querySelector('.canvas-fish');
         if (innerWidth > innerHeight) {

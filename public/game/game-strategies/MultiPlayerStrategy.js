@@ -40,12 +40,12 @@ export default class MultiPlayerStrategy extends GameStrategy {
         console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
 
         this.waitOpponent();
-        this.ws.send('newPlayer', {name: payload.username, mode: 'MULTI' });
+        this.ws.send('newPlayer', { name: payload.username, mode: 'MULTI' });
     }
 
     onNewCommand(payload) {
         console.log('MultiPlayerStrategy.fn.onNewCommand', payload);
         // TODO: init penguin and gun
-        this.ws.send('newCommand', {code: payload});
+        this.ws.send('newCommand', { code: payload });
     }
 }
