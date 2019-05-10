@@ -22,11 +22,12 @@ export default class GameView extends BaseView {
     setGame(game) {
         this.game = game;
     }
-
+    
     show() {
         super.show();
+        Bus.emit('start-game', this);
     }
-
+    
     render() {
         this.el.innerHTML = '';
         this.el.innerHTML = GameTmpl();
@@ -70,7 +71,6 @@ export default class GameView extends BaseView {
             gun: gunCanvas,
         };
 
-        Bus.emit('start-game', this);
         const home = this.el.getElementsByClassName('game__header__home')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
