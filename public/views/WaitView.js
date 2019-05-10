@@ -11,7 +11,7 @@ export default class WaitView extends BaseView {
     }
 
     render () {
-        this.el.innerHTML = '';
+        // this.el.innerHTML = '';
 
         this.el.innerHTML = WaitTmpl(this.user);
     }

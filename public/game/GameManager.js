@@ -77,7 +77,7 @@ export default class GameManager {
             // this.scene.setState(payload.state);
             
         this.state = payload.state;
-        //     this.scene.renderAsPenguin();
+        // this.scene.renderAsPenguin();
         // }
         
         // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));

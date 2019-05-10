@@ -142,7 +142,6 @@ export default class EventController {
             const login = UserModel.GetUser().login === '' ? 'Anonymous' : UserModel.GetUser().login;
             const game = new Game(Strategy, login, gameCanvases);
             view.setGame(game);
-            view.render();
             // Bus.off('start-game');
         });
 

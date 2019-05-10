@@ -25,7 +25,9 @@ export default class GameView extends BaseView {
     
     show() {
         super.show();
-        Bus.emit('start-game', this);
+        if (!this.game) {
+            Bus.emit('start-game', this);
+        }
     }
     
     render() {
