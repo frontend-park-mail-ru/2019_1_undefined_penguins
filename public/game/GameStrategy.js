@@ -60,12 +60,12 @@ export default class GameStrategy {
 
 
     subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
+        Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
             console.log('subscribed: ', event, callbackName);
-        }.bind(this));
+        });
         this._subscribed.push({name: event, callback: callbackName});
     }
 

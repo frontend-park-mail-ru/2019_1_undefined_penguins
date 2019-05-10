@@ -34,10 +34,11 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.opponentFound(payload.penguin.name, payload.gun.name);
         this.onNewState(state);
         this.startGame();
-        
     }
 
     onNewState(state) {
+        console.log("BBBBUUUUUUUUUU MultiPlayerStrategy")
+
         this.state = state;
 
         this.setNewGameState(this.state);
@@ -58,9 +59,9 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.ws.send('newPlayer', { name: payload.username, mode: 'MULTI' });
     }
 
-    onNewCommand(payload) {
-        console.log('MultiPlayerStrategy.fn.onNewCommand', payload);
+    onNewCommand() {
+        console.log('MultiPlayerStrategy.fn.onNewCommand');
         // TODO: init penguin and gun
-        this.ws.send('newCommand', { code: payload });
+        this.ws.send('newCommand');
     }
 }

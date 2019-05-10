@@ -16,7 +16,8 @@ export default class GameScene {
         // window.addEventListener('resize', this.bindedResizer);
         // this.resizer();
 
-        // this.setState({});
+        this.setState({});
+        // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
     }

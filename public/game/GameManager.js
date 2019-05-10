@@ -26,17 +26,17 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
-        this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-        this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
+        // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
+        // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
         
-        const piscesCount = 24;
+        // const piscesCount = 24;
         
         if (navigator.onLine) {
             Bus.on('ws:connected', () => {
-                Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+                Bus.emit(EVENTS.READY_TO_START, {username});
             });
         } else {
-            Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+            Bus.emit(EVENTS.READY_TO_START, {username});
         }
         // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
 
@@ -74,7 +74,9 @@ export default class GameManager {
         //     this.renderNew();
         // } else {
             // console.log(this.state);
-            this.scene.setState(payload.state);
+            // this.scene.setState(payload.state);
+            
+        this.state = payload.state;
         //     this.scene.renderAsPenguin();
         // }
         
@@ -107,7 +109,7 @@ export default class GameManager {
     gameLoop() {
         //TODO: copy the method for gun
         Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
-            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'ROTATE');
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
         });
 
         this.scene.setState(this.state);
@@ -145,11 +147,11 @@ export default class GameManager {
     // }
 
     subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
+        Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
-        }.bind(this));
+        });
         this._subscribed.push({name: event, callback: callbackName});
     }
 

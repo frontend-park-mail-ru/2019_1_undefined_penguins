@@ -13,7 +13,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
 
         // this.interval = null;
         this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
-        this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
+        // this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
         this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
         this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
     }
