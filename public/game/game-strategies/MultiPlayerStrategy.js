@@ -8,11 +8,6 @@ export default class MultiPlayerStrategy extends GameStrategy {
         console.log('MultiPlayerStrategy.fn');
         super();
         this.ws = new WS('multi');
-
-        this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
-        this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
-        this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
-        this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
     }
 
     onStart(payload) {
@@ -37,8 +32,6 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onNewState(state) {
-        console.log("BBBBUUUUUUUUUU MultiPlayerStrategy")
-
         this.state = state;
 
         this.setNewGameState(this.state);

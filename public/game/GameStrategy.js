@@ -18,6 +18,13 @@ export default class GameStrategy {
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
 
+        if (navigator.onLine) {
+            this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
+            this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
+            this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
+            this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
+        }
+
         this.penguin = null;
         this.gun = null;
         this.state = null;

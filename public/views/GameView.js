@@ -19,6 +19,10 @@ export default class GameView extends BaseView {
         return this.mode;
     }
 
+    setMode(mode) {
+        this.mode = mode;
+    }
+
     setGame(game) {
         this.game = game;
     }
