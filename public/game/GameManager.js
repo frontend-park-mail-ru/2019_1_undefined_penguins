@@ -16,6 +16,7 @@ export default class GameManager {
         console.log('GameManager.fn');
 
         this.username = username;
+        this.role = null;
         this.strategy = new Strategy;
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
@@ -49,9 +50,14 @@ export default class GameManager {
         Bus.emit('open-wait');
     }
 
-    onFindOpponent(penguin, gun) {
+    onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        this.scene.setNames(penguin, gun);
+        if (this.username === players.penguin) {
+            this.role = 'penguin';
+        } else {
+            this.role = 'gun';
+        }
+        this.scene.setNames(players.penguin, players.gun);
     }
 
     renderNew(){
@@ -113,7 +119,7 @@ export default class GameManager {
 
         this.scene.setState(this.state);
 
-        this.scene.renderAllAsPenguin();
+        this.scene.render();
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
@@ -133,11 +139,26 @@ export default class GameManager {
         this.controllers.destroy();
         Bus.emit('destroy-game');
 
-        if (payload.message === 'LOST') {
-            Bus.emit('open-lost-view', {score: payload.score});
-        }
-        if (payload.message === 'WIN') {
-            Bus.emit('open-win-view', {score: payload.score});
+        switch(this.role) {
+        case 'penguin':
+            if (payload.penguin.result === 'LOST') {
+                console.log(payload.penguin.score);
+                Bus.emit('open-lost-view', payload.penguin.score);
+            }
+            if (payload.penguin.result === 'WIN') {
+                console.log(payload.penguin.score);
+                Bus.emit('open-win-view', payload.penguin.score);
+            }
+            break;
+        case 'gun':
+            if (payload.gun.result === 'LOST') {
+                console.log(payload.penguin.score);                
+                Bus.emit('open-lost-view', payload.gun.score);
+            }
+            if (payload.gun.result === 'WIN') {
+                console.log(payload.penguin.score);                
+                Bus.emit('open-win-view', payload.gun.score);
+            }
         }
     }
 

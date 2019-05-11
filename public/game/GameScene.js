@@ -18,7 +18,6 @@ export default class GameScene {
 
         this.setState({});
 
-
         this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
@@ -61,6 +60,14 @@ export default class GameScene {
         return this.state;
     }
 
+    render() {
+        if (this.state.piscesAngles !== undefined) {
+            this.renderAllAsPenguin();
+        } else {
+            this.renderAsPenguin();
+        }
+    }
+
     renderPisces(){
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
@@ -81,21 +88,21 @@ export default class GameScene {
         this.ctxPenguin = this.canvases['penguin'].getContext('2d');
         this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
         const penguinImage=new Image();
-        const x = this.getX(this.state.penguinAngle);
-        const y = this.getY(this.state.penguinAngle);
+        const x = this.getX(this.state.penguin.alpha);
+        const y = this.getY(this.state.penguin.alpha);
         penguinImage.onload = function (){
             this.ctxPenguin.translate(x, y);
-            if (this.state.clockwise) {
-                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguinAngle+90));
+            if (this.state.penguin.clockwise) {
+                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha+90));
             } else {
-                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguinAngle-90));
+                this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha-90));
             }
             
             this.ctxPenguin.drawImage(penguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
-            if (this.state.clockwise) {
-                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguinAngle+90));
+            if (this.state.penguin.clockwise) {
+                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha+90));
             } else {
-                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguinAngle-90));
+                this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha-90));
             }
             this.ctxPenguin.translate(-x, -y);
         }.bind(this);
@@ -116,8 +123,8 @@ export default class GameScene {
         this.ctxSnow = this.canvases['snow'].getContext('2d');
         this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         const bulletImage=new Image();
-        const x = this.getX(this.state.bullet.angle,this.state.bullet.distanceFromCenter*this.increasePercentage);
-        const y = this.getY(this.state.bullet.angle,this.state.bullet.distanceFromCenter*this.increasePercentage);
+        const x = this.getX(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
+        const y = this.getY(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
         bulletImage.onload = function (){
             this.ctxSnow.drawImage(bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
 
@@ -165,23 +172,6 @@ export default class GameScene {
 
     renderAsGun(){
 
-    }
-
-    initState() {
-        this.state = {
-            penguinAngle: Math.floor(Math.random() * 360),
-            piscesAngles: [
-                15,
-                30,
-                45,
-            ],
-            clockwise: true,
-            bullet: {
-                distanceFromCenter: 0,
-                angle: 0,
-            },
-            gunAngle: 0,
-        };
     }
 
     setNames(penguin, gun) {

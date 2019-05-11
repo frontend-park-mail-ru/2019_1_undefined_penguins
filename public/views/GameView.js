@@ -1,6 +1,5 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
-import { EVENTS } from '../utils/events.js';
 import GameTmpl from '../components/Game/Game.tmpl.xml';
 
 export default class GameView extends BaseView {

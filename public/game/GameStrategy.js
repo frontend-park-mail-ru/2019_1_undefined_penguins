@@ -37,6 +37,7 @@ export default class GameStrategy {
 
     opponentFound(penguin, gun) {
         console.log('GameStrategy.fn.opponentFound', arguments);
+        console.log(penguin, gun);
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
@@ -45,9 +46,9 @@ export default class GameStrategy {
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
-    gameOver(message) {
-        console.log('GameStrategy.fn.fireGameOver', arguments);
-        Bus.emit(EVENTS.FINISH_THE_GAME, {message});
+    gameOver(payload) {
+        console.log('GameStrategy.fn.gameOver', arguments);
+        Bus.emit(EVENTS.FINISH_THE_GAME, payload);
     }
     
     onNewCommand(payload) {
