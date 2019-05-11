@@ -17,6 +17,12 @@ export default class GameScene {
         // this.resizer();
 
         this.setState({});
+
+
+        this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
+        this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
+        this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
+        this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
         // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
@@ -56,6 +62,8 @@ export default class GameScene {
     }
 
     renderPisces(){
+        this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
+        this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
         this.state.piscesAngles.forEach(element => {
             const fishImage=new Image();
@@ -69,6 +77,8 @@ export default class GameScene {
     }
 
     renderPenguin(){
+        this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
+        this.ctxPenguin = this.canvases['penguin'].getContext('2d');
         this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
         const penguinImage=new Image();
         const x = this.getX(this.state.penguinAngle);
@@ -91,6 +101,9 @@ export default class GameScene {
         }.bind(this);
         penguinImage.src='../images/penguin-2.png';
 
+
+
+
     }
 
     renderInjuredPenguin(){
@@ -99,6 +112,8 @@ export default class GameScene {
     }
 
     renderBullet(){
+        this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
+        this.ctxSnow = this.canvases['snow'].getContext('2d');
         this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         const bulletImage=new Image();
         const x = this.getX(this.state.bullet.angle,this.state.bullet.distanceFromCenter*this.increasePercentage);
@@ -117,7 +132,9 @@ export default class GameScene {
     }
 
     renderCloud(){
-        this.ctxGun.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
+        this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
+        this.ctxGun = this.canvases['gun'].getContext('2d');
+        this.ctxGun.clearRect(0, 0, this.canvases['gun'].width, this.canvases['gun'].height);
         const gunWidth = this.canvases['gun'].width / 10;
         const gunHeigth = this.canvases['gun'].height / 10;
         const gunImage=new Image();
