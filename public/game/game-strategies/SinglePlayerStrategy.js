@@ -19,7 +19,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
     // }
 
 //     readyToStart(payload) {
-//         this.me = payload.username;
+//         this.me = payload.userфname;
 //         this.opponent = 'Jhon Snow';
 //         this.opponentFound(this.me, this.opponent);
 //         this.startGame();
