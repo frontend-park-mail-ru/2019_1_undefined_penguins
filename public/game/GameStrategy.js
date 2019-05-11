@@ -18,12 +18,12 @@ export default class GameStrategy {
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
 
-        if (navigator.onLine) {
+        // if (navigator.onLine) {
             this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
             this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
-        }
+        // }
 
         this.penguin = null;
         this.gun = null;
@@ -83,7 +83,8 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
-        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+        Bus.emit(EVENTS.WEBSOCKET_CLOSE);
     }
 }

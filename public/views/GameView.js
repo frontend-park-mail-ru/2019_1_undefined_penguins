@@ -81,7 +81,12 @@ export default class GameView extends BaseView {
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
                 event.preventDefault();
-                Bus.emit(EVENTS.STOP_THE_GAME, {});
+                Bus.on('destroy-game', () => {
+                    this.game.destroy();
+                    delete this.game;
+                    this.game = null;
+                });
+                Bus.emit('SIGNAL_FINISH_GAME', {message: 'EXIT'});
                 Bus.emit('open-menu');
             });
         }

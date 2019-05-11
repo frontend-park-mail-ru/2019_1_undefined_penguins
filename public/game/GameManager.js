@@ -26,19 +26,19 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
+        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
         // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
         
         // const piscesCount = 24;
         
-        if (navigator.onLine) {
+        // if (navigator.onLine) {
             Bus.on('ws:connected', () => {
                 Bus.emit(EVENTS.READY_TO_START, {username});
             });
-        } else {
-            Bus.emit(EVENTS.READY_TO_START, {username});
-        }
-        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+        // } else {
+        //     Bus.emit(EVENTS.READY_TO_START, {username});
+        // }
 
        
         // this.startGameLoop();
@@ -86,7 +86,7 @@ export default class GameManager {
     onStart() {
         console.log('GameManager.fn.onStart');
         // TODO: CHECK FOR multi OR single
-        Bus.emit(EVENTS.OPEN_GAME_VIEW, "MULTI");
+        Bus.emit(EVENTS.OPEN_GAME_VIEW, 'MULTI');
         
         this.controllers.init();
         this.startGameLoop();
@@ -99,7 +99,6 @@ export default class GameManager {
     stopGameLoop(){
         this.strategy.stopGameLoop();
         this.destroy();
-
     }
 
     startGameLoop() {
@@ -132,6 +131,7 @@ export default class GameManager {
         this.strategy.destroy();
         this.scene.destroy(); // TODO: проверить в интеграции
         this.controllers.destroy();
+        Bus.emit('destroy-game');
 
         if (payload.message === 'LOST') {
             Bus.emit('open-lost-view', {score: payload.score});
@@ -161,7 +161,7 @@ export default class GameManager {
     // }
 
     destroy() {
-        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
     }
 }
