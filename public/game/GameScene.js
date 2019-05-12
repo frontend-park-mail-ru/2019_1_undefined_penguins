@@ -86,18 +86,17 @@ export default class GameScene {
     renderPenguin(){
         this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
         this.ctxPenguin = this.canvases['penguin'].getContext('2d');
-        this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
         const penguinImage=new Image();
         const x = this.getX(this.state.penguin.alpha);
         const y = this.getY(this.state.penguin.alpha);
         penguinImage.onload = function (){
+            this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
             this.ctxPenguin.translate(x, y);
             if (this.state.penguin.clockwise) {
                 this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha+90));
             } else {
                 this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha-90));
             }
-            
             this.ctxPenguin.drawImage(penguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
             if (this.state.penguin.clockwise) {
                 this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha+90));
@@ -121,11 +120,11 @@ export default class GameScene {
     renderBullet(){
         this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
         this.ctxSnow = this.canvases['snow'].getContext('2d');
-        this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         const bulletImage=new Image();
         const x = this.getX(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
         const y = this.getY(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
         bulletImage.onload = function (){
+            this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
             this.ctxSnow.drawImage(bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
 
         }.bind(this);
@@ -168,6 +167,7 @@ export default class GameScene {
     renderAsPenguin(){
         this.renderPenguin();
         this.renderBullet();
+
     }
 
     renderAsGun(){
