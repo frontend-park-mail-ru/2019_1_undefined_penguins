@@ -24,19 +24,19 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        this.fishImage.src = '../images/fish-3.png';
+        this.fishImage.src = '../images/fish.webp';
 
         this.penguinImage = new Image();
-        this.penguinImage.src = '../images/penguin-2.png';
+        this.penguinImage.src = '../images/penguin.webp';
 
         this.bulletImage = new Image();
-        this.bulletImage.src = '../images/snow-1.png';
+        this.bulletImage.src = '../images/snow-.webp';
 
         this.gunImage = new Image();
-        this.gunImage.src = '../images/cloud.png';
+        this.gunImage.src = '../images/cloud.webp';
 
         this.penguinGunImage = new Image();
-        this.penguinGunImage.src = '../images/penguin-gun.png';
+        this.penguinGunImage.src = '../images/penguin-gun.webp';
         // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
@@ -166,8 +166,8 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
         this.ctxGun = this.canvases['gun'].getContext('2d');
         this.ctxGun.clearRect(0, 0, this.canvases['gun'].width, this.canvases['gun'].height);
-        const gunWidth = this.canvases['gun'].width / 5;
-        const gunHeigth = this.canvases['gun'].height / 5;
+        const gunWidth = this.canvases['gun'].width / 10;
+        const gunHeigth = this.canvases['gun'].height / 10;
         this.ctxGun.translate(this.canvases['gun'].width / 2, this.canvases['gun'].height / 2);
         
         this.ctxGun.rotate(this.degreesToRadians(this.state.gun.alpha+180));
