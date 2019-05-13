@@ -164,7 +164,7 @@ export default class GameScene {
         const gunHeigth = this.canvases['gun'].height / 10;
         // const gunImage=new Image();
         // gunImage.onload = function (){
-            this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+        this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
         // }.bind(this);
         
 
