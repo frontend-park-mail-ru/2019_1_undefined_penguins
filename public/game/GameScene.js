@@ -32,8 +32,11 @@ export default class GameScene {
         this.bulletImage = new Image();
         this.bulletImage.src = '../images/snow-1.png';
 
-        this.gunImage=new Image();
+        this.gunImage = new Image();
         this.gunImage.src = '../images/cloud.png';
+
+        this.penguinGunImage = new Image();
+        this.penguinGunImage.src = '../images/penguin-gun.png';
         // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
@@ -46,10 +49,10 @@ export default class GameScene {
         this.circleSize = height * 0.8;
         this.fishWidth = this.canvases['fish'].width/20;
         this.fishHeigth = this.canvases['fish'].height/40;
-        this.penguinWidth = this.canvases['penguin'].width/15;
-        this.penguinHeigth = this.canvases['penguin'].height/10;
-        this.bulletWidth = this.canvases['snow'].width/60;
-        this.bulletHeight = this.canvases['snow'].height/60;
+        this.penguinWidth = this.canvases['penguin'].width/12;
+        this.penguinHeigth = this.canvases['penguin'].height/8;
+        this.bulletWidth = this.canvases['snow'].width/30;
+        this.bulletHeight = this.canvases['snow'].height/30;
     }
 
     degreesToRadians(degrees){
@@ -72,11 +75,19 @@ export default class GameScene {
         return this.state;
     }
 
-    render() {
+    choiceOfRenderAsPenguin() {
         if (this.state.piscesAngles !== undefined) {
             this.renderAllAsPenguin();
         } else {
             this.renderAsPenguin();
+        }
+    }
+
+    choiceOfRenderAsGun() {
+        if (this.state.piscesAngles !== undefined) {
+            this.renderAllAsGun();
+        } else {
+            this.renderAsGun();
         }
     }
 
@@ -152,8 +163,19 @@ export default class GameScene {
     }
 
     renderGun(){
-        // this.ctxGun
+        this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
+        this.ctxGun = this.canvases['gun'].getContext('2d');
+        this.ctxGun.clearRect(0, 0, this.canvases['gun'].width, this.canvases['gun'].height);
+        const gunWidth = this.canvases['gun'].width / 5;
+        const gunHeigth = this.canvases['gun'].height / 5;
+        this.ctxGun.translate(this.canvases['gun'].width / 2, this.canvases['gun'].height / 2);
+        
+        this.ctxGun.rotate(this.degreesToRadians(this.state.gun.alpha+180));
+        
+        this.ctxGun.drawImage(this.penguinGunImage, -gunWidth / 2, -gunHeigth / 2, gunWidth, gunHeigth);
+        this.ctxGun.rotate(-this.degreesToRadians(this.state.gun.alpha+180));
 
+        this.ctxGun.translate(-this.canvases['gun'].width / 2, -this.canvases['gun'].height / 2);
     }
 
     renderCloud(){
@@ -186,11 +208,19 @@ export default class GameScene {
     renderAsPenguin(){
         this.renderPenguin();
         this.renderBullet();
+    }
 
+    renderAllAsGun(){
+        this.renderPisces();
+        this.renderPenguin();
+        this.renderBullet();
+        this.renderGun();
     }
 
     renderAsGun(){
-
+        this.renderPenguin();
+        this.renderBullet();
+        this.renderGun();
     }
 
     setNames(penguin, gun) {

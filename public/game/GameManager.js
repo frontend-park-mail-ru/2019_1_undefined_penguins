@@ -118,8 +118,11 @@ export default class GameManager {
         });
 
         this.scene.setState(this.state);
-
-        this.scene.render();
+        if (this.role === 'penguin') {
+            this.scene.choiceOfRenderAsPenguin();
+        } else {
+            this.scene.choiceOfRenderAsGun();
+        }
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
