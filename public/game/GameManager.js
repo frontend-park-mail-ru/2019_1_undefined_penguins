@@ -112,10 +112,13 @@ export default class GameManager {
     }
 
     gameLoop() {
-        //TODO: copy the method for gun
-        Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
-            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
-        });
+        // Bus.on(EVENTS.ROTATE, () => {
+        //     Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
+        // });
+        if (this.controllers.isPressed()) {
+            this.controllers.clearPress();
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
+        }
 
         this.scene.setState(this.state);
         if (this.role === 'penguin') {
