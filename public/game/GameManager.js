@@ -145,21 +145,17 @@ export default class GameManager {
         switch(this.role) {
         case 'penguin':
             if (payload.penguin.result === 'LOST') {
-                console.log(payload.penguin.score);
                 Bus.emit('open-lost-view', payload.penguin.score);
             }
             if (payload.penguin.result === 'WIN') {
-                console.log(payload.penguin.score);
                 Bus.emit('open-win-view', payload.penguin.score);
             }
             break;
         case 'gun':
-            if (payload.gun.result === 'LOST') {
-                console.log(payload.penguin.score);                
+            if (payload.gun.result === 'LOST') {             
                 Bus.emit('open-lost-view', payload.gun.score);
             }
-            if (payload.gun.result === 'WIN') {
-                console.log(payload.penguin.score);                
+            if (payload.gun.result === 'WIN') {             
                 Bus.emit('open-win-view', payload.gun.score);
             }
         }

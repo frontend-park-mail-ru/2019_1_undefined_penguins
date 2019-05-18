@@ -30,6 +30,12 @@ export default class GameView extends BaseView {
         super.show();
         if (!this.game) {
             Bus.emit('start-game', this);
+        } else {
+            Bus.on('destroy-game', () => {
+                this.game.destroy();
+                delete this.game;
+                this.game = null;
+            });
         }
     }
     
@@ -80,11 +86,6 @@ export default class GameView extends BaseView {
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
                 event.preventDefault();
-                Bus.on('destroy-game', () => {
-                    this.game.destroy();
-                    delete this.game;
-                    this.game = null;
-                });
                 Bus.emit('SIGNAL_FINISH_GAME', {message: 'EXIT'});
                 Bus.emit('open-menu');
             });

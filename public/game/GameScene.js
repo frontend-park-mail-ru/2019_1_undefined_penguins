@@ -228,6 +228,6 @@ export default class GameScene {
     }
 
     destroy() {
-        window.removeEventListener('resize', this.bindedResizer);
+        // window.removeEventListener('resize', this.bindedResizer);
     }
 }
