@@ -53,6 +53,8 @@ export default class GameManager {
 
     onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
+        console.log('this:', this);
+        console.log('players:', players);
         if (this.username === players.penguin) {
             this.role = 'penguin';
         } else {
@@ -119,15 +121,38 @@ export default class GameManager {
         if (this.controllers.isPressed()) {
             this.controllers.clearPress();
             Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
-        }
-
+        }  
+       
         this.scene.setState(this.state);
+        if (this.state.piscesAngles !== undefined) {
+            this.piscesAngles = [];
+            for (let i = 0; i < this.state.piscesAngles.length; i++) {
+                this.piscesAngles.push((360/this.state.piscesAngles.length) * i);
+            }
+        } else {
+            this.checkEatenFish();
+        }
+        
+
         if (this.role === 'penguin') {
             this.scene.choiceOfRenderAsPenguin();
         } else {
             this.scene.choiceOfRenderAsGun();
         }
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
+
+    checkEatenFish() {
+        if (this.piscesAngles !== undefined) {
+            this.piscesAngles.forEach(element => {
+                console.log('иду по углам');
+
+                if (element === this.state.penguin.alpha) {
+                    console.log('одинаковый угол');
+                    this.scene.removeFish(element);
+                }            
+            });
+        }
     }
 
     onEatenFish(payload){
