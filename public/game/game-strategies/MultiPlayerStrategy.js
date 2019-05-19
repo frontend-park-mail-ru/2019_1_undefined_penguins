@@ -46,6 +46,10 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.gameOver(payload);
     }
 
+    onFinishRound(payload) {
+        this.roundOver(payload);
+    }
+
     onWaitOpponent() {
         this.waitOpponent();
     }

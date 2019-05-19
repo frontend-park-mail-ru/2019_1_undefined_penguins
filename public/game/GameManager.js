@@ -27,6 +27,7 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
+        this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
         // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
         // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
@@ -141,7 +142,7 @@ export default class GameManager {
         }
 
         this.strategy.destroy();
-        this.scene.destroy(); // TODO: проверить в интеграции
+        this.scene.destroy();
         this.controllers.destroy();
         Bus.emit('destroy-game');
 
@@ -162,6 +163,18 @@ export default class GameManager {
                 Bus.emit('open-win-view', payload.gun.score);
             }
         }
+    }
+
+    onFinishTheRound(payload) {
+        console.log('GameManager.fn.onFinishTheRound', payload);
+
+        if (this.requestID) {
+            cancelAnimationFrame(this.requestID);
+        }
+
+        //TODO: any clearing
+        
+        Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
     }
 
     // onNewState(payload) {

@@ -23,6 +23,7 @@ export default class GameStrategy {
             this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
+            this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
         // }
 
         this.penguin = null;
@@ -49,6 +50,11 @@ export default class GameStrategy {
     gameOver(payload) {
         console.log('GameStrategy.fn.gameOver', arguments);
         Bus.emit(EVENTS.FINISH_THE_GAME, payload);
+    }
+
+    roundOver(payload) {
+        console.log('GameStrategy.fn.roundOver', arguments);
+        Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
     }
     
     onNewCommand(payload) {

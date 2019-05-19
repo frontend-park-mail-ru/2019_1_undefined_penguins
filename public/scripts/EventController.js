@@ -162,5 +162,10 @@ export default class EventController {
             // delete view.game;
 
         });
+
+        Bus.on(EVENTS.OPEN_ROUND_VIEW, (payload) => {
+            console.log('roundGame', payload);
+            Router.open('/game/newRound');
+        });
     }
 }
