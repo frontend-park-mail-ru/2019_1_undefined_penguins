@@ -1,6 +1,6 @@
 import Router from './scripts/Router.js';
 import ScoreboardView from './views/ScoreboardView.js';
-import MenuView from './views/MenuView.js';
+import MenuView from './views/RoundView.js';
 import SignInView from './views/SignInView.js';
 import SignUpView from './views/SignUpView.js';
 import AboutView from './views/AboutView.js';
