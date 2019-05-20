@@ -216,11 +216,24 @@ class UserModel {
             avatarData.append('avatar', image.files[0], image.value);
 
             const responseAvatar = this.UpdateAvatar(avatarData);
+            // responseAvatar
+            //     .then( (response) => {
+            //         if (response.status !== 200) {
+            //             console.error('Unable to load avatar');
+            //         // return data;
+            //         }   
+            //         return response.json(); 
+            //     })
+            //     .then( (data) => {
+            //         document.getElementsByClassName('profile-form__avatar')[0].src = data;
+            //     });
 
-            if (responseAvatar.status !== 200) {
-                console.error('Unable to load avatar');
-                // return data;
-            }
+            // if (responseAvatar.status !== 200) {
+            //     console.error('Unable to load avatar');
+            //     // return data;
+            // }
+
+            
 
             this.SetAvatar();
         }
@@ -262,11 +275,22 @@ class UserModel {
     }
 
     UpdateAvatar(body) {
-        return AjaxModule.doPromisePost({
+        var p = AjaxModule.doPromisePost({
             path: '/upload',
             contentType: 'multipart/form-data',
             body
         });
+        p
+            .then( (response) => {
+                if (response.status !== 200) {
+                    console.error('Unable to load avatar');
+                    // return data;
+                }   
+                return response.json(); 
+            })
+            .then( (data) => {
+                document.getElementsByClassName('profile-form__avatar')[0].src = data.picture;
+            });
     }
 }
   
