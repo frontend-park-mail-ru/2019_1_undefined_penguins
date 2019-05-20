@@ -7,8 +7,8 @@ export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
         console.log('SinglePlayerStrategy.fn');
         super();
-        // PENGUIN_TURN_AROUND
-        // this.subscribe(EVENTS.PENGUIN_TURN_AROUND, 'penguinTurnAround');
+        // ROTATE
+        // this.subscribe(EVENTS.ROTATE, 'penguinTurnAround');
         this.ws = new WS('single');
 
         // this.interval = null;

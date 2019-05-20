@@ -10,6 +10,7 @@ import GameView from './views/GameView.js';
 import WinView from './views/WinView.js';
 import LostView from './views/LostView.js';
 import WaitView from './views/WaitView.js';
+import RoundView from './views/RoundView.js';
 import EventController from './scripts/EventController.js';
 
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
@@ -29,7 +30,8 @@ Router
     .register('/multiPlayer', GameView, 'MULTI')
     .register('/game/wait', WaitView)
     .register('/game/win', WinView)
-    .register('/game/lost', LostView);
+    .register('/game/lost', LostView)
+    .register('/game/newRound', RoundView);
 
 Router.start();
 

@@ -18,12 +18,13 @@ export default class GameStrategy {
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
 
-        if (navigator.onLine) {
+        // if (navigator.onLine) {
             this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
             this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
-        }
+            this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
+        // }
 
         this.penguin = null;
         this.gun = null;
@@ -37,6 +38,7 @@ export default class GameStrategy {
 
     opponentFound(penguin, gun) {
         console.log('GameStrategy.fn.opponentFound', arguments);
+        console.log(penguin, gun);
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
@@ -45,9 +47,14 @@ export default class GameStrategy {
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
-    gameOver(message) {
-        console.log('GameStrategy.fn.fireGameOver', arguments);
-        Bus.emit(EVENTS.FINISH_THE_GAME, {message});
+    gameOver(payload) {
+        console.log('GameStrategy.fn.gameOver', arguments);
+        Bus.emit(EVENTS.FINISH_THE_GAME, payload);
+    }
+
+    roundOver(payload) {
+        console.log('GameStrategy.fn.roundOver', arguments);
+        Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
     }
     
     onNewCommand(payload) {
@@ -83,7 +90,8 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
-        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+        Bus.emit(EVENTS.WEBSOCKET_CLOSE);
     }
 }

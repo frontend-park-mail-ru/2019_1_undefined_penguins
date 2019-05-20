@@ -16,6 +16,7 @@ export default class GameManager {
         console.log('GameManager.fn');
 
         this.username = username;
+        this.role = null;
         this.strategy = new Strategy;
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
@@ -26,19 +27,20 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
+        this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
+        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
         // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
         // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
         
         // const piscesCount = 24;
         
-        if (navigator.onLine) {
+        // if (navigator.onLine) {
             Bus.on('ws:connected', () => {
                 Bus.emit(EVENTS.READY_TO_START, {username});
             });
-        } else {
-            Bus.emit(EVENTS.READY_TO_START, {username});
-        }
-        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+        // } else {
+        //     Bus.emit(EVENTS.READY_TO_START, {username});
+        // }
 
        
         // this.startGameLoop();
@@ -49,9 +51,16 @@ export default class GameManager {
         Bus.emit('open-wait');
     }
 
-    onFindOpponent(penguin, gun) {
+    onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        this.scene.setNames(penguin, gun);
+        console.log('this:', this);
+        console.log('players:', players);
+        if (this.username === players.penguin) {
+            this.role = 'penguin';
+        } else {
+            this.role = 'gun';
+        }
+        this.scene.setNames(players.penguin, players.gun);
     }
 
     renderNew(){
@@ -86,7 +95,7 @@ export default class GameManager {
     onStart() {
         console.log('GameManager.fn.onStart');
         // TODO: CHECK FOR multi OR single
-        Bus.emit(EVENTS.OPEN_GAME_VIEW, "MULTI");
+        Bus.emit(EVENTS.OPEN_GAME_VIEW, 'MULTI');
         
         this.controllers.init();
         this.startGameLoop();
@@ -99,7 +108,6 @@ export default class GameManager {
     stopGameLoop(){
         this.strategy.stopGameLoop();
         this.destroy();
-
     }
 
     startGameLoop() {
@@ -107,15 +115,44 @@ export default class GameManager {
     }
 
     gameLoop() {
-        //TODO: copy the method for gun
-        Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
-            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
-        });
-
+        // Bus.on(EVENTS.ROTATE, () => {
+        //     Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
+        // });
+        if (this.controllers.isPressed()) {
+            this.controllers.clearPress();
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
+        }  
+       
         this.scene.setState(this.state);
+        if (this.state.piscesAngles !== undefined) {
+            this.piscesAngles = [];
+            for (let i = 0; i < this.state.piscesAngles.length; i++) {
+                this.piscesAngles.push((360/this.state.piscesAngles.length) * i);
+            }
+        } else {
+            this.checkEatenFish();
+        }
+        
 
-        this.scene.renderAllAsPenguin();
+        if (this.role === 'penguin') {
+            this.scene.choiceOfRenderAsPenguin();
+        } else {
+            this.scene.choiceOfRenderAsGun();
+        }
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
+    }
+
+    checkEatenFish() {
+        if (this.piscesAngles !== undefined) {
+            this.piscesAngles.forEach(element => {
+                console.log('иду по углам');
+
+                if (element === this.state.penguin.alpha) {
+                    console.log('одинаковый угол');
+                    this.scene.removeFish(element);
+                }            
+            });
+        }
     }
 
     onEatenFish(payload){
@@ -130,15 +167,39 @@ export default class GameManager {
         }
 
         this.strategy.destroy();
-        this.scene.destroy(); // TODO: проверить в интеграции
+        this.scene.destroy();
         this.controllers.destroy();
+        Bus.emit('destroy-game');
 
-        if (payload.message === 'LOST') {
-            Bus.emit('open-lost-view', {score: payload.score});
+        switch(this.role) {
+        case 'penguin':
+            if (payload.penguin.result === 'LOST') {
+                Bus.emit('open-lost-view', payload.penguin.score);
+            }
+            if (payload.penguin.result === 'WIN') {
+                Bus.emit('open-win-view', payload.penguin.score);
+            }
+            break;
+        case 'gun':
+            if (payload.gun.result === 'LOST') {             
+                Bus.emit('open-lost-view', payload.gun.score);
+            }
+            if (payload.gun.result === 'WIN') {             
+                Bus.emit('open-win-view', payload.gun.score);
+            }
         }
-        if (payload.message === 'WIN') {
-            Bus.emit('open-win-view', {score: payload.score});
+    }
+
+    onFinishTheRound(payload) {
+        console.log('GameManager.fn.onFinishTheRound', payload);
+
+        if (this.requestID) {
+            cancelAnimationFrame(this.requestID);
         }
+
+        //TODO: any clearing
+        
+        Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
     }
 
     // onNewState(payload) {
@@ -161,7 +222,7 @@ export default class GameManager {
     // }
 
     destroy() {
-        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
     }
 }

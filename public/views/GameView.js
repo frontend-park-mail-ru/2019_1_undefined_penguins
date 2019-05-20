@@ -1,6 +1,5 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
-import { EVENTS } from '../utils/events.js';
 import GameTmpl from '../components/Game/Game.tmpl.xml';
 
 export default class GameView extends BaseView {
@@ -31,6 +30,12 @@ export default class GameView extends BaseView {
         super.show();
         if (!this.game) {
             Bus.emit('start-game', this);
+        } else {
+            Bus.on('destroy-game', () => {
+                this.game.destroy();
+                delete this.game;
+                this.game = null;
+            });
         }
     }
     
@@ -81,7 +86,7 @@ export default class GameView extends BaseView {
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
                 event.preventDefault();
-                Bus.emit(EVENTS.STOP_THE_GAME, {});
+                Bus.emit('SIGNAL_FINISH_GAME', {message: 'EXIT'});
                 Bus.emit('open-menu');
             });
         }
