@@ -101,6 +101,15 @@ class UserModel {
                 case 404:
                     Bus.emit('error-404', el);
                     break;
+                case 401:
+                    Bus.emit('error-401', el);
+                    break;
+                case 403:
+                    Bus.emit('error-403', el);
+                    break;
+                case 409:
+                    Bus.emit('error-409', el);
+                    break;
                 case 500:
                     Bus.emit('error-5xx', el);
                     break;
@@ -138,6 +147,15 @@ class UserModel {
             })
             .catch((data) => {
                 switch (data.status) {
+                case 404:
+                    Bus.emit('error-404', el);
+                    break;
+                case 401:
+                    Bus.emit('error-401', el);
+                    break;
+                case 403:
+                    Bus.emit('error-403', el);
+                    break;
                 case 409:
                     Bus.emit('error-409', el);
                     break;
