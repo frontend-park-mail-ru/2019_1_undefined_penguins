@@ -64,10 +64,8 @@
     &__tick {
         animation-name: bounce_timer;
         animation-duration: 4.5s;
-        animation-iteration-count: infinite;
-        animation-direction: normal;
         transform: scale(.8);
-        color: $color-orange;
+        color: $color-white;
 
         &__animated1 {
             animation-delay: 1.5s;
@@ -90,7 +88,7 @@
     }
 
     100%{
-        transform: scale(.5);
+        transform: scale(.8);
         color: $color-white;
     }
 }
