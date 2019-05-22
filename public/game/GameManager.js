@@ -145,10 +145,8 @@ export default class GameManager {
     checkEatenFish() {
         if (this.piscesAngles !== undefined) {
             this.piscesAngles.forEach(element => {
-                console.log('иду по углам');
-
-                if (element === this.state.penguin.alpha) {
-                    console.log('одинаковый угол');
+                console.log(element, this.state.penguin.alpha);
+                if (element >= this.state.penguin.alpha -7 && element % 360 <= this.state.penguin.alpha+7) {
                     this.scene.removeFish(element);
                 }            
             });
