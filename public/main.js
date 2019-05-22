@@ -3,7 +3,7 @@ import ScoreboardView from './views/ScoreboardView.js';
 
 
 
-import MenuView from './views/RoundView.js';
+import MenuView from './views/MenuView.js';
 
 
 

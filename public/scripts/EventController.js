@@ -19,7 +19,6 @@ export default class EventController {
             menu.RenderHeader(UserModel.IsAutorised());
         });
 
-
         Bus.on('sign-in', (el) => {
             UserModel.SignIn(el);
         });
@@ -129,7 +128,7 @@ export default class EventController {
         });
 
         Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
-            if (mode === "MULTI") {
+            if (mode === 'MULTI') {
                 Router.open('/multiPlayer');
             } else {
                 Router.open('/singlePlayer');
@@ -165,6 +164,10 @@ export default class EventController {
 
         Bus.on(EVENTS.OPEN_ROUND_VIEW, (payload) => {
             console.log('roundGame', payload);
+            UserModel.setGameResult(payload);
+            setTimeout(() => {
+                Bus.emit(EVENTS.READY_TO_NEW_ROUND);
+            }, 4500);
             Router.open('/game/newRound');
         });
     }

@@ -9,6 +9,7 @@ class UserModel {
         this.score = 0;
         this.avatarUrl = '';
         this.count = 0;
+        this.gameResult = null;
     }
 
     // TODO: get user in SetUser
@@ -267,6 +268,14 @@ class UserModel {
             contentType: 'multipart/form-data',
             body
         });
+    }
+
+    setGameResult(data) {
+        this.gameResult = data;
+    }
+
+    getGameResult() {
+        return this.gameResult;
     }
 }
   

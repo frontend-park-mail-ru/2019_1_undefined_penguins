@@ -17,6 +17,7 @@ export default class GameStrategy {
         this._subscribed = [];
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
+        this.subscribe(EVENTS.NEW_ROUND, 'onNewRound');
 
         // if (navigator.onLine) {
             this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
@@ -59,6 +60,11 @@ export default class GameStrategy {
     
     onNewCommand(payload) {
         console.log('GameStrategy.fn.onNewCommand', arguments);
+        throw new TypeError('Not implemented');
+    }
+
+    onNewRound(payload) {
+        console.log('GameStrategy.fn.onNewRound', arguments);
         throw new TypeError('Not implemented');
     }
 

@@ -38,6 +38,10 @@ export default class GameManager {
             Bus.on('ws:connected', () => {
                 Bus.emit(EVENTS.READY_TO_START, {username});
             });
+
+            Bus.on(EVENTS.READY_TO_NEW_ROUND, () => {
+                Bus.emit(EVENTS.NEW_ROUND, {username});
+            });
         // } else {
         //     Bus.emit(EVENTS.READY_TO_START, {username});
         // }

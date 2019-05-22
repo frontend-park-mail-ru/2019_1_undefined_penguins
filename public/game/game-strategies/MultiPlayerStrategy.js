@@ -66,4 +66,10 @@ export default class MultiPlayerStrategy extends GameStrategy {
         // TODO: init penguin and gun
         this.ws.send('newCommand', { name: payload.username, mode: 'MULTI' });
     }
+
+    onNewRound(payload) {
+        console.log('MultiPlayerStrategy.fn.onNewRound');
+        // TODO: init penguin and gun
+        this.ws.send('newRound', { name: payload.username, mode: 'MULTI' });
+    }
 }

@@ -11,18 +11,19 @@
         <div class="round-main__score-block">
             <div class="score-block__player">
                 <div class="score-block__role">пушка</div>
-                <div class="score-block__name">Tannos</div>
+                <div class="score-block__name"><fest:value>data.gun.name</fest:value></div>
             </div>
             <div class="score-block__score">
-                <div class="score-block__point">0</div>:<div class="score-block__point">0</div>
+                <div class="score-block__point"><fest:value>data.gun.score</fest:value></div>:
+                <div class="score-block__point"><fest:value>data.penguin.score</fest:value></div>
             </div>
             <div class="score-block__player">
                 <div class="score-block__role">пингвин</div>
-                <div class="score-block__name">Stark</div>
+                <div class="score-block__name"><fest:value>data.penguin.name</fest:value></div>
             </div>
         </div>
         <div class="round-main__level-block">
-            <div class="level-block__number">1</div>
+            <div class="level-block__number"><fest:value>data.round</fest:value></div>
             <div class="level-block__label">раунд</div>
         </div>
         <div class="round-main__timer">
