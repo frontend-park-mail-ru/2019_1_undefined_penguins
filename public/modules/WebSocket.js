@@ -30,7 +30,7 @@ export default class WS {
         const messageText = event.data;
         try {
             const message = JSON.parse(messageText);
-            console.log(message);
+            // console.log(message);
             Bus.emit(message.type, message.payload);
         }
         catch {

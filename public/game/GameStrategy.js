@@ -89,10 +89,11 @@ export default class GameStrategy {
         this._subscribed.push({name: event, callback: callbackName});
     }
 
-    // unsubscribe(event) {
-    // 	this._subscribed = this._subscribed.filter(data => data.name !== event);
-    // 	mediator.off(event, this.mediatorCallback);
-    // }
+    unsubscribe(event) {
+        console.error('UNSUBSCRIBE', event);
+        this._subscribed = this._subscribed.filter(data => data.name !== event);
+        Bus.off(event);
+    }
 
     destroy() {
         // TODO: Отписаться от всех событий

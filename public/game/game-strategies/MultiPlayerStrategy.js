@@ -30,7 +30,6 @@ export default class MultiPlayerStrategy extends GameStrategy {
         for (let i = 0; i < payload.PiscesCount; i++) {
             state.piscesAngles.push((360/payload.PiscesCount)*i);
         }
-        console.log(payload.penguin.name, payload.gun.name);
         this.opponentFound(payload.penguin.name, payload.gun.name);
         this.onNewState(state);
         this.startGame();
@@ -51,6 +50,7 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onWaitOpponent() {
+        this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
         this.waitOpponent();
     }
 

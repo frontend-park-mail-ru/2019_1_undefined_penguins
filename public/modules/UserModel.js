@@ -212,7 +212,6 @@ class UserModel {
         const image = form.inputAvatar;
 
         if (image.value !== '') {
-            console.log(image.files[0]);
             const avatarData = new FormData();
             avatarData.append('avatar', image.files[0], image.value);
 
@@ -239,7 +238,6 @@ class UserModel {
             },
         })
             .then((res) => {
-                console.log(res);
                 if (res.status > 300) {
                     throw res;
                 }

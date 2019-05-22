@@ -62,7 +62,6 @@ export default class OfflineStrategy extends GameStrategy {
         }
         this.score = 0;
         // this.startGameLoop();
-        console.log('started');
         this.startGame();
     }
 
@@ -83,8 +82,6 @@ export default class OfflineStrategy extends GameStrategy {
             if (this.state.piscesAngles[i] === this.state.penguinAngle) {
                 this.score++;
                 // this.scoreElement.innerText = this.score;
-                console.log("eat");
-
                 eaten = i;
                 break;
             }

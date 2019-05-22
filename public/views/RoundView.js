@@ -20,7 +20,6 @@ export default class RoundView extends BaseView {
 
     render () {
         this.setData(UserModel.getGameResult());
-        console.error(this.data);
         
         this.el.innerHTML = '';
 

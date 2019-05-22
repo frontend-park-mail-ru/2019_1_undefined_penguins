@@ -19,7 +19,6 @@ export default class ScoreboardView extends BaseView {
     }
 
     SetCountOfUsers(info){
-        console.log(info);
         this.count = info.count;
         this.usersOnPage = info.usersOnPage;
     }

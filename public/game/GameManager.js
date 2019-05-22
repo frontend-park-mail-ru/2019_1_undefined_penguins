@@ -57,8 +57,6 @@ export default class GameManager {
 
     onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        console.log('this:', this);
-        console.log('players:', players);
         if (this.username === players.penguin) {
             this.role = 'penguin';
         } else {
@@ -149,10 +147,7 @@ export default class GameManager {
     checkEatenFish() {
         if (this.piscesAngles !== undefined) {
             this.piscesAngles.forEach(element => {
-                console.log('иду по углам');
-
                 if (element === this.state.penguin.alpha) {
-                    console.log('одинаковый угол');
                     this.scene.removeFish(element);
                 }            
             });
