@@ -20,7 +20,7 @@ class Bus {
                 listener(data);
             });
         } catch (e) {
-            console.error(e.message);
+            console.log(e.message);
         }
     }
 }

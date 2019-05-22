@@ -90,7 +90,6 @@ export default class GameStrategy {
     }
 
     unsubscribe(event) {
-        console.error('UNSUBSCRIBE', event);
         this._subscribed = this._subscribed.filter(data => data.name !== event);
         Bus.off(event);
     }
