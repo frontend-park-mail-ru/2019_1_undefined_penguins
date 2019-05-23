@@ -175,7 +175,8 @@ export default class GameManager {
             if (payload.penguin.result === 'LOST') {
                 Bus.emit('open-lost-view', payload.penguin.score);
             }
-            if (payload.penguin.result === 'WIN') {
+            // TODO: norm messages
+            if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
                 Bus.emit('open-win-view', payload.penguin.score);
             }
             break;
@@ -183,7 +184,7 @@ export default class GameManager {
             if (payload.gun.result === 'LOST') {             
                 Bus.emit('open-lost-view', payload.gun.score);
             }
-            if (payload.gun.result === 'WIN') {             
+            if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
                 Bus.emit('open-win-view', payload.gun.score);
             }
         }
