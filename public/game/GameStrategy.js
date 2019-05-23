@@ -90,8 +90,13 @@ export default class GameStrategy {
     }
 
     unsubscribe(event) {
-        this._subscribed = this._subscribed.filter(data => data.name !== event);
-        Bus.off(event);
+        try {
+            this._subscribed = this._subscribed.filter(data => data.name !== event);
+            Bus.off(event);
+        }
+        catch(e) {
+            // console.log(e.message);
+        }
     }
 
     destroy() {
