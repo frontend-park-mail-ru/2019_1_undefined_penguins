@@ -1,6 +1,3 @@
-import Bus from '../scripts/EventBus.js';
-import { EVENTS } from '../utils/events.js';
-
 export default class ControllersManager {
     constructor() {
         console.log('ControllersManager.fn');
@@ -22,9 +19,6 @@ export default class ControllersManager {
         };
     }
 
-    /**
-     * Начинаем слушать события клавиатуры
-     */
     init() {
         // maybe keyup
         document.addEventListener('keydown', this);
@@ -34,15 +28,6 @@ export default class ControllersManager {
 
     }
 
-    // _keyPush(event) {
-    //     event.preventDefault();
-    //     switch (event.keyCode) {
-    //     case 32:
-    //         this.pressed = true;
-    //         break;
-    //     }
-    // }
-
     isPressed() {
         return this.pressed;
     }
@@ -51,14 +36,9 @@ export default class ControllersManager {
         this.pressed = null;
     }
 
-    /**
-     * Прекращаем слушать события клавиатуры
-     */
     destroy() {
         document.removeEventListener('keydown', this);
         const button = document.getElementsByClassName('game-view__turn-button')[0];
         button.removeEventListener('click', this);
-        // document.removeEventListener('click', this._keyPush(event));
     }
-
 }

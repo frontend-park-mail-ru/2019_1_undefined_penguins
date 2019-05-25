@@ -20,7 +20,7 @@ import WaitView from './views/WaitView.js';
 import RoundView from './views/RoundView.js';
 import EventController from './scripts/EventController.js';
 
-// import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 import './main.scss';
 
 EventController.Init();
@@ -33,8 +33,8 @@ Router
     .register('/about', AboutView)
     .register('/me', ProfileView)
     .register('/signout', SignOutView)
-    .register('/singlePlayer', GameView, 'SINGLE')
-    .register('/multiPlayer', GameView, 'MULTI')
+    .register('/single', GameView, 'SINGLE')
+    .register('/multi', GameView, 'MULTI')
     .register('/game/wait', WaitView)
     .register('/game/win', WinView)
     .register('/game/lost', LostView)
@@ -42,6 +42,6 @@ Router
 
 Router.start();
 
-// if ('serviceWorker' in navigator) {
-//     runtime.register();
-// }
+if ('serviceWorker' in navigator) {
+    runtime.register();
+}

@@ -59,6 +59,7 @@ export default class WS {
         this.ws = new WebSocket(address);
 
         this.ws.onerror = (event) => {
+            console.log(event);
             console.log(`WebSocket error: ${event.message}`);
         };
 
