@@ -118,6 +118,24 @@ export default class OfflineStrategy extends GameStrategy {
         this.me = payload.username;
         this.opponent = 'GUN';
         this.opponentFound(this.me, this.opponent);
+        let state = {
+            penguin: {
+                alpha: payload.penguin.alpha,
+                clockwise: payload.penguin.clockwise,
+            },
+            piscesAngles:[],
+            gun: {
+                bullet: {
+                    distance_from_center: payload.gun.bullet.distance_from_center,
+                    alpha: payload.gun.bullet.alpha,
+                },
+                alpha: payload.gun.alpha,
+            }
+        };
+        for (let i = 0; i < payload.PiscesCount; i++) {
+            state.piscesAngles.push((360/payload.PiscesCount)*i);
+        }
+        this.onNewState(state);
         this.startGame();
         // this.sideLength = 100;
         // this.state = {
