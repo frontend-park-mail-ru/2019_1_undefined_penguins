@@ -3,3 +3,8 @@ export const RENDER_TYPES = {
     STRING: 'string',
     TMPL: 'tmpl'
 };
+
+export const BLACKLIST_PATHS = [
+    '/multi',
+    '/me'
+];

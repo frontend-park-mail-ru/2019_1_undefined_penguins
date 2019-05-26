@@ -55,6 +55,10 @@ export default class EventController {
             Router.open('/signIn');
         });
 
+        Bus.on('open-sign-up', () => {
+            Router.open('/signUp');
+        });
+
         Bus.on('error-404', (el) => {
             let error = el.getElementsByClassName('error')[0];
             error.innerText = 'Неверный email или пароль!'; 

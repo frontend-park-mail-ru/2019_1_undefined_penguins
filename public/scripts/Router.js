@@ -1,4 +1,6 @@
 import Bus from './EventBus.js';
+import { BLACKLIST_PATHS } from '../utils/constants.js';
+import UserModel from '../modules/UserModel.js';
 
 class Router {
     constructor () {
@@ -29,7 +31,13 @@ class Router {
         const route = this.routes[path];
 
         if (!route) {
+            // TODO: 404view
             this.open('/');
+            return;
+        }
+
+        if (!UserModel.IsAutorised() && BLACKLIST_PATHS.includes(path)) {
+            this.modal.show();
             return;
         }
 
@@ -92,6 +100,10 @@ class Router {
             this.open(currentPath);
         });
         Bus.emit('check-autorized');
+    }
+
+    setModalView(View) {
+        this.modal = new View(this.root);
     }
 }
 
