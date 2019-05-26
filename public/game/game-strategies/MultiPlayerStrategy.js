@@ -1,13 +1,26 @@
 import GameStrategy from '../GameStrategy.js';
-// import { EVENTS } from '../../utils/events.js';
+import { EVENTS } from '../../utils/events.js';
 import WS from '../../modules/WebSocket.js';
-// import Bus from '../../scripts/EventBus.js';
+import Bus from '../../scripts/EventBus.js';
 
 export default class MultiPlayerStrategy extends GameStrategy {
     constructor() {
         console.log('MultiPlayerStrategy.fn');
         super();
         this.ws = new WS('multi');
+    }
+
+    readyToStart(payload) {
+        console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
+
+        this.waitOpponent();
+        this.ws.send('newPlayer', { name: payload.username, mode: 'MULTI' });
+    }
+
+    roundOver(payload) {
+        console.log('MultiPlayerStrategy.fn.roundOver', arguments);
+        payload.mode = 'MULTI';
+        Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
     }
 
     onStart(payload) {
@@ -41,8 +54,10 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.setNewGameState(this.state);
     }
 
-    onFinishGame(payload) {
-        this.gameOver(payload);
+    onNewRound(payload) {
+        console.log('MultiPlayerStrategy.fn.onNewRound');
+        // TODO: init penguin and gun
+        this.ws.send('newRound', { name: payload.username, mode: 'MULTI' });
     }
 
     onFinishRound(payload) {
@@ -51,15 +66,7 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onWaitOpponent() {
-        // this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
         this.waitOpponent();
-    }
-
-    readyToStart(payload) {
-        console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
-
-        this.waitOpponent();
-        this.ws.send('newPlayer', { name: payload.username, mode: 'MULTI' });
     }
 
     onNewCommand(payload) {
@@ -68,9 +75,4 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.ws.send('newCommand', { name: payload.username, mode: 'MULTI' });
     }
 
-    onNewRound(payload) {
-        console.log('MultiPlayerStrategy.fn.onNewRound');
-        // TODO: init penguin and gun
-        this.ws.send('newRound', { name: payload.username, mode: 'MULTI' });
-    }
 }
