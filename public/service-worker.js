@@ -19,6 +19,11 @@ const cacheUrls = [...global.serviceWorkerOption.assets,
     'images/snow-1.png',
     'images/default.png',
     'favicon.ico',
+    'images/penguin.webp',
+    'images/snow-.webp',
+    'images/cloud.webp ',
+    'images/fish.webp ',
+    'images/penguin-gun.webp',
 ];
 
 self.addEventListener('install', (event) => {
