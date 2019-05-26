@@ -70,8 +70,8 @@ export default class OfflineStrategy extends GameStrategy {
             Bus.emit(EVENTS.EAT_FISH, { angle });
             this.state.piscesAngles.splice(eaten, 1);
             if (this.state.piscesAngles.length === 0) {
-                Bus.emit('open-win-view', this.score);
                 Bus.emit(EVENTS.FINISH_THE_GAME);
+                Bus.emit('open-win-view', this.score);
                 super.destroy();
                 this.stopGameLoop();
                 // Bus.emit('next-level', this.score);
@@ -89,8 +89,8 @@ export default class OfflineStrategy extends GameStrategy {
         if (this.state.gun.bullet.distance_from_center > this.sideLength * 0.8 / 2) {
             if (this.state.gun.bullet.alpha % 360 >= this.state.penguin.alpha - 7 && this.state.gun.bullet.alpha % 360 <= this.state.penguin.alpha + 7) {
                 // Bus.emit('penguin-injured', this.score);
-                Bus.emit('open-lost-view', this.score);
                 Bus.emit(EVENTS.FINISH_THE_GAME);
+                Bus.emit('open-lost-view', this.score);
                 super.destroy();
                 this.stopGameLoop();
 

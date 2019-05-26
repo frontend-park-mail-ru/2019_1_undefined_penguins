@@ -26,6 +26,9 @@ export default class GameScene {
         this.fishImage = new Image();
         // this.fishImage.src = '../images/fish.webp';
 
+        this.injuredPenguinImage = new Image();
+        this.injuredPenguinImage.src = '../images/injured.webp';
+
         this.penguinImage = new Image();
         this.penguinImage.src = '../images/penguin.webp';
 
@@ -144,8 +147,26 @@ export default class GameScene {
     }
 
     renderInjuredPenguin(){
-        // this.ctxPenguin
-
+        this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
+        this.ctxPenguin = this.canvases['penguin'].getContext('2d');
+        // const penguinImage=new Image();
+        const x = this.getX(this.state.penguin.alpha);
+        const y = this.getY(this.state.penguin.alpha);
+        // penguinImage.onload = function (){
+        this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
+        this.ctxPenguin.translate(x, y);
+        if (this.state.penguin.clockwise) {
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha+90));
+        } else {
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha-90));
+        }
+        this.ctxPenguin.drawImage(this.injuredPenguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
+        if (this.state.penguin.clockwise) {
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha+90));
+        } else {
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha-90));
+        }
+        this.ctxPenguin.translate(-x, -y);
     }
 
     renderBullet(){
