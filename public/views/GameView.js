@@ -29,6 +29,8 @@ export default class GameView extends BaseView {
     show() {
         super.show();
         if (!this.game) {
+            Bus.off('destroy-game');
+            Bus.off('get-game-mode');
             Bus.emit('start-game', this);
         } else {
             Bus.on('destroy-game', () => {
