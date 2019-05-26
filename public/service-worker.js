@@ -18,6 +18,7 @@ const cacheUrls = [...global.serviceWorkerOption.assets,
     'images/next.svg',
     'images/snow-1.png',
     'images/default.png',
+    'images/x.svg',
     'favicon.ico',
 ];
 

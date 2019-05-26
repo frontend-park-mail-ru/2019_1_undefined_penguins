@@ -4,10 +4,21 @@ import Bus from '../scripts/EventBus.js';
 export default class ModalView {
     constructor (el) {
         this.el = el;
-        this.render();
+        this.message = null;
     }
 
-    show () {
+    show (flag) {
+        switch (flag) {
+        case 'NOT_NET': {
+            this.message = 'Чтобы продолжить, нужен Интернет';
+            break;
+        }
+        case 'NOT_AUTH': {
+            this.message = 'Чтобы продолжить, необходимо Войти';
+            break;
+        }
+        }
+        this.render();
         const modal = document.getElementsByClassName('modal')[0];
         modal.style.display = 'block';
     }
@@ -15,7 +26,7 @@ export default class ModalView {
     render () {
         const section = document.createElement('section');
         section.classList = 'modal-section';
-        section.innerHTML = ModalTmpl();
+        section.innerHTML = ModalTmpl(this.message);
         this.el.appendChild(section);
         
         const modal = document.getElementsByClassName('modal')[0];

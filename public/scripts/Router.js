@@ -1,5 +1,5 @@
 import Bus from './EventBus.js';
-import { BLACKLIST_PATHS } from '../utils/constants.js';
+import { BLACKLIST_PATHS, BLACKLIST_PATHS_VIA_NET } from '../utils/constants.js';
 import UserModel from '../modules/UserModel.js';
 
 class Router {
@@ -37,7 +37,12 @@ class Router {
         }
 
         if (!UserModel.IsAutorised() && BLACKLIST_PATHS.includes(path)) {
-            this.modal.show();
+            this.modal.show('NOT_AUTH');
+            return;
+        }
+
+        if (!navigator.onLine && BLACKLIST_PATHS_VIA_NET.includes(path)) {
+            this.modal.show('NOT_NET');
             return;
         }
 
