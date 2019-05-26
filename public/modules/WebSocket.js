@@ -65,6 +65,8 @@ export default class WS {
 
         this.ws.onclose = (event) => {
             console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
+            Bus.off(EVENTS.WEBSOCKET_OPEN);
+            Bus.off(EVENTS.WEBSOCKET_CLOSE);
             // clearInterval(this.updateInterval);
         };
 

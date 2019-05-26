@@ -35,12 +35,14 @@ export default class GameManager {
         });
         
         if (navigator.onLine) {
-            Bus.on('ws:connected', () => {
-                Bus.emit(EVENTS.READY_TO_START, {username});
-            });
+            this.subscribe('ws:connected', 'readyToStart');
         } else {
-            Bus.emit(EVENTS.READY_TO_START, {username});
+            this.readyToStart();
         }
+    }
+
+    readyToStart() {
+        Bus.emit(EVENTS.READY_TO_START, {username: this.username});
     }
 
     onWaitOpponent() {
