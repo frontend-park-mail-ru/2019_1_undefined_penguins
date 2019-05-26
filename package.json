@@ -12,7 +12,9 @@
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
     "dev": "npm run tmpl && webpack --mode development",
     "build": "npm run tmpl && webpack --mode production",
-    "watch": "webpack --mode development --watch --progress",
+    "watch": "webpack --mode development --watch --progress"
+  },
+  "husky": {
     "precommit": "lint-staged"
   },
   "keywords": [],
