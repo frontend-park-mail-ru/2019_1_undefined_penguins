@@ -142,7 +142,7 @@ export default class GameManager {
     checkEatenFish() {
         if (this.piscesAngles !== undefined) {
             this.piscesAngles.forEach(element => {
-                if (element === this.state.penguin.alpha) {
+                if (element >= this.state.penguin.alpha -7 && element % 360 <= this.state.penguin.alpha+7) {
                     this.scene.removeFish(element);
                 }            
             });

@@ -24,7 +24,7 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        this.fishImage.src = '../images/fish.webp';
+        // this.fishImage.src = '../images/fish.webp';
 
         this.penguinImage = new Image();
         this.penguinImage.src = '../images/penguin.webp';
@@ -95,13 +95,14 @@ export default class GameScene {
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
-        // this.fishImage.onload = function () {
-        this.state.piscesAngles.forEach(element => {
-            const x = this.getX(element);
-            const y = this.getY(element);              
-            this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
-        });
-        // }.bind(this);
+        this.fishImage.onload = function () {
+            this.state.piscesAngles.forEach(element => {
+                const x = this.getX(element);
+                const y = this.getY(element);              
+                this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+            });
+        }.bind(this);
+        this.fishImage.src = '../images/fish.webp';
         // this.state.piscesAngles.forEach(element => {
         //     const fishImage=new Image();
         //     const x = this.getX(element);
