@@ -56,7 +56,7 @@ class UserModel {
 
     CheckAuthorized() {
         AjaxModule.doPromiseGet({
-            path: '/me'
+            path: '/api/me'
         })
             .then((response) => {
                 console.log(`Response status: ${response.status}`);
@@ -82,7 +82,7 @@ class UserModel {
         const password = form.elements.password.value;
 
         AjaxModule.doPromisePost({
-            path: '/login',
+            path: '/api/login',
             body: {
                 email,
                 password,
@@ -120,7 +120,7 @@ class UserModel {
         const login = form.elements.login.value;
       
         AjaxModule.doPromisePost({
-            path: '/signup',
+            path: '/api/signup',
             body: {
                 email,
                 password,
@@ -153,7 +153,7 @@ class UserModel {
 
     Leaders(view) {
         AjaxModule.doPromiseGet({
-            path: '/leaders/info',
+            path: '/api/leaders/info',
         })
             .then((response)=>{
                 return response.json();
@@ -172,7 +172,7 @@ class UserModel {
 
     LeadersPage(view){
         AjaxModule.doPromiseGet({
-            path: `${'/leaders' + '/'}${view.GetPage()}`,
+            path: `${'/api/leaders' + '/'}${view.GetPage()}`,
         })
             .then((response) => {
                 // console.log(`Response status: ${response.status}`);
@@ -190,7 +190,7 @@ class UserModel {
   
     SignOut() {
         AjaxModule.doPromiseGet({
-            path: '/signout'
+            path: '/api/signout'
         })
             .then((response) => {
                 console.log(`Response status: ${response.status}`);
@@ -231,7 +231,7 @@ class UserModel {
         }
 
         AjaxModule.doPromisePut({
-            path: '/me',
+            path: '/api/me',
             body: {
                 email,
                 login,
@@ -262,7 +262,7 @@ class UserModel {
 
     UpdateAvatar(body) {
         return AjaxModule.doPromisePost({
-            path: '/upload',
+            path: '/api/upload',
             contentType: 'multipart/form-data',
             body
         });
