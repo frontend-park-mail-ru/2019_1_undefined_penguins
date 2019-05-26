@@ -110,6 +110,7 @@ export default class ScoreboardView extends BaseView {
         const home = this.el.getElementsByClassName('board__header__home-button')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
+                this.page = 1;
                 event.preventDefault();
                 Bus.emit('open-menu');
             });
