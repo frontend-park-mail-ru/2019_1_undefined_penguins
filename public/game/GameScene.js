@@ -156,15 +156,15 @@ export default class GameScene {
         this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
         this.ctxPenguin.translate(x, y);
         if (this.state.penguin.clockwise) {
-            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha+90));
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha + 90));
         } else {
-            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha-90));
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha - 90));
         }
         this.ctxPenguin.drawImage(this.injuredPenguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
         if (this.state.penguin.clockwise) {
-            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha+90));
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha + 90));
         } else {
-            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha-90));
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha - 90));
         }
         this.ctxPenguin.translate(-x, -y);
     }
@@ -173,8 +173,8 @@ export default class GameScene {
         this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
         this.ctxSnow = this.canvases['snow'].getContext('2d');
         // const bulletImage=new Image();
-        const x = this.getX(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
-        const y = this.getY(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
+        const x = this.getX(this.state.gun.bullet.alpha, this.state.gun.bullet.distance_from_center * this.increasePercentage);
+        const y = this.getY(this.state.gun.bullet.alpha, this.state.gun.bullet.distance_from_center * this.increasePercentage);
         // bulletImage.onload = function (){
         this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         this.ctxSnow.drawImage(this.bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);

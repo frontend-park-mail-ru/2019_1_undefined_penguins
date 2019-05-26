@@ -153,10 +153,14 @@ export default class GameManager {
     }
 
     injuredLoop() {
-        console.log(this.scene);
         const loop = setInterval(function() {
            this.scene.renderInjuredPenguin();
-           this.state.penguin.alpha++;
+           if (this.state.penguin.clockwise) {
+                this.state.penguin.alpha++;
+           } else {
+                this.state.penguin.alpha--;
+           }
+           
            this.scene.setState(this.state);
         }.bind(this), 100);
     
@@ -182,23 +186,23 @@ export default class GameManager {
 
         setTimeout(function() {
             switch(this.role) {
-                case 'penguin':
-                    if (payload.penguin.result === 'LOST') {
-                        Bus.emit('open-lost-view', payload.penguin.score);
-                    }
-                    // TODO: norm messages
-                    if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
-                        Bus.emit('open-win-view', payload.penguin.score);
-                    }
-                    break;
-                case 'gun':
-                    if (payload.gun.result === 'LOST') {             
-                        Bus.emit('open-lost-view', payload.gun.score);
-                    }
-                    if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
-                        Bus.emit('open-win-view', payload.gun.score);
-                    }
+            case 'penguin':
+                if (payload.penguin.result === 'LOST') {
+                    Bus.emit('open-lost-view', payload.penguin.score);
                 }
+                // TODO: norm messages
+                if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
+                    Bus.emit('open-win-view', payload.penguin.score);
+                }
+                break;
+            case 'gun':
+                if (payload.gun.result === 'LOST') {             
+                    Bus.emit('open-lost-view', payload.gun.score);
+                }
+                if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
+                    Bus.emit('open-win-view', payload.gun.score);
+                }
+            }
         }.bind(this), 1000);
         // TODO: поменять для оффлайна
        
