@@ -42,6 +42,11 @@ export default class GameStrategy {
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
+    onFinishRound(payload) {
+        console.log('GameStrategy.fn.onFinishRound', arguments);
+        throw new TypeError('Not implemented');
+    }
+
     startGame() {
         console.log('GameStrategy.fn.startGame', arguments);
         Bus.emit(EVENTS.START_THE_GAME);
@@ -54,7 +59,7 @@ export default class GameStrategy {
 
     roundOver(payload) {
         console.log('GameStrategy.fn.roundOver', arguments);
-        Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
+        throw new TypeError('Not implemented');
     }
     
     onNewCommand(payload) {
@@ -64,6 +69,15 @@ export default class GameStrategy {
 
     onNewRound(payload) {
         console.log('GameStrategy.fn.onNewRound', arguments);
+        throw new TypeError('Not implemented');
+    }
+
+    onFinishGame(payload) {
+        this.gameOver(payload);
+    }
+
+    onWaitOpponent() {
+        console.log('GameStrategy.fn.onWaitOpponent', arguments);
         throw new TypeError('Not implemented');
     }
 

@@ -93,6 +93,8 @@ export default class GameManager {
         console.log('GameManager.fn.onStart');
         if (this.mode === 'MULTI') {
             Bus.emit(EVENTS.OPEN_GAME_VIEW, this.mode);
+        } else {
+            this.role = 'penguin';
         }
         
         this.controllers.init();
@@ -113,9 +115,6 @@ export default class GameManager {
     }
 
     gameLoop() {
-        // Bus.on(EVENTS.ROTATE, () => {
-        //     Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED);
-        // });
         if (this.controllers.isPressed()) {
             this.controllers.clearPress();
             Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
@@ -187,14 +186,21 @@ export default class GameManager {
 
     onFinishTheRound(payload) {
         console.log('GameManager.fn.onFinishTheRound', payload);
-
+    
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
 
+        if (payload.mode === 'MULTI') {
+            Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
+        } else if (payload.mode === 'SINGLE') {
+            setTimeout(() => {
+                Bus.emit(EVENTS.READY_TO_NEW_ROUND);
+            }, 1000);
+        }
+
         //TODO: any clearing
         
-        Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
     }
 
     // onNewState(payload) {
