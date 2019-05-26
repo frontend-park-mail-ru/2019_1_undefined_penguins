@@ -53,8 +53,43 @@
     &__timer {
         display: flex;
         flex-direction: row;
-        margin-top: $margin-30;
-        font-size: 100px;
+        justify-content: space-between;
+        margin-top: 16px;
+        font-size: 150px;
+        width: 360px;
+    }
+}
+
+.timer {
+    &__tick {
+        animation-name: bounce_timer;
+        animation-duration: 4.5s;
+        transform: scale(.8);
+        color: $color-white;
+
+        &__animated1 {
+            animation-delay: 1.5s;
+        }
+
+        &__animated2 {
+            animation-delay: 2.5s;
+        }
+
+        &__animated3 {
+            animation-delay: 3.5s;
+        }
+    }
+}
+
+@keyframes bounce_timer{
+    0%{
+        transform: scale(1.5);
+        color: $color-orange;
+    }
+
+    100%{
+        transform: scale(.8);
+        color: $color-white;
     }
 }
 

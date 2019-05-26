@@ -1,6 +1,7 @@
 import BaseView from './BaseView.js';
 import Bus from '../scripts/EventBus.js';
 import RoundTmpl from '../components/Round/Round.tmpl.xml';
+import UserModel from '../modules/UserModel.js';
 
 export default class RoundView extends BaseView {
     constructor (el) {
@@ -13,12 +14,13 @@ export default class RoundView extends BaseView {
         super.show();
     }
 
-    setUser (user) {
-        this.user = user;
-        super.show();
+    setData (data) {
+        this.data = data;
     }
 
     render () {
+        this.setData(UserModel.getGameResult());
+        
         this.el.innerHTML = '';
 
         this.el.innerHTML = RoundTmpl(this.data);

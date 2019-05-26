@@ -2,12 +2,8 @@ import Bus from './EventBus.js';
 import UserModel from '../modules/UserModel.js';
 import Router from './Router.js';
 import Game from '../game/Game.js';
-import { STRATEGIES } from '../utils/strategies.js'
+import { STRATEGIES } from '../utils/strategies.js';
 import { EVENTS } from '../utils/events.js';
-
-function insertAfter (newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 
 export default class EventController {
     static Init () {
@@ -18,7 +14,6 @@ export default class EventController {
         Bus.on('select-menu-header', (menu) => {
             menu.RenderHeader(UserModel.IsAutorised());
         });
-
 
         Bus.on('sign-in', (el) => {
             UserModel.SignIn(el);
@@ -129,24 +124,25 @@ export default class EventController {
         });
 
         Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
-            if (mode === "MULTI") {
-                Router.open('/multiPlayer');
-            } else {
-                Router.open('/singlePlayer');
+            if (mode === 'MULTI') {
+                Router.open('/multi');
             }
         });
 
         Bus.on('start-game', (view) => {
             let Strategy, login;
-            // if (navigator.onLine) {
+            if (navigator.onLine) {
                 Strategy = STRATEGIES[view.getMode()];
                 login = UserModel.GetUser().login;
-            // } else {
-            //     Strategy = STRATEGIES[OFFLINE];
-            //     view.setMode("OFFLINE");
-            //     login = 'Anonymous';
-            // };
+            } else {
+                Strategy = STRATEGIES['OFFLINE'];
+                view.setMode('OFFLINE');
+                login = 'Anonymous';
+            }
             const gameCanvases = view.getCanvases();
+            Bus.on('get-game-mode', (manager) => {
+                manager.setMode(view.getMode());
+            });
             const game = new Game(Strategy, login, gameCanvases);
             view.setGame(game);
             // Bus.off('start-game');
@@ -165,6 +161,10 @@ export default class EventController {
 
         Bus.on(EVENTS.OPEN_ROUND_VIEW, (payload) => {
             console.log('roundGame', payload);
+            UserModel.setGameResult(payload);
+            setTimeout(() => {
+                Bus.emit(EVENTS.READY_TO_NEW_ROUND);
+            }, 4500);
             Router.open('/game/newRound');
         });
     }

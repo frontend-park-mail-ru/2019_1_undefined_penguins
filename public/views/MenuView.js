@@ -21,11 +21,11 @@ export default class MenuView extends BaseView {
         mainSection.classList.add('menu');
 
         const buttons = {
-            singlePlayer: {
+            single: {
                 header: 'ОДИНОЧНАЯ ИГРА',
                 style: 'menu__button js-singleplayer-button'
             },
-            multiPlayer: {
+            multi: {
                 header: 'ИГРА С ДРУГОМ',
                 style: 'menu__button js-multiplayer-button'
             },

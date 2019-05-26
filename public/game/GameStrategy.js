@@ -17,14 +17,15 @@ export default class GameStrategy {
         this._subscribed = [];
         this.subscribe(EVENTS.READY_TO_START, 'readyToStart');
         this.subscribe(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'onNewCommand');
+        this.subscribe(EVENTS.NEW_ROUND, 'onNewRound');
 
-        // if (navigator.onLine) {
+        if (navigator.onLine) {
             this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
             this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
             this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
-        // }
+        }
 
         this.penguin = null;
         this.gun = null;
@@ -38,7 +39,6 @@ export default class GameStrategy {
 
     opponentFound(penguin, gun) {
         console.log('GameStrategy.fn.opponentFound', arguments);
-        console.log(penguin, gun);
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
@@ -59,6 +59,11 @@ export default class GameStrategy {
     
     onNewCommand(payload) {
         console.log('GameStrategy.fn.onNewCommand', arguments);
+        throw new TypeError('Not implemented');
+    }
+
+    onNewRound(payload) {
+        console.log('GameStrategy.fn.onNewRound', arguments);
         throw new TypeError('Not implemented');
     }
 
@@ -83,10 +88,15 @@ export default class GameStrategy {
         this._subscribed.push({name: event, callback: callbackName});
     }
 
-    // unsubscribe(event) {
-    // 	this._subscribed = this._subscribed.filter(data => data.name !== event);
-    // 	mediator.off(event, this.mediatorCallback);
-    // }
+    unsubscribe(event) {
+        try {
+            this._subscribed = this._subscribed.filter(data => data.name !== event);
+            Bus.off(event);
+        }
+        catch(e) {
+            // console.log(e.message);
+        }
+    }
 
     destroy() {
         // TODO: Отписаться от всех событий

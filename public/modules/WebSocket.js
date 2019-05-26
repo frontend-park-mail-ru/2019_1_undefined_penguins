@@ -23,6 +23,7 @@ export default class WS {
 
         Bus.on(EVENTS.WEBSOCKET_CLOSE, () => {
             this.ws.close();
+            WS.__instance = null;
         });
     }
 
@@ -58,11 +59,14 @@ export default class WS {
         this.ws = new WebSocket(address);
 
         this.ws.onerror = (event) => {
+            console.log(event);
             console.log(`WebSocket error: ${event.message}`);
         };
 
         this.ws.onclose = (event) => {
             console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
+            Bus.off(EVENTS.WEBSOCKET_OPEN);
+            Bus.off(EVENTS.WEBSOCKET_CLOSE);
             // clearInterval(this.updateInterval);
         };
 

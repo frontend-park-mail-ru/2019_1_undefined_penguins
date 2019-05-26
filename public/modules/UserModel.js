@@ -9,6 +9,7 @@ class UserModel {
         this.score = 0;
         this.avatarUrl = '';
         this.count = 0;
+        this.gameResult = null;
     }
 
     // TODO: get user in SetUser
@@ -211,7 +212,6 @@ class UserModel {
         const image = form.inputAvatar;
 
         if (image.value !== '') {
-            console.log(image.files[0]);
             const avatarData = new FormData();
             avatarData.append('avatar', image.files[0], image.value);
 
@@ -238,7 +238,6 @@ class UserModel {
             },
         })
             .then((res) => {
-                console.log(res);
                 if (res.status > 300) {
                     throw res;
                 }
@@ -267,6 +266,14 @@ class UserModel {
             contentType: 'multipart/form-data',
             body
         });
+    }
+
+    setGameResult(data) {
+        this.gameResult = data;
+    }
+
+    getGameResult() {
+        return this.gameResult;
     }
 }
   

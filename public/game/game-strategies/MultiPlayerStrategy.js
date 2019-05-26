@@ -30,7 +30,6 @@ export default class MultiPlayerStrategy extends GameStrategy {
         for (let i = 0; i < payload.PiscesCount; i++) {
             state.piscesAngles.push((360/payload.PiscesCount)*i);
         }
-        console.log(payload.penguin.name, payload.gun.name);
         this.opponentFound(payload.penguin.name, payload.gun.name);
         this.onNewState(state);
         this.startGame();
@@ -47,10 +46,12 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onFinishRound(payload) {
+        this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
         this.roundOver(payload);
     }
 
     onWaitOpponent() {
+        // this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
         this.waitOpponent();
     }
 
@@ -65,5 +66,11 @@ export default class MultiPlayerStrategy extends GameStrategy {
         console.log('MultiPlayerStrategy.fn.onNewCommand');
         // TODO: init penguin and gun
         this.ws.send('newCommand', { name: payload.username, mode: 'MULTI' });
+    }
+
+    onNewRound(payload) {
+        console.log('MultiPlayerStrategy.fn.onNewRound');
+        // TODO: init penguin and gun
+        this.ws.send('newRound', { name: payload.username, mode: 'MULTI' });
     }
 }

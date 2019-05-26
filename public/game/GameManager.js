@@ -2,7 +2,6 @@ import Bus from '../scripts/EventBus.js';
 import { EVENTS } from '../utils/events.js';
 import GameScene from '../game/GameScene.js';
 import ControllersManager from '../game/ControllersManager.js';
-import SinglePlayerStrategy from '../game/game-strategies/SinglePlayerStrategy.js';
 
 // отвечает за все события в игре 
 export default class GameManager {
@@ -17,7 +16,9 @@ export default class GameManager {
 
         this.username = username;
         this.role = null;
+        this.mode = null;
         this.strategy = new Strategy;
+        Bus.emit('get-game-mode', this);
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
         this._subscribed = [];
@@ -28,22 +29,20 @@ export default class GameManager {
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
-        // this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
-        // this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-        // this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
-        
-        // const piscesCount = 24;
-        
-        // if (navigator.onLine) {
-            Bus.on('ws:connected', () => {
-                Bus.emit(EVENTS.READY_TO_START, {username});
-            });
-        // } else {
-        //     Bus.emit(EVENTS.READY_TO_START, {username});
-        // }
 
-       
-        // this.startGameLoop();
+        Bus.on(EVENTS.READY_TO_NEW_ROUND, () => {
+            Bus.emit(EVENTS.NEW_ROUND, {username});
+        });
+        
+        if (navigator.onLine) {
+            this.subscribe('ws:connected', 'readyToStart');
+        } else {
+            this.readyToStart();
+        }
+    }
+
+    readyToStart() {
+        Bus.emit(EVENTS.READY_TO_START, {username: this.username});
     }
 
     onWaitOpponent() {
@@ -53,8 +52,6 @@ export default class GameManager {
 
     onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        console.log('this:', this);
-        console.log('players:', players);
         if (this.username === players.penguin) {
             this.role = 'penguin';
         } else {
@@ -94,8 +91,9 @@ export default class GameManager {
 
     onStart() {
         console.log('GameManager.fn.onStart');
-        // TODO: CHECK FOR multi OR single
-        Bus.emit(EVENTS.OPEN_GAME_VIEW, 'MULTI');
+        if (this.mode === 'MULTI') {
+            Bus.emit(EVENTS.OPEN_GAME_VIEW, this.mode);
+        }
         
         this.controllers.init();
         this.startGameLoop();
@@ -133,7 +131,6 @@ export default class GameManager {
             this.checkEatenFish();
         }
         
-
         if (this.role === 'penguin') {
             this.scene.choiceOfRenderAsPenguin();
         } else {
@@ -145,7 +142,6 @@ export default class GameManager {
     checkEatenFish() {
         if (this.piscesAngles !== undefined) {
             this.piscesAngles.forEach(element => {
-                console.log(element, this.state.penguin.alpha);
                 if (element >= this.state.penguin.alpha -7 && element % 360 <= this.state.penguin.alpha+7) {
                     this.scene.removeFish(element);
                 }            
@@ -174,7 +170,8 @@ export default class GameManager {
             if (payload.penguin.result === 'LOST') {
                 Bus.emit('open-lost-view', payload.penguin.score);
             }
-            if (payload.penguin.result === 'WIN') {
+            // TODO: norm messages
+            if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
                 Bus.emit('open-win-view', payload.penguin.score);
             }
             break;
@@ -182,7 +179,7 @@ export default class GameManager {
             if (payload.gun.result === 'LOST') {             
                 Bus.emit('open-lost-view', payload.gun.score);
             }
-            if (payload.gun.result === 'WIN') {             
+            if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
                 Bus.emit('open-win-view', payload.gun.score);
             }
         }
@@ -222,5 +219,9 @@ export default class GameManager {
     destroy() {
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+    }
+
+    setMode(mode) {
+        this.mode = mode;
     }
 }
