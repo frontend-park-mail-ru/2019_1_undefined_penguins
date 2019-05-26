@@ -8,9 +8,13 @@ export default class ScoreboardView extends BaseView {
     constructor(el) {
         super(el);
         this.users = null;
-        this.page = 1;
+        this.page = new URLSearchParams(document.location.search).get('page');
+        if (this.page === null) {
+            this.page = 1;
+        }
         this.el.classList.add('leaders-section');
         this.usersOnPage = 6;
+
     }
 
     show () {
@@ -63,8 +67,9 @@ export default class ScoreboardView extends BaseView {
 
 
     renderScoreboard() {
+        
         this.users[0].Page = this.page;
-        if (this.page <= this.usersOnPage/this.usersOnPage) {
+        if (this.page <= (this.count - 1)/this.usersOnPage) {
             this.users[0].Right = true;
         } else {
             this.users[0].Right = false;
@@ -81,20 +86,31 @@ export default class ScoreboardView extends BaseView {
                 event.preventDefault();
                 this.MinusPage();
                 Bus.emit('new-page', this);
+                window.history.pushState(
+                    null,
+                    '',
+                    `/leaders?page=${this.page}`
+                );
             });
         }
 
-        if (this.page <= this.usersOnPage/this.usersOnPage) {
+        if (this.page <= (this.count - 1)/this.usersOnPage){
             nextButton.addEventListener('click', (event) => {
                 event.preventDefault();
                 this.PlusPage();
                 Bus.emit('new-page', this);
+                window.history.pushState(
+                    null,
+                    '',
+                    `/leaders?page=${this.page}`
+                );
             });
         }
     
         const home = this.el.getElementsByClassName('board__header__home-button')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
+                this.page = 1;
                 event.preventDefault();
                 Bus.emit('open-menu');
             });
