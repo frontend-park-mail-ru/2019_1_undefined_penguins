@@ -39,6 +39,7 @@ class Router {
                 '',
                 path
             );
+            console.log('router path', path, 'j', window.location.pathname)
         }
 
         let { View, view, el, mode } = route;
