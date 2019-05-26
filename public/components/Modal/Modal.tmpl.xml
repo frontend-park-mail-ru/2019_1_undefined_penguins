@@ -6,12 +6,20 @@
                 <p>Внимание!</p>
             </div>
             <div class="modal__body">
-                <p><fest:value>data</fest:value></p>
+                <p><fest:value>data.message</fest:value></p>
             </div>
-            <div class="modal__buttons">
-                <input name="submit" type="submit" class="modal__submit sign-in-button" value="ВОЙТИ"/>
-                <input name="submit" type="submit" class="modal__submit sign-up-button" value="ЗАРЕГИСТРИРОВАТЬСЯ"/>
-            </div>
+            <fest:choose>
+                <fest:when test="data.flag === 'auth'">
+                    <div class="modal__buttons">
+                        <input name="submit" type="submit" class="modal__submit sign-in-button" value="ВОЙТИ"/>
+                        <input name="submit" type="submit" class="modal__submit sign-up-button" value="ЗАРЕГИСТРИРОВАТЬСЯ"/>
+                    </div>
+                </fest:when>
+
+                <fest:otherwise>
+                    <input name="submit" type="submit" class="modal__submit ok-button" value="ОК"/>
+                </fest:otherwise>
+            </fest:choose>
         </div>
     </div>
 </fest:template>
