@@ -24,7 +24,7 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        // this.fishImage.src = '../images/fish.webp';
+        this.fishImage.src = '../images/fish.webp';
 
         this.injuredPenguinImage = new Image();
         this.injuredPenguinImage.src = '../images/injured.webp';
@@ -40,6 +40,8 @@ export default class GameScene {
 
         this.penguinGunImage = new Image();
         this.penguinGunImage.src = '../images/penguin-gun.webp';
+
+        
         // this.renderAllAsPenguin();
         // this._init(); // TODO: объединить с setState
         // this.render();
@@ -74,6 +76,10 @@ export default class GameScene {
         this.state = state;
     }
 
+    setPiscesAngles(angles) {
+        this.piscesAngles = angles;
+    }
+
     getState(){
         return this.state;
     }
@@ -98,14 +104,24 @@ export default class GameScene {
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
-        this.fishImage.onload = function () {
-            this.state.piscesAngles.forEach(element => {
+        if (this.fishImage.complete) {
+            this.piscesAngles.forEach(element => {
                 const x = this.getX(element);
                 const y = this.getY(element);              
                 this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
             });
-        }.bind(this);
-        this.fishImage.src = '../images/fish.webp';
+        } else {
+            this.fishImage.onload = function () {
+                this.piscesAngles.forEach(element => {
+                    const x = this.getX(element);
+                    const y = this.getY(element);              
+                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                });
+            }.bind(this);
+            this.fishImage.src = '../images/fish.webp';
+        }
+
+       
         // this.state.piscesAngles.forEach(element => {
         //     const fishImage=new Image();
         //     const x = this.getX(element);
@@ -209,9 +225,14 @@ export default class GameScene {
         const gunHeigth = this.canvases['gun'].height / 10;
         // const gunImage=new Image();
         // gunImage.onload = function (){
-        this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
         // }.bind(this);
-        
+        if (this.gunImage.complete) {
+            this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+        } else {
+            this.gunImage.onload = function () {
+                this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+            }.bind(this);
+        }
 
     }
 

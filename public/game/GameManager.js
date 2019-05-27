@@ -126,6 +126,7 @@ export default class GameManager {
             for (let i = 0; i < this.state.piscesAngles.length; i++) {
                 this.piscesAngles.push((360/this.state.piscesAngles.length) * i);
             }
+            this.scene.setPiscesAngles(this.piscesAngles);
         } else {
             this.checkEatenFish();
         }
