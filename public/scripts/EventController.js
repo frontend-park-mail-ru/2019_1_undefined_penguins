@@ -183,5 +183,9 @@ export default class EventController {
             }, 4500);
             Router.open('/game/newRound');
         });
+
+        Bus.on('checkWS', (mode) => {
+            UserModel.checkWS(mode);
+        });
     }
 }
