@@ -1,5 +1,3 @@
-import Bus from '../scripts/EventBus.js';
-
 export class Validate {
   
     ValidateEmpty(form) {
@@ -15,6 +13,7 @@ export class Validate {
     }
 
     ValidateEmail (email) {
+        // eslint-disable-next-line no-useless-escape
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             return (true);
         }
@@ -35,7 +34,7 @@ export class Validate {
     }
 
     ValidateEqualPassword(password1, password2) {
-        if (password1 != password2) {
+        if (password1 !== password2) {
             return false;
         }
         if (password1 === '' || password2 === '') {
@@ -59,7 +58,7 @@ export class Validate {
             let Extension = avatar.substring(avatar.lastIndexOf('.') + 1).toLowerCase();
 
             // The file uploaded is an image
-            if (Extension == 'gif' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
+            if (Extension === 'gif' || Extension === 'png' || Extension === 'jpeg' || Extension === 'jpg') {
                 return true;
             } 
             return false;

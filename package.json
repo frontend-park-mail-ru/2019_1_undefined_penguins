@@ -10,10 +10,10 @@
     "prestart": "npm run dev",
     "linter": "npx eslint -c .eslintrc.json './**/*.js'",
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
-    "dev": "npm run tmpl && webpack --mode development",
-    "build": "npm run tmpl && webpack --mode production",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "watch": "webpack --mode development --watch --progress",
-    "precommit": "npm run linter"
+    "precommit": "lint-staged && npm run linter"
   },
   "keywords": [],
   "author": "",
@@ -49,10 +49,14 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fest-webpack-loader": "^1.1.1",
     "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
+  },
+  "lint-staged": {
+    "*.js": ["npm run linter-fix", "git add"]
   }
 }

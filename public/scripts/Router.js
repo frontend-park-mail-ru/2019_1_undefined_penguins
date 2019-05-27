@@ -87,9 +87,9 @@ class Router {
             event.preventDefault();
             const link = event.target;
 
-            console.log({
-                pathname: link.pathname
-            });
+            // console.log({
+            //     pathname: link.pathname
+            // });
 
             this.open(link.pathname);
         });

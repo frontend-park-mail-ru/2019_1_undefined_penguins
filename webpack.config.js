@@ -1,15 +1,10 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require ('extract-text-webpack-plugin');
-const path  =  require('path');
-
-const  PATHS  =  {
-    public:  path.resolve(__dirname,  'public'),
-};
 
 module.exports = {
     mode:  'development',
-    entry: `${PATHS.public}/main.js`,
+    entry: '/public/main.js',
 
     module:  {
         rules:  [
@@ -50,17 +45,17 @@ module.exports = {
     },
 
     output:  {
-        path:  PATHS.public,
+        path:  'public',
         filename:  'bundle.js',
     },
 
     plugins:  [
         new  ServiceWorkerWebpackPlugin({
-            entry:  `${PATHS.public}/service-worker.js`,
+            entry:  '/public/service-worker.js',
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './public/index.html',
+            template: '/public/index.html',
             inject: false,
         }),
         new ExtractTextPlugin({ filename: 'bundle.css' }),

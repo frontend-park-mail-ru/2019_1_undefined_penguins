@@ -1,6 +1,6 @@
 export default class ControllersManager {
     constructor() {
-        console.log('ControllersManager.fn');
+        // console.log('ControllersManager.fn');
 
         this.pressed = null;
 

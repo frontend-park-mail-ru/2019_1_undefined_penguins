@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */
+
 const CACHE_NAME = 'penguins-sw-cache';
 
 const cacheUrls = [...global.serviceWorkerOption.assets, 

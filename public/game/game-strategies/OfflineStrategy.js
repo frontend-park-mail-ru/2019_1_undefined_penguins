@@ -4,7 +4,7 @@ import Bus from '../../scripts/EventBus.js';
 
 export default class OfflineStrategy extends GameStrategy {
     constructor() {
-        console.log('OfflineStrategy.fn');
+        // console.log('OfflineStrategy.fn');
         super();
 
         this.interval = null;
@@ -15,7 +15,7 @@ export default class OfflineStrategy extends GameStrategy {
     // }
 
     onStart(payload) {
-        console.log('SinglePlayerStrategy.fn.onStart', arguments);
+        // console.log('SinglePlayerStrategy.fn.onStart', arguments);
         // console.dir(payload);
         // TODO: choose who is who
         this.opponentFound(payload.penguin.name, payload.gun.name);
@@ -44,10 +44,10 @@ export default class OfflineStrategy extends GameStrategy {
 
 
     gameLoop() {
-        if (this.state.penguinAngle == 360) {
+        if (this.state.penguinAngle === 360) {
             this.state.penguinAngle = 0;
         }
-        if (this.state.penguinAngle == -1) {
+        if (this.state.penguinAngle === -1) {
             this.state.penguinAngle = 359;
         }
         let eaten = -1;
@@ -108,8 +108,8 @@ export default class OfflineStrategy extends GameStrategy {
         this.waitOpponent();
     }
 
-    onNewCommand(payload) {
-        console.log('SinglePlayerStrategy.fn.onNewCommand', payload);
+    onNewCommand() {
+        // console.log('SinglePlayerStrategy.fn.onNewCommand', payload);
         // check on SPACE click
         this.ws.send('newCommand', { name: this.me, command: 'ROTATE' });
     }
