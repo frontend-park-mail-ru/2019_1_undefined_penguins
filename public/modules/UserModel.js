@@ -19,7 +19,7 @@ class UserModel {
         this.login = data.login;
         this.score = data.score;
         if (data.avatarUrl === undefined) {
-            this.avatarUrl = '/images/default.png';
+            this.avatarUrl = '/images/default.webp';
         } else {
             this.avatarUrl = data.avatarUrl;
         }
