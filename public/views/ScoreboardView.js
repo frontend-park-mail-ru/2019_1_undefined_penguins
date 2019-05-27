@@ -14,7 +14,6 @@ export default class ScoreboardView extends BaseView {
         }
         this.el.classList.add('leaders-section');
         this.usersOnPage = 6;
-
     }
 
     show () {
@@ -67,7 +66,12 @@ export default class ScoreboardView extends BaseView {
 
 
     renderScoreboard() {
-        
+        // Bus.emit('get-users', this);
+        console.log(this.count);
+        console.log(this.page);
+        if (this.count === undefined && this.GetPage() === 1) {
+            Bus.emit('get-users', this);
+        }
         this.users[0].Page = this.page;
         if (this.page <= (this.count - 1)/this.usersOnPage) {
             this.users[0].Right = true;
@@ -86,10 +90,17 @@ export default class ScoreboardView extends BaseView {
                 event.preventDefault();
                 this.MinusPage();
                 Bus.emit('new-page', this);
+                console.log(this.GetPage());
+                if (this.GetPage() === 1) {
+                    this.uri = 'leaders';
+                } else {
+                    this.uri = `/leaders?page=${this.page}`;
+                }
                 window.history.pushState(
                     null,
                     '',
-                    `/leaders?page=${this.page}`
+                    // `/leaders?page=${this.page}`,
+                    this.uri,
                 );
             });
         }
