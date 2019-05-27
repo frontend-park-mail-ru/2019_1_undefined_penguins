@@ -10,15 +10,11 @@ export default class OfflineStrategy extends GameStrategy {
         this.interval = null;
     }
 
-    // penguinTurnAround(){
-    //     this.state.penguin.clockwise = !this.state.penguin.clockwise;
-    // }
-
-    onStart(payload) {
-        console.log('SinglePlayerStrategy.fn.onStart', arguments);
-        // console.dir(payload);
-        // TODO: choose who is who
-        this.opponentFound(payload.penguin.name, payload.gun.name);
+    readyToStart(payload) {
+        console.log('OfflineStrategy.fn.readyToStart', arguments);
+        this.me = payload.username;
+        this.opponent = 'GUN';
+        this.opponentFound(this.me, this.opponent);
         const piscesCount = 24;
         this.sideLength = 100;
         this.state = {
@@ -38,9 +34,41 @@ export default class OfflineStrategy extends GameStrategy {
         for (let i = 0; i < piscesCount; i++) {
             this.state.piscesAngles.push((360 / piscesCount) * i);
         }
-        console.log(this.state.piscesAngles);
         this.score = 0;
+        this.setNewGameState(this.state);
+
+        this.onStart();
+
+        // this.startGame();
         // this.startGameLoop();
+    }
+
+    onStart() {
+        console.log('OfflineStrategy.fn.onStart', arguments);
+        // console.dir(payload);
+        // TODO: choose who is who
+        const piscesCount = 24;
+        this.sideLength = 100;
+        this.state = {
+            penguin:{
+                alpha: Math.floor(Math.random() * 360),
+                clockwise: true,
+            },
+            piscesAngles: [],
+            gun:{
+                bullet: {
+                    distance_from_center: 0,
+                    alpha: 0,
+                },
+                alpha: 0,
+            },
+        };
+        for (let i = 0; i < piscesCount; i++) {
+            this.state.piscesAngles.push((360 / piscesCount) * i);
+        }
+        
+        this.score = 0;
+        this.startGameLoop();
         this.startGame();
     }
 
@@ -50,10 +78,10 @@ export default class OfflineStrategy extends GameStrategy {
 
 
     gameLoop() {
-        if (this.state.penguin.alpha == 360) {
+        if (this.state.penguin.alpha === 360) {
             this.state.penguin.alpha = 0;
         }
-        if (this.state.penguin.alpha == -1) {
+        if (this.state.penguin.alpha === -1) {
             this.state.penguin.alpha = 359;
         }
         let eaten = -1;
@@ -70,10 +98,11 @@ export default class OfflineStrategy extends GameStrategy {
             Bus.emit(EVENTS.EAT_FISH, { angle });
             this.state.piscesAngles.splice(eaten, 1);
             if (this.state.piscesAngles.length === 0) {
-                Bus.emit(EVENTS.FINISH_THE_GAME);
-                Bus.emit('open-win-view', this.score);
-                super.destroy();
-                this.stopGameLoop();
+                this.onFinishGame();
+                // Bus.emit(EVENTS.FINISH_THE_GAME);
+                // Bus.emit('open-win-view', this.score);
+                // super.destroy();
+                // this.stopGameLoop();
                 // Bus.emit('next-level', this.score);
             }
         }
@@ -109,68 +138,17 @@ export default class OfflineStrategy extends GameStrategy {
     }
 
     onFinishGame(payload) {
-        this.gameOver(payload.message || 'Игра окончена');
-    }
-
-    onWaitOpponent() {
-        this.waitOpponent();
+        this.gameOver(payload.message);
     }
 
     onNewCommand(payload) {
-        console.log('SinglePlayerStrategy.fn.onNewCommand', payload);
+        console.log('OfflineStrategy.fn.onNewCommand', payload);
         this.state.penguin.clockwise = !this.state.penguin.clockwise;
         // check on SPACE click
         // this.ws.send('newCommand', { name: this.me, command: 'ROTATE' });
     }
 
-    readyToStart(payload) {
-        this.me = payload.username;
-        this.opponent = 'GUN';
-        this.opponentFound(this.me, this.opponent);
-        const piscesCount = 24;
-        this.sideLength = 100;
-        this.state = {
-            penguin:{
-                alpha: Math.floor(Math.random() * 360),
-                clockwise: true,
-            },
-            piscesAngles: [],
-            gun:{
-                bullet: {
-                    distance_from_center: 0,
-                    alpha: 0,
-                },
-                alpha: 0,
-            },
-        };
-        for (let i = 0; i < piscesCount; i++) {
-            this.state.piscesAngles.push((360 / piscesCount) * i);
-        }
-        this.score = 0;
-        console.log(this.state.piscesAngles);
 
-        // this.sideLength = 100;
-        // this.state = {
-        //     penguin.alpha: Math.floor(Math.random() * 360),
-        //     piscesAngles: [
-        //         15,
-        //         30,
-        //         45,
-        //     ],
-        //     clockwise: true,
-        //     bullet: {
-        //         distanceFromCenter: 0,
-        //         angle: 0,
-        //     },
-        //     gunAngle: 0,
-        // };
-        this.setNewGameState(this.state);
-        this.startGame();
-        
-        // this.score = 0;
-        this.startGameLoop();
-        // console.log('started');
-    }
 
     // gameLoop() {
     // if (this.state.penguin.alpha == 360) {
