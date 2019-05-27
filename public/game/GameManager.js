@@ -1,5 +1,6 @@
 import Bus from '../scripts/EventBus.js';
 import { EVENTS } from '../utils/events.js';
+import { GAME_CONSTS } from '../utils/constants.js';
 import GameScene from '../game/GameScene.js';
 import ControllersManager from '../game/ControllersManager.js';
 
@@ -53,9 +54,9 @@ export default class GameManager {
     onFindOpponent(players) {
         // console.log('GameManager.fn.onFindOpponent', arguments);
         if (this.username === players.penguin) {
-            this.role = 'penguin';
+            this.role = GAME_CONSTS.PENGUIN;
         } else {
-            this.role = 'gun';
+            this.role = GAME_CONSTS.GUN;
         }
         this.scene.setNames(players.penguin, players.gun);
     }
@@ -73,10 +74,10 @@ export default class GameManager {
 
     onStart() {
         // console.log('GameManager.fn.onStart');
-        if (this.mode === 'MULTI') {
+        if (this.mode === GAME_CONSTS.MULTI) {
             Bus.emit(EVENTS.OPEN_GAME_VIEW, this.mode);
         } else {
-            this.role = 'penguin';
+            this.role = GAME_CONSTS.PENGUIN;
         }
         
         this.controllers.init();
@@ -103,7 +104,7 @@ export default class GameManager {
         }  
        
         this.scene.setState(this.state);
-        if (this.state.piscesAngles !== undefined) {
+        if (this.state.piscesAngles) {
             this.piscesAngles = [];
             for (let i = 0; i < this.state.piscesAngles.length; i++) {
                 this.piscesAngles.push((360/this.state.piscesAngles.length) * i);
@@ -113,7 +114,7 @@ export default class GameManager {
             this.checkEatenFish();
         }
         
-        if (this.role === 'penguin') {
+        if (this.role === GAME_CONSTS.PENGUIN) {
             this.scene.choiceOfRenderAsPenguin();
         } else {
             this.scene.choiceOfRenderAsGun();
@@ -122,9 +123,9 @@ export default class GameManager {
     }
 
     checkEatenFish() {
-        if (this.piscesAngles !== undefined) {
+        if (this.piscesAngles) {
             this.piscesAngles.forEach(element => {
-                if (element >= this.state.penguin.alpha -7 && element % 360 <= this.state.penguin.alpha+7) {
+                if (element >= (this.state.penguin.alpha - 7) && (element % 360) <= (this.state.penguin.alpha + 7)) {
                     this.scene.removeFish(element);
                 }            
             });
@@ -156,20 +157,20 @@ export default class GameManager {
 
         setTimeout(function() {
             switch(this.role) {
-            case 'penguin':
-                if (payload.penguin.result === 'LOST') {
+            case GAME_CONSTS.PENGUIN:
+                if (payload.penguin.result === GAME_CONSTS.LOST) {
                     Bus.emit('open-lost-view', payload.penguin.score);
                 }
                 // TODO: norm messages
-                if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
+                if (payload.penguin.result === GAME_CONSTS.WIN || payload.penguin.result === GAME_CONSTS.AUTOWIN) {
                     Bus.emit('open-win-view', payload.penguin.score);
                 }
                 break;
-            case 'gun':
-                if (payload.gun.result === 'LOST') {             
+            case GAME_CONSTS.GUN:
+                if (payload.gun.result === GAME_CONSTS.LOST) {             
                     Bus.emit('open-lost-view', payload.gun.score);
                 }
-                if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
+                if (payload.gun.result === GAME_CONSTS.WIN || payload.gun.result === GAME_CONSTS.AUTOWIN) {             
                     Bus.emit('open-win-view', payload.gun.score);
                 }
             }
@@ -185,9 +186,9 @@ export default class GameManager {
             cancelAnimationFrame(this.requestID);
         }
 
-        if (payload.mode === 'MULTI') {
+        if (payload.mode === GAME_CONSTS.MULTI) {
             Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
-        } else if (payload.mode === 'SINGLE') {
+        } else if (payload.mode === GAME_CONSTS.SINGLE) {
             setTimeout(() => {
                 Bus.emit(EVENTS.READY_TO_NEW_ROUND);
             }, 1000);

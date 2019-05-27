@@ -16,3 +16,13 @@ export const BLACKLIST_PATHS_VIA_NET = [
     '/signUp',
     '/me',
 ];
+
+export const GAME_CONSTS = {
+    PENGUIN: 'penguin',
+    GUN: 'gun',
+    MULTI: 'MULTI',
+    SINGLE: 'SINGLE',
+    LOST: 'LOST',
+    WIN: 'WIN',
+    AUTOWIN: 'AUTO-WIN',
+};
