@@ -71,6 +71,18 @@ export default class EventController {
             error.classList.remove('error__hidden');
         });
 
+        Bus.on('error-403', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Неверный email или пароль!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-401', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Вы не зарегистрированы!'; 
+            error.classList.remove('error__hidden');
+        });
+
         Bus.on('error-5xx', (el) => {
             let error = el.getElementsByClassName('error')[0];
             error.innerText = 'Ошибка сервера!'; 

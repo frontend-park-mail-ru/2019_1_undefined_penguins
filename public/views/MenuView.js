@@ -61,7 +61,7 @@ export default class MenuView extends BaseView {
         const pictureSection = document.createElement('section');
         pictureSection.classList.add('menu-picture');
         const pictureImg = document.createElement('img');
-        pictureImg.src = '/images/menu-picture.png';
+        pictureImg.src = '/images/menu-picture.webp';
         pictureImg.classList.add('menu-picture__img');
         pictureSection.appendChild(pictureImg);
         this.el.appendChild(pictureSection);
