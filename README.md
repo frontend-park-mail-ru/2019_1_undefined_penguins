@@ -20,7 +20,6 @@
 - Service Worker - для организации работы приложения в режиме offline
 - ESlint - линтер для создания красивого кода на js
 - Babel - для поддержки разных версий js
-- Изображения в webp - поддерживаем "легкие" картинки
 
 ## Запуск локальной версии
 ***Important!*** Для полноценного запуска локальной версии ***пока*** нужно установить Golang и node :(
@@ -31,6 +30,8 @@
     - ```npm i```
     - ```npm start```
 1. После сборки приложение будет доступно по 'localhost:3000'
+
+Для работы со стороны Backend'a нужно идти [сюда](https://github.com/go-park-mail-ru/2019_1_undefined_penguins).
 
 ## API
 
@@ -46,6 +47,8 @@
 |/upload  | POST| Изменить аватар| бинарник||
 
 ## Разработчики
+***DreamTeam*** Undefined Penguins:
+
 - [Виталий Малахов](https://github.com/iamfrommoscow)
 - [Екатерина Кириллова](https://github.com/K1ola)
 - [Елизавета Добрянская](https://github.com/Betchika99)
