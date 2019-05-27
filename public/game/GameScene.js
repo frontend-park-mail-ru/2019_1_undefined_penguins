@@ -154,6 +154,7 @@ export default class GameScene {
         const y = this.getY(this.state.penguin.alpha);
         // penguinImage.onload = function (){
         this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
+        this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         this.ctxPenguin.translate(x, y);
         if (this.state.penguin.clockwise) {
             this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha + 90));

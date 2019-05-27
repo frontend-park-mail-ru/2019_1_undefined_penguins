@@ -153,20 +153,20 @@ export default class GameManager {
     }
 
     injuredLoop() {
-        const loop = setInterval(function() {
-           this.scene.renderInjuredPenguin();
-           if (this.state.penguin.clockwise) {
-                this.state.penguin.alpha++;
-           } else {
-                this.state.penguin.alpha--;
-           }
+        // const loop = setInterval(function() {
+        this.scene.renderInjuredPenguin();
+        //    if (this.state.penguin.clockwise) {
+        //         this.state.penguin.alpha++;
+        //    } else {
+        //         this.state.penguin.alpha--;
+        //    }
            
-           this.scene.setState(this.state);
-        }.bind(this), 100);
+        //    this.scene.setState(this.state);
+        // }.bind(this), 100);
     
-        setTimeout(function() {
-            clearInterval(loop);
-        }, 1000);
+        // setTimeout(function() {
+        //     clearInterval(loop);
+        // }, 1000);
     }
 
     onFinishTheGame(payload) {
@@ -203,7 +203,7 @@ export default class GameManager {
                     Bus.emit('open-win-view', payload.gun.score);
                 }
             }
-        }.bind(this), 1000);
+        }.bind(this), 2500);
         // TODO: поменять для оффлайна
        
     }
