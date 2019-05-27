@@ -116,6 +116,7 @@ export default class GameStrategy {
         // TODO: Отписаться от всех событий
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+        Bus.off('ws-checked');
         Bus.emit(EVENTS.WEBSOCKET_CLOSE);
     }
 }

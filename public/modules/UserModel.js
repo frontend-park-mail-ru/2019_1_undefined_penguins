@@ -275,6 +275,29 @@ class UserModel {
     getGameResult() {
         return this.gameResult;
     }
+
+    checkWS(mode) {
+        const path = `/game/check${mode}Ws`;
+        AjaxModule.doPromiseGet({
+            path: path
+        })
+            .then((response) => {
+                console.log(`Response status: ${response.status}`);
+                Bus.emit('ws-checked', response.status);
+                // if (response.status < 400) {
+                //     return response.json();
+                // }
+                // throw 'Bad status';
+            })
+            // .then(() => {
+                // this.SetUser(data);
+                // Bus.emit('authorization-checked');
+            // })
+            .catch(() => {
+                // this.isAutorised = false;
+                // Bus.emit('authorization-checked');
+            });
+    }
 }
   
 export default new UserModel();

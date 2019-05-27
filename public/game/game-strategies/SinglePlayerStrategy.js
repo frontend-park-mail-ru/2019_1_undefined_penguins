@@ -7,7 +7,15 @@ export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
         console.log('SinglePlayerStrategy.fn');
         super();
-        this.ws = new WS('single');
+        Bus.on('ws-checked', (status) => {
+            if (status === 200) {
+                this.ws = new WS('single');
+            } else {
+                Bus.emit('open-menu');
+                // TODO: message in modal
+            }
+        });
+        Bus.emit('checkWS', 'Single');
     }
 
     readyToStart(payload) {
