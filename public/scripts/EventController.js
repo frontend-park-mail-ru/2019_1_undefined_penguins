@@ -55,6 +55,10 @@ export default class EventController {
             Router.open('/signIn');
         });
 
+        Bus.on('open-sign-up', () => {
+            Router.open('/signUp');
+        });
+
         Bus.on('error-404', (el) => {
             let error = el.getElementsByClassName('error')[0];
             error.innerText = 'Неверный email или пароль!'; 
@@ -64,6 +68,18 @@ export default class EventController {
         Bus.on('error-409', (el) => {
             let error = el.getElementsByClassName('error')[0];
             error.innerText = 'Такой пользователь уже существует!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-403', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Неверный email или пароль!'; 
+            error.classList.remove('error__hidden');
+        });
+
+        Bus.on('error-401', (el) => {
+            let error = el.getElementsByClassName('error')[0];
+            error.innerText = 'Вы не зарегистрированы!'; 
             error.classList.remove('error__hidden');
         });
 
@@ -148,8 +164,8 @@ export default class EventController {
             // Bus.off('start-game');
         });
 
-        Bus.on(EVENTS.OPEN_FINISH_VIEW, (payload) => {
-            console.log('finishGame', payload);
+        Bus.on(EVENTS.OPEN_FINISH_VIEW, () => {
+            // console.log('finishGame', payload);
             // TODO: Открывать вью в зависимости от результата. Сделать if
             Router.open('/game/win');
             // TODO: Удалять game во вью
@@ -160,12 +176,16 @@ export default class EventController {
         });
 
         Bus.on(EVENTS.OPEN_ROUND_VIEW, (payload) => {
-            console.log('roundGame', payload);
+            // console.log('roundGame', payload);
             UserModel.setGameResult(payload);
             setTimeout(() => {
                 Bus.emit(EVENTS.READY_TO_NEW_ROUND);
             }, 4500);
             Router.open('/game/newRound');
+        });
+
+        Bus.on('checkWS', (mode) => {
+            UserModel.checkWS(mode);
         });
     }
 }

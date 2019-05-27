@@ -1,4 +1,6 @@
 import Bus from './EventBus.js';
+import { BLACKLIST_PATHS, BLACKLIST_PATHS_VIA_NET } from '../utils/constants.js';
+import UserModel from '../modules/UserModel.js';
 
 class Router {
     constructor () {
@@ -29,7 +31,18 @@ class Router {
         const route = this.routes[path];
 
         if (!route) {
+            // TODO: 404view
             this.open('/');
+            return;
+        }
+
+        if (!UserModel.IsAutorised() && BLACKLIST_PATHS.includes(path)) {
+            this.modal.show('NOT_AUTH');
+            return;
+        }
+
+        if (!navigator.onLine && BLACKLIST_PATHS_VIA_NET.includes(path)) {
+            this.modal.show('NOT_NET');
             return;
         }
 
@@ -74,9 +87,9 @@ class Router {
             event.preventDefault();
             const link = event.target;
 
-            console.log({
-                pathname: link.pathname
-            });
+            // console.log({
+            //     pathname: link.pathname
+            // });
 
             this.open(link.pathname);
         });
@@ -92,6 +105,10 @@ class Router {
             this.open(currentPath);
         });
         Bus.emit('check-autorized');
+    }
+
+    setModalView(View) {
+        this.modal = new View(this.root);
     }
 }
 
