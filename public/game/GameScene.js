@@ -36,7 +36,7 @@ export default class GameScene {
         this.bulletImage.src = '../images/snow-.webp';
 
         this.gunImage = new Image();
-        this.gunImage.src = '../images/cloud.webp';
+        this.gunImage.src = '../images/gun.webp';
 
         this.penguinGunImage = new Image();
         this.penguinGunImage.src = '../images/penguin-gun.webp';
