@@ -295,12 +295,12 @@ class UserModel {
     }
 
     checkWS(mode) {
-        const path = `/game/check${mode}Ws`;
+        const path = `/data/check${mode}Ws`;
         AjaxModule.doPromiseGet({
             path: path
         })
             .then((response) => {
-                console.log(`Response status: ${response.status}`);
+                // console.log(`Response status: ${response.status}`);
                 Bus.emit('ws-checked', response.status);
                 // if (response.status < 400) {
                 //     return response.json();
@@ -308,8 +308,8 @@ class UserModel {
                 // throw 'Bad status';
             })
             // .then(() => {
-                // this.SetUser(data);
-                // Bus.emit('authorization-checked');
+        // this.SetUser(data);
+        // Bus.emit('authorization-checked');
             // })
             .catch(() => {
                 // this.isAutorised = false;
