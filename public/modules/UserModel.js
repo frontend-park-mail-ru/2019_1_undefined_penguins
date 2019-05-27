@@ -59,7 +59,7 @@ class UserModel {
             path: '/me'
         })
             .then((response) => {
-                console.log(`Response status: ${response.status}`);
+                // console.log(`Response status: ${response.status}`);
                 if (response.status < 400) {
                     return response.json();
                 }
@@ -115,7 +115,7 @@ class UserModel {
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }
@@ -164,7 +164,7 @@ class UserModel {
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }
@@ -180,7 +180,7 @@ class UserModel {
                 view.SetCountOfUsers(data);
             })
             .catch(()=>{
-                console.error('Can\'t get leaders info!');
+                // console.error('Can\'t get leaders info!');
                 view.StartPage();
                 Bus.emit('open-menu');
                 return;
@@ -202,7 +202,7 @@ class UserModel {
             .catch(() => {
                 Bus.emit('open-menu');
                 view.StartPage();
-                console.error('Can\'t get leaders!');
+                // console.error('Can\'t get leaders!');
             });
     }
   
@@ -211,14 +211,14 @@ class UserModel {
             path: '/signout'
         })
             .then((response) => {
-                console.log(`Response status: ${response.status}`);
+                // console.log(`Response status: ${response.status}`);
                 if (response.status === 200) {
                     this.SetUserDefault();
                     Bus.emit('open-sign-in');
                 }
             })
             .catch(() => {
-                console.error('Can\'t sign out!');
+                // console.error('Can\'t sign out!');
             });
     }
 
@@ -236,7 +236,7 @@ class UserModel {
             const responseAvatar = this.UpdateAvatar(avatarData);
 
             if (responseAvatar.status !== 200) {
-                console.error('Unable to load avatar');
+                // console.error('Unable to load avatar');
                 // return data;
             }
 
@@ -273,7 +273,7 @@ class UserModel {
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }

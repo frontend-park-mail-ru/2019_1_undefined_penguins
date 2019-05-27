@@ -1,6 +1,6 @@
 export default class GameScene {
     constructor(canvases) {
-        console.log('GameScene.fn');
+        // console.log('GameScene.fn');
 
         this.canvases = canvases;
 

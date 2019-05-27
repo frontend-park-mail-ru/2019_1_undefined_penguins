@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */
+
 const CACHE_NAME = 'penguins-sw-cache';
 
 const cacheUrls = [...global.serviceWorkerOption.assets, 
@@ -17,6 +19,8 @@ const cacheUrls = [...global.serviceWorkerOption.assets,
     'images/background-main.jpg',
     'images/next.svg',
     'images/snow-1.png',
+    'images/default.png',
+    'images/x.svg',
     'images/default.webp',
     'favicon.ico',
     'images/penguin.webp',

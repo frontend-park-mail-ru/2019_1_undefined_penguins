@@ -4,14 +4,14 @@ import Bus from '../../scripts/EventBus.js';
 
 export default class OfflineStrategy extends GameStrategy {
     constructor() {
-        console.log('OfflineStrategy.fn');
+        // console.log('OfflineStrategy.fn');
         super();
 
         this.interval = null;
     }
 
     readyToStart(payload) {
-        console.log('OfflineStrategy.fn.readyToStart', arguments);
+        // console.log('OfflineStrategy.fn.readyToStart', arguments);
         this.me = payload.username;
         this.opponent = 'GUN';
         this.opponentFound(this.me, this.opponent);
@@ -36,7 +36,6 @@ export default class OfflineStrategy extends GameStrategy {
         }
         this.score = 0;
         this.setNewGameState(this.state);
-
         this.onStart();
 
         // this.startGame();
@@ -44,7 +43,7 @@ export default class OfflineStrategy extends GameStrategy {
     }
 
     onStart() {
-        console.log('OfflineStrategy.fn.onStart', arguments);
+        // console.log('OfflineStrategy.fn.onStart', arguments);
         // console.dir(payload);
         // TODO: choose who is who
         const piscesCount = 24;
@@ -141,8 +140,8 @@ export default class OfflineStrategy extends GameStrategy {
         this.gameOver(payload.message);
     }
 
-    onNewCommand(payload) {
-        console.log('OfflineStrategy.fn.onNewCommand', payload);
+    onNewCommand() {
+        // console.log('OfflineStrategy.fn.onNewCommand', payload);
         this.state.penguin.clockwise = !this.state.penguin.clockwise;
         // check on SPACE click
         // this.ws.send('newCommand', { name: this.me, command: 'ROTATE' });
