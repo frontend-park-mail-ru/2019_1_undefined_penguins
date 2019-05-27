@@ -1,24 +1,50 @@
 import GameStrategy from '../GameStrategy.js';
-// import { EVENTS } from '../../utils/events.js';
+import { EVENTS } from '../../utils/events.js';
 import WS from '../../modules/WebSocket.js';
-// import Bus from '../../scripts/EventBus.js';
+import Bus from '../../scripts/EventBus.js';
 
 export default class MultiPlayerStrategy extends GameStrategy {
     constructor() {
         console.log('MultiPlayerStrategy.fn');
         super();
         this.ws = new WS('multi');
+    }
 
-        this.subscribe('SIGNAL_START_THE_GAME', 'onStart');
-        this.subscribe('SIGNAL_NEW_GAME_STATE', 'onNewState');
-        this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
-        this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
+    readyToStart(payload) {
+        console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
+
+        this.waitOpponent();
+        this.ws.send('newPlayer', { name: payload.username, mode: 'MULTI' });
+    }
+
+    roundOver(payload) {
+        console.log('MultiPlayerStrategy.fn.roundOver', arguments);
+        payload.mode = 'MULTI';
+        Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
     }
 
     onStart(payload) {
         console.log('MultiPlayerStrategy.fn.onStart');
         console.dir(payload);
+        let state = {
+            penguin: {
+                alpha: payload.penguin.alpha,
+                clockwise: payload.penguin.clockwise,
+            },
+            piscesAngles:[],
+            gun: {
+                bullet: {
+                    distance_from_center: payload.gun.bullet.distance_from_center,
+                    alpha: payload.gun.bullet.alpha,
+                },
+                alpha: payload.gun.alpha,
+            }
+        };
+        for (let i = 0; i < payload.PiscesCount; i++) {
+            state.piscesAngles.push((360/payload.PiscesCount)*i);
+        }
         this.opponentFound(payload.penguin.name, payload.gun.name);
+        this.onNewState(state);
         this.startGame();
     }
 
@@ -28,24 +54,25 @@ export default class MultiPlayerStrategy extends GameStrategy {
         this.setNewGameState(this.state);
     }
 
-    onFinishGame(payload) {
-        this.gameOver(payload.message);
+    onNewRound(payload) {
+        console.log('MultiPlayerStrategy.fn.onNewRound');
+        // TODO: init penguin and gun
+        this.ws.send('newRound', { name: payload.username, mode: 'MULTI' });
+    }
+
+    onFinishRound(payload) {
+        this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
+        this.roundOver(payload);
     }
 
     onWaitOpponent() {
         this.waitOpponent();
     }
 
-    readyToStart(payload) {
-        console.log('MultiPlayerStrategy.fn.readyToStart', arguments);
-
-        this.waitOpponent();
-        this.ws.send('newPlayer', {name: payload.username, mode: 'MULTI' });
-    }
-
     onNewCommand(payload) {
-        console.log('MultiPlayerStrategy.fn.onNewCommand', payload);
+        console.log('MultiPlayerStrategy.fn.onNewCommand');
         // TODO: init penguin and gun
-        this.ws.send('newCommand', {code: payload});
+        this.ws.send('newCommand', { name: payload.username, mode: 'MULTI' });
     }
+
 }

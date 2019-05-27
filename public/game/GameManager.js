@@ -2,7 +2,6 @@ import Bus from '../scripts/EventBus.js';
 import { EVENTS } from '../utils/events.js';
 import GameScene from '../game/GameScene.js';
 import ControllersManager from '../game/ControllersManager.js';
-import SinglePlayerStrategy from '../game/game-strategies/SinglePlayerStrategy.js';
 
 // отвечает за все события в игре 
 export default class GameManager {
@@ -16,7 +15,10 @@ export default class GameManager {
         console.log('GameManager.fn');
 
         this.username = username;
+        this.role = null;
+        this.mode = null;
         this.strategy = new Strategy;
+        Bus.emit('get-game-mode', this);
         this.scene = new GameScene(canvases);
         this.controllers = new ControllersManager();
         this._subscribed = [];
@@ -26,60 +28,75 @@ export default class GameManager {
         this.subscribe(EVENTS.START_THE_GAME, 'onStart');
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
-        this.subscribe(EVENTS.EAT_FISH, 'onEatenFish');
-        this.subscribe(EVENTS.PENGUIN_INJURED, 'onLose');
-        
-        const piscesCount = 24;
+        this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
+
+        Bus.on(EVENTS.READY_TO_NEW_ROUND, () => {
+            Bus.emit(EVENTS.NEW_ROUND, {username});
+        });
         
         if (navigator.onLine) {
-            Bus.on('ws:connected', () => {
-                Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
-            });
+            this.subscribe('ws:connected', 'readyToStart');
         } else {
-            Bus.emit(EVENTS.READY_TO_START, {username, piscesCount});
+            this.readyToStart();
         }
-        this.subscribe(EVENTS.STOP_THE_GAME, 'stopGameLoop');
+    }
 
-       
-        // this.startGameLoop();
+    readyToStart() {
+        Bus.emit(EVENTS.READY_TO_START, {username: this.username});
     }
 
     onWaitOpponent() {
         console.log('GameManager.fn.onWaitOpponent', arguments);
-        // mediator.emit(EVENTS.OPEN_WAITING_VIEW);
+        Bus.emit('open-wait');
     }
 
-    onFindOpponent(penguin, gun) {
+    onFindOpponent(players) {
         console.log('GameManager.fn.onFindOpponent', arguments);
-        this.scene.setNames(penguin, gun);
+        if (this.username === players.penguin) {
+            this.role = 'penguin';
+        } else {
+            this.role = 'gun';
+        }
+        this.scene.setNames(players.penguin, players.gun);
     }
 
     renderNew(){
-        if (this.strategy instanceof SinglePlayerStrategy) {
+        // TODO: Check for strategy
+        // if (this.strategy instanceof SinglePlayerStrategy) {
             this.scene.renderAllAsPenguin();
-        }
+        // }
     }
 
     onNewState(payload) {
-
+        // if (!payload) {
+        //     this.state = payload.state;
+        // } else {
+        //     this.state = {};
+        // }
+        // if (this.scene.getState() === undefined) {
+        //     // console.log(this.state);
+        //     // this.scene.setState(this.state);
+        //     this.scene.initState();
+        //     this.renderNew();
+        // } else {
+            // console.log(this.state);
+            // this.scene.setState(payload.state);
+            
         this.state = payload.state;
-        if (this.scene.getState() === undefined) {
-            // console.log(this.state);
-            this.scene.setState(this.state);
-            this.renderNew();
-        } else {
-            // console.log(this.state);
-            this.scene.setState(this.state);
-            this.scene.renderAsPenguin();
-        }
+        // this.scene.renderAsPenguin();
+        // }
         
         // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
         console.log('GameManager.fn.onStart');
-        // mediator.emit(EVENTS.OPEN_GAME_VIEW);
-
+        if (this.mode === 'MULTI') {
+            Bus.emit(EVENTS.OPEN_GAME_VIEW, this.mode);
+        } else {
+            this.role = 'penguin';
+        }
+        
         this.controllers.init();
         this.startGameLoop();
     }
@@ -91,7 +108,6 @@ export default class GameManager {
     stopGameLoop(){
         this.strategy.stopGameLoop();
         this.destroy();
-
     }
 
     startGameLoop() {
@@ -99,19 +115,59 @@ export default class GameManager {
     }
 
     gameLoop() {
-        //TODO: copy the method for gun
-        Bus.on(EVENTS.PENGUIN_TURN_AROUND, () => {
-            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, 'ROTATE');
-        });
-
+        if (this.controllers.isPressed()) {
+            this.controllers.clearPress();
+            Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
+        }  
+       
         this.scene.setState(this.state);
-
-        this.scene.renderAllAsPenguin();
+        if (this.state.piscesAngles !== undefined) {
+            this.piscesAngles = [];
+            for (let i = 0; i < this.state.piscesAngles.length; i++) {
+                this.piscesAngles.push((360/this.state.piscesAngles.length) * i);
+            }
+            this.scene.setPiscesAngles(this.piscesAngles);
+        } else {
+            this.checkEatenFish();
+        }
+        
+        if (this.role === 'penguin') {
+            this.scene.choiceOfRenderAsPenguin();
+        } else {
+            this.scene.choiceOfRenderAsGun();
+        }
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
-    onEatenFish(payload){
+    checkEatenFish() {
+        if (this.piscesAngles !== undefined) {
+            this.piscesAngles.forEach(element => {
+                if (element >= this.state.penguin.alpha -7 && element % 360 <= this.state.penguin.alpha+7) {
+                    this.scene.removeFish(element);
+                }            
+            });
+        }
+    }
+
+    onEatenFish(payload) {
         this.scene.removeFish(payload.angle);
+    }
+
+    injuredLoop() {
+        // const loop = setInterval(function() {
+        this.scene.renderInjuredPenguin();
+        //    if (this.state.penguin.clockwise) {
+        //         this.state.penguin.alpha++;
+        //    } else {
+        //         this.state.penguin.alpha--;
+        //    }
+           
+        //    this.scene.setState(this.state);
+        // }.bind(this), 100);
+    
+        // setTimeout(function() {
+        //     clearInterval(loop);
+        // }, 1000);
     }
 
     onFinishTheGame(payload) {
@@ -121,16 +177,55 @@ export default class GameManager {
             cancelAnimationFrame(this.requestID);
         }
 
-        this.strategy.destroy();
-        this.scene.destroy(); // TODO: проверить в интеграции
-        this.controllers.destroy();
+        this.injuredLoop();
+        
 
-        if (payload.message === 'LOST') {
-            Bus.emit('open-lost-view', {score: payload.score});
+        this.strategy.destroy();
+        this.scene.destroy();
+        this.controllers.destroy();
+        Bus.emit('destroy-game');
+
+        setTimeout(function() {
+            switch(this.role) {
+            case 'penguin':
+                if (payload.penguin.result === 'LOST') {
+                    Bus.emit('open-lost-view', payload.penguin.score);
+                }
+                // TODO: norm messages
+                if (payload.penguin.result === 'WIN' || payload.penguin.result === 'AUTO-WIN') {
+                    Bus.emit('open-win-view', payload.penguin.score);
+                }
+                break;
+            case 'gun':
+                if (payload.gun.result === 'LOST') {             
+                    Bus.emit('open-lost-view', payload.gun.score);
+                }
+                if (payload.gun.result === 'WIN' || payload.gun.result === 'AUTO-WIN') {             
+                    Bus.emit('open-win-view', payload.gun.score);
+                }
+            }
+        }.bind(this), 2500);
+        // TODO: поменять для оффлайна
+       
+    }
+
+    onFinishTheRound(payload) {
+        console.log('GameManager.fn.onFinishTheRound', payload);
+    
+        if (this.requestID) {
+            cancelAnimationFrame(this.requestID);
         }
-        if (payload.message === 'WIN') {
-            Bus.emit('open-win-view', {score: payload.score});
+
+        if (payload.mode === 'MULTI') {
+            Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
+        } else if (payload.mode === 'SINGLE') {
+            setTimeout(() => {
+                Bus.emit(EVENTS.READY_TO_NEW_ROUND);
+            }, 1000);
         }
+
+        //TODO: any clearing
+        
     }
 
     // onNewState(payload) {
@@ -139,11 +234,11 @@ export default class GameManager {
     // }
 
     subscribe(event, callbackName) {
-        Bus.on(event, function (payload) {
+        Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
-        }.bind(this));
+        });
         this._subscribed.push({name: event, callback: callbackName});
     }
 
@@ -153,7 +248,11 @@ export default class GameManager {
     // }
 
     destroy() {
-        this._subscribed.forEach(data => Bus.off(data.name, this.mediatorCallback));
+        this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+    }
+
+    setMode(mode) {
+        this.mode = mode;
     }
 }

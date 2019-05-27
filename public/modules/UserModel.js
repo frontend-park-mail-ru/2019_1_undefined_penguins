@@ -9,6 +9,7 @@ class UserModel {
         this.score = 0;
         this.avatarUrl = '';
         this.count = 0;
+        this.gameResult = null;
     }
 
     // TODO: get user in SetUser
@@ -18,7 +19,7 @@ class UserModel {
         this.login = data.login;
         this.score = data.score;
         if (data.avatarUrl === undefined) {
-            this.avatarUrl = '/images/default.png';
+            this.avatarUrl = '/images/default.webp';
         } else {
             this.avatarUrl = data.avatarUrl;
         }
@@ -229,7 +230,6 @@ class UserModel {
         const image = form.inputAvatar;
 
         if (image.value !== '') {
-            console.log(image.files[0]);
             const avatarData = new FormData();
             avatarData.append('avatar', image.files[0], image.value);
 
@@ -256,7 +256,6 @@ class UserModel {
             },
         })
             .then((res) => {
-                console.log(res);
                 if (res.status > 300) {
                     throw res;
                 }
@@ -285,6 +284,14 @@ class UserModel {
             contentType: 'multipart/form-data',
             body
         });
+    }
+
+    setGameResult(data) {
+        this.gameResult = data;
+    }
+
+    getGameResult() {
+        return this.gameResult;
     }
 }
   

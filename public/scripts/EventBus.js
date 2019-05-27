@@ -9,9 +9,13 @@ class Bus {
     }
 
     off (event, callback) { // отписываемся от события
-        this.listeners[event] = this.listeners[event]
-            .filter(listener => listener !== callback);
-        this.listeners[event] = null;
+        try {
+            this.listeners[event] = this.listeners[event]
+                .filter(listener => listener !== callback);
+            this.listeners[event] = null;
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     emit (event, data) { // публикуем (диспатчим, эмитим) событие
