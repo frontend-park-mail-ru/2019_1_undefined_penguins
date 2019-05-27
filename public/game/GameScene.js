@@ -107,15 +107,19 @@ export default class GameScene {
         if (this.fishImage.complete) {
             this.piscesAngles.forEach(element => {
                 const x = this.getX(element);
-                const y = this.getY(element);              
-                this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                const y = this.getY(element);
+                setTimeout(function() {
+                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                }.bind(this), element*3);
             });
         } else {
             this.fishImage.onload = function () {
                 this.piscesAngles.forEach(element => {
                     const x = this.getX(element);
-                    const y = this.getY(element);              
-                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                    const y = this.getY(element);            
+                    setTimeout(function() {
+                        this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                    }.bind(this), element*3);          
                 });
             }.bind(this);
             this.fishImage.src = '../images/fish.webp';
