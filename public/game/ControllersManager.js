@@ -23,7 +23,7 @@ export default class ControllersManager {
         // maybe keyup
         document.addEventListener('keydown', this);
 
-        const button = document.getElementsByClassName('game-view__turn-button')[0];
+        const button = document.getElementsByClassName('game-view__turn-image')[0];
         button.addEventListener('click', this);
 
     }
@@ -38,7 +38,7 @@ export default class ControllersManager {
 
     destroy() {
         document.removeEventListener('keydown', this);
-        const button = document.getElementsByClassName('game-view__turn-button')[0];
+        const button = document.getElementsByClassName('game-view__turn-image')[0];
         button.removeEventListener('click', this);
     }
 }
