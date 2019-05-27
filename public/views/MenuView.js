@@ -21,11 +21,11 @@ export default class MenuView extends BaseView {
         mainSection.classList.add('menu');
 
         const buttons = {
-            singlePlayer: {
+            single: {
                 header: 'ОДИНОЧНАЯ ИГРА',
                 style: 'menu__button js-singleplayer-button'
             },
-            multiPlayer: {
+            multi: {
                 header: 'ИГРА С ДРУГОМ',
                 style: 'menu__button js-multiplayer-button'
             },
@@ -61,7 +61,7 @@ export default class MenuView extends BaseView {
         const pictureSection = document.createElement('section');
         pictureSection.classList.add('menu-picture');
         const pictureImg = document.createElement('img');
-        pictureImg.src = '/images/menu-picture.png';
+        pictureImg.src = '/images/menu-picture.webp';
         pictureImg.classList.add('menu-picture__img');
         pictureSection.appendChild(pictureImg);
         this.el.appendChild(pictureSection);

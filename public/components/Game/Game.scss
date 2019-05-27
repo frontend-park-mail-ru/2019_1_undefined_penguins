@@ -3,9 +3,9 @@
 .game {
     &-view__canvas-layers {
         position: absolute;
-        top: $fifty;
-        left: $fifty;
-        transform: translate(-$fifty, -$fifty);
+        top: 50%;
+        left: 35%;
+        transform: translate(0%, -50%);
     } 
 
     &-view__canvas-layer {
@@ -13,6 +13,7 @@
         top: $fifty;
         left: $fifty;
         transform: translate(-$fifty, -$fifty);
+        // background-color: yellow;
     }
 
     &__header__home-button {
@@ -47,7 +48,7 @@
         font-size: 150%;
         background: $color-orange;
         border-radius: 8px;
-        width: 350px;
+        width: 150px;
         height: 10%;
         color: $color-white;
         text-align: center;
@@ -56,10 +57,40 @@
         border: $none;
         outline: $none;
         cursor: pointer;
-        left: $fifty;
-        bottom: 5%;
+        left: 85%;
+        bottom: 50%;
         position: absolute;
-        transform: translate(-$fifty, 0%);
+        transform: translate(-50%, 0%);
+    }
+
+    &-view__turn-image {
+        position: absolute;
+        left: 85%;
+        bottom: 50%;
+        height: 88px;
+        transform: translate(-50%, 0%);
+    }
+}
+
+@media (max-width: 1050px) {
+    .game {
+        &-view__canvas-layers {
+            top: $fifty;
+            left: $fifty;
+            transform: translate(-$fifty, -$fifty);
+        }
+
+        &-view__turn-button {
+            left: $fifty;
+            bottom: 5%;
+            transform: translate(-50%, 0%);
+        }
+
+        &-view__turn-image {
+            left: $fifty;
+            bottom: 5%;
+            transform: translate(-50%, 0%);
+        }
     }
 }
 

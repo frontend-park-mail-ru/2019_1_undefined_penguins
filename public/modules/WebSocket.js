@@ -2,13 +2,13 @@ import Bus from '../scripts/EventBus.js';
 import { EVENTS } from '../utils/events.js';
 
 export default class WS {
-    constructor(key) {
+    constructor(mode) {
         if (WS.__instance) {
             return WS.__instance;
         }
         WS.__instance = this;
 
-        this._init(key);
+        this._init(mode);
 
         Bus.on(EVENTS.WEBSOCKET_OPEN, () => {
             if (this.ws.readyState === WebSocket.CLOSED) {
@@ -22,7 +22,8 @@ export default class WS {
         });
 
         Bus.on(EVENTS.WEBSOCKET_CLOSE, () => {
-            this.webSocket.close();
+            this.ws.close();
+            WS.__instance = null;
         });
     }
 
@@ -30,11 +31,11 @@ export default class WS {
         const messageText = event.data;
         try {
             const message = JSON.parse(messageText);
-            console.log(message);
-            // Bus.emit(message.type, message.payload);
+            // console.log(message);
+            Bus.emit(message.type, message.payload);
         }
-        catch {
-            console.error('Error in WS - handleMessage: ', err);
+        catch (err){
+            // console.error('Error in WS - handleMessage: ', err);
         }
     }
 
@@ -42,32 +43,35 @@ export default class WS {
         this.ws.send(JSON.stringify({type, payload}));
     }
 
-    _init(key) {
-        const url = 'localhost:8080';
+    _init(mode) {
+        const url = 'localhost';
         // const home = 'penguin-wars-backend.sytes.pro';
 
-        const wsUrl = key === 'game' ? `/game/ws` : `/chat/ws`;
+        const wsUrl = mode === 'single' ? '/game/single' : '/game/multi';
 
         const address = ['https', 'https:'].includes(location.protocol)
             // ? `wss://${location.host}/ws`
             // : `ws://${location.host}/ws`;
             // const address = `ws://` + home + `/ws/ws`;
-            ? `wss://` + url + wsUrl
-            : `ws://` + url + wsUrl;
+            ? 'wss://' + url + wsUrl
+            : 'ws://' + url + wsUrl;
 
         this.ws = new WebSocket(address);
 
-        this.ws.onerror = (event) => {
-            console.log(`WebSocket error: ${event.message}`);
+        this.ws.onerror = () => {
+            // console.log(event);
+            // console.log(`WebSocket error: ${event.message}`);
         };
 
-        this.ws.onclose = (event) => {
-            console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
+        this.ws.onclose = () => {
+            // console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
+            Bus.off(EVENTS.WEBSOCKET_OPEN);
+            Bus.off(EVENTS.WEBSOCKET_CLOSE);
             // clearInterval(this.updateInterval);
         };
 
         this.ws.onopen = () => {
-            console.log(`WebSocket on address ${address} opened`);
+            // console.log(`WebSocket on address ${address} opened`);
 
             this.ws.onmessage = this.handleMessage.bind(this);
             Bus.emit('ws:connected', this);
@@ -76,4 +80,4 @@ export default class WS {
     }
 }
 
-// export default new WS;
+// export default new WS('game');

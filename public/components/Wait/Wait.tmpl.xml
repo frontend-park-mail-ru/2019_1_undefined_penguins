@@ -1,0 +1,17 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <section class="win-header">
+        <div id="wait" class="view-element wait-view">
+            <div class="container">
+                <div style="transform:scale(0.75);">
+                    <div class="cssload-thecube">
+                        <div class="cssload-cube cssload-c1"></div>
+                        <div class="cssload-cube cssload-c2"></div>
+                        <div class="cssload-cube cssload-c4"></div>
+                        <div class="cssload-cube cssload-c3"></div>
+                    </div>
+                </div>
+                <h1 class="wait-view__header">Мы ищем вам компаньона</h1>
+            </div>
+        </div>
+    </section>    
+</fest:template>

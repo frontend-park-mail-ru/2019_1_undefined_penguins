@@ -1,42 +1,44 @@
-import Bus from '../scripts/EventBus.js';
-import { EVENTS } from '../utils/events.js';
-
 export default class ControllersManager {
     constructor() {
-        console.log('ControllersManager.fn');
+        // console.log('ControllersManager.fn');
 
+        this.pressed = null;
+
+        this.handleEvent = function(event) {
+            event.preventDefault();
+            switch (event.type) {
+            case 'keydown':
+                if (event.keyCode === 32) { 
+                    this.pressed = true;
+                }
+                break;
+            case 'click': 
+                this.pressed = true;
+                break;
+            }
+        };
     }
 
-    /**
-     * Начинаем слушать события клавиатуры
-     */
     init() {
+        // maybe keyup
+        document.addEventListener('keydown', this);
 
-        document.addEventListener('keydown', (event) => {
-            event.preventDefault();
-            this._keyPush(event);
-        });
-
-        const button = document.getElementsByClassName('game-view__turn-button')[0];
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
-        });
+        const button = document.getElementsByClassName('game-view__turn-image')[0];
+        button.addEventListener('click', this);
 
     }
 
-    /**
-     * Прекращаем слушать события клавиатуры
-     */
+    isPressed() {
+        return this.pressed;
+    }
+
+    clearPress() {
+        this.pressed = null;
+    }
+
     destroy() {
-        document.removeEventListener('keydown', this._keyPush(event));
-    }
-
-    _keyPush(event) {
-        switch (event.keyCode) {
-        case 32:
-            Bus.emit(EVENTS.PENGUIN_TURN_AROUND, {});
-            break;
-        }
+        document.removeEventListener('keydown', this);
+        const button = document.getElementsByClassName('game-view__turn-image')[0];
+        button.removeEventListener('click', this);
     }
 }

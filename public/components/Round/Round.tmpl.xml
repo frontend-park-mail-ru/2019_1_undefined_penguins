@@ -1,0 +1,35 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <section class="round-header">
+        <div class="round-header__home">
+            <img src="/images/home.svg" class="round-header__home-button js-header__home-button"/>
+        </div>
+        <div class="round-header__logo">
+            <h1 class="round-header__title">Penguins Wars</h1>
+        </div>
+    </section>
+    <section class="round-main">
+        <div class="round-main__score-block">
+            <div class="score-block__player">
+                <div class="score-block__role">пушка</div>
+                <div class="score-block__name"><fest:value>data.gun.name</fest:value></div>
+            </div>
+            <div class="score-block__score">
+                <div class="score-block__point"><fest:value>data.gun.score</fest:value></div>:
+                <div class="score-block__point"><fest:value>data.penguin.score</fest:value></div>
+            </div>
+            <div class="score-block__player">
+                <div class="score-block__role">пингвин</div>
+                <div class="score-block__name"><fest:value>data.penguin.name</fest:value></div>
+            </div>
+        </div>
+        <div class="round-main__level-block">
+            <div class="level-block__number"><fest:value>data.round</fest:value></div>
+            <div class="level-block__label">раунд</div>
+        </div>
+        <div class="round-main__timer">
+            <div class="timer__tick timer__tick__animated1">3</div>
+            <div class="timer__tick timer__tick__animated2">2</div>
+            <div class="timer__tick timer__tick__animated3">1</div>
+        </div>
+    </section>    
+</fest:template>

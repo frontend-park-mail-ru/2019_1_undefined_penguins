@@ -13,6 +13,7 @@
             <canvas class="game-view__canvas-layer canvas-snow"></canvas>
             <canvas class="game-view__canvas-layer canvas-gun"></canvas>
         </div>
-        <input type="button" class="game-view__turn-button" value="РАЗВЕРНУТЬСЯ"/>
+        <input type="button" class="game-view__turn-button"/>
+        <img src="../../images/refresh.svg" class="game-view__turn-image"/>
     </section>    
 </fest:template>
