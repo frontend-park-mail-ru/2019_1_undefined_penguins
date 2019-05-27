@@ -68,25 +68,7 @@ export default class GameManager {
     }
 
     onNewState(payload) {
-        // if (!payload) {
-        //     this.state = payload.state;
-        // } else {
-        //     this.state = {};
-        // }
-        // if (this.scene.getState() === undefined) {
-        //     // console.log(this.state);
-        //     // this.scene.setState(this.state);
-        //     this.scene.initState();
-        //     this.renderNew();
-        // } else {
-        // console.log(this.state);
-        // this.scene.setState(payload.state);
-            
         this.state = payload.state;
-        // this.scene.renderAsPenguin();
-        // }
-        
-        // this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     onStart() {
@@ -154,20 +136,7 @@ export default class GameManager {
     }
 
     injuredLoop() {
-        // const loop = setInterval(function() {
         this.scene.renderInjuredPenguin();
-        //    if (this.state.penguin.clockwise) {
-        //         this.state.penguin.alpha++;
-        //    } else {
-        //         this.state.penguin.alpha--;
-        //    }
-           
-        //    this.scene.setState(this.state);
-        // }.bind(this), 100);
-    
-        // setTimeout(function() {
-        //     clearInterval(loop);
-        // }, 1000);
     }
 
     onFinishTheGame(payload) {
@@ -228,11 +197,6 @@ export default class GameManager {
         
     }
 
-    // onNewState(payload) {
-    //     // console.log('GameManager.fn.onNewState', payload);
-    //     this.state = payload.state;
-    // }
-
     subscribe(event, callbackName) {
         Bus.on(event, (payload) => {
             if (callbackName && typeof this[callbackName] === 'function') {
@@ -241,11 +205,6 @@ export default class GameManager {
         });
         this._subscribed.push({name: event, callback: callbackName});
     }
-
-    // unsubscribe(event) {
-    //     this._subscribed = this._subscribed.filter(data => data.name !== event);
-    //     mediator.off(event, this.mediatorCallback);
-    // }
 
     destroy() {
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));

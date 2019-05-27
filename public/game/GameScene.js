@@ -10,6 +10,7 @@ export default class GameScene {
         this.ctxGun = this.canvases['gun'].getContext('2d');
 
         this.resizer();
+        //TODO: resizer
         // this.fieldSize = 1;
 
         // this.bindedResizer = this.resizer.bind(this);
@@ -40,11 +41,6 @@ export default class GameScene {
 
         this.penguinGunImage = new Image();
         this.penguinGunImage.src = '../images/penguin-gun.webp';
-
-        
-        // this.renderAllAsPenguin();
-        // this._init(); // TODO: объединить с setState
-        // this.render();
     }
 
     resizer() {
@@ -125,16 +121,6 @@ export default class GameScene {
             this.fishImage.src = '../images/fish.webp';
         }
 
-       
-        // this.state.piscesAngles.forEach(element => {
-        //     const fishImage=new Image();
-        //     const x = this.getX(element);
-        //     const y = this.getY(element);
-        //     fishImage.onload = function (){
-        //         this.ctxFish.drawImage(fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);
-        //     }.bind(this);
-        //     fishImage.src = '../images/fish-3.png';
-        // });
     }
 
     renderPenguin(){
@@ -158,12 +144,6 @@ export default class GameScene {
             this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha-90));
         }
         this.ctxPenguin.translate(-x, -y);
-        // }.bind(this);
-        // penguinImage.src='../images/penguin-2.png';
-
-
-
-
     }
 
     renderInjuredPenguin(){
@@ -199,9 +179,6 @@ export default class GameScene {
         // bulletImage.onload = function (){
         this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         this.ctxSnow.drawImage(this.bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
-
-        // }.bind(this);
-        // bulletImage.src = '../images/snow-1.png';
 
     }
 
