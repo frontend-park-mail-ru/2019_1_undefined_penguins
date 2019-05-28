@@ -7,6 +7,7 @@ export default class BaseView {
         this.el = el;
 
         this.el.dataset.view = this.constructor.name;
+        this.el.className = 'view-section';
         this.el.style.display = 'none';
     }
 

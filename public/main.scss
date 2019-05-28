@@ -13,47 +13,14 @@
 @import "consts.scss";
 @import 'error.scss';
 
-// body {
-//     margin: 0;
-//     height: 100%;
-//     font-family: Roboto-Regular;
-// }
-
 body {
     margin: 0;
-	width: 100wh;
-	height: 90vh;
+	height: 100vh;
 	color: #fff;
 	background: linear-gradient(-45deg, #03033f,  #08083b, #041652, #0a2068);
 	background-size: 400% 400%;
-	-webkit-animation: Gradient 8s ease infinite;
-	-moz-animation: Gradient 8s ease infinite;
     animation: Gradient 8s ease infinite;
     font-family: Roboto-Regular;
-}
-
-@-webkit-keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
-@-moz-keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
 }
 
 @keyframes Gradient {
@@ -76,9 +43,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // background: url(/images/background-main.jpg) 100% 100% no-repeat;
-    // background-size: cover;
-    // background-position-y: bottom;
     min-width: 300px;
 }
 
@@ -113,10 +77,52 @@ body {
     margin-top: -35px;
 }
 
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 200px;
+    padding-right: 280px;
+
+    &__home {
+        margin: 60px 0;
+        cursor: pointer;
+	}
+	
+    &__logo {
+        font-family: $font-indie;
+        font-size: 54px;
+        color: $white-color;
+        text-align: center;
+        display: flex;
+        align-content: center;
+	}
+	
+    &__title{
+        margin: auto;
+	}
+	
+	&__home-button {
+		width: 70px;
+		height: 70px;
+		cursor: pointer;
+		transition: all 250ms ease-out;
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+}
+
+.view-section {
+	height: 100%;
+	width: 100%;
+}
+
 @media (min-width: 50px) and (max-width: 600px) {
-    #application {
-        min-height: 860px;
-    }
+    // #application {
+    //     min-height: 860px;
+    // }
 }
 
 @media (min-width: 601px) and (max-width: 1400px) {
@@ -124,4 +130,87 @@ body {
         min-height: 860px;
     }
 
+}
+
+@media (max-width: 1100px) {
+    .header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+            
+            &__home {
+                margin: 13px 150px;
+                cursor: pointer;
+            }
+
+            &__logo {
+                font-family: $font-indie;
+                font-size: 50px;
+                color: $white-color;
+                text-align: center;
+                /* margin: -25px 20px */
+            }
+
+            &__title{
+                font-size: 1em;
+                margin: auto;
+            }
+        }
+    }
+
+@media (max-width: 480px) {
+        .header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+            height: 160px;
+
+            &__home {
+                margin: 13px 150px 0px;
+                cursor: pointer;
+            }
+
+            &__logo {
+                font-family: $font-indie;
+                font-size: 48px;
+                color: $white-color;
+                text-align: center;
+            }
+
+            &__title{
+                font-size: 1em;
+                margin: auto;
+            }
+        }
+}
+
+@media (max-width: 330px) {
+        .header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 0px;
+
+            &__home {
+                margin: 13px 150px;
+                cursor: pointer;
+            }
+
+            &__logo {
+                font-family: $font-indie;
+                font-size: 45px;
+                color: $white-color;
+                text-align: center;
+            }
+
+            &__title{
+                font-size: 1em;
+                margin: auto;
+            }
+        }
 }

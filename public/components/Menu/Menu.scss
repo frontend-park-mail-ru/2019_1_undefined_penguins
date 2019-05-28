@@ -10,12 +10,13 @@
 .menu-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    height: 200px;
+    justify-content: center;
+    height: 300px;
+    margin-top: 40px; 
 
     &__logo {
         font-family: $font-title;
-        font-size: $size-title;
+        font-size: 100px;
         color: $color-white;
         text-align: center;
         margin: -30px 20px;
@@ -23,10 +24,10 @@
     }
 
     &__buttons {
-        margin: 110px 0 100px 100px;
+        margin: 140px 0 100px 100px;
         display: flex;
         align-items: center;
-        width: 600px;
+        width: 750px;
         justify-content: space-between;
     }
 
@@ -34,14 +35,18 @@
         border: $border;
         border-radius: 12px;
         font-family: $font-main;
-        font-size: 30px;
+        font-size: 40px;
         color: $color-blue;
         text-align: center;
         text-decoration: none;
-        padding: 15px;
+        padding: 25px;
         text-align: center;
         text-decoration: none;
         transition: all 250ms ease-out;
+
+        &:hover {
+            transform: scale(1.1);
+        } 
     }
 
     &__profile {
@@ -51,18 +56,14 @@
     &__sign-out {
         margin-right: 100px;
     }
-    
-    &__button:hover {
-        transform: scale(1.1);
-    } 
 }
 
 .menu {
     &__buttons {
         display: flex;
         flex-direction: column;
-        margin: 40px 100px;
-        width: 400px;
+        margin: 70px 300px;
+        width: 460px;
         align-items: center;
     }
 
@@ -70,14 +71,14 @@
         border: $border;
         border-radius: 12px;
         font-family: $font-main;
-        font-size: 30px;
+        font-size: 40px;
         color: $color-blue;
         text-align: center;
         text-decoration: none;
-        padding: 15px;
-        margin: 20px 0;
-        width: 320px;
-        height: 35px;
+        padding: 25px;
+        margin: 24px 0;
+        width: 400px;
+        height: 48px;
         transition: all 250ms ease-out;
 
         &:hover {
@@ -89,13 +90,13 @@
 .menu-picture {
     width: 600px;
     position: absolute;
-    top: 30%;
+    top: 35%;
     left: 40%;
 
     &__img {
-        width: 400px;
-        height: 400px;
-        padding: 90px 0 0 160px;
+        width: 500px;
+        height: 500px;
+        padding: 100px 0 0 280px;    
     }
 }
 
@@ -106,38 +107,39 @@
 
     .menu-header {
         flex-direction: column;
-        height: 400px;
-        margin: -10px auto 20px auto;
+        height: 300px;
+        margin: 10px auto;
         
         &__logo {
-            font-size: 44px;
+            font-size: 30px;
             text-align: center;
-            margin: 10px 250px 0 35px;
+            margin: 10px 250px 0 20px;
             min-width: 200px;
         }
 
         &__buttons {
-            margin: -40px auto auto auto;
+            margin: -25px auto auto auto;
             display: flex;
             flex-direction: column;
             width: 300px;
         }
 
         &__button {
-            padding: 18px 15px 5px 15px;
+            padding: 12px 15px 5px 15px;
             margin: 15px 0;
             width: 200px;
-            height: 34px;
+            height: 30px;
             font-size: 18px;
         }
     }
 
     .menu {
         &__button {
-        padding: 18px 15px 5px 15px;
+        padding: 12px 15px 5px 15px;
         width: 200px;
         margin: 15px 0;
         font-size: 18px;
+        height: 30px;
         }
 
         &__buttons {
@@ -149,11 +151,11 @@
 
     .menu-picture {
         width: 120px;
-        top: 11%;
-        left: 60%;
+        top: 6%;
+        left: 55%;
         &__img {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             padding: 0;
         }
     }
@@ -166,35 +168,39 @@
 
     .menu-header {
         flex-direction: column;
-        height: 430px;
-        margin: -10px auto 20px auto;
+        height: 460px;
+        margin: 20px auto 20px auto;
         
         &__logo {
             font-size: 50px;
             text-align: center;
-            margin: 0 250px 0 70px;
+            margin: 0 250px 0 150px;
             min-width: 200px;
             max-width: 340px;
         }
 
         &__buttons {
-            margin: -40px auto auto auto;
+            margin: -10px auto auto auto;
             display: flex;
             flex-direction: column;
             width: 400px;
         }
         &__button {
+            font-size: 30px;
             padding: 15px;
             margin: 15px 0;
-            width: 340px;
-            height: 35px;
+            width: 380px;
+            height: 36px;
         }
     }
 
     .menu {
         &__button {
-            width: 340px;
+            width: 380px;
             margin: 15px 0;
+            padding: 15px;
+            font-size: 30px;
+            height: 36px;
         }
 
         &__buttons {
@@ -217,31 +223,75 @@
 }
 
 @media (min-width: 1001px) and (max-width: 1300px) {
-    .menu-section {
-        width: 100%;
-    }
-
     .menu-header {
         justify-content: flex-start;
         height: 300px;
-        margin: -35px 10px 20px 80px;
         
         &__logo {
-            font-size: 65px;
-            text-align: center;
-            margin: 0 0 0 40px;
-            max-width: 320px;
+            font-size: 80px;
+            margin: 0 0 0 80px;
+            width: 500px;
             min-width: 200px;
         }
         
         &__buttons {
+            padding: 15px;
             margin: 110px 0 60px 0;
-            width: 600px;
+            width: 620px;
             justify-content: space-around;
+        }
+
+        &__button {
+            font-size: 32px;
         }
     }
 
-    .menu__buttons {
-        margin: 30px 80px;
+    .menu {
+        &__button {
+            font-size: 32px;
+            padding: 20px;
+        }
+
+        &__buttons {
+            margin: 85px 100px;
+        }
+    }
+
+    .menu-picture {
+        top: 33%;
+        &__img {
+            padding: 90px 0 0 150px;
+        }
+    }
+}
+
+@media (min-width: 1301px) and (max-width: 1800px) {
+    .menu-header {
+        margin-left: 100px;
+
+        &__logo {
+            font-size: 90px;
+        }
+
+        &__title {
+            width: 600px;
+        }
+
+        &__button {
+            font-size: 35px;
+        }
+
+        &__buttons {
+            padding: 15px;
+        }
+    }
+
+    .menu {
+        &__button {
+            font-size: 35px;
+        }
+        &__buttons {
+            margin: 70px 200px;
+        }
     }
 }
