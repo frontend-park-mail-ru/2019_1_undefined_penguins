@@ -7,7 +7,7 @@ class UserModel {
         this.login = '';
         this.email = '';
         this.score = 0;
-        this.avatarUrl = '';
+        this.picture = '';
         this.count = 0;
         this.gameResult = null;
     }
@@ -18,12 +18,16 @@ class UserModel {
         this.email = data.email;
         this.login = data.login;
         this.score = data.score;
-        if (data.avatarUrl === undefined) {
-            this.avatarUrl = '/images/default.webp';
+        if (data.picture === undefined) {
+            this.picture = '/images/default.webp';
         } else {
-            this.avatarUrl = data.avatarUrl;
+            this.picture = data.picture;
         }
         this.count = data.count;
+    }
+
+    SetAvatar(promise) {
+        
     }
 
     SetUserDefault() {
@@ -31,7 +35,7 @@ class UserModel {
         this.login = '';
         this.email = '';
         this.score = 0;
-        this.avatarUrl = '';
+        this.picture = '';
         this.count = 0;
     }
 
@@ -45,7 +49,7 @@ class UserModel {
             email: this.email,
             login: this.login,
             score: this.score,
-            avatarUrl: this.avatarUrl,
+            picture: this.picture,
             count: this.count
         };
     }
@@ -235,12 +239,7 @@ class UserModel {
 
             const responseAvatar = this.UpdateAvatar(avatarData);
 
-            if (responseAvatar.status !== 200) {
-                // console.error('Unable to load avatar');
-                // return data;
-            }
-
-            this.SetAvatar();
+            this.SetAvatar(responseAvatar);
         }
 
         if ((email === this.email) && (login === this.login)) {
@@ -294,6 +293,7 @@ class UserModel {
             })
             .then( (data) => {
                 document.getElementsByClassName('profile-form__avatar')[0].src = data.picture;
+                this.SetUser(data)
             });
     }
 
