@@ -66,9 +66,6 @@ export default class ScoreboardView extends BaseView {
 
 
     renderScoreboard() {
-        // Bus.emit('get-users', this);
-        console.log(this.count);
-        console.log(this.page);
         if (this.count === undefined && this.GetPage() === 1) {
             Bus.emit('get-users', this);
         }

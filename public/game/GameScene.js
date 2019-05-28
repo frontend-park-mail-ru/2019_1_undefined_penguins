@@ -25,7 +25,7 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        this.fishImage.src = '../images/fish.webp';
+        this.fishImage.src = '../images/fish.png';
 
         this.injuredPenguinImage = new Image();
         this.injuredPenguinImage.src = '../images/injured.webp';
@@ -118,7 +118,7 @@ export default class GameScene {
                     }.bind(this), element*3);          
                 });
             }.bind(this);
-            this.fishImage.src = '../images/fish.webp';
+            this.fishImage.src = '../images/fish.png';
         }
 
     }
