@@ -7,7 +7,7 @@ class UserModel {
         this.login = '';
         this.email = '';
         this.score = 0;
-        this.avatarUrl = '';
+        this.picture = '';
         this.count = 0;
         this.gameResult = null;
     }
@@ -18,12 +18,16 @@ class UserModel {
         this.email = data.email;
         this.login = data.login;
         this.score = data.score;
-        if (data.avatarUrl === undefined) {
-            this.avatarUrl = '/images/default.png';
+        if (data.picture === undefined) {
+            this.picture = '/images/default.webp';
         } else {
-            this.avatarUrl = data.avatarUrl;
+            this.picture = data.picture;
         }
         this.count = data.count;
+    }
+
+    SetAvatar(promise) {
+        
     }
 
     SetUserDefault() {
@@ -31,7 +35,7 @@ class UserModel {
         this.login = '';
         this.email = '';
         this.score = 0;
-        this.avatarUrl = '';
+        this.picture = '';
         this.count = 0;
     }
 
@@ -45,7 +49,7 @@ class UserModel {
             email: this.email,
             login: this.login,
             score: this.score,
-            avatarUrl: this.avatarUrl,
+            picture: this.picture,
             count: this.count
         };
     }
@@ -59,7 +63,7 @@ class UserModel {
             path: '/api/me'
         })
             .then((response) => {
-                console.log(`Response status: ${response.status}`);
+                // console.log(`Response status: ${response.status}`);
                 if (response.status < 400) {
                     return response.json();
                 }
@@ -102,11 +106,20 @@ class UserModel {
                 case 404:
                     Bus.emit('error-404', el);
                     break;
+                case 401:
+                    Bus.emit('error-401', el);
+                    break;
+                case 403:
+                    Bus.emit('error-403', el);
+                    break;
+                case 409:
+                    Bus.emit('error-409', el);
+                    break;
                 case 500:
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }
@@ -139,6 +152,15 @@ class UserModel {
             })
             .catch((data) => {
                 switch (data.status) {
+                case 404:
+                    Bus.emit('error-404', el);
+                    break;
+                case 401:
+                    Bus.emit('error-401', el);
+                    break;
+                case 403:
+                    Bus.emit('error-403', el);
+                    break;
                 case 409:
                     Bus.emit('error-409', el);
                     break;
@@ -146,7 +168,7 @@ class UserModel {
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }
@@ -162,7 +184,7 @@ class UserModel {
                 view.SetCountOfUsers(data);
             })
             .catch(()=>{
-                console.error('Can\'t get leaders info!');
+                // console.error('Can\'t get leaders info!');
                 view.StartPage();
                 Bus.emit('open-menu');
                 return;
@@ -184,7 +206,7 @@ class UserModel {
             .catch(() => {
                 Bus.emit('open-menu');
                 view.StartPage();
-                console.error('Can\'t get leaders!');
+                // console.error('Can\'t get leaders!');
             });
     }
   
@@ -193,14 +215,14 @@ class UserModel {
             path: '/api/signout'
         })
             .then((response) => {
-                console.log(`Response status: ${response.status}`);
+                // console.log(`Response status: ${response.status}`);
                 if (response.status === 200) {
                     this.SetUserDefault();
                     Bus.emit('open-sign-in');
                 }
             })
             .catch(() => {
-                console.error('Can\'t sign out!');
+                // console.error('Can\'t sign out!');
             });
     }
 
@@ -217,12 +239,7 @@ class UserModel {
 
             const responseAvatar = this.UpdateAvatar(avatarData);
 
-            if (responseAvatar.status !== 200) {
-                console.error('Unable to load avatar');
-                // return data;
-            }
-
-            this.SetAvatar();
+            this.SetAvatar(responseAvatar);
         }
 
         if ((email === this.email) && (login === this.login)) {
@@ -255,17 +272,29 @@ class UserModel {
                     Bus.emit('error-5xx', el);
                     break;
                 default:
-                    console.error;
+                    // console.error;
                 }
             });
     }
 
     UpdateAvatar(body) {
-        return AjaxModule.doPromisePost({
+        var p = AjaxModule.doPromisePost({
             path: '/api/upload',
             contentType: 'multipart/form-data',
             body
         });
+        p
+            .then( (response) => {
+                if (response.status !== 200) {
+                    console.error('Unable to load avatar');
+                    // return data;
+                }   
+                return response.json(); 
+            })
+            .then( (data) => {
+                document.getElementsByClassName('profile-form__avatar')[0].src = data.picture;
+                this.SetUser(data)
+            });
     }
 
     setGameResult(data) {
@@ -274,6 +303,19 @@ class UserModel {
 
     getGameResult() {
         return this.gameResult;
+    }
+
+    checkWS(mode) {
+        const path = `/api/check${mode}Ws`;
+        AjaxModule.doPromiseGet({
+            path: path
+        })
+            .then((response) => {
+                // console.log(`Response status: ${response.status}`);
+                Bus.emit('ws-checked', response.status);
+            })
+            .catch(() => {
+            });
     }
 }
   

@@ -7,11 +7,11 @@
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
-    "prestart": "npm run dev",
+    "prestart": "npm run build",
     "linter": "npx eslint -c .eslintrc.json './**/*.js'",
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
-    "dev": "npm run tmpl && webpack --mode development",
-    "build": "npm run tmpl && webpack --mode production",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "watch": "webpack --mode development --watch --progress"
   },
   "keywords": [],
@@ -38,17 +38,24 @@
     "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.3.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fest-webpack-loader": "^1.1.1",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
+  },
+  "lint-staged": {
+    "*.js": ["npm run linter-fix", "git add"]
   }
 }

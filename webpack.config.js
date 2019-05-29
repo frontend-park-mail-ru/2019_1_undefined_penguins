@@ -1,4 +1,4 @@
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require ('extract-text-webpack-plugin');
 const path  =  require('path');
@@ -55,9 +55,9 @@ module.exports = {
     },
 
     plugins:  [
-        new  ServiceWorkerWebpackPlugin({
-            entry:  `${PATHS.public}/service-worker.js`,
-        }),
+        // new  ServiceWorkerWebpackPlugin({
+        //     entry:  `${PATHS.public}/service-worker.js`,
+        // }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/index.html',

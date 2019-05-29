@@ -28,17 +28,28 @@ export default class GameView extends BaseView {
     
     show() {
         super.show();
+        // if (!this.game) {
+        //     Bus.off('destroy-game');
+        //     Bus.on('destroy-game', () => {
+        //         this.game.destroy();
+        //         delete this.game;
+        //         this.game = null;
+        //     });
+        //     Bus.off('get-game-mode');
+        //     Bus.emit('start-game', this);
+        // } else {
+        //     Bus.emit('destroy-game');
+        // }
         if (!this.game) {
             Bus.off('destroy-game');
+            Bus.off('get-game-mode');
+            Bus.emit('start-game', this);
+        } else {
             Bus.on('destroy-game', () => {
                 this.game.destroy();
                 delete this.game;
                 this.game = null;
             });
-            Bus.off('get-game-mode');
-            Bus.emit('start-game', this);
-        } else {
-            Bus.emit('destroy-game');
         }
     }
     
@@ -55,27 +66,27 @@ export default class GameView extends BaseView {
 
         const fishCanvas = this.el.querySelector('.canvas-fish');
         if (innerWidth > innerHeight) {
-            fishCanvas.width = fishCanvas.height = innerHeight*0.7;
+            fishCanvas.width = fishCanvas.height = innerHeight*0.8;
         } else {
-            fishCanvas.width = fishCanvas.height = innerWidth*0.7;
+            fishCanvas.width = fishCanvas.height = innerWidth*0.8;
         }
         const penguinCanvas = this.el.querySelector('.canvas-penguin');
         if (innerWidth > innerHeight) {
-            penguinCanvas.width = penguinCanvas.height = innerHeight*0.7;
+            penguinCanvas.width = penguinCanvas.height = innerHeight*0.8;
         } else {
-            penguinCanvas.width = penguinCanvas.height = innerWidth*0.7;
+            penguinCanvas.width = penguinCanvas.height = innerWidth*0.8;
         }
         const snowCanvas = this.el.querySelector('.canvas-snow');
         if (innerWidth > innerHeight) {
-            snowCanvas.width = snowCanvas.height = innerHeight*0.7;
+            snowCanvas.width = snowCanvas.height = innerHeight*0.8;
         } else {
-            snowCanvas.width = snowCanvas.height = innerWidth*0.7;
+            snowCanvas.width = snowCanvas.height = innerWidth*0.8;
         }
         const gunCanvas = this.el.querySelector('.canvas-gun');
         if (innerWidth > innerHeight) {
-            gunCanvas.width = gunCanvas.height = innerHeight*0.7;
+            gunCanvas.width = gunCanvas.height = innerHeight*0.8;
         } else {
-            gunCanvas.width = gunCanvas.height = innerWidth*0.7;
+            gunCanvas.width = gunCanvas.height = innerWidth*0.8;
         }
 
         this.canvases = {

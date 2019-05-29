@@ -1,6 +1,6 @@
 export default class GameScene {
     constructor(canvases) {
-        console.log('GameScene.fn');
+        // console.log('GameScene.fn');
 
         this.canvases = canvases;
 
@@ -10,6 +10,7 @@ export default class GameScene {
         this.ctxGun = this.canvases['gun'].getContext('2d');
 
         this.resizer();
+        //TODO: resizer
         // this.fieldSize = 1;
 
         // this.bindedResizer = this.resizer.bind(this);
@@ -24,7 +25,10 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        // this.fishImage.src = '../images/fish.webp';
+        this.fishImage.src = '../images/fish.png';
+
+        this.injuredPenguinImage = new Image();
+        this.injuredPenguinImage.src = '../images/injured.webp';
 
         this.penguinImage = new Image();
         this.penguinImage.src = '../images/penguin.webp';
@@ -33,13 +37,10 @@ export default class GameScene {
         this.bulletImage.src = '../images/snow-.webp';
 
         this.gunImage = new Image();
-        this.gunImage.src = '../images/cloud.webp';
+        this.gunImage.src = '../images/gun.webp';
 
         this.penguinGunImage = new Image();
         this.penguinGunImage.src = '../images/penguin-gun.webp';
-        // this.renderAllAsPenguin();
-        // this._init(); // TODO: объединить с setState
-        // this.render();
     }
 
     resizer() {
@@ -71,6 +72,10 @@ export default class GameScene {
         this.state = state;
     }
 
+    setPiscesAngles(angles) {
+        this.piscesAngles = angles;
+    }
+
     getState(){
         return this.state;
     }
@@ -95,23 +100,27 @@ export default class GameScene {
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
-        this.fishImage.onload = function () {
-            this.state.piscesAngles.forEach(element => {
+        if (this.fishImage.complete) {
+            this.piscesAngles.forEach(element => {
                 const x = this.getX(element);
-                const y = this.getY(element);              
-                this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                const y = this.getY(element);
+                setTimeout(function() {
+                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                }.bind(this), element*3);
             });
-        }.bind(this);
-        this.fishImage.src = '../images/fish.webp';
-        // this.state.piscesAngles.forEach(element => {
-        //     const fishImage=new Image();
-        //     const x = this.getX(element);
-        //     const y = this.getY(element);
-        //     fishImage.onload = function (){
-        //         this.ctxFish.drawImage(fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);
-        //     }.bind(this);
-        //     fishImage.src = '../images/fish-3.png';
-        // });
+        } else {
+            this.fishImage.onload = function () {
+                this.piscesAngles.forEach(element => {
+                    const x = this.getX(element);
+                    const y = this.getY(element);            
+                    setTimeout(function() {
+                        this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                    }.bind(this), element*3);          
+                });
+            }.bind(this);
+            this.fishImage.src = '../images/fish.png';
+        }
+
     }
 
     renderPenguin(){
@@ -135,31 +144,41 @@ export default class GameScene {
             this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha-90));
         }
         this.ctxPenguin.translate(-x, -y);
-        // }.bind(this);
-        // penguinImage.src='../images/penguin-2.png';
-
-
-
-
     }
 
     renderInjuredPenguin(){
-        // this.ctxPenguin
-
+        this.canvases['penguin'] = document.getElementsByClassName('canvas-penguin')[0];
+        this.ctxPenguin = this.canvases['penguin'].getContext('2d');
+        // const penguinImage=new Image();
+        const x = this.getX(this.state.penguin.alpha);
+        const y = this.getY(this.state.penguin.alpha);
+        // penguinImage.onload = function (){
+        this.ctxPenguin.clearRect(0, 0, this.canvases['penguin'].width, this.canvases['penguin'].height);
+        this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
+        this.ctxPenguin.translate(x, y);
+        if (this.state.penguin.clockwise) {
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha + 90));
+        } else {
+            this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha - 90));
+        }
+        this.ctxPenguin.drawImage(this.injuredPenguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
+        if (this.state.penguin.clockwise) {
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha + 90));
+        } else {
+            this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha - 90));
+        }
+        this.ctxPenguin.translate(-x, -y);
     }
 
     renderBullet(){
         this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
         this.ctxSnow = this.canvases['snow'].getContext('2d');
         // const bulletImage=new Image();
-        const x = this.getX(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
-        const y = this.getY(this.state.gun.bullet.alpha,this.state.gun.bullet.distance_from_center*this.increasePercentage);
+        const x = this.getX(this.state.gun.bullet.alpha, this.state.gun.bullet.distance_from_center * this.increasePercentage);
+        const y = this.getY(this.state.gun.bullet.alpha, this.state.gun.bullet.distance_from_center * this.increasePercentage);
         // bulletImage.onload = function (){
         this.ctxSnow.clearRect(0, 0, this.canvases['snow'].width, this.canvases['snow'].height);
         this.ctxSnow.drawImage(this.bulletImage, x-this.bulletWidth/2, y-this.bulletHeight/2, this.bulletWidth, this.bulletHeight);
-
-        // }.bind(this);
-        // bulletImage.src = '../images/snow-1.png';
 
     }
 
@@ -187,9 +206,14 @@ export default class GameScene {
         const gunHeigth = this.canvases['gun'].height / 10;
         // const gunImage=new Image();
         // gunImage.onload = function (){
-        this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
         // }.bind(this);
-        
+        if (this.gunImage.complete) {
+            this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+        } else {
+            this.gunImage.onload = function () {
+                this.ctxGun.drawImage(this.gunImage, this.canvases['gun'].width/2-gunWidth/2, this.canvases['gun'].height/2-gunHeigth/2, gunWidth, gunHeigth);
+            }.bind(this);
+        }
 
     }
 

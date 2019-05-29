@@ -15,7 +15,7 @@
         <span class="error error__hidden"></span>
         <form class="profile-form" enctype="multipart/form-data">
             <div class="profile-form__inline">
-                <img class="profile-form__avatar" src="{data.avatarUrl}"/>
+                <img class="profile-form__avatar" src="{data.picture}"/>
                 <div class="profile-form__data">
                     <div class="profile-form__item">
                         <label>Логин: </label>

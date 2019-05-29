@@ -34,7 +34,7 @@ export default class WS {
             console.log(message);
             Bus.emit(message.type, message.payload);
         }
-        catch {
+        catch (err){
             console.error('Error in WS - handleMessage: ', err);
         }
     }
@@ -47,14 +47,14 @@ export default class WS {
         const url = 'localhost';
         // const home = 'penguin-wars-backend.sytes.pro';
 
-        const wsUrl = mode === 'single' ? `/game/single` : `/game/multi`;
+        const wsUrl = mode === 'single' ? '/game/single' : '/game/multi';
 
         const address = ['https', 'https:'].includes(location.protocol)
             // ? `wss://${location.host}/ws`
             // : `ws://${location.host}/ws`;
             // const address = `ws://` + home + `/ws/ws`;
-            ? `wss://` + url + wsUrl
-            : `ws://` + url + wsUrl;
+            ? 'wss://' + url + wsUrl
+            : 'ws://' + url + wsUrl;
 
         this.ws = new WebSocket(address);
 

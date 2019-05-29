@@ -11,7 +11,7 @@
         <p class="win-main__header">Поздравляем!</p>    
         <form class="win-main__form" enctype="multipart/form-data">
             <div class="win-form__inline">
-                <img class="win-form__image" src="../../images/win.png"/>
+                <img class="win-form__image" src="../../images/win.webp"/>
                 <div class="win-form__data">
                     <div class="win-form__item">
                         <p>Вы побили свой рекорд!</p>

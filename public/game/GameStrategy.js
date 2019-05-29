@@ -32,7 +32,7 @@ export default class GameStrategy {
         this.state = null;
     }
 
-    readyToStart(payload) {
+    readyToStart() {
         console.log('GameStrategy.fn.readyToStart', arguments);
         throw new TypeError('Not implemented');
     }
@@ -42,7 +42,7 @@ export default class GameStrategy {
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
-    onFinishRound(payload) {
+    onFinishRound() {
         console.log('GameStrategy.fn.onFinishRound', arguments);
         throw new TypeError('Not implemented');
     }
@@ -57,17 +57,17 @@ export default class GameStrategy {
         Bus.emit(EVENTS.FINISH_THE_GAME, payload);
     }
 
-    roundOver(payload) {
+    roundOver() {
         console.log('GameStrategy.fn.roundOver', arguments);
         throw new TypeError('Not implemented');
     }
     
-    onNewCommand(payload) {
+    onNewCommand() {
         console.log('GameStrategy.fn.onNewCommand', arguments);
         throw new TypeError('Not implemented');
     }
 
-    onNewRound(payload) {
+    onNewRound() {
         console.log('GameStrategy.fn.onNewRound', arguments);
         throw new TypeError('Not implemented');
     }
@@ -116,6 +116,7 @@ export default class GameStrategy {
         // TODO: Отписаться от всех событий
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
+        Bus.off('ws-checked');
         Bus.emit(EVENTS.WEBSOCKET_CLOSE);
     }
 }

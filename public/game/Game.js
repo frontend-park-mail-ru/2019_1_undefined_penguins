@@ -8,7 +8,7 @@ export default class Game {
 	* @param {String: {CanvasElement}} canvases - canvases-игрового поля
 	*/
     constructor(Strategy, username, canvases) {
-        console.log('Game.fn');
+        // console.log('Game.fn');
         if (!(Strategy.prototype instanceof GameStrategy)) {
             throw new TypeError('Strategy is not a GameStrategy');
         }
