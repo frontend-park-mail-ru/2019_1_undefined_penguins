@@ -118,7 +118,6 @@ export default class GameScene {
                     }.bind(this), element*3);          
                 });
             }.bind(this);
-            // this.fishImage.src = '../images/fish.png';
         }
 
     }
