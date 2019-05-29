@@ -35,7 +35,7 @@ export default class WS {
             Bus.emit(message.type, message.payload);
         }
         catch (err){
-            // console.error('Error in WS - handleMessage: ', err);
+            console.error('Error in WS - handleMessage: ', err);
         }
     }
 
