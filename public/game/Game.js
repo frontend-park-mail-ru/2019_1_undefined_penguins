@@ -20,7 +20,7 @@ export default class Game {
     }
 
     destroy() {
-        // console.log('Game.DESTROY');
+        console.log('Game.DESTROY');
         this.manager.destroy();
         this.manager = null;
     }

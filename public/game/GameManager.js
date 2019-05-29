@@ -13,7 +13,7 @@ export default class GameManager {
      * @param {GameStrategy} Strategy
      */
     constructor(username, canvases, Strategy) {
-        // console.log('GameManager.fn');
+        console.log('GameManager.fn');
 
         this.username = username;
         this.role = null;
@@ -47,12 +47,12 @@ export default class GameManager {
     }
 
     onWaitOpponent() {
-        // console.log('GameManager.fn.onWaitOpponent', arguments);
+        console.log('GameManager.fn.onWaitOpponent', arguments);
         Bus.emit('open-wait');
     }
 
     onFindOpponent(players) {
-        // console.log('GameManager.fn.onFindOpponent', arguments);
+        console.log('GameManager.fn.onFindOpponent', arguments);
         if (this.username === players.penguin) {
             this.role = GAME_CONSTS.PENGUIN;
         } else {
@@ -82,10 +82,6 @@ export default class GameManager {
         
         this.controllers.init();
         this.startGameLoop();
-    }
-
-    onLose(){
-        
     }
 
     stopGameLoop(){
@@ -141,7 +137,7 @@ export default class GameManager {
     }
 
     onFinishTheGame(payload) {
-        // console.log('GameManager.fn.onFinishTheGame', payload);
+        console.log('GameManager.fn.onFinishTheGame', payload);
 
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
@@ -180,7 +176,7 @@ export default class GameManager {
     }
 
     onFinishTheRound(payload) {
-        // console.log('GameManager.fn.onFinishTheRound', payload);
+        console.log('GameManager.fn.onFinishTheRound', payload);
     
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);

@@ -306,7 +306,7 @@ class UserModel {
     }
 
     checkWS(mode) {
-        const path = `/data/check${mode}Ws`;
+        const path = `/api/check${mode}Ws`;
         AjaxModule.doPromiseGet({
             path: path
         })

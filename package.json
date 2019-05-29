@@ -12,8 +12,7 @@
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "watch": "webpack --mode development --watch --progress",
-    "precommit": "lint-staged && npm run linter"
+    "watch": "webpack --mode development --watch --progress"
   },
   "keywords": [],
   "author": "",
