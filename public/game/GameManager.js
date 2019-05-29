@@ -142,7 +142,7 @@ export default class GameManager {
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
-
+        console.log('рыбки', this.piscesAngles.length)
         this.injuredLoop();
         
 
