@@ -2,8 +2,7 @@ language: node_js
 node_js:
 - 10
 sudo: required
-script:
-
+script: bash deployment.sh
 branches: 
 only:
 - deployment
