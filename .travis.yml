@@ -3,7 +3,8 @@ node_js:
 - 10
 sudo: required
 script:
-- echo "hello"
+- sudo systemctl restart penguin-front.service
+- sudo systemctl enable penguin-front.service
 branches: 
 only:
 - deployment
