@@ -162,8 +162,9 @@ export default class EventController {
         });
 
         Bus.on('open-prestart-modal', (data) => {
-            Router.modal.setPayload(`Ваша роль в этой игре: ${data.role}`);
-            Router.modal.show();
+            // Router.modal.setPayload(`Ваша роль в этой игре: ${data.role}`);
+            Router.modal.setPayload(data);
+            Router.modal.show('ROLE');
             const okBitton = document.getElementsByClassName('ok-button')[0];
             if (okBitton) {
                 okBitton.addEventListener('click', (event) => {
