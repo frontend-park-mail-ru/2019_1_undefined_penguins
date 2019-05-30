@@ -142,7 +142,6 @@ export default class GameManager {
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
-        console.log('рыбки', this.piscesAngles.length)
         this.injuredLoop();
         
 
@@ -155,19 +154,19 @@ export default class GameManager {
             switch(this.role) {
             case GAME_CONSTS.PENGUIN:
                 if (payload.penguin.result === GAME_CONSTS.LOST) {
-                    Bus.emit('open-lost-view', payload.penguin.score);
+                    Bus.emit('open-lost-view', {score: payload.penguin.score, mode: this.mode.toLowerCase()});
                 }
                 // TODO: norm messages
                 if (payload.penguin.result === GAME_CONSTS.WIN || payload.penguin.result === GAME_CONSTS.AUTOWIN) {
-                    Bus.emit('open-win-view', payload.penguin.score);
+                    Bus.emit('open-win-view', {score: payload.penguin.score, mode: this.mode.toLowerCase()});
                 }
                 break;
             case GAME_CONSTS.GUN:
                 if (payload.gun.result === GAME_CONSTS.LOST) {             
-                    Bus.emit('open-lost-view', payload.gun.score);
+                    Bus.emit('open-lost-view', {score: payload.gun.score, mode: this.mode.toLowerCase()});
                 }
                 if (payload.gun.result === GAME_CONSTS.WIN || payload.gun.result === GAME_CONSTS.AUTOWIN) {             
-                    Bus.emit('open-win-view', payload.gun.score);
+                    Bus.emit('open-win-view', {score: payload.gun.score, mode: this.mode.toLowerCase()});
                 }
             }
         }.bind(this), 2500);

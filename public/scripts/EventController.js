@@ -134,9 +134,24 @@ export default class EventController {
             Router.open('/game/win');
         });
 
-        Bus.on('open-lost-view', (score) => {
-            UserModel.setUserScore(score);
+        Bus.on('open-lost-view', (payload) => {
+            UserModel.setUserScore(payload.score);
             Router.open('/game/lost');
+            const repeat = document.getElementsByClassName('lost-main__repeat-button')[0];
+            if (repeat !== undefined) {
+                repeat.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    Bus.emit(`open-${payload.mode}`);
+                });
+            }
+        });
+
+        Bus.on('open-single', () => {
+            Router.open('/single');
+        });
+
+        Bus.on('open-multi', () => {
+            Router.open('/multi');
         });
 
         Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
@@ -164,6 +179,8 @@ export default class EventController {
             // Bus.off('start-game');
         });
 
+
+        // TODO: Выпилить
         Bus.on(EVENTS.OPEN_FINISH_VIEW, () => {
             // console.log('finishGame', payload);
             // TODO: Открывать вью в зависимости от результата. Сделать if
