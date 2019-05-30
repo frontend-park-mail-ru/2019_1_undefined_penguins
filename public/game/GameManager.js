@@ -30,6 +30,7 @@ export default class GameManager {
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
+        this.subscribe(EVENTS.INIT_GAME, 'onInitGame');
 
         Bus.on(EVENTS.READY_TO_NEW_ROUND, () => {
             Bus.emit(EVENTS.NEW_ROUND, {username});
@@ -59,6 +60,10 @@ export default class GameManager {
             this.role = GAME_CONSTS.GUN;
         }
         this.scene.setNames(players.penguin, players.gun);
+    }
+
+    onInitGame() {
+        Bus.emit('open-prestart-modal', {role: this.role, name: this.username});
     }
 
     renderNew(){

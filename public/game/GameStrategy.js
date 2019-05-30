@@ -25,6 +25,7 @@ export default class GameStrategy {
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
             this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
+            this.subscribe('SIGNAL_GAME_INITIALIZED', 'onGameInitialized');
         }
 
         this.penguin = null;
@@ -74,6 +75,12 @@ export default class GameStrategy {
 
     onFinishGame(payload) {
         this.gameOver(payload);
+    }
+
+    onGameInitialized(payload) {
+        console.log('GameStrategy.fn.onGameInitialized', arguments);
+        this.opponentFound(payload.penguin.name, payload.gun.name);
+        Bus.emit(EVENTS.INIT_GAME);        
     }
 
     onWaitOpponent() {

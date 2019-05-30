@@ -51,7 +51,6 @@ export default class MultiPlayerStrategy extends GameStrategy {
         for (let i = 0; i < payload.PiscesCount; i++) {
             state.piscesAngles.push((360/payload.PiscesCount)*i);
         }
-        this.opponentFound(payload.penguin.name, payload.gun.name);
         this.onNewState(state);
         this.startGame();
     }
@@ -82,5 +81,4 @@ export default class MultiPlayerStrategy extends GameStrategy {
         // TODO: init penguin and gun
         this.ws.send('newCommand', { name: payload.username, mode: 'MULTI' });
     }
-
 }

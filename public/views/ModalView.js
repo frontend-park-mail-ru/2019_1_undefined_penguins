@@ -7,6 +7,13 @@ export default class ModalView {
         this.data = {};
     }
 
+    setPayload(message) {
+        this.data = {
+            message: message,
+            flag: 'msg',
+        };
+    }
+
     show (flag) {
         switch (flag) {
         case 'NOT_NET': {

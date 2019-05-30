@@ -154,6 +154,19 @@ export default class EventController {
             Router.open('/multi');
         });
 
+        Bus.on('open-prestart-modal', (data) => {
+            Router.modal.setPayload(`Ваша роль в этой игре: ${data.role}`);
+            Router.modal.show();
+            const okBitton = document.getElementsByClassName('ok-button')[0];
+            if (okBitton) {
+                okBitton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const username = data.name;
+                    Bus.emit(EVENTS.NEW_ROUND, {username});
+                });
+            }
+        });
+
         Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
             if (mode === 'MULTI') {
                 Router.open('/multi');
