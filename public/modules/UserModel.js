@@ -12,24 +12,15 @@ class UserModel {
         this.gameResult = null;
     }
 
-    // TODO: get user in SetUser
     SetUser(data) {
         this.isAutorised = true;
         this.email = data.email;
         this.login = data.login;
         this.score = data.score;
-        if (data.picture === undefined) {
-            this.picture = '/images/default.webp';
-        } else {
-            this.picture = data.picture;
-        }
+        this.picture = data.picture;
         this.count = data.count;
     }
-
-    SetAvatar(promise) {
-        
-    }
-
+    
     SetUserDefault() {
         this.isAutorised = null;
         this.login = '';
