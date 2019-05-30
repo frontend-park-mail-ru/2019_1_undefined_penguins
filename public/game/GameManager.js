@@ -154,6 +154,8 @@ export default class GameManager {
         this.scene.destroy();
         this.controllers.destroy();
         Bus.emit('destroy-game');
+        Bus.off('destroy-game');
+        Bus.off(EVENTS.READY_TO_NEW_ROUND);
 
         setTimeout(function() {
             switch(this.role) {
