@@ -129,9 +129,16 @@ export default class EventController {
             UserModel.ChangeProfile(view.el);
         });
 
-        Bus.on('open-win-view', (score) => {
-            UserModel.setUserScore(score);
+        Bus.on('open-win-view', (payload) => {
+            UserModel.setUserScore(payload.score);
             Router.open('/game/win');
+            const repeat = document.getElementsByClassName('win-main__repeat-button')[0];
+            if (repeat !== undefined) {
+                repeat.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    Bus.emit(`open-${payload.mode}`);
+                });
+            }
         });
 
         Bus.on('open-lost-view', (payload) => {
