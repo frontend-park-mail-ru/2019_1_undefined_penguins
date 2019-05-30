@@ -96,6 +96,13 @@ export default class GameScene {
         }
     }
 
+    allCompleted() {
+        if (this.fishImage.complete && this.penguinImage.complete && this.injuredPenguinImage.complete && this.bulletImage.complete) {
+            return true;
+        }
+        return false;
+    }
+
     renderPisces(){
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
