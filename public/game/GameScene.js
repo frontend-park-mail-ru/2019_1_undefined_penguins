@@ -25,7 +25,7 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        this.fishImage.src = '../images/fish.png';
+        // this.fishImage.src = '../images/fish.png';
 
         this.injuredPenguinImage = new Image();
         this.injuredPenguinImage.src = '../images/injured.webp';
@@ -107,15 +107,15 @@ export default class GameScene {
         this.canvases['fish'] = document.getElementsByClassName('canvas-fish')[0];
         this.ctxFish = this.canvases['fish'].getContext('2d');
         this.ctxFish.clearRect(0, 0, this.canvases['fish'].width, this.canvases['fish'].height);
-        if (this.fishImage.complete) {
-            this.piscesAngles.forEach(element => {
-                const x = this.getX(element);
-                const y = this.getY(element);
-                setTimeout(function() {
-                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
-                }.bind(this), element*3);
-            });
-        } else {
+        // if (this.fishImage.complete) {
+        //     this.piscesAngles.forEach(element => {
+        //         const x = this.getX(element);
+        //         const y = this.getY(element);
+        //         setTimeout(function() {
+        //             this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+        //         }.bind(this), element*3);
+        //     });
+        // } else {
             this.fishImage.onload = function () {
                 this.piscesAngles.forEach(element => {
                     const x = this.getX(element);
@@ -125,7 +125,9 @@ export default class GameScene {
                     }.bind(this), element*3);          
                 });
             }.bind(this);
-        }
+            this.fishImage.src = '../images/fish.png';
+
+        // }
 
     }
 
