@@ -149,7 +149,6 @@ export default class GameManager {
         }
         this.injuredLoop();
         
-
         this.strategy.destroy();
         this.scene.destroy();
         this.controllers.destroy();

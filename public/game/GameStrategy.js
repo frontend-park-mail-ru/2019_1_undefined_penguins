@@ -121,6 +121,7 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
+        console.log('COME TO NEEEEED DESTROY');
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
         Bus.off('ws-checked');
