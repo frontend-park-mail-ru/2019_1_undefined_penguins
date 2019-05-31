@@ -66,28 +66,62 @@ export default class GameView extends BaseView {
 
         const fishCanvas = this.el.querySelector('.canvas-fish');
         if (innerWidth > innerHeight) {
-            fishCanvas.width = fishCanvas.height = innerHeight*0.8;
+            if (innerWidth <= 1050) {
+                fishCanvas.width = fishCanvas.height = innerHeight*0.7;
+            } else {
+                fishCanvas.width = fishCanvas.height = innerHeight*0.9;
+            }
         } else {
-            fishCanvas.width = fishCanvas.height = innerWidth*0.8;
+            if (innerHeight * 0.7 < innerWidth) {
+                fishCanvas.width = fishCanvas.height = innerWidth*0.7;
+            } else {
+                fishCanvas.width = fishCanvas.height = innerWidth*1;
+            }
         }
         const penguinCanvas = this.el.querySelector('.canvas-penguin');
         if (innerWidth > innerHeight) {
-            penguinCanvas.width = penguinCanvas.height = innerHeight*0.8;
+            if (innerWidth <= 1050) {
+                penguinCanvas.width = penguinCanvas.height = innerHeight*0.7;
+            } else {
+                penguinCanvas.width = penguinCanvas.height = innerHeight*0.9;
+            }
         } else {
-            penguinCanvas.width = penguinCanvas.height = innerWidth*0.8;
+            if (innerHeight * 0.7 < innerWidth) {
+                penguinCanvas.width = penguinCanvas.height = innerWidth * 0.7;
+            } else {
+                penguinCanvas.width = penguinCanvas.height = innerWidth * 1;
+            }
         }
         const snowCanvas = this.el.querySelector('.canvas-snow');
         if (innerWidth > innerHeight) {
-            snowCanvas.width = snowCanvas.height = innerHeight*0.8;
+            if (innerWidth <= 1050) {
+                snowCanvas.width = snowCanvas.height = innerHeight*0.7;
+            } else {
+                snowCanvas.width = snowCanvas.height = innerHeight*0.9;
+            }
         } else {
-            snowCanvas.width = snowCanvas.height = innerWidth*0.8;
+            if (innerHeight * 0.7 < innerWidth) {
+                snowCanvas.width = snowCanvas.height = innerWidth*0.7;
+            } else {
+                snowCanvas.width = snowCanvas.height = innerWidth*1;
+            }
         }
         const gunCanvas = this.el.querySelector('.canvas-gun');
         if (innerWidth > innerHeight) {
-            gunCanvas.width = gunCanvas.height = innerHeight*0.8;
+            if (innerWidth <= 1050) {
+                gunCanvas.width = gunCanvas.height = innerHeight*0.7;
+            } else {
+                gunCanvas.width = gunCanvas.height = innerHeight*0.9;
+            }
         } else {
-            gunCanvas.width = gunCanvas.height = innerWidth*0.8;
+            if (innerHeight * 0.7 < innerWidth) {
+                gunCanvas.width = gunCanvas.height = innerWidth*0.7;
+            } else {
+                gunCanvas.width = gunCanvas.height = innerWidth*1;
+            }
         }
+
+        const gameSection = 
 
         this.canvases = {
             fish: fishCanvas,
