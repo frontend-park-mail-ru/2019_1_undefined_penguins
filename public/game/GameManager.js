@@ -63,7 +63,11 @@ export default class GameManager {
     }
 
     onInitGame() {
-        Bus.emit('open-prestart-modal', {role: this.role, name: this.username});
+        let info = this.role === 'penguin' ? 
+            'Задача проста: съесть всех рыбок и выжить! Жми ПРОБЕЛ для разворота!' : 
+            'Задача проста: уничтожить голодного пингвина, пока он не успел насытиться! Жми ПРОБЕЛ для разворота!';
+        let role = this.role === 'penguin' ? 'ПИНГВИН' : 'КИЛЛЕР';
+        Bus.emit('open-prestart-modal', {role, name: this.username, info});
     }
 
     renderNew(){
@@ -74,6 +78,8 @@ export default class GameManager {
     }
 
     onNewState(payload) {
+        console.log('GameManager.fn.onNewState');
+        console.log(Bus);
         this.state = payload.state;
     }
 
@@ -95,15 +101,19 @@ export default class GameManager {
     }
 
     startGameLoop() {
+        if (this.requestID) {
+            cancelAnimationFrame(this.requestID);
+        }
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     gameLoop() {
+        console.log('IN GAME LOOPE');
         if (this.controllers.isPressed()) {
             this.controllers.clearPress();
             Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
         }  
-       
+        
         this.scene.setState(this.state);
         if (this.state.piscesAngles) {
             this.piscesAngles = [];

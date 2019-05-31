@@ -32,6 +32,7 @@ export default class ModalView {
             this.data = {
                 message: 'Ваша роль в этой игре:',
                 extra: this.payload.role,
+                info: this.payload.info,
                 flag: 'role',
             };
             break;
