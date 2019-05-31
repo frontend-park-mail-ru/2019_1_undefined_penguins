@@ -145,7 +145,7 @@ export default class GameScene {
         } else {
             this.ctxPenguin.rotate(this.degreesToRadians(this.state.penguin.alpha-90));
         }
-        this.ctxPenguin.drawImage(this.penguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth);
+        this.ctxPenguin.drawImage(this.penguinImage, -this.penguinWidth / 2, -this.penguinHeigth / 2, this.penguinWidth, this.penguinHeigth/1.2);
         if (this.state.penguin.clockwise) {
             this.ctxPenguin.rotate(-this.degreesToRadians(this.state.penguin.alpha+90));
         } else {
