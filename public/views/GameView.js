@@ -40,16 +40,34 @@ export default class GameView extends BaseView {
         // } else {
         //     Bus.emit('destroy-game');
         // }
-        if (!this.game) {
-            Bus.off('destroy-game');
-            Bus.off('get-game-mode');
-            Bus.emit('start-game', this);
-        } else {
-            Bus.on('destroy-game', () => {
-                this.game.destroy();
-                delete this.game;
-                this.game = null;
-            });
+        switch(this.mode) {
+        case 'SINGLE':
+            if (!this.game) {
+                Bus.off('destroy-game');
+                Bus.on('destroy-game', () => {
+                    this.game.destroy();
+                    delete this.game;
+                    this.game = null;
+                });
+                Bus.off('get-game-mode');
+                Bus.emit('start-game', this);
+            } else {
+                Bus.emit('destroy-game');
+            }
+            break;
+        case 'MULTI':
+            if (!this.game) {
+                Bus.off('destroy-game');
+                Bus.off('get-game-mode');
+                Bus.emit('start-game', this);
+            } else {
+                Bus.on('destroy-game', () => {
+                    this.game.destroy();
+                    delete this.game;
+                    this.game = null;
+                });
+            }
+            break;
         }
     }
     
