@@ -130,7 +130,7 @@ export default class GameScene {
             this.fishImage.src = '../images/fish.png';
 
         // }
-
+        //}
     }
 
     renderPenguin(){
