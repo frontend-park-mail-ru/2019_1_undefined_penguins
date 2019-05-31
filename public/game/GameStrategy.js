@@ -25,6 +25,7 @@ export default class GameStrategy {
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
             this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
+            this.subscribe('SIGNAL_GAME_INITIALIZED', 'onGameInitialized');
         }
 
         this.penguin = null;
@@ -76,6 +77,12 @@ export default class GameStrategy {
         this.gameOver(payload);
     }
 
+    onGameInitialized(payload) {
+        console.log('GameStrategy.fn.onGameInitialized', arguments);
+        this.opponentFound(payload.penguin.name, payload.gun.name);
+        Bus.emit(EVENTS.INIT_GAME);        
+    }
+
     onWaitOpponent() {
         console.log('GameStrategy.fn.onWaitOpponent', arguments);
         throw new TypeError('Not implemented');
@@ -88,6 +95,7 @@ export default class GameStrategy {
 
     setNewGameState(state) {
         console.log('GameStrategy.fn.setNewGameState', arguments);
+        console.log(Bus);
         Bus.emit(EVENTS.SET_NEW_GAME_STATE, {state});
     }
 
@@ -114,6 +122,7 @@ export default class GameStrategy {
 
     destroy() {
         // TODO: Отписаться от всех событий
+        console.log('COME TO NEEEEED DESTROY');
         this._subscribed.forEach(data => Bus.off(data.name, data.callback));
         this._subscribed = null;
         Bus.off('ws-checked');

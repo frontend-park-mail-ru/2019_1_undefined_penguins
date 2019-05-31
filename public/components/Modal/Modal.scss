@@ -68,6 +68,12 @@
         }
     }
 
+    &__extra-msg {
+        font-size: 26px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
     &__close-button {
         float: right;
         width: 20px;

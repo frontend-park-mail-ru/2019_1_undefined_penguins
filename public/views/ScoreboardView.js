@@ -9,7 +9,7 @@ export default class ScoreboardView extends BaseView {
         super(el);
         this.users = null;
         this.page = new URLSearchParams(document.location.search).get('page');
-        if (this.page === null) {
+        if (this.page === null || this.page < 0) {
             this.page = 1;
         }
         this.el.classList.add('leaders-section');
@@ -24,6 +24,15 @@ export default class ScoreboardView extends BaseView {
     SetCountOfUsers(info){
         this.count = info.count;
         this.usersOnPage = info.usersOnPage;
+        if (Math.ceil(this.count/this.usersOnPage) < this.page) {
+            this.page = Math.ceil(this.count/this.usersOnPage);
+            Bus.emit('new-page', this);
+            window.history.pushState(
+                null,
+                '',
+                `/leaders?page=${this.page}`
+            );
+        }
     }
 
     SetUsers(users) {
@@ -66,7 +75,7 @@ export default class ScoreboardView extends BaseView {
 
 
     renderScoreboard() {
-        if (this.count === undefined && this.GetPage() === 1) {
+        if (this.count === undefined) {
             Bus.emit('get-users', this);
         }
         this.users[0].Page = this.page;

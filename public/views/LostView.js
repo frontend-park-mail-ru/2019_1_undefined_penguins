@@ -31,14 +31,6 @@ export default class LostView extends BaseView {
     _renderLost () {
         this.el.innerHTML = LostTmpl(this.user);
 
-        const repeat = this.el.getElementsByClassName('js-button__repeat-button')[0];
-        if (repeat !== undefined) {
-            repeat.addEventListener('click', (event) => {
-                event.preventDefault();
-                Bus.emit('open-single');
-            });
-        }
-
         const home = this.el.getElementsByClassName('js-header__home-button')[0];
         if (home !== undefined) {
             home.addEventListener('click', (event) => {
