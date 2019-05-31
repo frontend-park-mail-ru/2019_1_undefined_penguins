@@ -44,8 +44,8 @@ export default class WS {
     }
 
     _init(mode) {
-        //const url = 'localhost';
-        const url = 'penguin-wars.sytes.pro';
+        const url = 'localhost';
+        // const url = 'penguin-wars.sytes.pro';
 
         const wsUrl = mode === 'single' ? '/game/single' : '/game/multi';
 
