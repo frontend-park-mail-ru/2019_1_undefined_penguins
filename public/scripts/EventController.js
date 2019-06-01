@@ -129,14 +129,50 @@ export default class EventController {
             UserModel.ChangeProfile(view.el);
         });
 
-        Bus.on('open-win-view', (score) => {
-            UserModel.setUserScore(score);
+        Bus.on('open-win-view', (payload) => {
+            UserModel.setUserScore(payload.score);
             Router.open('/game/win');
+            const repeat = document.getElementsByClassName('win-main__repeat-button')[0];
+            if (repeat !== undefined) {
+                repeat.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    Bus.emit(`open-${payload.mode}`);
+                });
+            }
         });
 
-        Bus.on('open-lost-view', (score) => {
-            UserModel.setUserScore(score);
+        Bus.on('open-lost-view', (payload) => {
+            UserModel.setUserScore(payload.score);
             Router.open('/game/lost');
+            const repeat = document.getElementsByClassName('lost-main__repeat-button')[0];
+            if (repeat !== undefined) {
+                repeat.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    Bus.emit(`open-${payload.mode}`);
+                });
+            }
+        });
+
+        Bus.on('open-single', () => {
+            Router.open('/single');
+        });
+
+        Bus.on('open-multi', () => {
+            Router.open('/multi');
+        });
+
+        Bus.on('open-prestart-modal', (data) => {
+            // Router.modal.setPayload(`Ваша роль в этой игре: ${data.role}`);
+            Router.modal.setPayload(data);
+            Router.modal.show('ROLE');
+            const okBitton = document.getElementsByClassName('ok-button')[0];
+            if (okBitton) {
+                okBitton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const username = data.name;
+                    Bus.emit(EVENTS.NEW_ROUND, {username});
+                });
+            }
         });
 
         Bus.on(EVENTS.OPEN_GAME_VIEW, (mode) => {
@@ -164,6 +200,8 @@ export default class EventController {
             // Bus.off('start-game');
         });
 
+
+        // TODO: Выпилить
         Bus.on(EVENTS.OPEN_FINISH_VIEW, () => {
             // console.log('finishGame', payload);
             // TODO: Открывать вью в зависимости от результата. Сделать if
@@ -186,6 +224,14 @@ export default class EventController {
 
         Bus.on('checkWS', (mode) => {
             UserModel.checkWS(mode);
+        });
+
+        Bus.on('error-cookie', () => {
+            Bus.emit('open-menu');
+            Bus.emit('destroy-manager');
+            let gameView = document.getElementsByClassName('GameView')[0];
+            gameView.parentNode.removeChild(gameView);
+            Router.modal.show('NOT_AUTH');
         });
     }
 }

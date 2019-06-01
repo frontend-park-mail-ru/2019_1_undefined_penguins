@@ -2,7 +2,7 @@
 const home = 'http://localhost';
 
 // use it if you run backend on deploy
-// const home = 'https://penguin-wars-backend.sytes.pro';
+// const home = 'https://penguin-wars.sytes.pro';
 
 /** Класс модуля для работы с Ajax. */
 class AjaxModule {

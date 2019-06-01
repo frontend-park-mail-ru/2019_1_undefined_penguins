@@ -14,11 +14,11 @@
                 <img class="lost-form__image" src="../../images/lost-compressed.png"/>
                 <div class="lost-form__data">
                     <div class="lost-form__item">
-                        <p>Игра закончена!</p>
+                        <p>Игра окончена!</p>
                     </div>
                     <div class="lost-form__item">
                         <span>Ваш результат: </span>
-                        <span class="lost-form__item-score"> <fest:value> data.score</fest:value></span>
+                        <span class="lost-form__item-score"> <fest:value>data.score</fest:value></span>
                         <span> очков(-а)</span>
                     </div>
                 </div>

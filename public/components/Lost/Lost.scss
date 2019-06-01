@@ -12,6 +12,12 @@
     &__home-button {
         width: 70px;
         height: 70px;
+        transition: all 250ms ease-out;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 
     &__logo {
@@ -49,6 +55,11 @@
         text-align: center;
         margin-top: 30px;
         cursor: pointer;
+        transition: all 250ms ease-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
 

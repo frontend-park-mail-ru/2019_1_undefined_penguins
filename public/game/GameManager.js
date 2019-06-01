@@ -30,6 +30,7 @@ export default class GameManager {
         this.subscribe(EVENTS.SET_NEW_GAME_STATE, 'onNewState');
         this.subscribe(EVENTS.FINISH_THE_GAME, 'onFinishTheGame');
         this.subscribe(EVENTS.FINISH_THE_ROUND, 'onFinishTheRound');
+        this.subscribe(EVENTS.INIT_GAME, 'onInitGame');
 
         Bus.on(EVENTS.READY_TO_NEW_ROUND, () => {
             Bus.emit(EVENTS.NEW_ROUND, {username});
@@ -40,6 +41,11 @@ export default class GameManager {
         } else {
             this.readyToStart();
         }
+
+        Bus.on('destroy-manager', () => {
+            this.destroy();
+            Bus.off('destroy-manager');
+        });
     }
 
     readyToStart() {
@@ -61,6 +67,14 @@ export default class GameManager {
         this.scene.setNames(players.penguin, players.gun);
     }
 
+    onInitGame() {
+        let info = this.role === 'penguin' ? 
+            'Задача проста: съесть всех рыбок и выжить! Жми ПРОБЕЛ для разворота!' : 
+            'Задача проста: уничтожить голодного пингвина, пока он не успел насытиться! Жми ПРОБЕЛ для разворота!';
+        let role = this.role === 'penguin' ? 'ПИНГВИН' : 'КИЛЛЕР';
+        Bus.emit('open-prestart-modal', {role, name: this.username, info});
+    }
+
     renderNew(){
         // TODO: Check for strategy
         // if (this.strategy instanceof SinglePlayerStrategy) {
@@ -69,6 +83,8 @@ export default class GameManager {
     }
 
     onNewState(payload) {
+        console.log('GameManager.fn.onNewState');
+        console.log(Bus);
         this.state = payload.state;
     }
 
@@ -90,15 +106,20 @@ export default class GameManager {
     }
 
     startGameLoop() {
+        if (this.requestID) {
+            cancelAnimationFrame(this.requestID);
+        }
+        console.log('(((((((((((((((startGameLOOP', this);
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     gameLoop() {
+        console.log('IN GAME LOOPE');
         if (this.controllers.isPressed()) {
             this.controllers.clearPress();
             Bus.emit(EVENTS.NEXT_STEP_CONTROLS_PRESSED, {username: this.username});
         }  
-       
+        
         this.scene.setState(this.state);
         if (this.state.piscesAngles) {
             this.piscesAngles = [];
@@ -115,6 +136,7 @@ export default class GameManager {
         } else {
             this.scene.choiceOfRenderAsGun();
         }
+        console.log('))))))))))))))))))gameLOOP', this);
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
@@ -142,32 +164,32 @@ export default class GameManager {
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
-        console.log('рыбки', this.piscesAngles.length)
         this.injuredLoop();
         
-
         this.strategy.destroy();
         this.scene.destroy();
         this.controllers.destroy();
         Bus.emit('destroy-game');
+        Bus.off('destroy-game');
+        Bus.off(EVENTS.READY_TO_NEW_ROUND);
 
         setTimeout(function() {
             switch(this.role) {
             case GAME_CONSTS.PENGUIN:
                 if (payload.penguin.result === GAME_CONSTS.LOST) {
-                    Bus.emit('open-lost-view', payload.penguin.score);
+                    Bus.emit('open-lost-view', {score: payload.penguin.score, mode: this.mode.toLowerCase()});
                 }
                 // TODO: norm messages
                 if (payload.penguin.result === GAME_CONSTS.WIN || payload.penguin.result === GAME_CONSTS.AUTOWIN) {
-                    Bus.emit('open-win-view', payload.penguin.score);
+                    Bus.emit('open-win-view', {score: payload.penguin.score, mode: this.mode.toLowerCase()});
                 }
                 break;
             case GAME_CONSTS.GUN:
                 if (payload.gun.result === GAME_CONSTS.LOST) {             
-                    Bus.emit('open-lost-view', payload.gun.score);
+                    Bus.emit('open-lost-view', {score: payload.gun.score, mode: this.mode.toLowerCase()});
                 }
                 if (payload.gun.result === GAME_CONSTS.WIN || payload.gun.result === GAME_CONSTS.AUTOWIN) {             
-                    Bus.emit('open-win-view', payload.gun.score);
+                    Bus.emit('open-win-view', {score: payload.gun.score, mode: this.mode.toLowerCase()});
                 }
             }
         }.bind(this), 2500);

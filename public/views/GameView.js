@@ -5,6 +5,7 @@ import GameTmpl from '../components/Game/Game.tmpl.xml';
 export default class GameView extends BaseView {
     constructor(el, mode) {
         super(el);
+        el.className = 'GameView';
         this.game = null;
         this.mode = mode;
         this.canvases = {};
@@ -26,30 +27,40 @@ export default class GameView extends BaseView {
         this.game = game;
     }
     
-    show() {
+    show(mode) {
+        if (this.mode !== mode) {
+            this.setMode(mode);
+        }
+        
         super.show();
-        // if (!this.game) {
-        //     Bus.off('destroy-game');
-        //     Bus.on('destroy-game', () => {
-        //         this.game.destroy();
-        //         delete this.game;
-        //         this.game = null;
-        //     });
-        //     Bus.off('get-game-mode');
-        //     Bus.emit('start-game', this);
-        // } else {
-        //     Bus.emit('destroy-game');
-        // }
-        if (!this.game) {
-            Bus.off('destroy-game');
-            Bus.off('get-game-mode');
-            Bus.emit('start-game', this);
-        } else {
-            Bus.on('destroy-game', () => {
-                this.game.destroy();
-                delete this.game;
-                this.game = null;
-            });
+        switch(this.mode) {
+        case 'SINGLE':
+            if (!this.game) {
+                Bus.off('destroy-game');
+                Bus.on('destroy-game', () => {
+                    this.game.destroy();
+                    delete this.game;
+                    this.game = null;
+                });
+                Bus.off('get-game-mode');
+                Bus.emit('start-game', this);
+            } else {
+                Bus.emit('destroy-game');
+            }
+            break;
+        case 'MULTI':
+            if (!this.game) {
+                Bus.off('destroy-game');
+                Bus.off('get-game-mode');
+                Bus.emit('start-game', this);
+            } else {
+                Bus.on('destroy-game', () => {
+                    this.game.destroy();
+                    delete this.game;
+                    this.game = null;
+                });
+            }
+            break;
         }
     }
     

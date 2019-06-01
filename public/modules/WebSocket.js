@@ -17,7 +17,7 @@ export default class WS {
                 this.ws.onopen = null;
                 this.ws.onclose = null;
                 this.ws = null;
-                this.initialize();
+                this._init();
             }
         });
 
@@ -45,7 +45,7 @@ export default class WS {
 
     _init(mode) {
         const url = 'localhost';
-        // const home = 'penguin-wars-backend.sytes.pro';
+        // const url = 'penguin-wars.sytes.pro';
 
         const wsUrl = mode === 'single' ? '/game/single' : '/game/multi';
 

@@ -16,6 +16,7 @@ export default class GameScene {
         // this.bindedResizer = this.resizer.bind(this);
         // window.addEventListener('resize', this.bindedResizer);
         // this.resizer();
+        this.state = null;
 
         this.setState({});
 
@@ -69,6 +70,7 @@ export default class GameScene {
     }
 
     setState(state) {
+        console.log("SCENE SET STATE", state);
         this.state = state;
     }
 
@@ -128,7 +130,7 @@ export default class GameScene {
             this.fishImage.src = '../images/fish.png';
 
         // }
-
+        //}
     }
 
     renderPenguin(){
