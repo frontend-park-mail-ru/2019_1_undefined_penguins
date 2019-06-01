@@ -36,7 +36,7 @@ class Router {
             return;
         }
 
-        if (path === '/') {
+        if (path === '/' || path === '/me') {
             Bus.on('authorization-checked', () => {
                 // const currentPath = window.location.pathname;
                 this.go(path);
