@@ -112,16 +112,3 @@ body {
 #gc {
     margin-top: -35px;
 }
-
-@media (min-width: 50px) and (max-width: 600px) {
-    #application {
-        min-height: 860px;
-    }
-}
-
-@media (min-width: 601px) and (max-width: 1400px) {
-    #application {
-        min-height: 860px;
-    }
-
-}

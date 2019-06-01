@@ -19,7 +19,7 @@ class UserModel {
         this.login = data.login;
         this.score = data.score;
         if (data.picture === undefined) {
-            this.picture = '/images/default.webp';
+            this.picture = '/images/default-compressed.png';
         } else {
             this.picture = data.picture;
         }
