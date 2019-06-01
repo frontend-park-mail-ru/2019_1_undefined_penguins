@@ -1,3 +1,5 @@
+import Bus from '../scripts/EventBus.js';
+
 export default class GameScene {
     constructor(canvases) {
         // console.log('GameScene.fn');
@@ -64,7 +66,7 @@ export default class GameScene {
 
     allCompleted() {
         if (this.fishImage.complete && this.injuredPenguinImage.complete && this.penguinImage.complete && this.bulletImage.complete && this.gunImage.complete && this.penguinGunImage.complete) {
-            //МЕСТО ДЛЯ НУЖНОЙ ЭМИТКИ
+            Bus.emit('images-oploaded');
         }
     }
 
