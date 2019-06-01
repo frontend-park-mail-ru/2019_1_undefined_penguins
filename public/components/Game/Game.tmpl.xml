@@ -7,16 +7,12 @@
     </div>
 
     <div class="game__header__score">
-        <span class="game__header__score-number">2</span>
+        <span class="game__header__score-number"></span>
         <span class="game__header__score-text">раунд</span>
     </div>
     <section class="game-content">
         <div class="game-view__canvas-layers">
-            <canvas class="game-view__canvas-layer canvas-fish" style="
-                border: 1px solid white;
-                border-radius: 12px;
-                background: linear-gradient(-45deg, #03033f, #08083b, #041652, #0a2068);
-            "></canvas>
+            <canvas class="game-view__canvas-layer canvas-fish"></canvas>
             <canvas class="game-view__canvas-layer canvas-penguin"></canvas>
             <canvas class="game-view__canvas-layer canvas-snow"></canvas>
             <canvas class="game-view__canvas-layer canvas-gun"></canvas>

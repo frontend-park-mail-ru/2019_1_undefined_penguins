@@ -69,6 +69,7 @@ export default class MultiPlayerStrategy extends GameStrategy {
     }
 
     onFinishRound(payload) {
+        console.log(payload);
         this.unsubscribe('SIGNAL_TO_WAIT_OPPONENT');
         this.roundOver(payload);
     }
