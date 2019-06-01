@@ -110,6 +110,11 @@
         text-align: center;
         text-decoration: none;
         padding: 15px;
+        transition: all 250ms ease-out;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
 
