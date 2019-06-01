@@ -17,7 +17,7 @@ export default class WS {
                 this.ws.onopen = null;
                 this.ws.onclose = null;
                 this.ws = null;
-                this.initialize();
+                this._init();
             }
         });
 

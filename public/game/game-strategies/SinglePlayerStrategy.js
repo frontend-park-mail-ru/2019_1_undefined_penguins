@@ -11,6 +11,8 @@ export default class SinglePlayerStrategy extends GameStrategy {
             if (status === 200) {
                 this.ws = new WS('single');
             } else {
+                Bus.off('ws-checked');
+                super.destroy();
                 Bus.emit('open-menu');
                 // TODO: message in modal
             }

@@ -41,6 +41,11 @@ export default class GameManager {
         } else {
             this.readyToStart();
         }
+
+        Bus.on('destroy-manager', () => {
+            this.destroy();
+            Bus.off('destroy-manager');
+        });
     }
 
     readyToStart() {
@@ -104,6 +109,7 @@ export default class GameManager {
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
+        console.log('(((((((((((((((startGameLOOP', this);
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 
@@ -130,6 +136,7 @@ export default class GameManager {
         } else {
             this.scene.choiceOfRenderAsGun();
         }
+        console.log('))))))))))))))))))gameLOOP', this);
         this.requestID = requestAnimationFrame(this.gameLoop.bind(this));
     }
 

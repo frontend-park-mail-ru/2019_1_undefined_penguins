@@ -225,5 +225,13 @@ export default class EventController {
         Bus.on('checkWS', (mode) => {
             UserModel.checkWS(mode);
         });
+
+        Bus.on('error-cookie', () => {
+            Bus.emit('open-menu');
+            Bus.emit('destroy-manager');
+            let gameView = document.getElementsByClassName('GameView')[0];
+            gameView.parentNode.removeChild(gameView);
+            Router.modal.show('NOT_AUTH');
+        });
     }
 }

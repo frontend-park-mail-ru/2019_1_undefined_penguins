@@ -5,14 +5,18 @@ import Bus from '../../scripts/EventBus.js';
 
 export default class MultiPlayerStrategy extends GameStrategy {
     constructor() {
-        // console.log('MultiPlayerStrategy.fn');
+        console.log('MultiPlayerStrategy.fn');
         super();
         Bus.on('ws-checked', (status) => {
+            console.log('CHECK WS');
             if (status === 200) {
-                this.ws = new WS('multi');    
+                this.ws = new WS('multi');
+                console.log('CHECK WS GOOD');
             } else {
-                Bus.emit('open-menu');
-                // TODO: message in modal
+                console.log('CHECK WS BAD');
+                Bus.off('ws-checked');
+                super.destroy();
+                Bus.emit('error-cookie');
             }
         });
         Bus.emit('checkWS', 'Multi');

@@ -54,7 +54,7 @@ class UserModel {
             path: '/api/me'
         })
             .then((response) => {
-                // console.log(`Response status: ${response.status}`);
+                console.log(`Response status: ${response.status}`);
                 if (response.status < 400) {
                     return response.json();
                 }

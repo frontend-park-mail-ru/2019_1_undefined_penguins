@@ -10,11 +10,11 @@ export const BLACKLIST_PATHS = [
 ];
 
 export const BLACKLIST_PATHS_VIA_NET = [
-    // '/multi',
-    // '/leaders',
-    // '/signIn',
-    // '/signUp',
-    // '/me',
+    '/multi',
+    '/leaders',
+    '/signIn',
+    '/signUp',
+    '/me',
 ];
 
 export const GAME_CONSTS = {

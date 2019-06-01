@@ -36,16 +36,29 @@ class Router {
             return;
         }
 
-        if (!UserModel.IsAutorised() && BLACKLIST_PATHS.includes(path)) {
-            this.modal.show('NOT_AUTH');
-            return;
+        if (path === '/') {
+            Bus.on('authorization-checked', () => {
+                // const currentPath = window.location.pathname;
+                this.go(path);
+                Bus.off('authorization-checked');
+            });
+            Bus.emit('check-autorized');
+        } else {
+            if (!UserModel.IsAutorised() && BLACKLIST_PATHS.includes(path)) {
+                this.modal.show('NOT_AUTH');
+                return;
+            }
+    
+            if (!navigator.onLine && BLACKLIST_PATHS_VIA_NET.includes(path)) {
+                this.modal.show('NOT_NET');
+                return;
+            }
+            this.go(path);
         }
+    }
 
-        if (!navigator.onLine && BLACKLIST_PATHS_VIA_NET.includes(path)) {
-            this.modal.show('NOT_NET');
-            return;
-        }
-
+    go (path) {
+        const route = this.routes[path];
         if (window.location.pathname !== path) {
             window.history.pushState(
                 null,
@@ -72,7 +85,7 @@ class Router {
                 }
             });
 
-            view.show();
+            view.show(mode);
         }
 
         this.routes[path] = { View, view, el, mode };
@@ -100,11 +113,11 @@ class Router {
             this.open(currentPath);
         });
 
-        Bus.on('authorization-checked', () => {
+        // Bus.on('authorization-checked', () => {
             const currentPath = window.location.pathname;
             this.open(currentPath);
-        });
-        Bus.emit('check-autorized');
+        // });
+        // Bus.emit('check-autorized');
     }
 
     setModalView(View) {
