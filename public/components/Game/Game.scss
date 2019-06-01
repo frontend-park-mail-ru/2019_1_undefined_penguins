@@ -1,6 +1,14 @@
 @import "../../consts.scss";
 
 .game {
+
+    &__background {
+        width: 100vw;
+        height: 100vh;
+        background-color: $white-color;
+        // background-color: $grey-color;
+    }
+
     &-view__canvas-layers {
         position: absolute;
         top: 50%;
@@ -17,39 +25,57 @@
     }
 
     &__header__home-button {
-        width: 70px;
-        height: 70px;
+        width: 140px;
+        height: 140px;
     }
     &__header__home {
-        position: absolute;
-        top: 10%;
+        // position: absolute;
+        // top: 10%;
 
-        left: 20%;
-        transform: translate(-$fifty, -$fifty);
+        // left: 20%;
+        // transform: translate(-$fifty, -$fifty);
+        position: absolute;
+        top: 12%;
+
+        right: 15%;
+        transform: translate($fifty, -$fifty);
     }
 
     &__header__score {
         position: absolute;
-        top: 10%;
+        top: 80%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
 
-        right: 20%;
+        right: 15%;
         transform: translate($fifty, -$fifty);
     }
 
-    &__header__score-p {
+    &__header__score-number {
+        font-size: 130px;
+        font-family: $roboto;
+        color: $dark-blue;
+        // color: $color-white;
+        text-align: center;
+    }
+
+    &__header__score-text {
         font-size: 60px;
         font-family: $roboto;
-        color: $color-white;
+        color: $dark-blue;
+        // color: $color-white;
         text-align: center;
     }
 
     &-view__turn-button {
         font-family: $roboto;
         font-size: 150%;
-        background: $color-orange;
+        background: $dark-blue;
+        // background: $orange-color;
         border-radius: 8px;
-        width: 150px;
-        height: 88px;
+        width: 200px;
+        height: 130px;
         color: $color-white;
         text-align: center;
         text-decoration: $none;
@@ -67,8 +93,9 @@
         position: absolute;
         left: 85%;
         bottom: 50%;
-        height: 88px;
+        height: 100px;
         transform: translate(-50%, 0%);
+        margin-bottom: 12px;
     }
 }
 
@@ -79,17 +106,65 @@
             left: $fifty;
             transform: translate(-$fifty, -$fifty);
         }
-
+    
         &-view__turn-button {
             left: $fifty;
             bottom: 5%;
             transform: translate(-50%, 0%);
+            width: 250px;
+            height: 10vh;
         }
 
         &-view__turn-image {
             left: $fifty;
             bottom: 5%;
             transform: translate(-50%, 0%);
+            height: 10vh;
+            margin-bottom: 0px;
+        }
+
+        &__header__home-button {
+            width: 70px;
+        }
+
+        &__header__home {
+            // position: absolute;
+            // top: 8%;
+    
+            // left: 5%;
+            // transform: translate($fifty, -$fifty);
+            position: absolute;
+            top: 10%;
+            right: 85%;
+            // left: 0%;
+            // transform: translate(-$fifty, -$fifty);
+        }
+
+        &__header__score {
+            position: absolute;
+            // bottom: 100%;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            top: 10%;
+            right: 15%;
+            // transform: translate(50%, -50%);
+        }
+
+        &__header__score-number {
+            font-size: 50px;
+            font-family: $roboto;
+            color: $dark-blue;
+            // color: $color-white;
+            text-align: center;
+        }
+    
+        &__header__score-text {
+            font-size: 10px;
+            font-family: $roboto;
+            color: $dark-blue;
+            // color: $color-white;
+            text-align: center;
         }
     }
 }
@@ -100,6 +175,12 @@
     .game-view__turn-button {
         width: 80%;
     }
+} 
+
+.canvas-fish {
+    border: 1px solid white;
+    border-radius: 12px;
+    background: linear-gradient(-45deg, #03033f, #08083b, #041652, #0a2068);
 }
 
 

@@ -1,9 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-    <div class="game__header__home">
-        <img src="/images/home.svg" class="game__header__home-button js-game__header__home-button"/>
-    </div>
-    <div class="game__header__score">
+    <div class="game__background">
 
+    </div>
+    <div class="game__header__home">
+        <img src="/images/home_blue.svg" class="game__header__home-button js-game__header__home-button"/>
+    </div>
+
+    <div class="game__header__score">
+        <span class="game__header__score-number"></span>
+        <span class="game__header__score-text">раунд</span>
     </div>
     <section class="game-content">
         <div class="game-view__canvas-layers">

@@ -64,6 +64,7 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     onFinishRound(payload) {
+        console.log(payload);
         this.roundOver(payload);
     }
 
