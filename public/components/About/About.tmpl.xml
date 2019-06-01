@@ -24,11 +24,11 @@
             <div class="about-main__tutorial">
                 <div class="about-main-tutorial__item">
                     <h3 class="about-main-tutorial__title">Desktop</h3>
-                    <img src="../../images/space.jpg" class="about-main-tutorial__space"/>
+                    <img src="../../images/space-compressed.png" class="about-main-tutorial__space"/>
                 </div>
                 <div class="about-main-tutorial__item">
                     <h3 class="about-main-tutorial__title">Mobile</h3>
-                    <img src="../../images/tap.jpg" class="about-main-tutorial__tap"/>
+                    <img src="../../images/touch_phone.png" class="about-main-tutorial__tap"/>
                 </div>
             </div>
         </div>
