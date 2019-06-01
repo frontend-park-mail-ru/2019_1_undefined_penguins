@@ -12,6 +12,7 @@ import LostView from './views/LostView.js';
 import WaitView from './views/WaitView.js';
 import RoundView from './views/RoundView.js';
 import ModalView from './views/ModalView.js';
+import ErrorView from './views/ErrorView.js';
 
 import EventController from './scripts/EventController.js';
 
@@ -33,7 +34,8 @@ Router
     .register('/game/wait', WaitView)
     .register('/game/win', WinView)
     .register('/game/lost', LostView)
-    .register('/game/newRound', RoundView);
+    .register('/game/newRound', RoundView)
+    .register('/error', ErrorView);
 
 Router.setModalView(ModalView);
 Router.start();

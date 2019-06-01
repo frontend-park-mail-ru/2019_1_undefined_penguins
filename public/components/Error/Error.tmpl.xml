@@ -1,0 +1,13 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="error">
+        <div class="error__content">
+            <div class="error__header">
+                <p>Упс!</p>
+            </div>
+            <div class="error__body"> 
+                <img class="lost-form__image" src="../../images/lost.webp"/>
+                <p><fest:value>data.message</fest:value></p>
+            </div>
+        </div>
+    </div>
+</fest:template>
