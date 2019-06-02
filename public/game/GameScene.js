@@ -69,6 +69,10 @@ export default class GameScene {
     }
 
     setState(state) {
+        if (!isNaN(state.round)) {
+            const round = state.round - 1;
+            document.getElementsByClassName('game__header__score-number')[0].innerText = round;
+        }
         this.state = state;
     }
 
