@@ -27,6 +27,9 @@ export default class GameScene {
         this.canvases['snow'] = document.getElementsByClassName('canvas-snow')[0];
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
+
+        this.completed = false;
+
         this.fishImage = new Image();
         this.fishImage.onload = function () {
             this.allCompleted();
@@ -65,9 +68,31 @@ export default class GameScene {
     }
 
     allCompleted() {
-        if (this.fishImage.complete && this.injuredPenguinImage.complete && this.penguinImage.complete && this.bulletImage.complete && this.gunImage.complete && this.penguinGunImage.complete) {
-            Bus.emit('images-oploaded');
+        if (this.fishImage.complete) {
+            console.log('fishImage')
         }
+        if (this.injuredPenguinImage.complete) {
+            console.log('injuredPenguinImage')
+        }
+        if (this.penguinImage.complete) {
+            console.log('penguinImage')
+        }
+        if (this.bulletImage.complete) {
+            console.log('bulletImage')
+        }
+        if (this.gunImage.complete) {
+            console.log('gunImage')
+        }
+        if (this.penguinGunImage.complete) {
+            console.log('penguinGunImage')
+        }
+        if (this.fishImage.complete && this.injuredPenguinImage.complete && this.penguinImage.complete && this.bulletImage.complete && this.gunImage.complete && this.penguinGunImage.complete && !this.completed) {
+            console.log('!')
+            this.completed = true;
+            Bus.emit('images-oploaded');
+            return;
+        }
+        console.log('???')
     }
 
     resizer() {
@@ -137,16 +162,16 @@ export default class GameScene {
         //         }.bind(this), element*3);
         //     });
         // } else {
-            this.fishImage.onload = function () {
-                this.piscesAngles.forEach(element => {
-                    const x = this.getX(element);
-                    const y = this.getY(element);            
-                    setTimeout(function() {
-                        this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
-                    }.bind(this), element*3);          
-                });
-            }.bind(this);
-            this.fishImage.src = '../images/fish.png';
+            // this.fishImage.onload = function () {
+            this.piscesAngles.forEach(element => {
+                const x = this.getX(element);
+                const y = this.getY(element);            
+                setTimeout(function() {
+                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                }.bind(this), element*3);          
+            });
+            // }.bind(this);
+            // this.fishImage.src = '../images/fish.png';
 
         // }
         //}
