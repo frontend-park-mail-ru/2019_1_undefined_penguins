@@ -38,7 +38,7 @@ export default class GameScene {
         this.bulletImage.src = '../images/snow-compressed.png';
 
         this.gunImage = new Image();
-        this.gunImage.src = '../images/gun.webp';
+        this.gunImage.src = '../images/gun.png';
 
         this.penguinGunImage = new Image();
         this.penguinGunImage.src = '../images/penguin-gun-compressed.png';
@@ -70,6 +70,10 @@ export default class GameScene {
     }
 
     setState(state) {
+        if (!isNaN(state.round)) {
+            const round = state.round - 1;
+            document.getElementsByClassName('game__header__score-number')[0].innerText = round;
+        }
         this.state = state;
     }
 
@@ -117,16 +121,24 @@ export default class GameScene {
         //         }.bind(this), element*3);
         //     });
         // } else {
-        this.fishImage.onload = function () {
-            this.piscesAngles.forEach(element => {
-                const x = this.getX(element);
-                const y = this.getY(element);            
-                setTimeout(function() {
-                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
-                }.bind(this), element*3);          
-            });
-        }.bind(this);
-        this.fishImage.src = '../images/fish.png';
+
+            
+            this.fishImage.onload = function () {
+                if (this.piscesAngles === undefined) {
+                    for (let i = 0; i < 24; i++) {
+                        this.piscesAngles.push((360/24)*i);
+                    }
+                }
+                this.piscesAngles.forEach(element => {
+                    const x = this.getX(element);
+                    const y = this.getY(element);            
+                    setTimeout(function() {
+                        this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                    }.bind(this), element*3);          
+                });
+            }.bind(this);
+            this.fishImage.src = '../images/fish.png';
+
 
         // }
         //}

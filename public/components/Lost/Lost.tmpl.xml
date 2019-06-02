@@ -11,7 +11,7 @@
         <p class="lost-main__header">Увы!</p>
         <form class="lost-main__form" enctype="multipart/form-data">
             <div class="lost-form__inline">
-                <img class="lost-form__image" src="../../images/lost.webp"/>
+                <img class="lost-form__image" src="../../images/lost-compressed.png"/>
                 <div class="lost-form__data">
                     <div class="lost-form__item">
                         <p>Игра закончена!</p>

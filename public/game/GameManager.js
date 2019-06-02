@@ -148,7 +148,10 @@ export default class GameManager {
         if (this.requestID) {
             cancelAnimationFrame(this.requestID);
         }
-        this.injuredLoop();
+
+        if (payload.penguin.result === GAME_CONSTS.LOST) {
+            this.injuredLoop();
+        }
         
         this.strategy.destroy();
         this.scene.destroy();
@@ -187,7 +190,9 @@ export default class GameManager {
         }
 
         if (payload.mode === GAME_CONSTS.MULTI) {
-            Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
+            setTimeout(() => {
+                Bus.emit(EVENTS.OPEN_ROUND_VIEW, payload);
+            }, 1000);
         } else if (payload.mode === GAME_CONSTS.SINGLE) {
             setTimeout(() => {
                 Bus.emit(EVENTS.READY_TO_NEW_ROUND);

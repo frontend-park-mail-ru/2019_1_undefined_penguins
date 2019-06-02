@@ -17,7 +17,8 @@ class UserModel {
         this.email = data.email;
         this.login = data.login;
         this.score = data.score;
-        this.picture = data.picture;
+
+        this.picture = data.picture;чц
         this.count = data.count;
     }
 
