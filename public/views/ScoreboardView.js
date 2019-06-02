@@ -87,7 +87,6 @@ export default class ScoreboardView extends BaseView {
                 event.preventDefault();
                 this.MinusPage();
                 Bus.emit('new-page', this);
-                console.log(this.GetPage());
                 if (this.GetPage() === 1) {
                     this.uri = 'leaders';
                 } else {
@@ -97,7 +96,7 @@ export default class ScoreboardView extends BaseView {
                     null,
                     '',
                     // `/leaders?page=${this.page}`,
-                    this.uri,
+                    this.uri
                 );
             });
         }

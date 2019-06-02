@@ -26,10 +26,6 @@ class UserModel {
         this.count = data.count;
     }
 
-    SetAvatar(promise) {
-        
-    }
-
     SetUserDefault() {
         this.isAutorised = null;
         this.login = '';
@@ -286,14 +282,14 @@ class UserModel {
         p
             .then( (response) => {
                 if (response.status !== 200) {
-                    console.error('Unable to load avatar');
+                    // console.error('Unable to load avatar');
                     // return data;
                 }   
                 return response.json(); 
             })
             .then( (data) => {
                 document.getElementsByClassName('profile-form__avatar')[0].src = data.picture;
-                this.SetUser(data)
+                this.SetUser(data);
             });
     }
 

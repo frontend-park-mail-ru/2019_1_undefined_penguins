@@ -31,11 +31,10 @@ export default class WS {
         const messageText = event.data;
         try {
             const message = JSON.parse(messageText);
-            console.log(message);
             Bus.emit(message.type, message.payload);
         }
         catch (err){
-            console.error('Error in WS - handleMessage: ', err);
+            // console.error('Error in WS - handleMessage: ', err);
         }
     }
 
@@ -58,20 +57,19 @@ export default class WS {
 
         this.ws = new WebSocket(address);
 
-        this.ws.onerror = (event) => {
-            console.log(event);
-            console.log(`WebSocket error: ${event.message}`);
+        this.ws.onerror = () => {
+            // console.log(`WebSocket error: ${event.message}`);
         };
 
-        this.ws.onclose = (event) => {
-            console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
+        this.ws.onclose = () => {
+            // console.log(`WebSocket closed with code ${event.code} (${event.reason})`);
             Bus.off(EVENTS.WEBSOCKET_OPEN);
             Bus.off(EVENTS.WEBSOCKET_CLOSE);
             // clearInterval(this.updateInterval);
         };
 
         this.ws.onopen = () => {
-            console.log(`WebSocket on address ${address} opened`);
+            // console.log(`WebSocket on address ${address} opened`);
 
             this.ws.onmessage = this.handleMessage.bind(this);
             Bus.emit('ws:connected', this);
