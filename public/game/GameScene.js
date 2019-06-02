@@ -120,7 +120,13 @@ export default class GameScene {
         //         }.bind(this), element*3);
         //     });
         // } else {
+            
             this.fishImage.onload = function () {
+                if (this.piscesAngles === undefined) {
+                    for (let i = 0; i < 24; i++) {
+                        this.piscesAngles.push((360/24)*i);
+                    }
+                }
                 this.piscesAngles.forEach(element => {
                     const x = this.getX(element);
                     const y = this.getY(element);            
