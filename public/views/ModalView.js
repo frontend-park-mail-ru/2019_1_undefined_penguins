@@ -5,6 +5,11 @@ export default class ModalView {
     constructor (el) {
         this.el = el;
         this.data = {};
+        this.payload = null;
+    }
+
+    setPayload(payload) {
+        this.payload = payload;
     }
 
     show (flag) {
@@ -20,6 +25,15 @@ export default class ModalView {
             this.data = {
                 message: 'Чтобы продолжить, необходимо Войти',
                 flag: 'auth',
+            };
+            break;
+        }
+        case 'ROLE': {
+            this.data = {
+                message: 'Ваша роль в этой игре:',
+                extra: this.payload.role,
+                info: this.payload.info,
+                flag: 'role',
             };
             break;
         }

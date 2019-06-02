@@ -5,7 +5,6 @@ import Bus from '../../scripts/EventBus.js';
 
 export default class SinglePlayerStrategy extends GameStrategy {
     constructor() {
-        // console.log('SinglePlayerStrategy.fn');
         super();
         Bus.on('ws-checked', (status) => {
             if (status === 200) {
@@ -19,21 +18,17 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     readyToStart(payload) {
-        // console.log('SinglePlayerStrategy.fn.readyToStart', arguments);
         this.me = payload.username;
 
         this.ws.send('newPlayer', { name: payload.username, mode: 'SINGLE' });
     }
     
     roundOver(payload) {
-        // console.log('SinglePlayerStrategy.fn.roundOver', arguments);
         payload.mode = 'SINGLE';
         Bus.emit(EVENTS.FINISH_THE_ROUND, payload);
     }
 
     onStart(payload) {
-        // console.log('SinglePlayerStrategy.fn.onStart', arguments);
-        // console.dir(payload);
         let state = {
             penguin: {
                 alpha: payload.penguin.alpha,
@@ -66,13 +61,11 @@ export default class SinglePlayerStrategy extends GameStrategy {
     }
 
     onNewRound(payload) {
-        // console.log('SinglePlayerStrategy.fn.onNewRound', payload);
         // TODO: init penguin and gun
         this.ws.send('newRound', { name: payload.username, mode: 'SINGLE' });
     }
 
     onNewCommand(payload) {
-        // console.log('SinglePlayerStrategy.fn.onNewCommand', payload);
         // check on SPACE click
         this.ws.send('newCommand', { name: payload.username, mode: 'SINGLE' });
     }

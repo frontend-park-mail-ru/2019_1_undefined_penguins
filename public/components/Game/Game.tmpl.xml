@@ -3,7 +3,6 @@
         <img src="/images/home.svg" class="game__header__home-button js-game__header__home-button"/>
     </div>
     <div class="game__header__score">
-        <p class="game__header__score-p">22</p>
 
     </div>
     <section class="game-content">

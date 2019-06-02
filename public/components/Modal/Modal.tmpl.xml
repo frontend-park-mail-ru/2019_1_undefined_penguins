@@ -7,6 +7,8 @@
             </div>
             <div class="modal__body">
                 <p><fest:value>data.message</fest:value></p>
+                <p class="modal__extra-msg"><fest:value>data.extra</fest:value></p>
+                <p><fest:value>data.info</fest:value></p>
             </div>
             <fest:choose>
                 <fest:when test="data.flag === 'auth'">
