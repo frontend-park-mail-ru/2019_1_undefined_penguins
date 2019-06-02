@@ -139,8 +139,6 @@ export default class GameView extends BaseView {
             }
         }
 
-        const gameSection = 
-
         this.canvases = {
             fish: fishCanvas,
             penguin: penguinCanvas,

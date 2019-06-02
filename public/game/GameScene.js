@@ -123,21 +123,21 @@ export default class GameScene {
         // } else {
 
             
-            this.fishImage.onload = function () {
-                if (this.piscesAngles === undefined) {
-                    for (let i = 0; i < 24; i++) {
-                        this.piscesAngles.push((360/24)*i);
-                    }
+        this.fishImage.onload = function () {
+            if (this.piscesAngles === undefined) {
+                for (let i = 0; i < 24; i++) {
+                    this.piscesAngles.push((360/24)*i);
                 }
-                this.piscesAngles.forEach(element => {
-                    const x = this.getX(element);
-                    const y = this.getY(element);            
-                    setTimeout(function() {
-                        this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
-                    }.bind(this), element*3);          
-                });
-            }.bind(this);
-            this.fishImage.src = '../images/fish.png';
+            }
+            this.piscesAngles.forEach(element => {
+                const x = this.getX(element);
+                const y = this.getY(element);            
+                setTimeout(function() {
+                    this.ctxFish.drawImage(this.fishImage, x-this.fishWidth/2, y-this.fishHeigth/2, this.fishWidth, this.fishHeigth);                
+                }.bind(this), element*3);          
+            });
+        }.bind(this);
+        this.fishImage.src = '../images/fish.png';
 
 
         // }
