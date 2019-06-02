@@ -26,46 +26,22 @@ export default class GameScene {
         this.canvases['gun'] = document.getElementsByClassName('canvas-gun')[0];
 
         this.fishImage = new Image();
-        this.fishImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
-        this.fishImage.src = '../images/fish.png';
+        // this.fishImage.src = '../images/fish.png';
 
         this.injuredPenguinImage = new Image();
-        this.injuredPenguinImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
         this.injuredPenguinImage.src = '../images/injured-compressed.png';
 
         this.penguinImage = new Image();
-        this.penguinImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
         this.penguinImage.src = '../images/penguin-compressed.png';
 
         this.bulletImage = new Image();
-        this.bulletImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
         this.bulletImage.src = '../images/snow-compressed.png';
 
         this.gunImage = new Image();
-        this.gunImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
         this.gunImage.src = '../images/gun.png';
 
         this.penguinGunImage = new Image();
-        this.penguinGunImage.onload = function () {
-            this.allCompleted();
-        }.bind(this);
         this.penguinGunImage.src = '../images/penguin-gun-compressed.png';
-    }
-
-    allCompleted() {
-        if (this.fishImage.complete && this.injuredPenguinImage.complete && this.penguinImage.complete && this.bulletImage.complete && this.gunImage.complete && this.penguinGunImage.complete) {
-            //МЕСТО ДЛЯ НУЖНОЙ ЭМИТКИ
-        }
     }
 
     resizer() {
@@ -95,6 +71,10 @@ export default class GameScene {
 
     setState(state) {
         console.log("SCENE SET STATE", state);
+        if (!isNaN(state.round)) {
+            const round = state.round - 1;
+            document.getElementsByClassName('game__header__score-number')[0].innerText = round;
+        }
         this.state = state;
     }
 
@@ -120,6 +100,13 @@ export default class GameScene {
         } else {
             this.renderAsGun();
         }
+    }
+
+    allCompleted() {
+        if (this.fishImage.complete && this.penguinImage.complete && this.injuredPenguinImage.complete && this.bulletImage.complete) {
+            return true;
+        }
+        return false;
     }
 
     renderPisces(){
