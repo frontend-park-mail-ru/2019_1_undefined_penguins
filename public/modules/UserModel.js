@@ -12,22 +12,14 @@ class UserModel {
         this.gameResult = null;
     }
 
-    // TODO: get user in SetUser
     SetUser(data) {
         this.isAutorised = true;
         this.email = data.email;
         this.login = data.login;
         this.score = data.score;
-        if (data.picture === undefined) {
-            this.picture = '/images/default-compressed.png';
-        } else {
-            this.picture = data.picture;
-        }
-        this.count = data.count;
-    }
 
-    SetAvatar(promise) {
-        
+        this.picture = data.picture;чц
+        this.count = data.count;
     }
 
     SetUserDefault() {
@@ -286,14 +278,14 @@ class UserModel {
         p
             .then( (response) => {
                 if (response.status !== 200) {
-                    console.error('Unable to load avatar');
+                    // console.error('Unable to load avatar');
                     // return data;
                 }   
                 return response.json(); 
             })
             .then( (data) => {
                 document.getElementsByClassName('profile-form__avatar')[0].src = data.picture;
-                this.SetUser(data)
+                this.SetUser(data);
             });
     }
 

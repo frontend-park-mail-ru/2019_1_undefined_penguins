@@ -8,7 +8,6 @@ import { EVENTS } from '../utils/events.js';
 	 */
 export default class GameStrategy {
     constructor() {
-        console.log('GameStrategy.fn');
 
         if (this.constructor.name === GameStrategy.name) {
             throw new TypeError('Can not create instance of GameStrategy');
@@ -25,6 +24,7 @@ export default class GameStrategy {
             this.subscribe('SIGNAL_FINISH_GAME', 'onFinishGame');
             this.subscribe('SIGNAL_TO_WAIT_OPPONENT', 'onWaitOpponent');
             this.subscribe('SIGNAL_FINISH_ROUND', 'onFinishRound');
+            this.subscribe('SIGNAL_GAME_INITIALIZED', 'onGameInitialized');
         }
 
         this.penguin = null;
@@ -33,42 +33,34 @@ export default class GameStrategy {
     }
 
     readyToStart() {
-        console.log('GameStrategy.fn.readyToStart', arguments);
         throw new TypeError('Not implemented');
     }
 
     opponentFound(penguin, gun) {
-        console.log('GameStrategy.fn.opponentFound', arguments);
         Bus.emit(EVENTS.INIT_OPPONENTS, {penguin, gun});
     }
 
     onFinishRound() {
-        console.log('GameStrategy.fn.onFinishRound', arguments);
         throw new TypeError('Not implemented');
     }
 
     startGame() {
-        console.log('GameStrategy.fn.startGame', arguments);
         Bus.emit(EVENTS.START_THE_GAME);
     }
 
     gameOver(payload) {
-        console.log('GameStrategy.fn.gameOver', arguments);
         Bus.emit(EVENTS.FINISH_THE_GAME, payload);
     }
 
     roundOver() {
-        console.log('GameStrategy.fn.roundOver', arguments);
         throw new TypeError('Not implemented');
     }
     
     onNewCommand() {
-        console.log('GameStrategy.fn.onNewCommand', arguments);
         throw new TypeError('Not implemented');
     }
 
     onNewRound() {
-        console.log('GameStrategy.fn.onNewRound', arguments);
         throw new TypeError('Not implemented');
     }
 
@@ -76,18 +68,20 @@ export default class GameStrategy {
         this.gameOver(payload);
     }
 
+    onGameInitialized(payload) {
+        this.opponentFound(payload.penguin.name, payload.gun.name);
+        Bus.emit(EVENTS.INIT_GAME);        
+    }
+
     onWaitOpponent() {
-        console.log('GameStrategy.fn.onWaitOpponent', arguments);
         throw new TypeError('Not implemented');
     }
 
     waitOpponent() {
-        console.log('GameStrategy.fn.waitOpponent', arguments);
         Bus.emit(EVENTS.WAITING_FOR_OPPONENT);
     }
 
     setNewGameState(state) {
-        console.log('GameStrategy.fn.setNewGameState', arguments);
         Bus.emit(EVENTS.SET_NEW_GAME_STATE, {state});
     }
 
@@ -97,7 +91,6 @@ export default class GameStrategy {
             if (callbackName && typeof this[callbackName] === 'function') {
                 this[callbackName](payload);
             }
-            console.log('subscribed: ', event, callbackName);
         });
         this._subscribed.push({name: event, callback: callbackName});
     }

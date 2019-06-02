@@ -1,8 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <section class="round-header">
-        <div class="round-header__home">
-            <img src="/images/home.svg" class="round-header__home-button js-header__home-button"/>
-        </div>
         <div class="round-header__logo">
             <h1 class="round-header__title">Penguins Wars</h1>
         </div>

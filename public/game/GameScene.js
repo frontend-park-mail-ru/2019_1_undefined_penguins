@@ -16,6 +16,7 @@ export default class GameScene {
         // this.bindedResizer = this.resizer.bind(this);
         // window.addEventListener('resize', this.bindedResizer);
         // this.resizer();
+        this.state = null;
 
         this.setState({});
 
@@ -120,6 +121,7 @@ export default class GameScene {
         //         }.bind(this), element*3);
         //     });
         // } else {
+
             
             this.fishImage.onload = function () {
                 if (this.piscesAngles === undefined) {
@@ -137,8 +139,9 @@ export default class GameScene {
             }.bind(this);
             this.fishImage.src = '../images/fish.png';
 
-        // }
 
+        // }
+        //}
     }
 
     renderPenguin(){

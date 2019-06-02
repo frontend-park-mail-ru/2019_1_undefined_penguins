@@ -1,7 +1,5 @@
 export default class ControllersManager {
     constructor() {
-        console.log('ControllersManager.fn');
-
         this.pressed = null;
 
         this.handleEvent = function(event) {

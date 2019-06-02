@@ -7,12 +7,13 @@
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tmpl": "./node_modules/.bin/fest-build --dir=public",
-    "prestart": "npm run build",
+    "prestart": "npm run dev",
     "linter": "npx eslint -c .eslintrc.json './**/*.js'",
     "linter-fix": "npx eslint -c .eslintrc.json './**/*.js' --fix",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "watch": "webpack --mode development --watch --progress"
+    "watch": "webpack --mode development --watch --progress",
+    "precommit": "lint-staged && npm run linter"
   },
   "keywords": [],
   "author": "",
