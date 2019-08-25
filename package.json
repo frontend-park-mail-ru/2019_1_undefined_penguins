@@ -56,6 +56,9 @@
     "webpack-cli": "^3.3.0"
   },
   "lint-staged": {
-    "*.js": ["npm run linter-fix", "git add"]
+    "*.js": [
+      "npm run linter-fix",
+      "git add"
+    ]
   }
 }
